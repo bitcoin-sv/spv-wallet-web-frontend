@@ -6,6 +6,8 @@
 
 `yarn dev` - run vite dev server
 
+`yarn lint` - verify project with using eslint
+
 
 ### Repo structure
 
