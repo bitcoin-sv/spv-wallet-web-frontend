@@ -5,6 +5,7 @@ import { colors } from './colors'
 import { typography } from './typography'
 import { sizes } from './sizes'
 import { variables } from '@/styles/variables'
+import styled from '@emotion/styled'
 
 const globalStyles = css`
   ${emotionNormalize}
@@ -50,6 +51,23 @@ const globalStyles = css`
     margin: 0;
     list-style-type: none;
   }
+`
+
+export const srOnlyStyles = css`
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+`
+
+export const SrOnlySpan = styled.span`
+  ${srOnlyStyles}
 `
 
 export const GlobalStyles = () => {

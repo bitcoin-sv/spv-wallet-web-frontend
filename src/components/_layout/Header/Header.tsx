@@ -3,6 +3,7 @@ import { Row } from '@/styles/grid'
 import { Navigation } from '@/components/Navigation'
 import { NavElement } from '@/components/Navigation/Navigation.styes'
 import { Button } from '@/components/Button'
+import { SrOnlySpan } from '@/styles'
 
 export const Header = () => {
   return (
@@ -11,6 +12,7 @@ export const Header = () => {
         <HeaderContent>
           <LogoLink to="/" isLink>
             <Logo src="/logo.png" alt="bux wallet logo" width="250" height="53" />
+            <SrOnlySpan>Go back to the main page</SrOnlySpan>
           </LogoLink>
           <Navigation>
             <NavElement>
