@@ -23,7 +23,7 @@ const globalStyles = css`
     margin: 0;
     font-family: ${typography.primaryFontFamily};
     background: ${colors.primaryBackground};
-    background: ${variables.mainBackgroundGradient};
+    background: ${variables.gradients.mainBackground};
     color: ${colors.textLightPrimary};
   }
 

@@ -3,7 +3,8 @@ import { sizes } from '@/styles'
 import { Button } from '@/components/Button'
 
 export const HeaderStyled = styled.header`
-  margin: ${sizes(4)} 0;
+  padding: ${sizes(4)} 0;
+  margin: ${sizes(4)} 0 ${sizes(8)};
 `
 
 export const HeaderContent = styled.div`
