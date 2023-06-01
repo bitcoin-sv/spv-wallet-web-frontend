@@ -1,3 +1,9 @@
 export const typography = {
-  primaryFontFamily: "'Arial', sans-serif",
+  primaryFontFamily: "Montserrat, 'Arial', sans-serif",
+}
+
+export const fontWeight = {
+  light: 300,
+  regular: 400,
+  bold: 600,
 }

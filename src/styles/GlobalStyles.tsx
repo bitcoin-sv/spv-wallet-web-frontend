@@ -8,18 +8,26 @@ import { sizes } from './sizes'
 const globalStyles = css`
   ${emotionNormalize}
 
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: ${typography.primaryFontFamily};
-    background-color: ${colors.primary};
-    color: ${colors.textLightPrimary};
-  }
-
   body,
   html,
   #root {
-    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: ${typography.primaryFontFamily};
+    background: ${colors.primaryBackground};
+    background: linear-gradient(28deg, rgba(14, 18, 78, 1) 0%, rgba(99, 36, 249, 1) 55%, rgba(246, 46, 250, 1) 100%);
+    color: ${colors.textLightPrimary};
+  }
+
+  html {
+    background: ${colors.secondaryBackground};
   }
 
   * {
@@ -34,6 +42,12 @@ const globalStyles = css`
   img {
     display: block;
     max-width: 100%;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
   }
 `
 

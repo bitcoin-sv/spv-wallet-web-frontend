@@ -23,7 +23,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
     // turns off the rules which may conflict with prettier
