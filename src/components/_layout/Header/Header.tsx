@@ -10,7 +10,7 @@ export const Header = () => {
       <Row>
         <HeaderContent>
           <LogoLink to="/" isLink>
-            <Logo src="/logo.png" alt="bux wallet logo" />
+            <Logo src="/logo.png" alt="bux wallet logo" width="250" height="53" />
           </LogoLink>
           <Navigation>
             <NavElement>

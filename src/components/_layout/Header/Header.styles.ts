@@ -22,5 +22,5 @@ export const LogoLink = styled(Button)`
 `
 
 export const Logo = styled.img`
-  max-width: 250px;
+  width: 250px;
 `
