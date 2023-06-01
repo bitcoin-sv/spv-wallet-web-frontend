@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { sizes } from '@/styles'
 import { Button } from '@/components/Button'
+import { media } from '@/styles/media'
 
 export const HeaderStyled = styled.header`
   padding: ${sizes(4)} 0;
@@ -23,5 +24,10 @@ export const LogoLink = styled(Button)`
 `
 
 export const Logo = styled.img`
-  width: 250px;
+  width: 125px;
+  height: auto;
+
+  ${media.md} {
+    width: 250px;
+  }
 `
