@@ -1,11 +1,30 @@
-import { HeaderStyled } from './Header.styles'
+import { HeaderContent, HeaderStyled, Logo, LogoLink } from './Header.styles'
 import { Row } from '@/styles/grid'
+import { Navigation } from '@/components/Navigation'
+import { NavElement } from '@/components/Navigation/Navigation.styes'
+import { Button } from '@/components/Button'
 
 export const Header = () => {
   return (
     <HeaderStyled>
       <Row>
-        <img src="/logo.png" alt="" />
+        <HeaderContent>
+          <LogoLink to="/" isLink>
+            <Logo src="/logo.png" alt="bux wallet logo" />
+          </LogoLink>
+          <Navigation>
+            <NavElement>
+              <Button to="/" isLink>
+                Log In
+              </Button>
+            </NavElement>
+            <NavElement>
+              <Button to="/signup" isLink>
+                Sign Up
+              </Button>
+            </NavElement>
+          </Navigation>
+        </HeaderContent>
       </Row>
     </HeaderStyled>
   )

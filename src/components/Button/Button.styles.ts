@@ -24,8 +24,8 @@ export const getDetailedStyles = ({ isLink }: ButtonProps) => {
         display: block;
         position: absolute;
         bottom: -7px;
-        left: 0;
-        right: 0;
+        left: ${sizes(2)};
+        right: ${sizes(2)};
         height: 2px;
         background-color: ${colors.textLightPrimary};
         opacity: 0;
@@ -61,7 +61,7 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'unset')};
   color: ${colors.textLightPrimary};
   text-decoration: none;
-  font-size: ${({ small }) => (small ? '14px' : '16px')};
+  font-size: ${({ small }) => (small ? '14px' : '18px')};
   line-height: 1;
   font-weight: ${fontWeight.regular};
   opacity: ${({ disabled }) => (disabled ? '0.4' : 'unset')};

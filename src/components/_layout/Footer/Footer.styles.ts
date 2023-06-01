@@ -12,11 +12,3 @@ export const FooterContent = styled.div`
   justify-content: space-between;
   font-size: 14px;
 `
-
-export const FooterNav = styled.ul`
-  display: flex;
-`
-
-export const FooterNavElement = styled.li`
-  margin: 0 ${sizes(1)};
-`
