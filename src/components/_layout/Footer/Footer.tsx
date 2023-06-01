@@ -1,5 +1,5 @@
 import { Row } from '@/styles/grid'
-import { FooterContent, FooterStyled } from '@/components/_layout/Footer/Footer.styles'
+import { CopyrightText, FooterContent, FooterStyled } from '@/components/_layout/Footer/Footer.styles'
 import { Button } from '@/components/Button'
 import { Navigation } from '@/components/Navigation'
 import { NavElement } from '@/components/Navigation/Navigation.styes'
@@ -9,7 +9,8 @@ export const Footer = () => {
     <FooterStyled>
       <Row>
         <FooterContent>
-          &copy; {new Date().getFullYear()} Bux wallet. All rights reserved
+          <CopyrightText>&copy; {new Date().getFullYear()} Bux wallet. All rights reserved</CopyrightText>
+
           <Navigation>
             <NavElement>
               <Button to="/terms-and-conditions" isLink small>

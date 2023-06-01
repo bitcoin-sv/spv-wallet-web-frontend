@@ -1,14 +1,31 @@
 import styled from '@emotion/styled'
 import { sizes } from '@/styles'
+import { media } from '@/styles/media'
 
 export const FooterStyled = styled.footer`
-  padding: ${sizes(6)} 0;
+  padding: ${sizes(4)} 0;
+
+  ${media.md} {
+    padding: ${sizes(6)} 0;
+  }
 `
 
 export const FooterContent = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   font-size: 14px;
+
+  ${media.md} {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: ${sizes(6)} 0;
+  }
+`
+
+export const CopyrightText = styled.p`
+  ${media.md} {
+    margin: 0;
+  }
 `

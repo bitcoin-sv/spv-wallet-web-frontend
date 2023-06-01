@@ -5,6 +5,7 @@ import { colors } from '@/styles/colors'
 import { css } from '@emotion/react'
 import { fontWeight } from '@/styles'
 import { variables } from '@/styles/variables'
+import { media } from '@/styles/media'
 
 type ButtonProps = {
   isLink?: boolean
@@ -24,7 +25,7 @@ export const getDetailedStyles = ({ isLink }: ButtonProps) => {
         content: '';
         display: block;
         position: absolute;
-        bottom: -7px;
+        bottom: -5px;
         left: ${sizes(2)};
         right: ${sizes(2)};
         height: 2px;
@@ -62,11 +63,15 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'unset')};
   color: ${colors.textLightPrimary};
   text-decoration: none;
-  font-size: ${({ small }) => (small ? '14px' : '18px')};
+  font-size: ${({ small }) => (small ? '12px' : '16px')};
   line-height: 1;
   font-weight: ${fontWeight.regular};
   opacity: ${({ disabled }) => (disabled ? '0.4' : 'unset')};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+
+  ${media.sm} {
+    font-size: ${({ small }) => (small ? '14px' : '18px')};
+  }
 
   ${getDetailedStyles}
 `
