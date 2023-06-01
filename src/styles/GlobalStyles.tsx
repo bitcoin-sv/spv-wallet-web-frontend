@@ -4,6 +4,7 @@ import emotionNormalize from 'emotion-normalize'
 import { colors } from './colors'
 import { typography } from './typography'
 import { sizes } from './sizes'
+import { variables } from '@/styles/variables'
 
 const globalStyles = css`
   ${emotionNormalize}
@@ -22,7 +23,7 @@ const globalStyles = css`
     margin: 0;
     font-family: ${typography.primaryFontFamily};
     background: ${colors.primaryBackground};
-    background: linear-gradient(28deg, rgba(14, 18, 78, 1) 0%, rgba(99, 36, 249, 1) 55%, rgba(246, 46, 250, 1) 100%);
+    background: ${variables.mainBackgroundGradient};
     color: ${colors.textLightPrimary};
   }
 

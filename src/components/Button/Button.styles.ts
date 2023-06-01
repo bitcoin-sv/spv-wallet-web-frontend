@@ -4,6 +4,7 @@ import { sizes } from '@/styles/sizes'
 import { colors } from '@/styles/colors'
 import { css } from '@emotion/react'
 import { fontWeight } from '@/styles'
+import { variables } from '@/styles/variables'
 
 type ButtonProps = {
   isLink?: boolean
@@ -50,7 +51,7 @@ export const getDetailedStyles = ({ isLink }: ButtonProps) => {
   }
   return css`
     padding: ${sizes(3)} ${sizes(4)};
-    border-radius: 8px;
+    border-radius: ${variables.borderRadius};
     background: ${colors.primary};
   `
 }
