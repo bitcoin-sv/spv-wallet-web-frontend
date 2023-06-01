@@ -14,6 +14,8 @@ export const HeaderContent = styled.div`
 `
 
 export const LogoLink = styled(Button)`
+  padding: 0;
+
   &::after {
     content: none;
   }
