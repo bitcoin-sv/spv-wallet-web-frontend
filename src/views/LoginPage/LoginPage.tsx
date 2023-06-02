@@ -1,3 +1,5 @@
+import { FormCard } from '@/components/FormCard/FormCard'
+
 export const LoginPage = () => {
-  return <>Here we will place login form</>
+  return <FormCard />
 }
