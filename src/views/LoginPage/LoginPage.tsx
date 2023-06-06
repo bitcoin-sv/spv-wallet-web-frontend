@@ -3,25 +3,17 @@ import { Input } from '@/components/Input'
 import { ViewContent } from '@/components/_layout/ViewContent'
 import { Row } from '@/styles/grid'
 import { useState } from 'react'
-import { EMAIL_REGEX } from '@/utils/constants'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const emailIsValid = email.match(EMAIL_REGEX)
-  const loginButtonDisabled = !email || (email && !emailIsValid) || !password
+  // const emailIsValid = email.match(EMAIL_REGEX)
 
   return (
     <ViewContent centeredContent>
       <Row>
-        <FormCard
-          formType="login"
-          headline="Login here"
-          subheadline="and go to the wallet!"
-          formLegend="Login form"
-          actionButtonAvailability={loginButtonDisabled}
-        >
+        <FormCard formType="login" headline="Login here" subheadline="and go to the wallet!" formLegend="Login form">
           <Input
             id="email"
             type="email"
