@@ -12,13 +12,25 @@ type ButtonProps = {
   fullWidth?: boolean
   disabled?: boolean
   secondary?: boolean
+  underline?: boolean
   small?: boolean
 }
 
-export const getDetailedStyles = ({ isLink }: ButtonProps) => {
+export const getDetailedStyles = ({ isLink, underline }: ButtonProps) => {
   if (isLink) {
+    if (underline) {
+      return css`
+        padding: ${sizes(2)};
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      `
+    }
+
     return css`
-      padding: ${sizes(2)} ${sizes(2)};
+      padding: ${sizes(2)};
       background: transparent;
 
       &::after {
@@ -50,10 +62,27 @@ export const getDetailedStyles = ({ isLink }: ButtonProps) => {
       }
     `
   }
+
   return css`
-    padding: ${sizes(3)} ${sizes(4)};
-    border-radius: ${variables.borderRadius};
-    background: ${colors.primary};
+    padding: ${sizes(5)} ${sizes(4)};
+    border-radius: ${variables.doubleBorderRadius};
+    background: linear-gradient(
+      90deg,
+      rgba(253, 162, 92, 1) 0%,
+      rgba(253, 162, 92, 1) 60%,
+      rgba(255, 201, 111, 1) 100%
+    );
+    border: 2px solid transparent;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    outline: transparent;
+    transition: all 0.2s ease-in-out;
+    font-weight: ${fontWeight.bold};
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      box-shadow: 0 5px 35px rgba(0, 0, 0, 0.3);
+    }
   `
 }
 
@@ -74,4 +103,9 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   }
 
   ${getDetailedStyles}
+
+  &:focus-visible {
+    outline-color: transparent;
+    border-color: ${colors.textLightPrimary};
+  }
 `

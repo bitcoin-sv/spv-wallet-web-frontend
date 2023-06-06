@@ -15,7 +15,8 @@ const globalStyles = css`
   #root {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    flex-grow: 1;
+    min-height: 100%;
   }
 
   body {
@@ -50,6 +51,13 @@ const globalStyles = css`
     padding: 0;
     margin: 0;
     list-style-type: none;
+  }
+
+  fieldset {
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
   }
 `
 

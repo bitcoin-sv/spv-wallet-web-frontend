@@ -4,10 +4,6 @@ import { media } from '@/styles/media'
 
 export const FooterStyled = styled.footer`
   padding: ${sizes(4)} 0;
-
-  ${media.md} {
-    padding: ${sizes(6)} 0;
-  }
 `
 
 export const FooterContent = styled.div`
