@@ -17,8 +17,16 @@ type CardProps = {
   formLegend: string
   children: ReactNode
   formType: FormType
+  actionButtonAvailability?: boolean
 }
-export const FormCard: FC<CardProps> = ({ headline, subheadline, formLegend, children, formType }) => {
+export const FormCard: FC<CardProps> = ({
+  headline,
+  subheadline,
+  formLegend,
+  children,
+  formType,
+  actionButtonAvailability,
+}) => {
   return (
     <FormCardWrapper>
       <CardHeadline>{headline}</CardHeadline>
@@ -28,7 +36,9 @@ export const FormCard: FC<CardProps> = ({ headline, subheadline, formLegend, chi
           <FormLegend>{formLegend}</FormLegend>
           {children}
           <ActionButtons>
-            <Button fullWidth>{(formType === 'login' && 'Log in') || (formType === 'signup' && 'Sign up')}</Button>
+            <Button fullWidth disabled={actionButtonAvailability}>
+              {(formType === 'login' && 'Log in') || (formType === 'signup' && 'Sign up')}
+            </Button>
           </ActionButtons>
         </fieldset>
       </Form>
