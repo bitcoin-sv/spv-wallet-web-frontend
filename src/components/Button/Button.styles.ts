@@ -13,11 +13,24 @@ type ButtonProps = {
   disabled?: boolean
   secondary?: boolean
   underline?: boolean
+  isTextLink?: boolean
   small?: boolean
 }
 
-export const getDetailedStyles = ({ isLink, underline }: ButtonProps) => {
+export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps) => {
   if (isLink) {
+    if (isTextLink) {
+      return css`
+        padding: 0;
+        font-size: inherit !important;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      `
+    }
+
     if (underline) {
       return css`
         padding: ${sizes(2)};

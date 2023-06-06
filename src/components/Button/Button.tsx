@@ -11,6 +11,7 @@ type ButtonProps = {
   fullWidth?: boolean
   secondary?: boolean
   underline?: boolean
+  isTextLink?: boolean
   to?: To
   newTab?: boolean
   small?: boolean
