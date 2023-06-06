@@ -7,7 +7,6 @@ import { GlobalStyles } from '@/styles'
 import { Header } from '@/components/_layout/Header'
 import { Main } from '@/components/_layout/Main'
 import { Footer } from '@/components/_layout/Footer'
-import { Row } from '@/styles/grid'
 
 const ROUTES = [
   {
@@ -34,13 +33,11 @@ export const App = () => {
       <GlobalStyles />
       <Header />
       <Main>
-        <Row>
-          <Routes>
-            {ROUTES.map((route, index) => {
-              return <Route key={`route-${index}`} path={route.path} element={route.element} />
-            })}
-          </Routes>
-        </Row>
+        <Routes>
+          {ROUTES.map((route, index) => {
+            return <Route key={`route-${index}`} path={route.path} element={route.element} />
+          })}
+        </Routes>
       </Main>
       <Footer />
     </BrowserRouter>
