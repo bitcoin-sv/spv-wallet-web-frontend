@@ -5,7 +5,7 @@ import { media } from '@/styles/media'
 
 export const HeaderStyled = styled.header`
   padding: ${sizes(2)} 0;
-  margin: ${sizes(4)} 0 ${sizes(8)};
+  margin: ${sizes(4)} 0;
 
   ${media.sm} {
     padding: ${sizes(4)} 0;

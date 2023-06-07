@@ -10,6 +10,8 @@ type ButtonProps = {
   disabled?: boolean
   fullWidth?: boolean
   secondary?: boolean
+  underline?: boolean
+  isTextLink?: boolean
   to?: To
   newTab?: boolean
   small?: boolean
@@ -21,6 +23,7 @@ export const Button: FC<ButtonProps> = ({
   disabled,
   fullWidth,
   secondary,
+  underline,
   to,
   newTab,
   small,
@@ -32,6 +35,7 @@ export const Button: FC<ButtonProps> = ({
       fullWidth={fullWidth}
       secondary={secondary}
       disabled={disabled}
+      underline={underline}
       isLink={isLink}
       small={small}
       {...getLinkPropsFromTo(to, newTab)}

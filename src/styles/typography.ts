@@ -1,5 +1,5 @@
 export const typography = {
-  primaryFontFamily: "Montserrat, 'Arial', sans-serif",
+  primaryFontFamily: "'Lato', 'Arial', sans-serif",
 }
 
 export const fontWeight = {

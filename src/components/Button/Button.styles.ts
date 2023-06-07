@@ -12,13 +12,38 @@ type ButtonProps = {
   fullWidth?: boolean
   disabled?: boolean
   secondary?: boolean
+  underline?: boolean
+  isTextLink?: boolean
   small?: boolean
 }
 
-export const getDetailedStyles = ({ isLink }: ButtonProps) => {
+export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps) => {
   if (isLink) {
+    if (isTextLink) {
+      return css`
+        padding: 0;
+        font-size: inherit !important;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      `
+    }
+
+    if (underline) {
+      return css`
+        padding: ${sizes(2)};
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      `
+    }
+
     return css`
-      padding: ${sizes(2)} ${sizes(2)};
+      padding: ${sizes(2)};
       background: transparent;
 
       &::after {
@@ -29,9 +54,9 @@ export const getDetailedStyles = ({ isLink }: ButtonProps) => {
         left: ${sizes(2)};
         right: ${sizes(2)};
         height: 2px;
-        background-color: ${colors.textLightPrimary};
+        background-color: ${colors.lightPrimary};
         opacity: 0;
-        transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: ${variables.transition.underlineEffect};
         transform: translate3d(0, 0, 0);
       }
 
@@ -50,10 +75,26 @@ export const getDetailedStyles = ({ isLink }: ButtonProps) => {
       }
     `
   }
+
   return css`
-    padding: ${sizes(3)} ${sizes(4)};
-    border-radius: ${variables.borderRadius};
-    background: ${colors.primary};
+    padding: ${sizes(3)};
+    border-radius: ${variables.doubleBorderRadius};
+    background: ${variables.gradients.buttonPrimaryBackground};
+    border: 2px solid transparent;
+    box-shadow: ${variables.shadow.buttonShadow};
+    outline: transparent;
+    transition: all 0.2s ease-in-out;
+    font-weight: ${fontWeight.bold};
+
+    ${media.sm} {
+      padding: ${sizes(5)} ${sizes(4)};
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      box-shadow: ${variables.shadow.buttonEffectShadow};
+    }
   `
 }
 
@@ -61,7 +102,7 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   position: relative;
   display: inline-block;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'unset')};
-  color: ${colors.textLightPrimary};
+  color: ${colors.lightPrimary};
   text-decoration: none;
   font-size: ${({ small }) => (small ? '12px' : '16px')};
   line-height: 1;
@@ -74,4 +115,9 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   }
 
   ${getDetailedStyles}
+
+  &:focus-visible {
+    outline-color: transparent;
+    border-color: ${colors.lightPrimary};
+  }
 `
