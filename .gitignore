@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# docker compose
+data/
+bux-wallet-backend.env.private
