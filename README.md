@@ -8,6 +8,31 @@
 
 `yarn lint` - verify project with using eslint
 
+### Running backend locally
+
+To run backend locally you can use docker compose
+
+Before you use it, you need to create a file named
+`bux-wallet-backend.env.private`
+containing at least one entry:
+
+`BUX_ADMIN_XPRIV=xprv...` where `xpriv...` should be replaced with valid admin xpriv
+
+You can do this for example with this command (just replace <<admin_xpriv>> with valid admin xpriv)
+```bash 
+echo 'BUX_ADMIN_XPRIV=<<admin_xpriv>>' > bux-wallet-backend.env.private 
+```
+
+Now all you need to do is to run command:
+
+```bash
+yarn backend
+```
+
+And you can play with the backend on localhost:8080
+for example you can find there a swagger:
+
+http://localhost:8080/swagger/index.html
 
 ### Repo structure
 
