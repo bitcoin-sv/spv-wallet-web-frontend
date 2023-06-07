@@ -77,7 +77,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps
   }
 
   return css`
-    padding: ${sizes(5)} ${sizes(4)};
+    padding: ${sizes(3)};
     border-radius: ${variables.doubleBorderRadius};
     background: ${variables.gradients.buttonPrimaryBackground};
     border: 2px solid transparent;
@@ -85,6 +85,10 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps
     outline: transparent;
     transition: all 0.2s ease-in-out;
     font-weight: ${fontWeight.bold};
+
+    ${media.sm} {
+      padding: ${sizes(5)} ${sizes(4)};
+    }
 
     &:hover,
     &:focus,

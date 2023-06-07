@@ -1,20 +1,30 @@
 import styled from '@emotion/styled'
 import { sizes, srOnlyStyles } from '@/styles'
 import { variables } from '@/styles/variables'
+import { media } from '@/styles/media'
 
 export const FormCardWrapper = styled.section`
-  width: 50%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: ${sizes(4)} ${sizes(6)};
+  width: 100%;
+  margin: ${sizes(4)} auto;
+  padding: ${sizes(2)};
   text-align: center;
   border-radius: ${variables.borderRadius};
   background-color: ${variables.background.formCard};
   backdrop-filter: blur(10px);
   box-shadow: ${variables.shadow.tileShadow};
+
+  ${media.sm} {
+    max-width: 500px;
+    padding: ${sizes(4)} ${sizes(6)};
+    margin: 0 auto;
+  }
 `
 export const Form = styled.form`
-  margin: ${sizes(6)} 0 0;
+  margin: ${sizes(2)} 0 0;
+
+  ${media.sm} {
+    margin: ${sizes(6)} 0 0;
+  }
 `
 
 export const CardHeadline = styled.h2`
@@ -27,7 +37,11 @@ export const FormLegend = styled.legend`
 `
 
 export const ActionButtons = styled.div`
-  margin: 0 0 ${sizes(12)};
+  margin: 0 0 ${sizes(6)};
+
+  ${media.sm} {
+    margin: 0 0 ${sizes(12)};
+  }
 `
 
 export const CardFooter = styled.div`

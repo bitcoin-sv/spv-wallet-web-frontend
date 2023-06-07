@@ -6,24 +6,23 @@ import { variables } from '@/styles/variables'
 export const InputWrapper = styled.div`
   position: relative;
   display: block;
-  margin: ${sizes(3)} 0;
-
-  ${media.md} {
-    margin: ${sizes(6)} 0;
-  }
+  margin: ${sizes(6)} 0;
 `
 
 export const LabelStyled = styled.label`
   position: absolute;
-  top: ${sizes(4.5)};
+  top: ${sizes(3)};
   left: ${sizes(5)};
   margin: 0;
-  line-height: 1;
+  font-size: 14px;
+  line-height: 1.4;
   color: ${colors.lightPrimary};
   transition: all 0.2s ease;
 
-  ${media.md} {
+  ${media.sm} {
     top: ${sizes(5)};
+    font-size: 16px;
+    line-height: 1.1;
   }
 
   &:hover {
@@ -38,7 +37,7 @@ type InputStyledProps = {
 
 export const InputStyled = styled.input<InputStyledProps>`
   width: 100%;
-  height: 48px;
+  height: 42px;
   padding: ${({ withIcon }) =>
     withIcon ? `${sizes(2)} ${sizes(12)} ${sizes(2)} ${sizes(5)}` : `${sizes(2)} ${sizes(5)} ${sizes(2)}`};
   border: 2px solid ${colors.lightPrimary};
@@ -46,7 +45,7 @@ export const InputStyled = styled.input<InputStyledProps>`
   background-color: ${colors.inputBackground};
   color: ${colors.lightPrimary};
 
-  ${media.md} {
+  ${media.sm} {
     height: 54px;
   }
 
