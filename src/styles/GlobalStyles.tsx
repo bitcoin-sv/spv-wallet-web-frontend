@@ -26,7 +26,7 @@ const globalStyles = css`
     font-family: ${typography.primaryFontFamily};
     background: ${colors.primaryBackground};
     background: ${variables.gradients.mainBackground};
-    color: ${colors.textLightPrimary};
+    color: ${colors.lightPrimary};
   }
 
   html {

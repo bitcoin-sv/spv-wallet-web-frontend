@@ -9,10 +9,9 @@ export const FormCardWrapper = styled.section`
   padding: ${sizes(4)} ${sizes(6)};
   text-align: center;
   border-radius: ${variables.borderRadius};
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: ${variables.background.formCard};
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  box-shadow: ${variables.shadow.tileShadow};
 `
 export const Form = styled.form`
   margin: ${sizes(6)} 0 0;

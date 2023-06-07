@@ -19,7 +19,7 @@ export const LabelStyled = styled.label`
   left: ${sizes(5)};
   margin: 0;
   line-height: 1;
-  color: ${colors.textLightPrimary};
+  color: ${colors.lightPrimary};
   transition: all 0.2s ease;
 
   ${media.md} {
@@ -41,10 +41,10 @@ export const InputStyled = styled.input<InputStyledProps>`
   height: 48px;
   padding: ${({ withIcon }) =>
     withIcon ? `${sizes(2)} ${sizes(12)} ${sizes(2)} ${sizes(5)}` : `${sizes(2)} ${sizes(5)} ${sizes(2)}`};
-  border: 2px solid #fff;
+  border: 2px solid ${colors.lightPrimary};
   border-radius: ${variables.doubleBorderRadius};
   background-color: ${colors.inputBackground};
-  color: ${colors.textLightPrimary};
+  color: ${colors.lightPrimary};
 
   ${media.md} {
     height: 54px;
@@ -58,8 +58,8 @@ export const InputStyled = styled.input<InputStyledProps>`
   &:focus-visible,
   &:not(:placeholder-shown) {
     outline: transparent;
-    border-color: rgba(255, 201, 111, 1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-color: ${colors.inputEffectBorder};
+    box-shadow: ${variables.shadow.inputEffectShadow};
 
     &::placeholder {
       color: transparent;
@@ -68,7 +68,7 @@ export const InputStyled = styled.input<InputStyledProps>`
     & + label {
       top: -${sizes(4)};
       font-size: 12px;
-      color: ${colors.textLightPrimary};
+      color: ${colors.lightPrimary};
     }
   }
 `
@@ -91,6 +91,6 @@ export const VisibilityToggler = styled.button`
 
   &:focus-visible {
     outline-color: transparent;
-    border-color: ${colors.textLightPrimary};
+    border-color: ${colors.lightPrimary};
   }
 `

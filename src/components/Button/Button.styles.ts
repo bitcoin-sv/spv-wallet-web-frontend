@@ -54,9 +54,9 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps
         left: ${sizes(2)};
         right: ${sizes(2)};
         height: 2px;
-        background-color: ${colors.textLightPrimary};
+        background-color: ${colors.lightPrimary};
         opacity: 0;
-        transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transition: ${variables.transition.underlineEffect};
         transform: translate3d(0, 0, 0);
       }
 
@@ -79,14 +79,9 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps
   return css`
     padding: ${sizes(5)} ${sizes(4)};
     border-radius: ${variables.doubleBorderRadius};
-    background: linear-gradient(
-      90deg,
-      rgba(253, 162, 92, 1) 0%,
-      rgba(253, 162, 92, 1) 60%,
-      rgba(255, 201, 111, 1) 100%
-    );
+    background: ${variables.gradients.buttonPrimaryBackground};
     border: 2px solid transparent;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: ${variables.shadow.buttonShadow};
     outline: transparent;
     transition: all 0.2s ease-in-out;
     font-weight: ${fontWeight.bold};
@@ -94,7 +89,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps
     &:hover,
     &:focus,
     &:focus-visible {
-      box-shadow: 0 5px 35px rgba(0, 0, 0, 0.3);
+      box-shadow: ${variables.shadow.buttonEffectShadow};
     }
   `
 }
@@ -103,7 +98,7 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   position: relative;
   display: inline-block;
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'unset')};
-  color: ${colors.textLightPrimary};
+  color: ${colors.lightPrimary};
   text-decoration: none;
   font-size: ${({ small }) => (small ? '12px' : '16px')};
   line-height: 1;
@@ -119,6 +114,6 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
 
   &:focus-visible {
     outline-color: transparent;
-    border-color: ${colors.textLightPrimary};
+    border-color: ${colors.lightPrimary};
   }
 `
