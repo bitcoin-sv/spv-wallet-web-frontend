@@ -55,7 +55,8 @@ export const InputStyled = styled.input<InputStyledProps>`
 
   &:focus,
   &:focus-visible,
-  &:not(:placeholder-shown) {
+  &:not(:placeholder-shown),
+  &:-webkit-autofill {
     outline: transparent;
     border-color: ${colors.inputEffectBorder};
     box-shadow: ${variables.shadow.inputEffectShadow};
