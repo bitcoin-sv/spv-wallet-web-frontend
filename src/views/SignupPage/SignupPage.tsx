@@ -9,6 +9,7 @@ import { registerUser } from '@/hooks'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { StepsList } from '@/components/StepsList'
 import { ErrorBar } from '@/components/ErrorBar'
+import { Loader } from '@/components/Loader'
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -20,9 +21,11 @@ export const SignupPage = () => {
   const [registered, setRegistered] = useState(false)
   const [mnemonic, setMnemonic] = useState<string>('')
   const [paymail, setPaymail] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setLoading(true)
 
     if (!email || !password || !confirmedPassword || !agreementTerms || !agreementPolicy) {
       return
@@ -48,10 +51,12 @@ export const SignupPage = () => {
         setErrors('')
         setMnemonic(response.mnemonic)
         setPaymail(response.paymail)
+        setLoading(false)
       })
       .catch((error) => {
         setErrors(error.response.data.error)
         setRegistered(false)
+        setLoading(false)
       })
   }
 
@@ -66,6 +71,7 @@ export const SignupPage = () => {
             formLegend="Sign Up form"
             onFormSubmitHandler={(event) => handleSubmit(event)}
           >
+            {loading && <Loader />}
             <Input
               id="email"
               type="email"
