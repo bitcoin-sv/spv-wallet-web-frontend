@@ -3,13 +3,13 @@ import { sizes, srOnlyStyles } from '@/styles'
 import { variables } from '@/styles/variables'
 import { media } from '@/styles/media'
 
-export const FormCardWrapper = styled.section`
+export const SectionCardWrapper = styled.section`
   width: 100%;
   margin: ${sizes(4)} auto;
   padding: ${sizes(2)};
   text-align: center;
   border-radius: ${variables.borderRadius};
-  background-color: ${variables.background.formCard};
+  background-color: ${variables.background.SectionCard};
   backdrop-filter: blur(10px);
   box-shadow: ${variables.shadow.tileShadow};
 

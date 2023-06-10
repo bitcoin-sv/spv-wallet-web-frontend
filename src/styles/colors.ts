@@ -1,6 +1,7 @@
 export const colors = {
   primaryBackground: '#0e124e',
   secondaryBackground: '#6324f9',
+  errorBackground: 'rgb(255, 65, 65, 045)',
   inputBackground: 'rgba(255, 255, 255, 0.2)',
   primary: '#13145e',
   lightPrimary: '#ffffff',

@@ -14,10 +14,20 @@ type ButtonProps = {
   secondary?: boolean
   underline?: boolean
   isTextLink?: boolean
+  isOnlyIconButton?: boolean
   small?: boolean
 }
 
-export const getDetailedStyles = ({ isLink, underline, isTextLink }: ButtonProps) => {
+export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconButton }: ButtonProps) => {
+  if (isOnlyIconButton) {
+    return css`
+      padding: ${sizes(1)};
+      background: transparent;
+      color: inherit;
+      border: none;
+    `
+  }
+
   if (isLink) {
     if (isTextLink) {
       return css`

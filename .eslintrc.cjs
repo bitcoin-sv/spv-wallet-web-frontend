@@ -43,6 +43,7 @@ module.exports = {
     "@typescript-eslint"
   ],
   "rules": {
+    "react/no-unescaped-entities": 0,
     "react/react-in-jsx-scope": "off",
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
