@@ -7,9 +7,9 @@ import { Row } from '@/styles/grid'
 import { FormEvent, useState } from 'react'
 import { registerUser } from '@/hooks'
 import { EMAIL_REGEX } from '@/utils/constants'
-import { StepsList } from '@/components/StepsList'
 import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
+import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -65,7 +65,7 @@ export const SignupPage = () => {
       <Row>
         {!registered ? (
           <SectionCard
-            formType="signup"
+            sectionType="signup"
             headline="Sign up here"
             subheadline="and join up to our community!"
             formLegend="Sign Up form"
@@ -132,11 +132,11 @@ export const SignupPage = () => {
           </SectionCard>
         ) : (
           <SectionCard
-            formType="signup-typ"
+            sectionType="signup-typ"
             headline="Thank you for registration!"
             subheadline="There are only three steps to start using your wallet:"
           >
-            <StepsList mnemonic={mnemonic} paymail={paymail} />
+            <AfterRegistrationSteps mnemonic={mnemonic} paymail={paymail} />
           </SectionCard>
         )}
       </Row>

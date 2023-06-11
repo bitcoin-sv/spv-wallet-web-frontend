@@ -7,7 +7,12 @@ export const LoginPage = () => {
   return (
     <ViewContent centeredContent>
       <Row>
-        <SectionCard formType="login" headline="Login here" subheadline="and go to the wallet!" formLegend="Login form">
+        <SectionCard
+          sectionType="login"
+          headline="Login here"
+          subheadline="and go to the wallet!"
+          formLegend="Login form"
+        >
           <Input id="email" type="email" labelText="Email" required />
           <Input id="password" type="password" labelText="Password" withIcon togglePasswordVisibility required />
         </SectionCard>

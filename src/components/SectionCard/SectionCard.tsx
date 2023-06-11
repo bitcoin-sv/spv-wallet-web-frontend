@@ -9,14 +9,14 @@ import {
 import { FC, FormEvent, ReactNode } from 'react'
 import { Button } from '@/components/Button'
 
-type FormType = 'login' | 'signup' | 'signup-typ'
+type SectionType = 'login' | 'signup' | 'signup-typ'
 
 type CardProps = {
   headline: string
   subheadline?: string
   formLegend?: string
   children: ReactNode
-  formType: FormType
+  sectionType: SectionType
   onFormSubmitHandler?: (event: FormEvent<HTMLFormElement>) => void
 }
 export const SectionCard: FC<CardProps> = ({
@@ -24,7 +24,7 @@ export const SectionCard: FC<CardProps> = ({
   subheadline,
   formLegend,
   children,
-  formType,
+  sectionType,
   onFormSubmitHandler,
 }) => {
   return (
@@ -37,7 +37,9 @@ export const SectionCard: FC<CardProps> = ({
             <FormLegend>{formLegend}</FormLegend>
             {children}
             <ActionButtons>
-              <Button fullWidth>{(formType === 'login' && 'Log in') || (formType === 'signup' && 'Sign up')}</Button>
+              <Button fullWidth>
+                {(sectionType === 'login' && 'Log in') || (sectionType === 'signup' && 'Sign up')}
+              </Button>
             </ActionButtons>
           </fieldset>
         </Form>
@@ -45,14 +47,18 @@ export const SectionCard: FC<CardProps> = ({
         <>{children}</>
       )}
 
-      {formType != 'signup-typ' && (
+      {sectionType != 'signup-typ' && (
         <CardFooter>
           <p>
-            {(formType === 'login' && "Don't have an account yet?") ||
-              (formType === 'signup' && 'Already have an account?')}
+            {(sectionType === 'login' && "Don't have an account yet?") ||
+              (sectionType === 'signup' && 'Already have an account?')}
           </p>
-          <Button to={(formType === 'login' && '/signup') || (formType === 'signup' && '/') || '/'} isLink underline>
-            {(formType === 'login' && 'Sign up now!') || (formType === 'signup' && 'Log in now!')}
+          <Button
+            to={(sectionType === 'login' && '/signup') || (sectionType === 'signup' && '/') || '/'}
+            isLink
+            underline
+          >
+            {(sectionType === 'login' && 'Sign up now!') || (sectionType === 'signup' && 'Log in now!')}
           </Button>
         </CardFooter>
       )}
