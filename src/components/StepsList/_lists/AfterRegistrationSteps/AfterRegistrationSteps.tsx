@@ -14,7 +14,7 @@ import { SrOnlySpan } from '@/styles'
 import { Button } from '@/components/Button'
 import { FC, useState } from 'react'
 
-type ListProps = {
+interface ListProps {
   mnemonic: string
   paymail: string
 }

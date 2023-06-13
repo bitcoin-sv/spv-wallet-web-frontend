@@ -1,6 +1,6 @@
 import { NavList } from '@/components/Navigation/Navigation.styes'
 import { FC, ReactNode } from 'react'
-type NavigationProps = {
+interface NavigationProps {
   children: ReactNode
 }
 export const Navigation: FC<NavigationProps> = ({ children }) => {

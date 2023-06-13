@@ -1,5 +1,5 @@
 import { Input } from '@/components/Input'
-import { SectionCard } from '@/components/SectionCard'
+import { FormCard } from '@/components/FormCard'
 import { CustomCheckbox } from '@/components/CustomCheckbox'
 import { Button } from '@/components/Button'
 import { ViewContent } from '@/components/_layout/ViewContent'
@@ -10,6 +10,7 @@ import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
 import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
+import { RegisterNewUserDto } from '@/api/types/user'
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -36,12 +37,12 @@ export const SignupPage = () => {
     }
 
     if (password !== confirmedPassword) {
-      setErrors("Passwords doesn't match")
+      setErrors("Passwords don't match")
     }
 
-    const newUser = {
-      email: email,
-      password: password,
+    const newUser: RegisterNewUserDto = {
+      email,
+      password,
       passwordConfirmation: confirmedPassword,
     }
 
@@ -54,7 +55,10 @@ export const SignupPage = () => {
         setLoading(false)
       })
       .catch((error) => {
-        setErrors(error.response.data.error)
+        const errorMsg = error.response.data.error
+          ? error.response.data.error
+          : 'Something went wrong... Please, try again later!'
+        setErrors(errorMsg)
         setRegistered(false)
         setLoading(false)
       })
@@ -64,8 +68,8 @@ export const SignupPage = () => {
     <ViewContent centeredContent>
       <Row>
         {!registered ? (
-          <SectionCard
-            sectionType="signup"
+          <FormCard
+            cardType="signup"
             headline="Sign up here"
             subheadline="and join up to our community!"
             formLegend="Sign Up form"
@@ -129,15 +133,15 @@ export const SignupPage = () => {
               onChange={(event) => setAgreementPolicy(event.target.checked)}
             />
             {errors && <ErrorBar errorMsg={errors} />}
-          </SectionCard>
+          </FormCard>
         ) : (
-          <SectionCard
-            sectionType="signup-typ"
+          <FormCard
+            cardType="signup-typ"
             headline="Thank you for registration!"
             subheadline="There are only three steps to start using your wallet:"
           >
             <AfterRegistrationSteps mnemonic={mnemonic} paymail={paymail} />
-          </SectionCard>
+          </FormCard>
         )}
       </Row>
     </ViewContent>

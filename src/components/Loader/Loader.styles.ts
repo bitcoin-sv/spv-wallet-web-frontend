@@ -12,7 +12,7 @@ export const LoaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${variables.background.SectionCard};
+  background: ${variables.background.FormCard};
   backdrop-filter: blur(10px);
   border-radius: ${variables.borderRadius};
   z-index: 2;

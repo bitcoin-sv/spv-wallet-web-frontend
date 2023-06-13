@@ -2,7 +2,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import { FC } from 'react'
 import { BarWrapper, ErrorText } from '@/components/ErrorBar/ErrorProps.styles'
 
-type ErrorProps = {
+interface ErrorProps {
   errorMsg: string
 }
 

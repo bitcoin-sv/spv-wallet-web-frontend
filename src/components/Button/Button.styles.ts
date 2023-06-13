@@ -7,7 +7,7 @@ import { fontWeight } from '@/styles'
 import { variables } from '@/styles/variables'
 import { media } from '@/styles/media'
 
-type ButtonProps = {
+interface ButtonProps {
   isLink?: boolean
   fullWidth?: boolean
   disabled?: boolean

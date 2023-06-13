@@ -10,7 +10,7 @@ export const InputWrapper = styled.div`
   text-align: left;
 `
 
-type InputStyledProps = {
+interface InputStyledProps {
   error?: boolean
 }
 

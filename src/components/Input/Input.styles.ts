@@ -30,7 +30,7 @@ export const LabelStyled = styled.label`
   }
 `
 
-type InputStyledProps = {
+interface InputStyledProps {
   error?: boolean
   withIcon?: boolean
 }
