@@ -9,7 +9,7 @@ export const FormCardWrapper = styled.section`
   padding: ${sizes(2)};
   text-align: center;
   border-radius: ${variables.borderRadius};
-  background-color: ${variables.background.formCard};
+  background-color: ${variables.background.FormCard};
   backdrop-filter: blur(10px);
   box-shadow: ${variables.shadow.tileShadow};
 

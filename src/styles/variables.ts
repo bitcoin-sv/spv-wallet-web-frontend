@@ -2,7 +2,7 @@ export const variables = {
   borderRadius: '8px',
   doubleBorderRadius: '16px',
   background: {
-    formCard: 'rgba(255, 255, 255, 0.2)',
+    FormCard: 'rgba(255, 255, 255, 0.2)',
   },
   gradients: {
     mainBackground:

@@ -6,41 +6,56 @@ import {
   FormCardWrapper,
   FormLegend,
 } from '@/components/FormCard/FormCard.styles'
-import { FC, ReactNode } from 'react'
+import { FC, FormEvent, ReactNode } from 'react'
 import { Button } from '@/components/Button'
 
-type FormType = 'login' | 'signup'
+type CardType = 'login' | 'signup' | 'signup-typ'
 
-type CardProps = {
+interface CardProps {
   headline: string
   subheadline?: string
-  formLegend: string
+  formLegend?: string
   children: ReactNode
-  formType: FormType
+  cardType: CardType
+  onFormSubmitHandler?: (event: FormEvent<HTMLFormElement>) => void
 }
-export const FormCard: FC<CardProps> = ({ headline, subheadline, formLegend, children, formType }) => {
+export const FormCard: FC<CardProps> = ({
+  headline,
+  subheadline,
+  formLegend,
+  children,
+  cardType,
+  onFormSubmitHandler,
+}) => {
   return (
     <FormCardWrapper>
       <CardHeadline>{headline}</CardHeadline>
       {subheadline && <p>{subheadline}</p>}
-      <Form>
-        <fieldset>
-          <FormLegend>{formLegend}</FormLegend>
-          {children}
-          <ActionButtons>
-            <Button fullWidth>{(formType === 'login' && 'Log in') || (formType === 'signup' && 'Sign up')}</Button>
-          </ActionButtons>
-        </fieldset>
-      </Form>
-      <CardFooter>
-        <p>
-          {(formType === 'login' && "Don't have an account yet?") ||
-            (formType === 'signup' && 'Already have an account?')}
-        </p>
-        <Button to={(formType === 'login' && '/signup') || (formType === 'signup' && '/') || '/'} isLink underline>
-          {(formType === 'login' && 'Sign up now!') || (formType === 'signup' && 'Log in now!')}
-        </Button>
-      </CardFooter>
+      {formLegend && formLegend !== '' ? (
+        <Form onSubmit={onFormSubmitHandler}>
+          <fieldset>
+            <FormLegend>{formLegend}</FormLegend>
+            {children}
+            <ActionButtons>
+              <Button fullWidth>{(cardType === 'login' && 'Log in') || (cardType === 'signup' && 'Sign up')}</Button>
+            </ActionButtons>
+          </fieldset>
+        </Form>
+      ) : (
+        <>{children}</>
+      )}
+
+      {cardType !== 'signup-typ' && (
+        <CardFooter>
+          <p>
+            {(cardType === 'login' && "Don't have an account yet?") ||
+              (cardType === 'signup' && 'Already have an account?')}
+          </p>
+          <Button to={(cardType === 'login' && '/signup') || (cardType === 'signup' && '/') || '/'} isLink underline>
+            {(cardType === 'login' && 'Sign up now!') || (cardType === 'signup' && 'Log in now!')}
+          </Button>
+        </CardFooter>
+      )}
     </FormCardWrapper>
   )
 }

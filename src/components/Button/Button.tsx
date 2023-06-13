@@ -12,6 +12,7 @@ type ButtonProps = {
   secondary?: boolean
   underline?: boolean
   isTextLink?: boolean
+  isOnlyIconButton?: boolean
   to?: To
   newTab?: boolean
   small?: boolean
