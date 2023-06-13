@@ -4,11 +4,11 @@ import { Row } from '@/styles/grid'
 import { FormCard } from '@/components/FormCard'
 import { FormEvent, useState } from 'react'
 import { EMAIL_REGEX } from '@/utils/constants'
-import { loginUser } from '@/hooks'
 import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
 import { useAuthorization } from '@/providers'
 import { useNavigate } from 'react-router-dom'
+import { loginUser } from '@/api'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')

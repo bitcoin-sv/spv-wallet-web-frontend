@@ -5,12 +5,12 @@ import { Button } from '@/components/Button'
 import { ViewContent } from '@/components/_layout/ViewContent'
 import { Row } from '@/styles/grid'
 import { FormEvent, useState } from 'react'
-import { registerUser } from '@/hooks'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
 import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
 import { RegisterNewUserDto } from '@/api/types/user'
+import { registerUser } from '@/api'
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('')
