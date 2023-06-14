@@ -6,14 +6,17 @@ import { Button } from '@/components/Button'
 import { SrOnlySpan } from '@/styles'
 import { useAuthorization } from '@/providers'
 
+import { UserMenu } from '@/components/UserMenu'
+
 export const Header = () => {
   const { authorization } = useAuthorization()
+  const authorizationStateAsBoolean = !!authorization
 
   return (
     <HeaderStyled>
       <Row>
-        <HeaderContent>
-          <LogoLink to={authorization ? '/dashboard' : '/'} isLink>
+        <HeaderContent authorizationState={authorizationStateAsBoolean}>
+          <LogoLink to={authorization ? '/dashboard' : '/'} authorizationState={authorizationStateAsBoolean} isLink>
             <Logo src="/logo.png" alt="bux wallet logo" width="250" height="53" />
             <SrOnlySpan>Go back to the main page</SrOnlySpan>
           </LogoLink>
@@ -41,6 +44,7 @@ export const Header = () => {
               </>
             )}
           </Navigation>
+          {authorization && <UserMenu userEmail={authorization.email} />}
         </HeaderContent>
       </Row>
     </HeaderStyled>

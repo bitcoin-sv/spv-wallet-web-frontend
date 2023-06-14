@@ -19,6 +19,7 @@ export const variables = {
     inputEffectShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
   },
   transition: {
+    baseEffect: 'all 0.2s ease-in-out',
     underlineEffect: '0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
   },
 }

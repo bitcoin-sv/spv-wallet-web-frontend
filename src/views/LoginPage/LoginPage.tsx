@@ -8,7 +8,7 @@ import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
 import { useAuthorization } from '@/providers'
 import { useNavigate } from 'react-router-dom'
-import { loginUser } from '@/api'
+import { LoggedUser, loginUser } from '@/api'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -41,7 +41,7 @@ export const LoginPage = () => {
       .then((response) => {
         setErrors('')
         setPaymail(response.paymail)
-        const LoggedUser = {
+        const LoggedUser: LoggedUser = {
           email: email,
           paymail: paymail,
         }

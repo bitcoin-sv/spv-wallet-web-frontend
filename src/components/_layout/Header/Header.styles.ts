@@ -12,15 +12,24 @@ export const HeaderStyled = styled.header`
   }
 `
 
-export const HeaderContent = styled.div`
+interface AuthorizationProps {
+  authorizationState?: boolean
+}
+
+export const HeaderContent = styled.div<AuthorizationProps>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ authorizationState }) => (authorizationState ? 'initial' : 'space-between')};
   width: 100%;
+
+  nav {
+    flex-grow: ${({ authorizationState }) => (authorizationState ? '1' : 'initial')};
+  }
 `
 
-export const LogoLink = styled(Button)`
+export const LogoLink = styled(Button)<AuthorizationProps>`
   padding: 0;
+  margin-right: ${({ authorizationState }) => (authorizationState ? sizes(12) : 'initial')};
 
   &::after {
     content: none;
