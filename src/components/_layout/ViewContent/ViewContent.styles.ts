@@ -17,6 +17,6 @@ export const getCenteredContentStyles = ({ centeredContent }: ViewContentProps) 
 
 export const ViewContent = styled.div`
   flex-grow: 1;
-
-  ${getCenteredContentStyles}
+  ${getCenteredContentStyles};
+  flex-direction: column;
 `
