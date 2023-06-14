@@ -3,18 +3,18 @@ import { sizes } from '@/styles'
 import { Button } from '@/components/Button'
 import { media } from '@/styles/media'
 
-export const HeaderStyled = styled.header`
+interface AuthorizationProps {
+  authorizationState?: boolean
+}
+
+export const HeaderStyled = styled.header<AuthorizationProps>`
   padding: ${sizes(2)} 0;
-  margin: ${sizes(4)} 0;
+  margin: ${({ authorizationState }) => (authorizationState ? `${sizes(4)} 0` : '0')};
 
   ${media.sm} {
     padding: ${sizes(4)} 0;
   }
 `
-
-interface AuthorizationProps {
-  authorizationState?: boolean
-}
 
 export const HeaderContent = styled.div<AuthorizationProps>`
   display: flex;

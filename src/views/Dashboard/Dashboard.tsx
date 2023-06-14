@@ -1,13 +1,23 @@
-import { Row } from '@/styles/grid'
+import { Column, Row } from '@/styles/grid'
+import { ComponentTile } from '@/components/ComponentTile'
 
 export const Dashboard = () => {
   return (
     <>
       <Row>
-        <h2>Great! You are logged in!</h2>
+        <Column>
+          <h2>Dashboard</h2>
+        </Column>
       </Row>
       <Row>
-        <p>This is your Dashboard</p>
+        <Column percentageWidth={70}>
+          <ComponentTile>Table</ComponentTile>
+        </Column>
+        <Column percentageWidth={30}>
+          <ComponentTile>User Balance</ComponentTile>
+
+          <ComponentTile>New Transaction</ComponentTile>
+        </Column>
       </Row>
     </>
   )
