@@ -1,8 +1,7 @@
 import styled from '@emotion/styled'
 import { Button } from '@/components/Button'
-import { colors, sizes } from '@/styles'
+import { colors, sizes, UserMenuFadeIn } from '@/styles'
 import { variables } from '@/styles/variables'
-import { keyframes } from '@emotion/react'
 import { media } from '@/styles/media'
 
 export const UserMenuWrapper = styled.div`
@@ -41,14 +40,15 @@ export const MenuButton = styled(Button)`
   &:focus,
   &:focus-visible {
     box-shadow: none;
+    text-decoration: none;
 
-    & > span {
+    & > div {
       transform: scale(1.1);
     }
   }
 `
 
-export const Avatar = styled.span`
+export const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,18 +62,6 @@ export const Avatar = styled.span`
   ${media.sm} {
     margin-right: 0;
     margin-left: ${sizes(6)};
-  }
-`
-
-export const UserMenuFadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(115%);
-  } 
-  
-  to {
-    opacity: 1;
-    transform: translateY(100%);
   }
 `
 

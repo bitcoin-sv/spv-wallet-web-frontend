@@ -11,3 +11,15 @@ export const PulseKeyframe = keyframes`
     transform: scale(0);
   }
 `
+
+export const UserMenuFadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(115%);
+  } 
+  
+  to {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+`

@@ -4,6 +4,7 @@ export const colors = {
   errorBackground: 'rgb(255, 65, 65, 045)',
   inputBackground: 'rgba(255, 255, 255, 0.2)',
   userMenuBackground: 'rgba(255, 255, 255, 0.4)',
+  modalWrapperBackground: 'rgba(255, 255, 255, 0.4)',
   primary: '#13145e',
   lightPrimary: '#ffffff',
   darkPrimary: '#000',
