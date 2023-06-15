@@ -3,10 +3,16 @@ import { Button } from '@/components/Button'
 import { colors, sizes } from '@/styles'
 import { variables } from '@/styles/variables'
 import { keyframes } from '@emotion/react'
+import { media } from '@/styles/media'
 
 export const UserMenuWrapper = styled.div`
   position: relative;
   z-index: 1;
+  width: 100%;
+
+  ${media.sm} {
+    width: auto;
+  }
 `
 export const MenuButton = styled(Button)`
   display: flex;
@@ -15,6 +21,21 @@ export const MenuButton = styled(Button)`
   width: 100%;
   background: transparent;
   box-shadow: none;
+
+  &:not(li > Button) {
+    max-width: 50%;
+    padding-left: 0;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    text-decoration: underline;
+
+    ${media.sm} {
+      max-width: none;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-left: initial;
+    }
+  }
 
   &:hover,
   &:focus,
@@ -33,10 +54,15 @@ export const Avatar = styled.span`
   align-items: center;
   width: 48px;
   height: 48px;
-  margin-left: ${sizes(6)};
+  margin-right: ${sizes(6)};
   border-radius: 50%;
   background: ${colors.userMenuBackground};
   transition: ${variables.transition.baseEffect};
+
+  ${media.sm} {
+    margin-right: 0;
+    margin-left: ${sizes(6)};
+  }
 `
 
 export const UserMenuFadeIn = keyframes`
@@ -53,14 +79,21 @@ export const UserMenuFadeIn = keyframes`
 
 export const MenuList = styled.ul`
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  top: 50%;
+  right: 0;
+  width: 120px;
+  transform: translateY(-50%);
   font-size: 18px;
   text-align: right;
-  transform: translateY(100%);
-  animation: ${UserMenuFadeIn} 0.3s ease-in-out both;
-  z-index: 2;
+  z-index: 3;
+
+  ${media.sm} {
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    width: 100%;
+    animation: ${UserMenuFadeIn} 0.3s ease-in-out both;
+  }
 `
 
 export const MenuElement = styled.li`

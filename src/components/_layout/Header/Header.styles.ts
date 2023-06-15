@@ -20,6 +20,7 @@ export const HeaderContent = styled.div<AuthorizationProps>`
   display: flex;
   align-items: center;
   justify-content: ${({ authorizationState }) => (authorizationState ? 'initial' : 'space-between')};
+  flex-wrap: ${({ authorizationState }) => (authorizationState ? 'wrap' : 'initial')};
   width: 100%;
 
   nav {
@@ -29,10 +30,13 @@ export const HeaderContent = styled.div<AuthorizationProps>`
 
 export const LogoLink = styled(Button)<AuthorizationProps>`
   padding: 0;
-  margin-right: ${({ authorizationState }) => (authorizationState ? sizes(12) : 'initial')};
 
   &::after {
     content: none;
+  }
+
+  ${media.md} {
+    margin-right: ${({ authorizationState }) => (authorizationState ? sizes(12) : 'initial')};
   }
 `
 

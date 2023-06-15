@@ -28,7 +28,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
   return (
     <UserMenuWrapper>
       <MenuButton onClick={(event) => userMenuHandler(event)}>
-        {userEmail}
+        <span>{userEmail}</span>
         <Avatar>
           <PersonIcon />
         </Avatar>
