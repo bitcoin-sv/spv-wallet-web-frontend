@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, createContext, useState } from 'react'
-import { LoggedUser } from '@/api'
+import { LoggedInUser } from '@/api'
 
-type Authorization = LoggedUser | null
+type Authorization = LoggedInUser | null
 
 interface AuthorizationContextValue {
   authorization: Authorization

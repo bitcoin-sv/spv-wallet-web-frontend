@@ -9,7 +9,7 @@ import { Main } from '@/components/_layout/Main'
 import { Footer } from '@/components/_layout/Footer'
 import { useAuthorization } from '@/providers'
 import { Dashboard } from '@/views/Dashboard/Dashboard'
-import { getUser, LoggedUser } from '@/api'
+import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useState } from 'react'
 import { useMountEffect } from '@/hooks/useMountEffect'
@@ -66,7 +66,7 @@ export const App = () => {
   useMountEffect(() => {
     getUser()
       .then((response) => {
-        const currentUserData: LoggedUser = {
+        const currentUserData: LoggedInUser = {
           email: response.email,
           paymail: response.paymail,
         }

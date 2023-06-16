@@ -8,7 +8,7 @@ import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
 import { useAuthorization } from '@/providers'
 import { useNavigate } from 'react-router-dom'
-import { LoggedUser, loginUser } from '@/api'
+import { LoggedInUser, loginUser } from '@/api'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -41,11 +41,11 @@ export const LoginPage = () => {
       .then((response) => {
         setErrors('')
         setPaymail(response.paymail)
-        const LoggedUser: LoggedUser = {
+        const LoggedInUser: LoggedInUser = {
           email: email,
           paymail: paymail,
         }
-        setAuthorization(LoggedUser)
+        setAuthorization(LoggedInUser)
         navigate('/dashboard')
         setLoading(false)
       })

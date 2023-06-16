@@ -9,7 +9,7 @@ export interface User {
   password: string
 }
 
-export interface LoggedUser {
+export interface LoggedInUser {
   email: string
   paymail: string
 }

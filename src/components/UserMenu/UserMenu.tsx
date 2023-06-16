@@ -20,11 +20,16 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
     event.stopPropagation()
 
     const currentTarget = event.currentTarget
-    document.addEventListener('click', (event) => {
-      if (event.target !== currentTarget) {
-        setUserMenu(false)
-      }
-    })
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (event.target !== currentTarget) {
+          setUserMenu(false)
+        }
+      },
+      { once: true }
+    )
+
     setUserMenu(!userMenu)
   }
 
