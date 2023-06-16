@@ -62,7 +62,6 @@ export const App = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [errors, setError] = useState('')
-
   useMountEffect(() => {
     getUser()
       .then((response) => {
