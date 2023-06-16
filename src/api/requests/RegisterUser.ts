@@ -1,8 +1,7 @@
 import { RegisterNewUserDto } from '@/api/types/user'
-import { REGISTER_USER } from '@/api/endpoints'
-import axios from 'axios'
+import { axiosClient } from '@/api/client'
 
 export const registerUser = async (data: RegisterNewUserDto) => {
-  const { data: response } = await axios.post(REGISTER_USER, data)
+  const { data: response } = await axiosClient.post('/user', data)
   return response
 }
