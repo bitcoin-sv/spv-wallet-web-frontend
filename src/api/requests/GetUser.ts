@@ -1,7 +1,6 @@
-import { GET_USER } from '@/api/endpoints'
-import axios from 'axios'
+import { axiosClient } from '@/api/client'
 
 export const getUser = async () => {
-  const { data: response } = await axios.get(GET_USER)
+  const { data: response } = await axiosClient.get('/user')
   return response
 }
