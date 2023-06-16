@@ -11,6 +11,6 @@ export const media = {
   md: buildQuery(breakpoints.md),
   lg: buildQuery(breakpoints.lg),
   xl: buildQuery(breakpoints.xl),
-  xlUp: buildQuery(breakpoints.xlUp),
   xxl: buildQuery(breakpoints.xxl),
+  xxxl: buildQuery(breakpoints.xxxl),
 }

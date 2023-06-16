@@ -5,7 +5,7 @@ import { getLinkPropsFromTo } from '@/utils/buttons'
 import { ButtonStyled } from './Button.styles'
 import { To } from 'history'
 
-type ButtonProps = {
+export type ButtonProps = {
   isLink?: boolean
   disabled?: boolean
   fullWidth?: boolean

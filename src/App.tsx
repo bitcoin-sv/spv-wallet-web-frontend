@@ -9,11 +9,10 @@ import { Main } from '@/components/_layout/Main'
 import { Footer } from '@/components/_layout/Footer'
 import { useAuthorization } from '@/providers'
 import { Dashboard } from '@/views/Dashboard/Dashboard'
-import { getUser } from '@/api'
+import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useState } from 'react'
 import { useMountEffect } from '@/hooks/useMountEffect'
-import { UserDetails } from '@/api'
 import { ErrorBar } from '@/components/ErrorBar'
 
 const ROUTES = [
@@ -67,10 +66,9 @@ export const App = () => {
   useMountEffect(() => {
     getUser()
       .then((response) => {
-        const currentUserData: UserDetails = {
+        const currentUserData: LoggedInUser = {
           email: response.email,
           paymail: response.paymail,
-          userId: response.userId,
         }
 
         if (currentUserData) {
