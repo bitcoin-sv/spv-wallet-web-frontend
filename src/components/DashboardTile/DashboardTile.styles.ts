@@ -3,6 +3,7 @@ import { colors, sizes } from '@/styles'
 import { variables } from '@/styles/variables'
 
 export const DashboardTileWrapper = styled.section`
+  position: relative;
   display: block;
   width: 100%;
   padding: ${sizes(4)};
