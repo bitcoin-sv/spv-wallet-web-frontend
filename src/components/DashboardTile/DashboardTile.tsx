@@ -7,11 +7,12 @@ interface TileProps {
   paymail?: string
   titleIcon?: ReactNode
   children?: ReactNode
+  fullHeight?: boolean
 }
 
-export const DashboardTile: FC<TileProps> = ({ tileTitle, paymail, titleIcon, children }) => {
+export const DashboardTile: FC<TileProps> = ({ tileTitle, paymail, titleIcon, children, fullHeight }) => {
   return (
-    <DashboardTileWrapper>
+    <DashboardTileWrapper fullHeight={fullHeight}>
       <Row>
         <Column>
           <header>

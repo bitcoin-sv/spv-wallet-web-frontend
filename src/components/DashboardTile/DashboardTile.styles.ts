@@ -2,17 +2,19 @@ import styled from '@emotion/styled'
 import { colors, sizes } from '@/styles'
 import { variables } from '@/styles/variables'
 
-export const DashboardTileWrapper = styled.section`
+interface WrapperProps {
+  fullHeight?: boolean
+}
+
+export const DashboardTileWrapper = styled.section<WrapperProps>`
   position: relative;
   display: block;
   width: 100%;
+  height: ${({ fullHeight }) => (fullHeight ? '100%' : 'initial')};
   padding: ${sizes(4)};
+  margin: 0 0 ${sizes(4)};
   border-radius: ${variables.borderRadius};
   background: ${colors.dashboardTileBackground};
-
-  &:not(:last-of-type) {
-    margin: 0 0 ${sizes(4)};
-  }
 `
 
 export const TileTitle = styled.h3`
