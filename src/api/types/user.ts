@@ -12,6 +12,7 @@ export interface User {
 export interface LoggedInUser {
   email: string
   paymail: string
+  balance: object
 }
 
 export interface UserDetails {

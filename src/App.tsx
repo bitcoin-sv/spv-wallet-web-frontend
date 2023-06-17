@@ -68,6 +68,7 @@ export const App = () => {
         const currentUserData: LoggedInUser = {
           email: response.email,
           paymail: response.paymail,
+          balance: response.balance,
         }
 
         if (currentUserData) {

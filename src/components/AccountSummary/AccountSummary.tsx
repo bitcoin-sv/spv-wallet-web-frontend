@@ -2,10 +2,18 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import { DashboardTile } from '@/components/DashboardTile'
 import { BalanceValue, Currency } from '@/components/AccountSummary/AccountSummary.styles'
 import { Column, Row } from '@/styles/grid'
+import { useAuthorization } from '@/providers'
 
 export const AccountSummary = () => {
+  const { authorization } = useAuthorization()
+  const currentUser = authorization
+
   return (
-    <DashboardTile tileTitle="Your total balance" paymail="afr@bux.com" titleIcon={<AccountBalanceWalletIcon />}>
+    <DashboardTile
+      tileTitle="Your total balance"
+      paymail={currentUser?.paymail}
+      titleIcon={<AccountBalanceWalletIcon />}
+    >
       <Row>
         <Column>
           <BalanceValue mainValue>
