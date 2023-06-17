@@ -50,7 +50,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
 
   return (
     <UserMenuWrapper>
-      <MenuButton onClick={(event) => userMenuHandler(event)}>
+      <MenuButton variant="transparent" onClick={(event) => userMenuHandler(event)}>
         <span>{userEmail}</span>
         <Avatar>
           <PersonIcon />
@@ -59,7 +59,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
       {userMenu && (
         <MenuList>
           <MenuElement>
-            <MenuButton onClick={() => logoutModalHandler()}>
+            <MenuButton variant="transparent" onClick={() => logoutModalHandler()}>
               Logout
               <LogoutIcon />
             </MenuButton>

@@ -2,6 +2,7 @@ import { Column, Row } from '@/styles/grid'
 import { DashboardTile } from '@/components/DashboardTile'
 import { useMediaMatch } from '@/hooks/useMediaMatch'
 import { AccountSummary } from '@/components/AccountSummary'
+import { TransferForm } from '@/components/TransferForm'
 
 export const Dashboard = () => {
   const lgMatch = useMediaMatch('lg')
@@ -18,7 +19,7 @@ export const Dashboard = () => {
         </Column>
         <Column percentageWidth={lgMatch ? 30 : 100}>
           <AccountSummary />
-          <DashboardTile tileTitle="New Transaction" />
+          <TransferForm />
         </Column>
       </Row>
     </>

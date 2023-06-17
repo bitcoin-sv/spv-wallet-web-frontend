@@ -14,12 +14,12 @@ export const Footer = () => {
 
             <Navigation>
               <NavElement>
-                <Button to="/terms-and-conditions" isLink small>
+                <Button to="/terms-and-conditions" variant="transparent" isLink small>
                   terms and conditions
                 </Button>
               </NavElement>
               <NavElement>
-                <Button to="/privacy-policy" isLink small>
+                <Button to="/privacy-policy" variant="transparent" isLink small>
                   privacy policy
                 </Button>
               </NavElement>
