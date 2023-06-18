@@ -6,12 +6,11 @@ import { useAuthorization } from '@/providers'
 
 export const AccountSummary = () => {
   const { authorization } = useAuthorization()
-  const currentUser = authorization
 
   return (
     <DashboardTile
       tileTitle="Your total balance"
-      paymail={currentUser?.paymail}
+      paymail={authorization?.paymail}
       titleIcon={<AccountBalanceWalletIcon />}
     >
       <Row>

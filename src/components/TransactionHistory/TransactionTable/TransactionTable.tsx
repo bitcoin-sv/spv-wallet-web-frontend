@@ -4,8 +4,16 @@ import {
   Table,
   TableWrapper,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
+import { Pagination } from '@/components/Pagination'
+import { useState } from 'react'
 
 export const TransactionTable = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1)
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+  }
+
   return (
     <>
       <CurrentPage>
@@ -96,6 +104,7 @@ export const TransactionTable = () => {
           </tbody>
         </Table>
       </TableWrapper>
+      <Pagination totalItems={50} itemsPerPage={10} currentPage={currentPage} onPageChange={handlePageChange} />
     </>
   )
 }
