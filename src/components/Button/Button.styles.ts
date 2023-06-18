@@ -30,6 +30,7 @@ export const getButtonColorVariant = ({ variant }: ButtonProps) => {
   if (variant === 'transparent') {
     return css`
       background: transparent;
+      border: none;
     `
   }
   if (variant === 'reject') {

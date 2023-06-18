@@ -12,4 +12,5 @@ export const colors = {
   inputEffectBorder: 'rgba(255, 201, 111, 1)',
   balanceValue: '#8d85f4',
   balanceMainValue: '#fdc54f',
+  tableLink: '#fed06e',
 }

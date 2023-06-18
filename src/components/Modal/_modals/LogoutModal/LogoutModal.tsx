@@ -1,13 +1,13 @@
 import { Modal } from '@/components/Modal'
 import { FC } from 'react'
 
-interface ModalLogoutProps {
+interface LogoutModalProps {
   open: boolean
   secondaryButtonOnClickHandler?: () => void
   primaryButtonOnClickHandler?: () => void
 }
 
-export const ModalLogout: FC<ModalLogoutProps> = ({
+export const LogoutModal: FC<LogoutModalProps> = ({
   open,
   primaryButtonOnClickHandler,
   secondaryButtonOnClickHandler,
