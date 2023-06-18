@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { sizes } from '@/styles'
+import { colors, sizes } from '@/styles'
 import { Button } from '@/components/Button'
 import { media } from '@/styles/media'
 
@@ -9,11 +9,16 @@ export const PaginationList = styled.ul`
   margin: ${sizes(4)} 0 0;
 `
 
-export const PaginationButton = styled(Button)`
+interface PaginationButtonProps {
+  isActive: boolean
+}
+
+export const PaginationButton = styled(Button)<PaginationButtonProps>`
   padding: ${sizes(2)};
   font-size: 18px;
   box-shadow: none;
   margin-right: ${sizes(1)};
+  background: ${({ isActive }) => (isActive ? colors.userMenuBackground : 'initial')};
 
   ${media.md} {
     font-size: 22px;
@@ -23,9 +28,5 @@ export const PaginationButton = styled(Button)`
 
   &:hover {
     text-decoration: underline;
-  }
-
-  &.active {
-    background: rgba(255, 255, 255, 0.4);
   }
 `

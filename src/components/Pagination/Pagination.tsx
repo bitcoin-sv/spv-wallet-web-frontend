@@ -23,10 +23,10 @@ export const Pagination: FC<PaginationProps> = ({ totalItems, itemsPerPage, curr
     <nav>
       <PaginationList>
         {pageNumbers.map((pageNumber) => (
-          <li key={pageNumber} className={pageNumber === currentPage ? 'page-item active' : 'page-item'}>
+          <li key={pageNumber}>
             <PaginationButton
               variant="transparent"
-              className={pageNumber === currentPage ? 'page-item active' : 'page-item'}
+              isActive={pageNumber === currentPage}
               onClick={() => handlePageChange(pageNumber)}
             >
               {pageNumber}
