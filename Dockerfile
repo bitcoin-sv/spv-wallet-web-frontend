@@ -20,7 +20,7 @@ COPY . .
 
 # App final stage
 # serving the production build
-FROM nginx:alpine
+FROM node:18-alpine
 
 WORKDIR /App
 
