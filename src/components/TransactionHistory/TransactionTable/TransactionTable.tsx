@@ -7,6 +7,7 @@ import {
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
 import { useState } from 'react'
+import { DetailsTypes, TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
 
 const MOCKED_TRANSACTIONS = [
   [
@@ -180,6 +181,7 @@ const MOCKED_TRANSACTIONS = [
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [transactionDetails, setTransactionDetails] = useState<DetailsTypes | null>(null)
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -211,7 +213,20 @@ export const TransactionTable = () => {
               return (
                 <tr key={index}>
                   <td>
-                    <IdLink variant="transparent" isLink isTextLink>
+                    <IdLink
+                      variant="transparent"
+                      isLink
+                      isTextLink
+                      onClick={() =>
+                        setTransactionDetails({
+                          id: transaction.id,
+                          timestamp: transaction.timestamp,
+                          status: transaction.status,
+                          direction: transaction.direction,
+                          amount: transaction.value,
+                        })
+                      }
+                    >
                       {transaction.id}
                     </IdLink>
                   </td>
@@ -233,6 +248,11 @@ export const TransactionTable = () => {
           onPageChange={handlePageChange}
         />
       )}
+      <TransactionDetailsModal
+        open={transactionDetails !== null}
+        transactionDetails={transactionDetails}
+        primaryButtonOnClickHandler={() => setTransactionDetails(null)}
+      />
     </>
   )
 }

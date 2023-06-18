@@ -15,10 +15,12 @@ export const ModalWrapper = styled.div`
   align-items: center;
   background: ${colors.modalWrapperBackground};
   backdrop-filter: blur(10px);
+  z-index: 9;
 `
 
 export const ModalContent = styled.div`
   width: 100%;
+  max-height: 100%;
   padding: ${sizes(4)} ${sizes(6)};
   margin: 0 ${sizes(4)};
   background: ${colors.lightPrimary};
@@ -26,6 +28,7 @@ export const ModalContent = styled.div`
   box-shadow: ${variables.shadow.tileShadow};
   color: ${colors.darkPrimary};
   text-align: center;
+  overflow-y: auto;
 
   ${media.md} {
     width: auto;
