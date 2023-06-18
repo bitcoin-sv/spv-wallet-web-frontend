@@ -6,11 +6,16 @@ import { Input } from '@/components/Input'
 import { Column, Row } from '@/styles/grid'
 import { FormEvent, useState } from 'react'
 import { Loader } from '@/components/Loader'
+import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
+import { EMAIL_REGEX } from '@/utils/constants'
+import { ErrorBar } from '@/components/ErrorBar'
 
 export const TransferForm = () => {
   const [paymail, setPaymail] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
+  const [errors, setErrors] = useState<string>('')
 
   const sendButtonDisabled = !paymail || !amount
   const cancelButtonDisabled = !paymail && !amount
@@ -18,30 +23,36 @@ export const TransferForm = () => {
   const cancelTransactionHandler = () => {
     setPaymail('')
     setAmount('')
+    setErrors('')
   }
 
   const onSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setLoading(true)
 
-    const transactionDetails = {
-      paymail: paymail,
-      amount: amount,
+    if (!paymail.match(EMAIL_REGEX)) {
+      setErrors('Invalid paymail address!')
+      return
     }
 
-    // Fake transaction sending
-    // to remove after connection with API
-    setTimeout(() => {
-      alert('You sent ' + transactionDetails.amount + ' to ' + transactionDetails.paymail)
-      console.log(transactionDetails)
+    setLoading(true)
+    setTransactionData({ paymail: paymail, amount: amount })
+  }
 
-      setPaymail('')
-      setAmount('')
-      setLoading(false)
-    }, 1000)
-    // END OF
-    // Fake transaction sending
-    // to remove after connection with API
+  const onCancelTransactionHandler = () => {
+    setTransactionData(null)
+    setLoading(false)
+    if (paymail.match(EMAIL_REGEX)) {
+      setErrors('')
+    }
+  }
+
+  const onConfirmTransactionHandler = () => {
+    console.log('transaction sent: ', transactionData)
+    setTransactionData(null)
+    setAmount('')
+    setPaymail('')
+    setLoading(false)
+    setErrors('')
   }
 
   return (
@@ -70,6 +81,7 @@ export const TransferForm = () => {
                 onChange={(event) => setAmount(event.target.value)}
                 value={amount}
               />
+              {errors && <ErrorBar errorMsg={errors} />}
             </Column>
           </Row>
 
@@ -93,6 +105,12 @@ export const TransferForm = () => {
           </Row>
         </fieldset>
       </form>
+      <TransactionConfirmModal
+        open={!!transactionData}
+        transactionData={transactionData}
+        primaryButtonOnClickHandler={() => onCancelTransactionHandler()}
+        secondaryButtonOnClickHandler={() => onConfirmTransactionHandler()}
+      />
     </DashboardTile>
   )
 }
