@@ -4,25 +4,47 @@ import { BalanceValue, Currency } from '@/components/AccountSummary/AccountSumma
 import { Column, Row } from '@/styles/grid'
 import { useAuthorization } from '@/providers'
 
+interface CurrencyRates {
+  usd?: number
+  bsv?: number
+  satoshis?: number
+  eur?: number
+}
+
+interface AccountDetails {
+  balance: CurrencyRates | undefined
+  email: string | undefined
+  paymail: string | undefined
+}
+
 export const AccountSummary = () => {
   const { authorization } = useAuthorization()
+
+  const accountDetails: AccountDetails = {
+    balance: authorization?.balance,
+    email: authorization?.email,
+    paymail: authorization?.paymail,
+  }
 
   return (
     <DashboardTile
       tileTitle="Your total balance"
-      paymail={authorization?.paymail}
+      paymail={accountDetails.paymail}
       titleIcon={<AccountBalanceWalletIcon />}
     >
       <Row>
         <Column>
           <BalanceValue mainValue>
-            1 000 <Currency>BSV</Currency>
+            {accountDetails.balance?.bsv || 'unknown value'} <Currency>BSV</Currency>
           </BalanceValue>
           <BalanceValue>
-            24 950 <Currency>USD</Currency>
+            {accountDetails.balance?.satoshis || 'unknown value'} <Currency>SATOSHIS</Currency>
           </BalanceValue>
           <BalanceValue>
-            22 860 <Currency>EUR</Currency>
+            {accountDetails.balance?.usd || 'unknown value'} <Currency>USD</Currency>
+          </BalanceValue>
+          <BalanceValue>
+            {accountDetails.balance?.eur || 'unknown value'} <Currency>EUR</Currency>
           </BalanceValue>
         </Column>
       </Row>
