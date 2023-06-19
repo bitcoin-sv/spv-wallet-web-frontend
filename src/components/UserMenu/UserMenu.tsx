@@ -5,6 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { LogoutModal } from '@/components/Modal'
 import { useNavigate } from 'react-router-dom'
 import { useAuthorization } from '@/providers'
+import { logoutUser } from '@/api/requests/Logout'
 
 interface MenuProps {
   userEmail?: string
@@ -42,10 +43,23 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
   }
 
   const logoutHandler = () => {
-    console.log('user logged out')
-    closeModal()
-    setAuthorization(null)
-    Navigate('/')
+    logoutUser()
+      .then((response) => {
+        //status 200 - this endpoint has no response
+        if (response === undefined || response === null) {
+          closeModal()
+          setAuthorization(null)
+          Navigate('/')
+        }
+      })
+      .catch((error) => {
+        // the case when user was logged out after session expiration
+        if (error.status === 401) {
+          closeModal()
+          setAuthorization(null)
+          Navigate('/')
+        }
+      })
   }
 
   return (
