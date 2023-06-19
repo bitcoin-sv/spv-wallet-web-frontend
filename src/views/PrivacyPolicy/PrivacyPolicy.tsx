@@ -1,10 +1,15 @@
 import { ViewContent } from '@/components/_layout/ViewContent'
-import { Row } from '@/styles/grid'
+import { Column, Row } from '@/styles/grid'
+import { PrivacyPolicyContent } from '@/components/LegalContent/_content/'
 
 export const PrivacyPolicy = () => {
   return (
     <ViewContent>
-      <Row>Here we will place privacy policy of our App</Row>
+      <Row>
+        <Column>
+          <PrivacyPolicyContent />
+        </Column>
+      </Row>
     </ViewContent>
   )
 }
