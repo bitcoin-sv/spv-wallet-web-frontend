@@ -55,7 +55,7 @@ export const AfterRegistrationSteps: FC<ListProps> = ({ mnemonic, paymail }) => 
         <DataBox>
           <BoxLabel>Mnemonic:</BoxLabel>
           <DataText>{mnemonic}</DataText>
-          <CopyButton isOnlyIconButton onClick={() => copyToClipboardHandler(mnemonic)}>
+          <CopyButton variant="transparent" isOnlyIconButton onClick={() => copyToClipboardHandler(mnemonic)}>
             <ContentCopyIcon />
             <SrOnlySpan>Copy to clipboard</SrOnlySpan>
           </CopyButton>
@@ -71,7 +71,7 @@ export const AfterRegistrationSteps: FC<ListProps> = ({ mnemonic, paymail }) => 
         <DataBox>
           <BoxLabel>Paymail:</BoxLabel>
           <DataText>{paymail}</DataText>
-          <CopyButton isOnlyIconButton onClick={() => copyToClipboardHandler(paymail)}>
+          <CopyButton variant="transparent" isOnlyIconButton onClick={() => copyToClipboardHandler(paymail)}>
             <ContentCopyIcon />
             <SrOnlySpan>Copy to clipboard</SrOnlySpan>
           </CopyButton>
@@ -81,7 +81,7 @@ export const AfterRegistrationSteps: FC<ListProps> = ({ mnemonic, paymail }) => 
       <StepElement>
         <StepHeadline>Log in to your wallet!</StepHeadline>
         <StepDesc>Great! You are ready to start using your wallet! click below and go to the log in page:</StepDesc>
-        <Button to="/" isLink underline isTextLink>
+        <Button to="/" variant="transparent" isLink underline isTextLink>
           Log in now!
         </Button>
       </StepElement>

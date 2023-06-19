@@ -62,13 +62,13 @@ export const App = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [errors, setError] = useState('')
-
   useMountEffect(() => {
     getUser()
       .then((response) => {
         const currentUserData: LoggedInUser = {
           email: response.email,
           paymail: response.paymail,
+          balance: response.balance,
         }
 
         if (currentUserData) {
@@ -77,7 +77,7 @@ export const App = () => {
         }
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        if (error.response.status === 401 || error.response.status === 400) {
           setAuthorization(null)
           navigate('/')
           setLoading(false)

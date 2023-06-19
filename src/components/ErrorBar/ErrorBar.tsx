@@ -22,7 +22,7 @@ export const ErrorBar: FC<ErrorProps> = ({ errorMsg, withReloadButton }) => {
         <ErrorText>{errorMsg}</ErrorText>
       </BarWrapper>
       {withReloadButton && (
-        <ReloadButton aria-label="reload app" onClick={reloadHandler}>
+        <ReloadButton variant="primary" aria-label="reload app" onClick={reloadHandler}>
           Reload app
         </ReloadButton>
       )}

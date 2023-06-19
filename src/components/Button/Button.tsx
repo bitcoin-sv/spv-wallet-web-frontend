@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react'
 
 import { getLinkPropsFromTo } from '@/utils/buttons'
 
-import { ButtonStyled } from './Button.styles'
+import { ButtonStyled, ButtonVariants } from './Button.styles'
 import { To } from 'history'
 
 export type ButtonProps = {
@@ -16,6 +16,7 @@ export type ButtonProps = {
   to?: To
   newTab?: boolean
   small?: boolean
+  variant: ButtonVariants
 } & PropsWithChildren &
   ButtonHTMLAttributes<HTMLButtonElement>
 export const Button: FC<ButtonProps> = ({
@@ -28,6 +29,7 @@ export const Button: FC<ButtonProps> = ({
   to,
   newTab,
   small,
+  variant,
   ...rest
 }) => {
   return (
@@ -39,6 +41,7 @@ export const Button: FC<ButtonProps> = ({
       underline={underline}
       isLink={isLink}
       small={small}
+      variant={variant}
       {...getLinkPropsFromTo(to, newTab)}
     >
       {children}

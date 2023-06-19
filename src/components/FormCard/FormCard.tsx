@@ -37,7 +37,9 @@ export const FormCard: FC<CardProps> = ({
             <FormLegend>{formLegend}</FormLegend>
             {children}
             <ActionButtons>
-              <Button fullWidth>{(cardType === 'login' && 'Log in') || (cardType === 'signup' && 'Sign up')}</Button>
+              <Button fullWidth variant="primary">
+                {(cardType === 'login' && 'Log in') || (cardType === 'signup' && 'Sign up')}
+              </Button>
             </ActionButtons>
           </fieldset>
         </Form>
@@ -51,7 +53,12 @@ export const FormCard: FC<CardProps> = ({
             {(cardType === 'login' && "Don't have an account yet?") ||
               (cardType === 'signup' && 'Already have an account?')}
           </p>
-          <Button to={(cardType === 'login' && '/signup') || (cardType === 'signup' && '/') || '/'} isLink underline>
+          <Button
+            to={(cardType === 'login' && '/signup') || (cardType === 'signup' && '/') || '/'}
+            variant="transparent"
+            isLink
+            underline
+          >
             {(cardType === 'login' && 'Sign up now!') || (cardType === 'signup' && 'Log in now!')}
           </Button>
         </CardFooter>

@@ -1,6 +1,5 @@
 import {
   ButtonsWrapper,
-  ButtonVariants,
   ModalButton,
   ModalContent,
   ModalHeadline,
@@ -12,7 +11,6 @@ import { ButtonProps } from '@/components/Button'
 
 type ModalButtonProps = {
   text: string
-  variant?: ButtonVariants
   primaryButtonOnClickHandler?: () => void
 } & ButtonProps
 

@@ -17,7 +17,12 @@ export const Header = () => {
       <Row>
         <Column>
           <HeaderContent authorizationState={authorizationStateAsBoolean}>
-            <LogoLink to={authorization ? '/dashboard' : '/'} authorizationState={authorizationStateAsBoolean} isLink>
+            <LogoLink
+              to={authorization ? '/dashboard' : '/'}
+              authorizationState={authorizationStateAsBoolean}
+              variant="transparent"
+              isLink
+            >
               <Logo src="/logo.png" alt="bux wallet logo" width="250" height="53" />
               <SrOnlySpan>Go back to the main page</SrOnlySpan>
             </LogoLink>
@@ -25,7 +30,7 @@ export const Header = () => {
               {authorization ? (
                 <>
                   <NavElement>
-                    <Button to="/dashboard" isLink>
+                    <Button to="/dashboard" variant="transparent" isLink>
                       Dashboard
                     </Button>
                   </NavElement>
@@ -33,12 +38,12 @@ export const Header = () => {
               ) : (
                 <>
                   <NavElement>
-                    <Button to="/" isLink>
+                    <Button to="/" variant="transparent" isLink>
                       Log In
                     </Button>
                   </NavElement>
                   <NavElement>
-                    <Button to="/signup" isLink>
+                    <Button to="/signup" variant="transparent" isLink>
                       Sign Up
                     </Button>
                   </NavElement>

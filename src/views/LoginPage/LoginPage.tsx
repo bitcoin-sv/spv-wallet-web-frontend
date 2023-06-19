@@ -14,7 +14,6 @@ export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [errors, setErrors] = useState<string>('')
-  const [paymail, setPaymail] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
   const { setAuthorization } = useAuthorization()
@@ -40,10 +39,10 @@ export const LoginPage = () => {
     loginUser(User)
       .then((response) => {
         setErrors('')
-        setPaymail(response.paymail)
         const LoggedInUser: LoggedInUser = {
           email: email,
-          paymail: paymail,
+          paymail: response.paymail,
+          balance: response.balance,
         }
         setAuthorization(LoggedInUser)
         navigate('/dashboard')

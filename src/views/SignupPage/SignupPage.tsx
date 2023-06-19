@@ -109,7 +109,7 @@ export const SignupPage = () => {
               labelContent={
                 <>
                   I agree to the{' '}
-                  <Button to="/terms-and-conditions" isLink underline isTextLink>
+                  <Button to="/terms-and-conditions" variant="transparent" isLink underline isTextLink>
                     terms and conditions
                   </Button>{' '}
                   *
@@ -123,7 +123,7 @@ export const SignupPage = () => {
               labelContent={
                 <>
                   I accept the{' '}
-                  <Button to="/privacy-policy" isLink underline isTextLink>
+                  <Button to="/privacy-policy" variant="transparent" isLink underline isTextLink>
                     privacy policy
                   </Button>{' '}
                   *

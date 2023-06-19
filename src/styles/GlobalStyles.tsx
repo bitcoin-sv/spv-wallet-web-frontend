@@ -2,7 +2,7 @@ import { Global, css } from '@emotion/react'
 import emotionNormalize from 'emotion-normalize'
 
 import { colors } from './colors'
-import { typography } from './typography'
+import { getHeadlineSizes, typography } from './typography'
 import { sizes } from './sizes'
 import { variables } from '@/styles/variables'
 import styled from '@emotion/styled'
@@ -27,6 +27,8 @@ const globalStyles = css`
     background: ${colors.primaryBackground};
     background: ${variables.gradients.mainBackground};
     color: ${colors.lightPrimary};
+
+    ${getHeadlineSizes()}
   }
 
   html {

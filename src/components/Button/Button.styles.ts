@@ -7,6 +7,8 @@ import { fontWeight } from '@/styles'
 import { variables } from '@/styles/variables'
 import { media } from '@/styles/media'
 
+export type ButtonVariants = 'primary' | 'transparent' | 'accept' | 'reject'
+
 interface ButtonProps {
   isLink?: boolean
   fullWidth?: boolean
@@ -16,6 +18,31 @@ interface ButtonProps {
   isTextLink?: boolean
   isOnlyIconButton?: boolean
   small?: boolean
+  variant: ButtonVariants
+}
+
+export const getButtonColorVariant = ({ variant }: ButtonProps) => {
+  if (variant === 'primary') {
+    return css`
+      background: ${variables.gradients.buttonPrimaryBackground};
+    `
+  }
+  if (variant === 'transparent') {
+    return css`
+      background: transparent;
+      border: none;
+    `
+  }
+  if (variant === 'reject') {
+    return css`
+      background: linear-gradient(90deg, rgba(255, 141, 104, 1) 0%, rgba(255, 119, 84, 1) 100%);
+    `
+  }
+  if (variant === 'accept') {
+    return css`
+      background: linear-gradient(90deg, rgba(76, 228, 246, 1) 0%, rgba(42, 163, 219, 1) 100%);
+    `
+  }
 }
 
 export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconButton }: ButtonProps) => {
@@ -89,10 +116,10 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
   return css`
     padding: ${sizes(3)};
     border-radius: ${variables.doubleBorderRadius};
-    background: ${variables.gradients.buttonPrimaryBackground};
-    border: 2px solid transparent;
+    border: none;
     box-shadow: ${variables.shadow.buttonShadow};
-    outline: transparent;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
     transition: all 0.2s ease-in-out;
     font-weight: ${fontWeight.bold};
 
@@ -104,6 +131,10 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
     &:focus,
     &:focus-visible {
       box-shadow: ${variables.shadow.buttonEffectShadow};
+    }
+
+    &:focus-visible {
+      outline-color: ${colors.lightPrimary};
     }
   `
 }
@@ -125,9 +156,9 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   }
 
   ${getDetailedStyles}
+  ${getButtonColorVariant}
 
   &:focus-visible {
-    outline-color: transparent;
-    border-color: ${colors.lightPrimary};
+    outline-color: ${colors.lightPrimary};
   }
 `

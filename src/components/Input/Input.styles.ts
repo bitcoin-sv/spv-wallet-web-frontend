@@ -18,6 +18,7 @@ export const LabelStyled = styled.label`
   line-height: 1.4;
   color: ${colors.lightPrimary};
   transition: all 0.2s ease;
+  pointer-events: none;
 
   ${media.sm} {
     top: ${sizes(5)};

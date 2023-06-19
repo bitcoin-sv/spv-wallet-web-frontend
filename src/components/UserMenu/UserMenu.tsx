@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import PersonIcon from '@mui/icons-material/Person'
 import { Avatar, MenuButton, MenuElement, MenuList, UserMenuWrapper } from '@/components/UserMenu/UserMenu.styles'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { ModalLogout } from '@/components/Modal'
+import { LogoutModal } from '@/components/Modal'
 import { useNavigate } from 'react-router-dom'
 import { useAuthorization } from '@/providers'
 
@@ -50,7 +50,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
 
   return (
     <UserMenuWrapper>
-      <MenuButton onClick={(event) => userMenuHandler(event)}>
+      <MenuButton variant="transparent" onClick={(event) => userMenuHandler(event)}>
         <span>{userEmail}</span>
         <Avatar>
           <PersonIcon />
@@ -59,14 +59,14 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
       {userMenu && (
         <MenuList>
           <MenuElement>
-            <MenuButton onClick={() => logoutModalHandler()}>
+            <MenuButton variant="transparent" onClick={() => logoutModalHandler()}>
               Logout
               <LogoutIcon />
             </MenuButton>
           </MenuElement>
         </MenuList>
       )}
-      <ModalLogout
+      <LogoutModal
         open={modalOpen}
         primaryButtonOnClickHandler={closeModal}
         secondaryButtonOnClickHandler={logoutHandler}

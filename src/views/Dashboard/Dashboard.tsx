@@ -1,6 +1,8 @@
 import { Column, Row } from '@/styles/grid'
-import { ComponentTile } from '@/components/ComponentTile'
 import { useMediaMatch } from '@/hooks/useMediaMatch'
+import { AccountSummary } from '@/components/AccountSummary'
+import { TransferForm } from '@/components/TransferForm'
+import { TransactionHistory } from '@/components/TransactionHistory'
 
 export const Dashboard = () => {
   const lgMatch = useMediaMatch('lg')
@@ -13,12 +15,11 @@ export const Dashboard = () => {
       </Row>
       <Row smallReverse>
         <Column percentageWidth={lgMatch ? 70 : 100}>
-          <ComponentTile>Table</ComponentTile>
+          <TransactionHistory />
         </Column>
         <Column percentageWidth={lgMatch ? 30 : 100}>
-          <ComponentTile>User Balance</ComponentTile>
-
-          <ComponentTile>New Transaction</ComponentTile>
+          <AccountSummary />
+          <TransferForm />
         </Column>
       </Row>
     </>
