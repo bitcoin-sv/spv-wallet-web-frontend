@@ -34,10 +34,10 @@ CMD bash
 FROM nginx:1.25.1-alpine
 
 # We need some custom nginx configuration, which we import here
-COPY nginx.default.conf /etc/nginx/conf.d/default.conf
+COPY release/nginx.default.conf /etc/nginx/conf.d/default.conf
 
 # Copy our production build from the first step to nginx's html directory
 WORKDIR /usr/share/nginx/html
 COPY --from=build /app/dist/ .
 
-EXPOSE 5000
+EXPOSE 80
