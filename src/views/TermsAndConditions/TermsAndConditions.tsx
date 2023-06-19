@@ -1,10 +1,15 @@
 import { ViewContent } from '@/components/_layout/ViewContent'
-import { Row } from '@/styles/grid'
+import { Column, Row } from '@/styles/grid'
+import { TermsAndConditionsContent } from '@/components/LegalContent'
 
 export const TermsAndConditions = () => {
   return (
     <ViewContent>
-      <Row>Here we will place terms and condition of our App</Row>
+      <Row>
+        <Column>
+          <TermsAndConditionsContent />
+        </Column>
+      </Row>
     </ViewContent>
   )
 }
