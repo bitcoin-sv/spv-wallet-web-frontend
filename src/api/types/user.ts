@@ -14,9 +14,3 @@ export interface LoggedInUser {
   paymail: string
   balance: object
 }
-
-export interface UserDetails {
-  email: string
-  paymail: string
-  userId: number
-}

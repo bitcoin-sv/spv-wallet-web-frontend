@@ -51,9 +51,6 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({
           <DataName>Amount in Satoshis:</DataName> <span>{transactionDetails?.amount}</span>
         </ListElement>
         <ListElement>
-          <DataName>Amount in EUR:</DataName> <span>{transactionDetails?.amount}</span>
-        </ListElement>
-        <ListElement>
           <DataName>Amount in USD:</DataName> <span>{transactionDetails?.amount}</span>
         </ListElement>
         <ListElement>
