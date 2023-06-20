@@ -26,9 +26,6 @@ ENV NODE_ENV=production
 # Build project into dist
 RUN yarn run build
 
-# This is just for debugging purposes
-CMD bash
-
 # App final stage
 # serving the production build
 FROM nginx:1.25.1-alpine
