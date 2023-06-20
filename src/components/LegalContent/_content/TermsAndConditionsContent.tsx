@@ -36,7 +36,7 @@ export const TermsAndConditionsContent = () => {
       </p>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, repellat.{' '}
-        <TextLink isLink isTextLink underline to="https://#">
+        <TextLink variant="transparent" isLink isTextLink underline to="https://#">
           Link to some other page
         </TextLink>
       </p>
@@ -45,7 +45,7 @@ export const TermsAndConditionsContent = () => {
         laudantium minima, nostrum officiis praesentium rerum sequi totam velit. Animi cupiditate, facilis in itaque
         labore quis ratione rerum voluptatem! Adipisci alias animi consequuntur, debitis dolore, dolores error et harum
         illum iure maiores mollitia{' '}
-        <TextLink isLink isTextLink underline to="https://#">
+        <TextLink variant="transparent" isLink isTextLink underline to="https://#">
           Link to some other page
         </TextLink>{' '}
         nemo non quidem ratione soluta velit voluptatem. Accusantium aperiam assumenda consequatur error et ex illum
@@ -88,7 +88,7 @@ export const TermsAndConditionsContent = () => {
       <LegalList>
         <li>
           Lorem ipsum dolor sit amet,{' '}
-          <TextLink isLink isTextLink underline to="https://#">
+          <TextLink variant="transparent" isLink isTextLink underline to="https://#">
             Link to some other page
           </TextLink>{' '}
           consectetur adipisicing elit.{' '}
@@ -97,7 +97,7 @@ export const TermsAndConditionsContent = () => {
         <li>Consectetur adipisicing elit. Culpa, minima?</li>
         <li>
           Consectetur adipisicing!
-          <TextLink isLink isTextLink underline to="https://#">
+          <TextLink variant="transparent" isLink isTextLink underline to="https://#">
             Link to some other page
           </TextLink>{' '}
         </li>
@@ -107,13 +107,13 @@ export const TermsAndConditionsContent = () => {
       <h3>Contact us:</h3>
       <p>
         by email:{' '}
-        <TextLink isLink isTextLink underline to="https://#">
+        <TextLink variant="transparent" isLink isTextLink underline to="https://#">
           contact@bux-wallet.com
         </TextLink>{' '}
       </p>
       <p>
         by phone:{' '}
-        <TextLink isLink isTextLink underline to="https://#">
+        <TextLink variant="transparent" isLink isTextLink underline to="https://#">
           600 - 000 000 000
         </TextLink>{' '}
       </p>
