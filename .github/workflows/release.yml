@@ -1,27 +1,35 @@
 name: release
 
-on: 
-  push: 
+on:
+  push:
     tags:
       - 'v*.*.*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v2
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+
+      - name: Set tag name
+        id: set_tag_name
+        run: echo "::set-output name=tag_name::${{ github.ref_name/refs\/tags\// }}/bux-wallet-frontend${{ github.ref_name/refs\/tags\// }}"
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./release/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/bux-wallet-frontend:${{github.ref_name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ steps.set_tag_name.outputs.tag_name }}
