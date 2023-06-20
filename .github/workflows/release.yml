@@ -34,4 +34,4 @@ jobs:
           context: .
           file: ./release/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/bux-wallet-frontend:${VERSION}
+          tags: ${{ secrets.DOCKER_USERNAME }}/bux-wallet-frontend:${{ VERSION }}
