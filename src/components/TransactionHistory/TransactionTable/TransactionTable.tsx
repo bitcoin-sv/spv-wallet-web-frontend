@@ -102,25 +102,26 @@ export const TransactionTable = () => {
                     <SmallTd>
                       {transaction.status === 'confirmed' ? (
                         <ContentWithInfoTip
+                          uppercase
                           data-value={transaction.status}
                           isConfirmed={transaction.status === 'confirmed'}
                         >
                           <SrOnlySpan>confirmed</SrOnlySpan>
                         </ContentWithInfoTip>
                       ) : (
-                        <ContentWithInfoTip data-value={transaction.status}>
+                        <ContentWithInfoTip uppercase data-value={transaction.status}>
                           <SrOnlySpan>unconfirmed</SrOnlySpan>
                         </ContentWithInfoTip>
                       )}
                     </SmallTd>
                     <SmallTd>
                       {transaction.direction === 'incoming' ? (
-                        <ContentWithInfoTip data-value={transaction.direction}>
+                        <ContentWithInfoTip uppercase data-value={transaction.direction}>
                           <KeyboardDoubleArrowDownIcon />
                           <SrOnlySpan>incoming</SrOnlySpan>
                         </ContentWithInfoTip>
                       ) : (
-                        <ContentWithInfoTip data-value={transaction.direction}>
+                        <ContentWithInfoTip uppercase data-value={transaction.direction}>
                           <KeyboardDoubleArrowUpIcon />
                           <SrOnlySpan>outgoing</SrOnlySpan>
                         </ContentWithInfoTip>

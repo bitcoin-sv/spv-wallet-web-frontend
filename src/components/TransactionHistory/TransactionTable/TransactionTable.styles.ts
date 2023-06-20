@@ -56,6 +56,7 @@ export const Table = styled.table`
 
 interface ContentWithInfoTip {
   isConfirmed?: boolean
+  uppercase?: boolean
 }
 
 const getContentForBefore = ({ isConfirmed }: ContentWithInfoTip) => {
@@ -85,6 +86,7 @@ export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
     font-size: 12px;
     background: #ff7754;
     transform: translateY(-100%);
+    text-transform: ${({ uppercase }) => (uppercase ? 'uppercase' : 'initial')};
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
