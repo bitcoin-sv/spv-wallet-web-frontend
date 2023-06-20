@@ -32,4 +32,4 @@ jobs:
           context: .
           file: ./release/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ steps.set_tag_name.outputs.tag_name }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/bux-wallet-frontend:${{ steps.set_tag_name.outputs.tag_name/refs\/tags\// }}
