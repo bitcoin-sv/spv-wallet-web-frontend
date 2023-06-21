@@ -29,22 +29,39 @@ export const PageNumber = styled.span`
 `
 
 export const Table = styled.table`
-  width: 920px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   vertical-align: middle;
-  table-layout: fixed;
+
+  ${media.md} {
+    width: 750px;
+    table-layout: fixed;
+  }
+
+  ${media.xl} {
+    width: 920px;
+  }
+
+  th {
+    font-size: 12px;
+  }
 
   tbody {
     vertical-align: top;
   }
+
   td {
     position: relative;
-    padding: ${sizes(2)} 0;
+    padding: ${sizes(2)} ${sizes(1)};
     border-bottom: 1px solid ${colors.lightPrimary};
     text-overflow: ellipsis;
     white-space: nowrap;
     vertical-align: middle;
+
+    ${media.md} {
+      padding: ${sizes(2)} 0;
+    }
 
     &:hover {
       span::after {
@@ -112,29 +129,66 @@ export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
 `
 
 export const LargeTh = styled.th`
-  width: 290px;
+  ${media.md} {
+    width: 270px;
+  }
+
+  ${media.xl} {
+    width: 310px;
+  }
 `
 export const LargeTd = styled.td`
-  width: 290px;
+  ${media.md} {
+    width: 270px;
+  }
+
+  ${media.xl} {
+    width: 310px;
+  }
 `
 
 export const MediumTh = styled.th`
-  width: 180px;
+  ${media.md} {
+    width: 170px;
+  }
+
+  ${media.xl} {
+    width: 200px;
+  }
 `
 export const MediumTd = styled.td`
-  width: 180px;
+  ${media.md} {
+    width: 170px;
+  }
+
+  ${media.xl} {
+    width: 200px;
+  }
 `
 
 export const SmallTh = styled.th`
-  width: 80px;
+  ${media.md} {
+    width: 70px;
+  }
+
+  ${media.xl} {
+    width: 100px;
+  }
 `
 export const SmallTd = styled.td`
-  width: 80px;
+  ${media.md} {
+    width: 70px;
+  }
+
+  ${media.xl} {
+    width: 100px;
+  }
 `
 
 export const IdLink = styled(Button)`
   display: block;
   width: inherit;
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

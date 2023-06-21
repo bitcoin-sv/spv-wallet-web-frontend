@@ -74,7 +74,7 @@ export const TransactionTable = () => {
             <Table>
               <thead>
                 <tr>
-                  <LargeTh>ID</LargeTh>
+                  <LargeTh>Sender/receiver</LargeTh>
                   <MediumTh>Amount</MediumTh>
                   <SmallTh>Status</SmallTh>
                   <SmallTh>Direction</SmallTh>
@@ -86,16 +86,15 @@ export const TransactionTable = () => {
                   return (
                     <tr key={index}>
                       <LargeTd>
-                        <ContentWithInfoTip data-value={transaction.id}>
-                          <IdLink
-                            variant="transparent"
-                            isLink
-                            isTextLink
-                            onClick={() => setTransactionDetailsModal(transaction.id)}
-                          >
-                            {transaction.id}
-                          </IdLink>
-                        </ContentWithInfoTip>
+                        <IdLink
+                          variant="transparent"
+                          isLink
+                          isTextLink
+                          onClick={() => setTransactionDetailsModal(transaction.id)}
+                        >
+                          {transaction.direction === 'incoming' && '$Sender'}
+                          {transaction.direction === 'outgoing' && '$Receiver'}
+                        </IdLink>
                       </LargeTd>
                       <MediumTd>{transaction.totalValue} sat.</MediumTd>
                       <SmallTd>
