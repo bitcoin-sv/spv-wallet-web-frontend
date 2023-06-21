@@ -765,6 +765,11 @@
   resolved "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.3.tgz"
   integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
 
+"@types/scroll-lock@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/scroll-lock/-/scroll-lock-2.1.0.tgz#fe6d8f295f92fc8793e221eec1c0d8d881832524"
+  integrity sha512-KG4pu+bD/s7Tlzv3274suczLNKrATi+9pB1G+kWSgzs55s5Lz9SZSvj2m56XGbFq9HxRV1gdxqZ0wnlq82uj2w==
+
 "@types/semver@^7.3.12":
   version "7.5.0"
   resolved "https://registry.npmjs.org/@types/semver/-/semver-7.5.0.tgz"
@@ -1223,6 +1228,13 @@ damerau-levenshtein@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
+
+date-fns@^2.30.0:
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
+  integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
+  dependencies:
+    "@babel/runtime" "^7.21.0"
 
 debug@^3.2.7:
   version "3.2.7"
@@ -2920,6 +2932,11 @@ scheduler@^0.23.0:
   dependencies:
     loose-envify "^1.1.0"
 
+scroll-lock@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/scroll-lock/-/scroll-lock-2.1.5.tgz#18bb7697f02176cbfd093726c3c972b7cbc9975f"
+  integrity sha512-GN8Lp0AzXbkrPFUUNkMUruiiv019UvarNKE/SnXi+AxZRjMnDc2R22VB9RcUtL4P/uub04cKibmpHKIKTyWwYQ==
+
 semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
@@ -3233,10 +3250,10 @@ vite-plugin-checker@^0.6.0:
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^3.0.2"
 
-vite@^4.3.2:
-  version "4.3.8"
-  resolved "https://registry.npmjs.org/vite/-/vite-4.3.8.tgz"
-  integrity sha512-uYB8PwN7hbMrf4j1xzGDk/lqjsZvCDbt/JC5dyfxc19Pg8kRm14LinK/uq+HSLNswZEoKmweGdtpbnxRtrAXiQ==
+vite@^4.3.8:
+  version "4.3.9"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-4.3.9.tgz#db896200c0b1aa13b37cdc35c9e99ee2fdd5f96d"
+  integrity sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==
   dependencies:
     esbuild "^0.17.5"
     postcss "^8.4.23"

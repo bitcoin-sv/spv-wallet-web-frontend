@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { Button } from '@/components/Button'
 import { sizes } from '@/styles'
-import { media } from '@/styles/media'
 
 export const DetailsList = styled.ul`
   margin-top: ${sizes(8)};
@@ -15,10 +14,6 @@ export const ListElement = styled.li`
 
 export const DataName = styled.strong`
   display: block;
-
-  ${media.md} {
-    display: inline-block;
-  }
 `
 
 export const DetailsLink = styled(Button)`

@@ -8,7 +8,6 @@ interface CurrencyRates {
   usd?: number
   bsv?: number
   satoshis?: number
-  eur?: number
 }
 
 interface AccountDetails {
@@ -35,16 +34,13 @@ export const AccountSummary = () => {
       <Row>
         <Column>
           <BalanceValue mainValue>
-            {accountDetails.balance?.bsv || 'unknown value'} <Currency>BSV</Currency>
+            {accountDetails.balance?.bsv} <Currency>BSV</Currency>
           </BalanceValue>
           <BalanceValue>
-            {accountDetails.balance?.satoshis || 'unknown value'} <Currency>SATOSHIS</Currency>
+            {accountDetails.balance?.satoshis} <Currency>sat.</Currency>
           </BalanceValue>
           <BalanceValue>
-            {accountDetails.balance?.usd || 'unknown value'} <Currency>USD</Currency>
-          </BalanceValue>
-          <BalanceValue>
-            {accountDetails.balance?.eur || 'unknown value'} <Currency>EUR</Currency>
+            {accountDetails.balance?.usd} <Currency>USD</Currency>
           </BalanceValue>
         </Column>
       </Row>

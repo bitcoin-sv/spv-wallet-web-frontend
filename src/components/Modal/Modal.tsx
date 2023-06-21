@@ -6,8 +6,9 @@ import {
   ModalSubheadline,
   ModalWrapper,
 } from '@/components/Modal/Modal.styles'
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import { ButtonProps } from '@/components/Button'
+import { disablePageScroll, enablePageScroll } from 'scroll-lock'
 
 type ModalButtonProps = {
   text: string
@@ -30,6 +31,14 @@ export const Modal: FC<ModalProps> = ({
   secondaryButton,
   children,
 }) => {
+  useEffect(() => {
+    open ? disablePageScroll() : enablePageScroll()
+
+    return () => {
+      enablePageScroll()
+    }
+  }, [open])
+
   return (
     <>
       {open && (

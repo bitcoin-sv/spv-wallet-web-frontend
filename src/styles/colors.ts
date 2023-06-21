@@ -13,4 +13,8 @@ export const colors = {
   balanceValue: '#8d85f4',
   balanceMainValue: '#fdc54f',
   tableLink: '#fed06e',
+  transactionConfirmed: '#7ef67e',
+  transactionUnconfirmed: '#ff3434',
+  transactionIncoming: '#7ef67e',
+  transactionOutgoing: '#ff3434',
 }
