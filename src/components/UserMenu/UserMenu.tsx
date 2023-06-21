@@ -14,6 +14,8 @@ interface MenuProps {
 export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
   const [userMenu, setUserMenu] = useState<boolean>(false)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [errors, setErrors] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
   const Navigate = useNavigate()
   const { setAuthorization } = useAuthorization()
 
@@ -40,25 +42,22 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
 
   const closeModal = () => {
     setModalOpen(false)
+    setErrors('')
   }
 
   const logoutHandler = () => {
+    setLoading(true)
     logoutUser()
-      .then((response) => {
-        //status 200 - this endpoint has no response
-        if (response === undefined || response === null) {
-          closeModal()
-          setAuthorization(null)
-          Navigate('/')
-        }
+      .then(() => {
+        closeModal()
+        setAuthorization(null)
+        Navigate('/')
       })
       .catch((error) => {
-        // the case when user was logged out after session expiration
-        if (error.status === 401) {
-          closeModal()
-          setAuthorization(null)
-          Navigate('/')
-        }
+        error && setErrors('Something went wrong... Please try again!')
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -84,6 +83,8 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
         open={modalOpen}
         primaryButtonOnClickHandler={closeModal}
         secondaryButtonOnClickHandler={logoutHandler}
+        logoutError={errors}
+        loader={loading}
       />
     </UserMenuWrapper>
   )
