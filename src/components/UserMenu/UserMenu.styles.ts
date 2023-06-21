@@ -8,6 +8,7 @@ export const UserMenuWrapper = styled.div`
   position: relative;
   z-index: 1;
   width: 100%;
+  margin-left: auto;
 
   ${media.sm} {
     width: auto;
@@ -22,7 +23,7 @@ export const MenuButton = styled(Button)`
   box-shadow: none;
 
   &:not(li > Button) {
-    max-width: 50%;
+    max-width: 60%;
     padding-left: 0;
     justify-content: flex-end;
     flex-direction: row-reverse;

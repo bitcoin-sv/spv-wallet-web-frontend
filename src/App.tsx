@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { LoginPage } from '@/views/LoginPage'
 import { TermsAndConditions } from '@/views/TermsAndConditions'
 import { PrivacyPolicy } from '@/views/PrivacyPolicy'
@@ -11,7 +11,7 @@ import { useAuthorization } from '@/providers'
 import { Dashboard } from '@/views/Dashboard/Dashboard'
 import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMountEffect } from '@/hooks/useMountEffect'
 import { ErrorBar } from '@/components/ErrorBar'
 
@@ -62,6 +62,9 @@ export const App = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [errors, setError] = useState('')
+
+  const location = useLocation()
+
   useMountEffect(() => {
     getUser()
       .then((response) => {
@@ -91,6 +94,12 @@ export const App = () => {
         setLoading(false)
       })
   })
+
+  useEffect(() => {
+    if (location) {
+      window.scroll(0, 0)
+    }
+  }, [location])
 
   const ROUTES_LIST = authorization ? ROUTES_AUTHENTICATED : ROUTES
 

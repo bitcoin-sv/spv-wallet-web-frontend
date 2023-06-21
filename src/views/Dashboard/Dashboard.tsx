@@ -8,11 +8,6 @@ export const Dashboard = () => {
   const lgMatch = useMediaMatch('lg')
   return (
     <>
-      <Row>
-        <Column>
-          <h2>Dashboard</h2>
-        </Column>
-      </Row>
       <Row smallReverse>
         <Column percentageWidth={lgMatch ? 70 : 100}>
           <TransactionHistory />
