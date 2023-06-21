@@ -45,6 +45,10 @@ export const Table = styled.table`
 
   th {
     font-size: 12px;
+
+    ${media.sm} {
+      font-size: 16px;
+    }
   }
 
   tbody {
