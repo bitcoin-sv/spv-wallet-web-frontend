@@ -18,7 +18,7 @@ services:
       retries: 3
 
   bux-wallet-backend:
-    image: 4chainstudio/bux-wallet-backend:latest
+    image: 4chain/bux-wallet-backend:latest
     environment:
       DB_HOST: 'db'
       BUX_SERVER_URL: 'https://bux.4chain.space/v1'
