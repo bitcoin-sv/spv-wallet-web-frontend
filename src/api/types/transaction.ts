@@ -19,3 +19,9 @@ export interface TransactionDetails {
   createdAt: string
   totalValue: 886
 }
+
+export interface SendNewTransaction {
+  recipient: string
+  satoshis: number
+  password: string
+}

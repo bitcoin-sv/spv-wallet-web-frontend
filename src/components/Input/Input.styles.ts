@@ -3,20 +3,26 @@ import { media } from '@/styles/media'
 import { colors, sizes } from '@/styles'
 import { variables } from '@/styles/variables'
 
+interface InputStyledProps {
+  error?: boolean
+  withIcon?: boolean
+  inputOnLightBackground?: boolean
+}
+
 export const InputWrapper = styled.div`
   position: relative;
   display: block;
   margin: ${sizes(6)} 0;
 `
 
-export const LabelStyled = styled.label`
+export const LabelStyled = styled.label<InputStyledProps>`
   position: absolute;
   top: ${sizes(3)};
   left: ${sizes(5)};
   margin: 0;
   font-size: 14px;
   line-height: 1.4;
-  color: ${colors.lightPrimary};
+  color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
   transition: all 0.2s ease;
   pointer-events: none;
 
@@ -31,20 +37,16 @@ export const LabelStyled = styled.label`
   }
 `
 
-interface InputStyledProps {
-  error?: boolean
-  withIcon?: boolean
-}
-
 export const InputStyled = styled.input<InputStyledProps>`
   width: 100%;
   height: 42px;
   padding: ${({ withIcon }) =>
     withIcon ? `${sizes(2)} ${sizes(12)} ${sizes(2)} ${sizes(5)}` : `${sizes(2)} ${sizes(5)} ${sizes(2)}`};
-  border: 2px solid ${colors.lightPrimary};
+  border: 2px solid
+    ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
   border-radius: ${variables.doubleBorderRadius};
   background-color: ${colors.inputBackground};
-  color: ${colors.lightPrimary};
+  color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
 
   ${media.sm} {
     height: 54px;
@@ -69,12 +71,12 @@ export const InputStyled = styled.input<InputStyledProps>`
     & + label {
       top: -${sizes(4)};
       font-size: 12px;
-      color: ${colors.lightPrimary};
+      color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
     }
   }
 `
 
-export const VisibilityToggler = styled.button`
+export const VisibilityToggler = styled.button<InputStyledProps>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -92,6 +94,6 @@ export const VisibilityToggler = styled.button`
 
   &:focus-visible {
     outline-color: transparent;
-    border-color: ${colors.lightPrimary};
+    border-color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)}${colors.lightPrimary};
   }
 `

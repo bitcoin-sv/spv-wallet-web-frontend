@@ -81,7 +81,7 @@ interface ContentWithInfoTip {
 }
 
 const getContentForBefore = ({ isConfirmed }: ContentWithInfoTip) => {
-  if (isConfirmed) {
+  if (isConfirmed === true || isConfirmed === false) {
     return css`
       content: '';
     `

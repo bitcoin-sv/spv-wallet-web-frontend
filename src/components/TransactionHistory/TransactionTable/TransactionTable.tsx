@@ -107,7 +107,11 @@ export const TransactionTable = () => {
                             <SrOnlySpan>confirmed</SrOnlySpan>
                           </ContentWithInfoTip>
                         ) : (
-                          <ContentWithInfoTip uppercase data-value={transaction.status}>
+                          <ContentWithInfoTip
+                            uppercase
+                            data-value={transaction.status}
+                            isConfirmed={transaction.status === 'confirmed'}
+                          >
                             <SrOnlySpan>unconfirmed</SrOnlySpan>
                           </ContentWithInfoTip>
                         )}
