@@ -9,7 +9,6 @@ RUN addgroup --system app && adduser -S -G app app && \
 USER app
 
 ARG VITE_API_URL
-ARG VITE_API_TOKEN
 
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
