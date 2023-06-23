@@ -61,6 +61,16 @@ const globalStyles = css`
     border: none;
     outline: none;
   }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 `
 
 export const srOnlyStyles = css`

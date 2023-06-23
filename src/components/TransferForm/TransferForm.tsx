@@ -47,7 +47,6 @@ export const TransferForm = () => {
   }
 
   const onConfirmTransactionHandler = () => {
-    console.log('transaction sent: ', transactionData)
     setTransactionData(null)
     setAmount('')
     setPaymail('')

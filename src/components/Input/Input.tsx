@@ -12,6 +12,7 @@ type inputProps = {
   withIcon?: boolean
   customPlaceholder?: string
   togglePasswordVisibility?: boolean
+  inputOnLightBackground?: boolean
 } & InputHTMLAttributes<HTMLInputElement>
 
 export const Input: FC<inputProps> = ({
@@ -23,6 +24,7 @@ export const Input: FC<inputProps> = ({
   customPlaceholder,
   togglePasswordVisibility,
   type,
+  inputOnLightBackground,
   ...rest
 }) => {
   const [inputType, setInputType] = useState(type)
@@ -44,11 +46,18 @@ export const Input: FC<inputProps> = ({
         id={id}
         error={error}
         withIcon={type === 'password' || withIcon}
+        inputOnLightBackground={inputOnLightBackground || undefined}
       />
-      <LabelStyled htmlFor={id}>{labelText}</LabelStyled>
+      <LabelStyled htmlFor={id} inputOnLightBackground={inputOnLightBackground || undefined}>
+        {labelText}
+      </LabelStyled>
 
       {togglePasswordVisibility && (
-        <VisibilityToggler type="button" onClick={handlePasswordVisibility}>
+        <VisibilityToggler
+          type="button"
+          inputOnLightBackground={inputOnLightBackground || undefined}
+          onClick={handlePasswordVisibility}
+        >
           {inputType === 'text' ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </VisibilityToggler>
       )}
