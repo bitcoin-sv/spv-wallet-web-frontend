@@ -1,6 +1,6 @@
 import { Input } from '@/components/Input'
 import { ViewContent } from '@/components/_layout/ViewContent'
-import { Row } from '@/styles/grid'
+import { Column, Row } from '@/styles/grid'
 import { FormCard } from '@/components/FormCard'
 import { FormEvent, useState } from 'react'
 import { EMAIL_REGEX } from '@/utils/constants'
@@ -60,34 +60,36 @@ export const LoginPage = () => {
   return (
     <ViewContent centeredContent>
       <Row>
-        <FormCard
-          cardType="login"
-          headline="Login here"
-          subheadline="and go to the wallet!"
-          formLegend="Login form"
-          onFormSubmitHandler={handleSubmit}
-        >
-          {loading && <Loader />}
-          <Input
-            id="email"
-            type="email"
-            labelText="Email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-          />
-          <Input
-            id="password"
-            type="password"
-            labelText="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            withIcon
-            togglePasswordVisibility
-            required
-          />
-          {errors && <ErrorBar errorMsg={errors} />}
-        </FormCard>
+        <Column>
+          <FormCard
+            cardType="login"
+            headline="Login here"
+            subheadline="and go to the wallet!"
+            formLegend="Login form"
+            onFormSubmitHandler={handleSubmit}
+          >
+            {loading && <Loader />}
+            <Input
+              id="email"
+              type="email"
+              labelText="Email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+            <Input
+              id="password"
+              type="password"
+              labelText="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              withIcon
+              togglePasswordVisibility
+              required
+            />
+            {errors && <ErrorBar errorMsg={errors} />}
+          </FormCard>
+        </Column>
       </Row>
     </ViewContent>
   )
