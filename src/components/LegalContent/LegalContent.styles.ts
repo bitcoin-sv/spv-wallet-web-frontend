@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { sizes } from '@/styles'
+import { colors, sizes } from '@/styles'
 import { Button } from '@/components/Button'
 
 export const MainHeadline = styled.h2`
@@ -7,7 +7,7 @@ export const MainHeadline = styled.h2`
 `
 
 export const TextLink = styled(Button)`
-  color: #ff774e;
+  color: ${colors.textHighlighted};
 `
 
 export const LegalList = styled.ul`

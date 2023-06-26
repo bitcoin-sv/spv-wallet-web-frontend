@@ -131,11 +131,11 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
             required
           />
         </fieldset>
+        <p>If data are correct, confirm the transaction by your wallet's password</p>
+        {errors && <ErrorBar errorMsg={errors} withReloadButton={errorWithReload} />}
       </Form>
-      <p>If data are correct, confirm the transaction by your wallet's password</p>
 
       {success && <SuccessScreen text="Great! Transaction sent to receiver!" />}
-      {errors && <ErrorBar errorMsg={errors} withReloadButton={errorWithReload} />}
     </Modal>
   )
 }

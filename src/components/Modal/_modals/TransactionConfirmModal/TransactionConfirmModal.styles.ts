@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
-import { fontWeight, sizes } from '@/styles'
-import { media } from '@/styles/media'
+import { colors, fontWeight, sizes } from '@/styles'
 
 export const TextWithValues = styled.p`
   margin: ${sizes(8)} 0 ${sizes(4)};
@@ -9,12 +8,9 @@ export const TextWithValues = styled.p`
 
 export const Value = styled.span`
   font-weight: ${fontWeight.bold};
-  color: #ff774e;
+  color: ${colors.textHighlighted};
 `
 export const Form = styled.form`
   margin: 0 auto;
-
-  ${media.sm} {
-    width: 70%;
-  }
+  max-width: 430px;
 `

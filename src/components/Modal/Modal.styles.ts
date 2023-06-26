@@ -47,12 +47,16 @@ export const ModalSubheadline = styled.p`
 `
 
 export const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: ${sizes(4)};
+  align-items: center;
+  justify-content: center;
   margin: ${sizes(12)} 0 ${sizes(6)};
 `
 
 export const ModalButton = styled(Button)`
-  width: 40%;
-  margin: 0 ${sizes(4)};
+  width: 50%;
+  max-width: 208px;
   padding: ${sizes(3)};
   border: none;
 

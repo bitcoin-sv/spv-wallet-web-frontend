@@ -18,4 +18,5 @@ export const colors = {
   transactionUnconfirmed: '#ff3434',
   transactionIncoming: '#7ef67e',
   transactionOutgoing: '#ff3434',
+  textHighlighted: '#ff774e',
 }

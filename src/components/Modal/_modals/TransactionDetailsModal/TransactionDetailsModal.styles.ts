@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { Button } from '@/components/Button'
-import { sizes } from '@/styles'
+import { colors, sizes } from '@/styles'
 
 export const DetailsList = styled.ul`
   margin-top: ${sizes(8)};
@@ -17,5 +17,5 @@ export const DataName = styled.strong`
 `
 
 export const DetailsLink = styled(Button)`
-  color: #ff774e;
+  color: ${colors.textHighlighted};
 `
