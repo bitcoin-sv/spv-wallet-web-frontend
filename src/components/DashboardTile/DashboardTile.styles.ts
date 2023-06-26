@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { colors, sizes } from '@/styles'
 import { variables } from '@/styles/variables'
+import { media } from '@/styles/media'
 
 interface WrapperProps {
   fullHeight?: boolean
@@ -11,10 +12,14 @@ export const DashboardTileWrapper = styled.section<WrapperProps>`
   display: block;
   width: 100%;
   height: ${({ fullHeight }) => (fullHeight ? '100%' : 'initial')};
-  padding: ${sizes(4)};
+  padding: ${sizes(4)} 0;
   margin: 0 0 ${sizes(4)};
   border-radius: ${variables.borderRadius};
   background: ${colors.dashboardTileBackground};
+
+  ${media.md} {
+    padding: ${sizes(4)};
+  }
 `
 
 export const TileTitle = styled.h3`

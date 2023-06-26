@@ -25,6 +25,7 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useMediaMatch } from '@/hooks'
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -59,6 +60,8 @@ export const TransactionTable = () => {
       .finally(() => setLoading(false))
   }, [currentPage])
 
+  const smMatch = useMediaMatch('sm')
+
   return (
     <>
       {loading && <Loader />}
@@ -80,8 +83,12 @@ export const TransactionTable = () => {
                   <LargeTh>Sender/receiver</LargeTh>
                   <MediumTh>Amount</MediumTh>
                   <SmallTh>Status</SmallTh>
-                  <SmallTh>Direction</SmallTh>
-                  <MediumTh>Date</MediumTh>
+                  {smMatch && (
+                    <>
+                      <SmallTh>Direction</SmallTh>
+                      <MediumTh>Date</MediumTh>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -103,7 +110,15 @@ export const TransactionTable = () => {
                             (transaction.receiver ? transaction.receiver : '$receiver')}
                         </IdLink>
                       </LargeTd>
-                      <MediumTd>{transaction.totalValue} sat.</MediumTd>
+                      <MediumTd>
+                        {!smMatch && transaction.direction === 'incoming' && (
+                          <span style={{ color: colors.transactionIncoming }}>+ </span>
+                        )}
+                        {!smMatch && transaction.direction === 'outgoing' && (
+                          <span style={{ color: colors.transactionOutgoing }}>- </span>
+                        )}
+                        {transaction.totalValue} sat.
+                      </MediumTd>
                       <SmallTd>
                         {transaction.status === 'confirmed' ? (
                           <ContentWithInfoTip
@@ -123,20 +138,24 @@ export const TransactionTable = () => {
                           </ContentWithInfoTip>
                         )}
                       </SmallTd>
-                      <SmallTd>
-                        {transaction.direction === 'incoming' ? (
-                          <ContentWithInfoTip uppercase data-value={transaction.direction}>
-                            <KeyboardDoubleArrowDownIcon style={{ color: colors.transactionIncoming }} />
-                            <SrOnlySpan>incoming</SrOnlySpan>
-                          </ContentWithInfoTip>
-                        ) : (
-                          <ContentWithInfoTip uppercase data-value={transaction.direction}>
-                            <KeyboardDoubleArrowUpIcon style={{ color: colors.transactionOutgoing }} />
-                            <SrOnlySpan>outgoing</SrOnlySpan>
-                          </ContentWithInfoTip>
-                        )}
-                      </SmallTd>
-                      <MediumTd>{format(new Date(transaction.createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
+                      {smMatch && (
+                        <>
+                          <SmallTd>
+                            {transaction.direction === 'incoming' ? (
+                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                                <KeyboardDoubleArrowDownIcon style={{ color: colors.transactionIncoming }} />
+                                <SrOnlySpan>incoming</SrOnlySpan>
+                              </ContentWithInfoTip>
+                            ) : (
+                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                                <KeyboardDoubleArrowUpIcon style={{ color: colors.transactionOutgoing }} />
+                                <SrOnlySpan>outgoing</SrOnlySpan>
+                              </ContentWithInfoTip>
+                            )}
+                          </SmallTd>
+                          <MediumTd>{format(new Date(transaction.createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
+                        </>
+                      )}
                     </tr>
                   )
                 })}
