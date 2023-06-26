@@ -1,8 +1,10 @@
 import {
   ButtonsWrapper,
+  ContentWrapper,
   ModalButton,
   ModalContent,
   ModalHeadline,
+  ModalMainContent,
   ModalSubheadline,
   ModalWrapper,
 } from '@/components/Modal/Modal.styles'
@@ -44,17 +46,21 @@ export const Modal: FC<ModalProps> = ({
       {open && (
         <ModalWrapper role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <ModalContent>
-            {modalTitle && <ModalHeadline id="modal-title">{modalTitle}</ModalHeadline>}
-            {modalSubtitle && <ModalSubheadline>{modalSubtitle}</ModalSubheadline>}
+            <ContentWrapper>
+              <header>
+                {modalTitle && <ModalHeadline id="modal-title">{modalTitle}</ModalHeadline>}
+                {modalSubtitle && <ModalSubheadline>{modalSubtitle}</ModalSubheadline>}
+              </header>
 
-            {children && <div>{children}</div>}
+              {children && <ModalMainContent>{children}</ModalMainContent>}
 
-            {(primaryButton || secondaryButton) && (
-              <ButtonsWrapper>
-                {primaryButton && <ModalButton {...primaryButton}>{primaryButton.text}</ModalButton>}
-                {secondaryButton && <ModalButton {...secondaryButton}>{secondaryButton.text}</ModalButton>}
-              </ButtonsWrapper>
-            )}
+              {(primaryButton || secondaryButton) && (
+                <ButtonsWrapper>
+                  {primaryButton && <ModalButton {...primaryButton}>{primaryButton.text}</ModalButton>}
+                  {secondaryButton && <ModalButton {...secondaryButton}>{secondaryButton.text}</ModalButton>}
+                </ButtonsWrapper>
+              )}
+            </ContentWrapper>
           </ModalContent>
         </ModalWrapper>
       )}

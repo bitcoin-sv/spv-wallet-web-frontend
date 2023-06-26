@@ -18,23 +18,43 @@ export const ModalWrapper = styled.div`
   z-index: 9;
 `
 
-export const ModalContent = styled.div`
+export const ModalContent = styled.section`
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  max-height: 90%;
-  padding: ${sizes(4)} ${sizes(6)};
+  height: auto;
+  max-height: calc(100% - 64px);
+  padding: ${sizes(4)} ${sizes(2)};
   margin: 0 ${sizes(4)};
   background: ${colors.lightPrimary};
   border-radius: ${variables.borderRadius};
   box-shadow: ${variables.shadow.tileShadow};
   color: ${colors.darkPrimary};
   text-align: center;
-  overflow-y: auto;
+  overflow-y: hidden;
+
+  ${media.sm} {
+    padding: ${sizes(4)} ${sizes(6)};
+  }
 
   ${media.md} {
     width: auto;
     min-width: 480px;
   }
+`
+
+export const ContentWrapper = styled.article`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+`
+
+export const ModalMainContent = styled.main`
+  flex: 1;
+  overflow-y: auto;
 `
 
 export const ModalHeadline = styled.h3`
@@ -46,7 +66,7 @@ export const ModalSubheadline = styled.p`
   font-size: 18px;
 `
 
-export const ButtonsWrapper = styled.div`
+export const ButtonsWrapper = styled.footer`
   display: flex;
   gap: ${sizes(4)};
   align-items: center;
