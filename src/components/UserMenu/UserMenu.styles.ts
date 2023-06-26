@@ -14,23 +14,27 @@ export const UserMenuWrapper = styled.div`
     width: auto;
   }
 `
-export const MenuButton = styled(Button)`
+
+interface MenuButtonProps {
+  isOpen?: boolean
+}
+
+export const MenuButton = styled(Button)<MenuButtonProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   background: transparent;
   box-shadow: none;
+  margin-bottom: ${({ isOpen }) => (isOpen ? sizes(12) : 'initial')};
 
   &:not(li > Button) {
-    max-width: 60%;
     padding-left: 0;
     justify-content: flex-end;
     flex-direction: row-reverse;
     text-decoration: underline;
 
     ${media.sm} {
-      max-width: none;
       flex-direction: row;
       justify-content: space-between;
       padding-left: initial;
@@ -53,6 +57,7 @@ export const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 0 0 48px;
   width: 48px;
   height: 48px;
   margin-right: ${sizes(6)};
@@ -68,20 +73,20 @@ export const Avatar = styled.div`
 
 export const MenuList = styled.ul`
   position: absolute;
-  top: 50%;
-  right: 0;
+  top: 100%;
+  left: 0;
   width: 120px;
-  transform: translateY(-50%);
+  transform: translateY(-100%);
   font-size: 18px;
   text-align: right;
   z-index: 3;
+  animation: ${UserMenuFadeIn} 0.3s 0.3s ease-in-out both;
 
   ${media.sm} {
-    bottom: 0;
-    left: 0;
-    transform: translateY(100%);
-    width: 100%;
-    animation: ${UserMenuFadeIn} 0.3s ease-in-out both;
+    left: unset;
+    right: ${sizes(4)};
+    transform: translateY(-90%);
+    width: 200px;
   }
 `
 
