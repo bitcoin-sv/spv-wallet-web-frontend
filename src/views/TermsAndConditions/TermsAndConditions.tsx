@@ -1,7 +1,7 @@
 import { ViewContent } from '@/components/_layout/ViewContent'
 import { Column, Row } from '@/styles/grid'
 import { TermsAndConditionsContent } from '@/components/LegalContent'
-import { BackToRootButton } from '@/components/BackToRootButton/BackToRootButton'
+import { BackToRootButton } from '@/components/BackToRootButton'
 
 export const TermsAndConditions = () => {
   return (
