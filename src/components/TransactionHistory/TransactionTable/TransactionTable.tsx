@@ -48,8 +48,6 @@ export const TransactionTable = () => {
       .then((response) => {
         const transactions = response.transactions
 
-        console.log(transactions)
-
         setTotalPages(transactions.pages)
         setTransactionsList(transactions.transactions)
         setLoading(false)
