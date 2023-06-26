@@ -3,10 +3,18 @@ import { colors, sizes } from '@/styles'
 import { Button } from '@/components/Button'
 import { media } from '@/styles/media'
 
-export const PaginationList = styled.ul`
+export const PaginationNav = styled.nav`
   display: flex;
   justify-content: center;
+  width: 100%;
+`
+
+export const PaginationList = styled.ul`
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
   margin: ${sizes(4)} 0 0;
+  overflow-x: auto;
 `
 
 interface PaginationButtonProps {

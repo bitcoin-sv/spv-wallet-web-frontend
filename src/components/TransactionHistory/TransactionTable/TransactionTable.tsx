@@ -45,11 +45,12 @@ export const TransactionTable = () => {
     setLoading(true)
     getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
       .then((response) => {
-        console.log(response)
         const transactions = response.transactions
 
-        setTotalPages(response.count.length / ITEMS_PER_PAGE)
-        setTransactionsList(transactions)
+        console.log(transactions)
+
+        setTotalPages(transactions.pages)
+        setTransactionsList(transactions.transactions)
         setLoading(false)
       })
       .catch((error) => {

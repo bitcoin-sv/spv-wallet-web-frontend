@@ -55,15 +55,13 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
     }
 
     sendTransaction(newTransactionData)
-      .then((response) => {
-        if (response) {
-          setSuccess(true)
+      .then(() => {
+        setSuccess(true)
 
-          setTimeout(() => {
-            setSuccess(false)
-            secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-          }, 5000)
-        }
+        setTimeout(() => {
+          setSuccess(false)
+          secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
+        }, 5000)
       })
       .catch((error) => {
         if (error) {

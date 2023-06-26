@@ -1,4 +1,4 @@
-import { PaginationButton, PaginationList } from '@/components/Pagination/Pagination.styles'
+import { PaginationButton, PaginationList, PaginationNav } from '@/components/Pagination/Pagination.styles'
 import { FC } from 'react'
 
 interface PaginationProps {
@@ -20,7 +20,7 @@ export const Pagination: FC<PaginationProps> = ({ totalItems, itemsPerPage, curr
   }
 
   return (
-    <nav>
+    <PaginationNav>
       <PaginationList>
         {pageNumbers.map((pageNumber) => (
           <li key={pageNumber}>
@@ -34,6 +34,6 @@ export const Pagination: FC<PaginationProps> = ({ totalItems, itemsPerPage, curr
           </li>
         ))}
       </PaginationList>
-    </nav>
+    </PaginationNav>
   )
 }
