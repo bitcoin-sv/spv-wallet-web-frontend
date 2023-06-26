@@ -12,6 +12,7 @@ import {
   SmallTh,
   Table,
   TableWrapper,
+  UserPrefix,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
 import { useEffect, useState } from 'react'
@@ -44,6 +45,7 @@ export const TransactionTable = () => {
     setLoading(true)
     getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
       .then((response) => {
+        console.log(response)
         const transactions = response.transactions
 
         setTotalPages(response.count.length / ITEMS_PER_PAGE)
@@ -86,14 +88,18 @@ export const TransactionTable = () => {
                   return (
                     <tr key={index}>
                       <LargeTd>
+                        {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
+                        {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
                         <IdLink
                           variant="transparent"
                           isLink
                           isTextLink
                           onClick={() => setTransactionDetailsModal(transaction.id)}
                         >
-                          {transaction.direction === 'incoming' && '$Sender'}
-                          {transaction.direction === 'outgoing' && '$Receiver'}
+                          {transaction.direction === 'incoming' &&
+                            (transaction.sender ? transaction.sender : '$sender')}
+                          {transaction.direction === 'outgoing' &&
+                            (transaction.receiver ? transaction.receiver : '$receiver')}
                         </IdLink>
                       </LargeTd>
                       <MediumTd>{transaction.totalValue} sat.</MediumTd>

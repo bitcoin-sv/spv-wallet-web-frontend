@@ -4,6 +4,8 @@ export interface Transaction {
   id: string
   status: string
   totalValue: string
+  sender: string
+  receiver: string
 }
 
 export interface TransactionDetails {

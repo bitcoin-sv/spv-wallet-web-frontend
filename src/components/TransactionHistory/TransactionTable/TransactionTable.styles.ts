@@ -34,7 +34,7 @@ export const Table = styled.table`
   text-align: center;
   vertical-align: middle;
 
-  ${media.md} {
+  ${media.lg} {
     width: 750px;
     table-layout: fixed;
   }
@@ -189,8 +189,15 @@ export const SmallTd = styled.td`
   }
 `
 
+export const UserPrefix = styled.span`
+  display: block;
+  text-align: left;
+  font-size: 12px;
+`
+
 export const IdLink = styled(Button)`
   display: block;
+  text-align: left;
   width: inherit;
   margin: 0;
   overflow: hidden;
