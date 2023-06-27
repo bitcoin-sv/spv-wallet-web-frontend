@@ -54,7 +54,8 @@ export const ContentWrapper = styled.article`
 
 export const ModalMainContent = styled.main`
   flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `
 
 export const ModalHeadline = styled.h3`
