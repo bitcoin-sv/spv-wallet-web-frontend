@@ -13,7 +13,7 @@ import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useEffect, useState } from 'react'
 import { ErrorBar } from '@/components/ErrorBar'
-import { useAutoupdate } from '@/providers/autoupdate'
+import { useMountEffect } from '@/hooks'
 
 const ROUTES = [
   {
@@ -64,9 +64,8 @@ export const App = () => {
   const [errors, setError] = useState('')
 
   const location = useLocation()
-  const { autoupdate } = useAutoupdate()
 
-  useEffect(() => {
+  useMountEffect(() => {
     getUser()
       .then((response) => {
         const currentUserData: LoggedInUser = {
@@ -94,7 +93,7 @@ export const App = () => {
         setError(errorMsg)
         setLoading(false)
       })
-  }, [autoupdate, navigate, setAuthorization])
+  })
 
   useEffect(() => {
     if (location) {
