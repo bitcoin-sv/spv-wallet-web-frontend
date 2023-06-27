@@ -27,9 +27,9 @@ export const AccountSummary = () => {
   const [errors, setErrors] = useState<string>('')
 
   useEffect(() => {
+    setLoading(true)
     getUser()
       .then((response) => {
-        setLoading(true)
         const accountDetails = {
           balance: response.balance,
           email: response.email,
