@@ -3,6 +3,8 @@ import { DashboardTile } from '@/components/DashboardTile'
 import { BalanceValue, Currency } from '@/components/AccountSummary/AccountSummary.styles'
 import { Column, Row } from '@/styles/grid'
 import { useAuthorization } from '@/providers'
+import { useAutoupdate } from '@/providers/autoupdate'
+import { useEffect, useState } from 'react'
 
 interface CurrencyRates {
   usd?: number
@@ -18,29 +20,32 @@ interface AccountDetails {
 
 export const AccountSummary = () => {
   const { authorization } = useAuthorization()
+  const { autoupdate } = useAutoupdate()
 
-  const accountDetails: AccountDetails = {
-    balance: authorization?.balance,
-    email: authorization?.email,
-    paymail: authorization?.paymail,
-  }
+  const [details, setDetails] = useState<AccountDetails | null>(null)
+
+  useEffect(() => {
+    const accountDetails = {
+      balance: authorization?.balance,
+      email: authorization?.email,
+      paymail: authorization?.paymail,
+    }
+
+    setDetails(accountDetails)
+  }, [authorization, autoupdate])
 
   return (
-    <DashboardTile
-      tileTitle="Your total balance"
-      paymail={accountDetails.paymail}
-      titleIcon={<AccountBalanceWalletIcon />}
-    >
+    <DashboardTile tileTitle="Your total balance" paymail={details?.paymail} titleIcon={<AccountBalanceWalletIcon />}>
       <Row>
         <Column>
           <BalanceValue mainValue>
-            {accountDetails.balance?.bsv} <Currency>BSV</Currency>
+            {details?.balance?.bsv} <Currency>BSV</Currency>
           </BalanceValue>
           <BalanceValue>
-            {accountDetails.balance?.satoshis} <Currency>sat.</Currency>
+            {details?.balance?.satoshis} <Currency>sat.</Currency>
           </BalanceValue>
           <BalanceValue>
-            {accountDetails.balance?.usd} <Currency>USD</Currency>
+            {details?.balance?.usd} <Currency>USD</Currency>
           </BalanceValue>
         </Column>
       </Row>

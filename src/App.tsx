@@ -12,8 +12,8 @@ import { Dashboard } from '@/views/Dashboard/Dashboard'
 import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useEffect, useState } from 'react'
-import { useMountEffect } from '@/hooks/useMountEffect'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useAutoupdate } from '@/providers/autoupdate'
 
 const ROUTES = [
   {
@@ -64,8 +64,9 @@ export const App = () => {
   const [errors, setError] = useState('')
 
   const location = useLocation()
+  const { autoupdate } = useAutoupdate()
 
-  useMountEffect(() => {
+  useEffect(() => {
     getUser()
       .then((response) => {
         const currentUserData: LoggedInUser = {
@@ -93,7 +94,7 @@ export const App = () => {
         setError(errorMsg)
         setLoading(false)
       })
-  })
+  }, [autoupdate, navigate, setAuthorization])
 
   useEffect(() => {
     if (location) {

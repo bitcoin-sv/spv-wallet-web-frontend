@@ -26,6 +26,7 @@ import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useMediaMatch } from '@/hooks'
+import { useAutoupdate } from '@/providers/autoupdate'
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -34,6 +35,8 @@ export const TransactionTable = () => {
   const [transactionDetailsModal, setTransactionDetailsModal] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
+
+  const { autoupdate } = useAutoupdate()
 
   const ITEMS_PER_PAGE = 10
   const TOTAL_ITEMS = totalPages * ITEMS_PER_PAGE
@@ -56,7 +59,7 @@ export const TransactionTable = () => {
         setErrors(error)
       })
       .finally(() => setLoading(false))
-  }, [currentPage])
+  }, [currentPage, autoupdate])
 
   const smMatch = useMediaMatch('sm')
 

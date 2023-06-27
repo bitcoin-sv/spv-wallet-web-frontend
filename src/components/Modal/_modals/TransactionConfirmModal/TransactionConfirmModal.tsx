@@ -11,6 +11,7 @@ import { sendTransaction } from '@/api/requests/SendTransaction'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { SuccessScreen } from '@/components/SuccessScreen'
+import { useAutoupdate } from '@/providers/autoupdate'
 
 export interface TransactionData {
   paymail: string
@@ -36,6 +37,8 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   const [success, setSuccess] = useState<boolean>(false)
   const [errorWithReload, setErrorWithReload] = useState<boolean>(false)
 
+  const { setAutoupdate } = useAutoupdate()
+
   const onFormSubmitHandler = () => {
     if (!password) {
       setErrors('Password is required to confirm transaction.')
@@ -57,6 +60,10 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
     sendTransaction(newTransactionData)
       .then(() => {
         setSuccess(true)
+
+        //store info about new transaction in global context
+        const updateTime = new Date().toISOString()
+        setAutoupdate(updateTime)
 
         setTimeout(() => {
           setSuccess(false)
