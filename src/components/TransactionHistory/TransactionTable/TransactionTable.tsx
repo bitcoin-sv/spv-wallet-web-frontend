@@ -12,6 +12,7 @@ import {
   SmallTh,
   Table,
   TableWrapper,
+  UserPrefix,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
 import { useEffect, useState } from 'react'
@@ -24,6 +25,8 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useMediaMatch } from '@/hooks'
+import { useAutoupdate } from '@/providers/autoupdate'
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -32,6 +35,8 @@ export const TransactionTable = () => {
   const [transactionDetailsModal, setTransactionDetailsModal] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
+
+  const { autoupdate } = useAutoupdate()
 
   const ITEMS_PER_PAGE = 10
   const TOTAL_ITEMS = totalPages * ITEMS_PER_PAGE
@@ -46,15 +51,17 @@ export const TransactionTable = () => {
       .then((response) => {
         const transactions = response.transactions
 
-        setTotalPages(response.count.length / ITEMS_PER_PAGE)
-        setTransactionsList(transactions)
+        setTotalPages(transactions.pages)
+        setTransactionsList(transactions.transactions)
         setLoading(false)
       })
       .catch((error) => {
         setErrors(error)
       })
       .finally(() => setLoading(false))
-  }, [currentPage])
+  }, [currentPage, autoupdate])
+
+  const smMatch = useMediaMatch('sm')
 
   return (
     <>
@@ -77,8 +84,12 @@ export const TransactionTable = () => {
                   <LargeTh>Sender/receiver</LargeTh>
                   <MediumTh>Amount</MediumTh>
                   <SmallTh>Status</SmallTh>
-                  <SmallTh>Direction</SmallTh>
-                  <MediumTh>Date</MediumTh>
+                  {smMatch && (
+                    <>
+                      <SmallTh>Direction</SmallTh>
+                      <MediumTh>Date</MediumTh>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -86,17 +97,29 @@ export const TransactionTable = () => {
                   return (
                     <tr key={index}>
                       <LargeTd>
+                        {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
+                        {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
                         <IdLink
                           variant="transparent"
                           isLink
                           isTextLink
                           onClick={() => setTransactionDetailsModal(transaction.id)}
                         >
-                          {transaction.direction === 'incoming' && '$Sender'}
-                          {transaction.direction === 'outgoing' && '$Receiver'}
+                          {transaction.direction === 'incoming' &&
+                            (transaction.sender ? transaction.sender : '$sender')}
+                          {transaction.direction === 'outgoing' &&
+                            (transaction.receiver ? transaction.receiver : '$receiver')}
                         </IdLink>
                       </LargeTd>
-                      <MediumTd>{transaction.totalValue} sat.</MediumTd>
+                      <MediumTd>
+                        {!smMatch && transaction.direction === 'incoming' && (
+                          <span style={{ color: colors.transactionIncoming }}>+ </span>
+                        )}
+                        {!smMatch && transaction.direction === 'outgoing' && (
+                          <span style={{ color: colors.transactionOutgoing }}>- </span>
+                        )}
+                        {transaction.totalValue} sat.
+                      </MediumTd>
                       <SmallTd>
                         {transaction.status === 'confirmed' ? (
                           <ContentWithInfoTip
@@ -116,20 +139,24 @@ export const TransactionTable = () => {
                           </ContentWithInfoTip>
                         )}
                       </SmallTd>
-                      <SmallTd>
-                        {transaction.direction === 'incoming' ? (
-                          <ContentWithInfoTip uppercase data-value={transaction.direction}>
-                            <KeyboardDoubleArrowDownIcon style={{ color: colors.transactionIncoming }} />
-                            <SrOnlySpan>incoming</SrOnlySpan>
-                          </ContentWithInfoTip>
-                        ) : (
-                          <ContentWithInfoTip uppercase data-value={transaction.direction}>
-                            <KeyboardDoubleArrowUpIcon style={{ color: colors.transactionOutgoing }} />
-                            <SrOnlySpan>outgoing</SrOnlySpan>
-                          </ContentWithInfoTip>
-                        )}
-                      </SmallTd>
-                      <MediumTd>{format(new Date(transaction.createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
+                      {smMatch && (
+                        <>
+                          <SmallTd>
+                            {transaction.direction === 'incoming' ? (
+                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                                <KeyboardDoubleArrowDownIcon style={{ color: colors.transactionIncoming }} />
+                                <SrOnlySpan>incoming</SrOnlySpan>
+                              </ContentWithInfoTip>
+                            ) : (
+                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                                <KeyboardDoubleArrowUpIcon style={{ color: colors.transactionOutgoing }} />
+                                <SrOnlySpan>outgoing</SrOnlySpan>
+                              </ContentWithInfoTip>
+                            )}
+                          </SmallTd>
+                          <MediumTd>{format(new Date(transaction.createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
+                        </>
+                      )}
                     </tr>
                   )
                 })}

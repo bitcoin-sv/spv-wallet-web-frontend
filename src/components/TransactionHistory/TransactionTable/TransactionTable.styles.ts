@@ -13,9 +13,13 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   width: 100%;
   min-height: 415px;
   flex-grow: 1;
-  overflow-x: auto;
   margin-top: ${({ withPagination }) => (!withPagination ? 'unset' : sizes(8))};
   padding-bottom: ${sizes(4)};
+  overflow: hidden;
+
+  ${media.sm} {
+    overflow-x: auto;
+  }
 `
 
 export const CurrentPage = styled.p`
@@ -31,10 +35,15 @@ export const PageNumber = styled.span`
 export const Table = styled.table`
   width: 100%;
   margin: 0 auto;
-  text-align: center;
   vertical-align: middle;
+  table-layout: fixed;
 
-  ${media.md} {
+  ${media.sm} {
+    table-layout: auto;
+    text-align: center;
+  }
+
+  ${media.lg} {
     width: 750px;
     table-layout: fixed;
   }
@@ -45,8 +54,10 @@ export const Table = styled.table`
 
   th {
     font-size: 12px;
+    text-align: left;
 
     ${media.sm} {
+      text-align: center;
       font-size: 16px;
     }
   }
@@ -95,7 +106,10 @@ const getContentForBefore = ({ isConfirmed }: ContentWithInfoTip) => {
 export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
   position: relative;
   display: block;
-  width: inherit;
+
+  ${media.md} {
+    width: inherit;
+  }
 
   &:after {
     content: attr(data-value);
@@ -133,6 +147,8 @@ export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
 `
 
 export const LargeTh = styled.th`
+  width: 60%;
+
   ${media.md} {
     width: 270px;
   }
@@ -142,6 +158,8 @@ export const LargeTh = styled.th`
   }
 `
 export const LargeTd = styled.td`
+  width: 60%;
+
   ${media.md} {
     width: 270px;
   }
@@ -152,6 +170,8 @@ export const LargeTd = styled.td`
 `
 
 export const MediumTh = styled.th`
+  width: 30%;
+
   ${media.md} {
     width: 170px;
   }
@@ -161,6 +181,8 @@ export const MediumTh = styled.th`
   }
 `
 export const MediumTd = styled.td`
+  width: 30%;
+
   ${media.md} {
     width: 170px;
   }
@@ -171,6 +193,8 @@ export const MediumTd = styled.td`
 `
 
 export const SmallTh = styled.th`
+  width: 10%;
+
   ${media.md} {
     width: 70px;
   }
@@ -180,6 +204,8 @@ export const SmallTh = styled.th`
   }
 `
 export const SmallTd = styled.td`
+  width: 10%;
+
   ${media.md} {
     width: 70px;
   }
@@ -189,14 +215,25 @@ export const SmallTd = styled.td`
   }
 `
 
+export const UserPrefix = styled.span`
+  display: block;
+  text-align: left;
+  font-size: 12px;
+`
+
 export const IdLink = styled(Button)`
   display: block;
-  width: inherit;
+  text-align: left;
+  width: 100%;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: ${colors.tableLink};
+
+  ${media.md} {
+    width: inherit;
+  }
 `
 
 export const NoDataInfo = styled.p`

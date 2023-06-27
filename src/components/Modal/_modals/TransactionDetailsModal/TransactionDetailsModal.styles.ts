@@ -1,11 +1,19 @@
 import styled from '@emotion/styled'
 import { Button } from '@/components/Button'
-import { sizes } from '@/styles'
+import { colors, sizes } from '@/styles'
+import { media } from '@/styles/media'
 
 export const DetailsList = styled.ul`
-  margin-top: ${sizes(8)};
-  font-size: 18px;
+  width: 100%;
+  margin-top: ${sizes(4)};
+  font-size: 14px;
   text-align: left;
+  word-break: break-word;
+
+  ${media.sm} {
+    margin-top: ${sizes(8)};
+    font-size: 18px;
+  }
 `
 
 export const ListElement = styled.li`
@@ -17,5 +25,5 @@ export const DataName = styled.strong`
 `
 
 export const DetailsLink = styled(Button)`
-  color: #ff774e;
+  color: ${colors.textHighlighted};
 `

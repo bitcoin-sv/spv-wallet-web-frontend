@@ -11,6 +11,7 @@ import { sendTransaction } from '@/api/requests/SendTransaction'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { SuccessScreen } from '@/components/SuccessScreen'
+import { useAutoupdate } from '@/providers/autoupdate'
 
 export interface TransactionData {
   paymail: string
@@ -36,6 +37,8 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   const [success, setSuccess] = useState<boolean>(false)
   const [errorWithReload, setErrorWithReload] = useState<boolean>(false)
 
+  const { setAutoupdate } = useAutoupdate()
+
   const onFormSubmitHandler = () => {
     if (!password) {
       setErrors('Password is required to confirm transaction.')
@@ -55,15 +58,17 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
     }
 
     sendTransaction(newTransactionData)
-      .then((response) => {
-        if (response) {
-          setSuccess(true)
+      .then(() => {
+        setSuccess(true)
 
-          setTimeout(() => {
-            setSuccess(false)
-            secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-          }, 5000)
-        }
+        //store info about new transaction in global context
+        const updateTime = new Date().toISOString()
+        setAutoupdate(updateTime)
+
+        setTimeout(() => {
+          setSuccess(false)
+          secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
+        }, 3000)
       })
       .catch((error) => {
         if (error) {
@@ -131,11 +136,11 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
             required
           />
         </fieldset>
+        <p>If data are correct, confirm the transaction by your wallet's password</p>
+        {errors && <ErrorBar errorMsg={errors} withReloadButton={errorWithReload} />}
       </Form>
-      <p>If data are correct, confirm the transaction by your wallet's password</p>
 
       {success && <SuccessScreen text="Great! Transaction sent to receiver!" />}
-      {errors && <ErrorBar errorMsg={errors} withReloadButton={errorWithReload} />}
     </Modal>
   )
 }

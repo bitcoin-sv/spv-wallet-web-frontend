@@ -12,8 +12,8 @@ import { Dashboard } from '@/views/Dashboard/Dashboard'
 import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useEffect, useState } from 'react'
-import { useMountEffect } from '@/hooks/useMountEffect'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useMountEffect } from '@/hooks'
 
 const ROUTES = [
   {
