@@ -10,18 +10,19 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 # Uncomment following lines if you need to check database (ex. for debugging)
-#    ports:
-#      - 5432:5432
+    ports:
+      - 5432:5432
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d postgres'"]
       timeout: 5s
       retries: 3
 
   bux-wallet-backend:
-    image: 4chain/bux-wallet-backend:latest
+    image: 4chain/bux-wallet-backend:v0.11.0
     environment:
       DB_HOST: 'db'
       BUX_SERVER_URL: 'https://bux.4chain.space/v1'
+      BUX_PAYMAIL_DOMAIN: '4chain.space'
     env_file:
       - bux-wallet-backend.env.private
       # Maybe this will be needed to have working session with frontend proxy

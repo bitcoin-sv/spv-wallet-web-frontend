@@ -68,7 +68,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         setTimeout(() => {
           setSuccess(false)
           secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-        }, 5000)
+        }, 3000)
       })
       .catch((error) => {
         if (error) {
