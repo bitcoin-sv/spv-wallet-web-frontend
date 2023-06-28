@@ -52,7 +52,7 @@ export const Modal: FC<ModalProps> = ({
                 {modalSubtitle && <ModalSubheadline>{modalSubtitle}</ModalSubheadline>}
               </header>
 
-              {children && <ModalMainContent>{children}</ModalMainContent>}
+              {children && <ModalMainContent data-scroll-lock-scrollable>{children}</ModalMainContent>}
 
               {(primaryButton || secondaryButton) && (
                 <ButtonsWrapper>
