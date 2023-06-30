@@ -1,0 +1,43 @@
+{
+  "name": "Bux wallet",
+  "short_name": "Bux wallet",
+  "theme_color": "#9A51FA",
+  "background_color": "#6324f9",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "id": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "icons/icon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-76x76.png",
+      "sizes": "76x76",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-120x120.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-270x270.png",
+      "sizes": "270x270",
+      "type": "image/png"
+    }
+  ]
+}

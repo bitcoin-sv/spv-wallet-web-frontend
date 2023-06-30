@@ -10,13 +10,14 @@ import { Input } from '@/components/Input'
 import { sendTransaction } from '@/api/requests/SendTransaction'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
-import { SuccessScreen } from '@/components/SuccessScreen'
 import { useAutoupdate } from '@/providers/autoupdate'
 
 export interface TransactionData {
   paymail: string
   amount: string
 }
+
+const SUCCESS_SCREEN_MSG = 'Great! Transaction sent to receiver!'
 
 interface TransactionConfirmModalProps {
   open: boolean
@@ -34,7 +35,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
-  const [success, setSuccess] = useState<boolean>(false)
+  const [successMsg, setSuccessMsg] = useState<string>('')
   const [errorWithReload, setErrorWithReload] = useState<boolean>(false)
 
   const { setAutoupdate } = useAutoupdate()
@@ -59,14 +60,14 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
 
     sendTransaction(newTransactionData)
       .then(() => {
-        setSuccess(true)
+        setSuccessMsg(SUCCESS_SCREEN_MSG)
 
         //store info about new transaction in global context
         const updateTime = new Date().toISOString()
         setAutoupdate(updateTime)
 
         setTimeout(() => {
-          setSuccess(false)
+          setSuccessMsg('')
           secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
         }, 3000)
       })
@@ -99,7 +100,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       setPassword('')
       setErrors('')
       setErrorWithReload(false)
-      setSuccess(false)
+      setSuccessMsg('')
     }
   }, [open])
 
@@ -115,6 +116,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         onClick: onFormSubmitHandler,
         type: 'submit',
       }}
+      successScreenMsg={successMsg}
     >
       {loading && <Loader />}
       <TextWithValues>
@@ -139,8 +141,6 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         <p>If data are correct, confirm the transaction by your wallet's password</p>
         {errors && <ErrorBar errorMsg={errors} withReloadButton={errorWithReload} />}
       </Form>
-
-      {success && <SuccessScreen text="Great! Transaction sent to receiver!" />}
     </Modal>
   )
 }
