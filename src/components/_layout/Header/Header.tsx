@@ -23,7 +23,7 @@ export const Header = () => {
               variant="transparent"
               isLink
             >
-              <Logo src="/logo.png" alt="bux wallet logo" width="250" height="53" />
+              <Logo src="/logo-text.png" alt="bux wallet logo" width="250" height="53" />
               <SrOnlySpan>Go back to the main page</SrOnlySpan>
             </LogoLink>
             {!authorization && (
