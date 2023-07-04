@@ -8,6 +8,7 @@ import {
 } from '@/components/FormCard/FormCard.styles'
 import { FC, FormEvent, ReactNode } from 'react'
 import { Button } from '@/components/Button'
+import { WarningBar } from '@/components/WarningBar'
 
 type CardType = 'login' | 'signup' | 'signup-typ'
 
@@ -32,17 +33,24 @@ export const FormCard: FC<CardProps> = ({
       <CardHeadline>{headline}</CardHeadline>
       {subheadline && <p>{subheadline}</p>}
       {formLegend && formLegend !== '' ? (
-        <Form onSubmit={onFormSubmitHandler}>
-          <fieldset>
-            <FormLegend>{formLegend}</FormLegend>
-            {children}
-            <ActionButtons>
-              <Button fullWidth variant="primary">
-                {(cardType === 'login' && 'Log in') || (cardType === 'signup' && 'Sign up')}
-              </Button>
-            </ActionButtons>
-          </fieldset>
-        </Form>
+        <>
+          <WarningBar
+            highlightedText="For demonstration purposes only."
+            warningText="This wallet works on mainnet, please remember about this when sending transactions. The database is deleted once in a while, we take no responsibility for the loss of funds."
+          />
+
+          <Form onSubmit={onFormSubmitHandler}>
+            <fieldset>
+              <FormLegend>{formLegend}</FormLegend>
+              {children}
+              <ActionButtons>
+                <Button fullWidth variant="primary">
+                  {(cardType === 'login' && 'Log in') || (cardType === 'signup' && 'Sign up')}
+                </Button>
+              </ActionButtons>
+            </fieldset>
+          </Form>
+        </>
       ) : (
         <>{children}</>
       )}
