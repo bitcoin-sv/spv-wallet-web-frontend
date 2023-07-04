@@ -11,7 +11,7 @@ export const Screen = styled.div`
   flex-direction: column;
   background: ${colors.successScreen};
   color: ${colors.lightPrimary};
-  z-index: 3;
+  z-index: 10;
 
   svg {
     width: 128px;

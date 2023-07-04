@@ -24,6 +24,9 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
+  "files": [
+    "node_modules/vite-plugin-pwa/client.d.ts"
+  ],
   "include": [
     ".eslintrc.cjs",
     "vite.config.ts",

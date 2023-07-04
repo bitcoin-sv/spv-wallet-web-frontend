@@ -33,6 +33,7 @@ export const ModalContent = styled.section`
   color: ${colors.darkPrimary};
   text-align: center;
   overflow-y: hidden;
+  z-index: 9;
 
   ${media.sm} {
     padding: ${sizes(4)} ${sizes(6)};
@@ -68,11 +69,13 @@ export const ModalSubheadline = styled.p`
 `
 
 export const ButtonsWrapper = styled.footer`
+  position: relative;
   display: flex;
   gap: ${sizes(4)};
   align-items: center;
   justify-content: center;
   margin: ${sizes(12)} 0 ${sizes(6)};
+  z-index: 1;
 `
 
 export const ModalButton = styled(Button)`
