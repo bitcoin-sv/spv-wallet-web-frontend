@@ -112,10 +112,10 @@ export const TransactionTable = () => {
                         </IdLink>
                       </LargeTd>
                       <MediumTd>
-                        {!smMatch && transaction.direction === 'incoming' && (
+                        {transaction.direction === 'incoming' && (
                           <span style={{ color: colors.transactionIncoming }}>+ </span>
                         )}
-                        {!smMatch && transaction.direction === 'outgoing' && (
+                        {transaction.direction === 'outgoing' && (
                           <span style={{ color: colors.transactionOutgoing }}>- </span>
                         )}
                         {transaction.totalValue} sat.
