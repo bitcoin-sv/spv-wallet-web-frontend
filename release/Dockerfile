@@ -9,6 +9,7 @@ RUN addgroup --system app && adduser -S -G app app && \
 USER app
 
 ARG VITE_API_URL
+ARG VITE_BUX_PAYMAIL_DOMAIN
 
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin

@@ -65,7 +65,7 @@ export const TransferForm = () => {
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
               <Input
-                labelText="Paymail (example@bux.com)"
+                labelText={`Paymail (example@${import.meta.env.VITE_BUX_PAYMAIL_DOMAIN || 'bux-domain.com'})`}
                 required
                 type="text"
                 onChange={(event) => setPaymail(event.target.value)}
