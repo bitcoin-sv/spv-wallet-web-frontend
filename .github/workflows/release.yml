@@ -34,6 +34,7 @@ jobs:
           context: .
           build-args: |
             VITE_API_URL=${{ secrets.BUX_WALLET_API_URL }}
+            VITE_BUX_PAYMAIL_DOMAIN=${{ secrets.BUX_PAYMAIL_DOMAIN }}
           file: ./release/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bux-wallet-frontend:${{ env.VERSION }}
