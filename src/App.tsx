@@ -80,15 +80,19 @@ export const App = () => {
         }
       })
       .catch((error) => {
+        let errorMsg
         if (error.response.status === 401 || error.response.status === 400) {
           setAuthorization(null)
           navigate('/')
           setLoading(false)
           return
         }
-        const errorMsg = error.response.data.error
-          ? error.response.data.error
-          : 'Something went wrong... Please, try again later!'
+
+        if (error.response.status === 404) {
+          errorMsg = error.response.data + ". If you can't log in again, please contact our support or try again later!"
+        } else {
+          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
+        }
 
         setError(errorMsg)
         setLoading(false)

@@ -55,9 +55,7 @@ export const SignupPage = () => {
         setLoading(false)
       })
       .catch((error) => {
-        const errorMsg = error.response.data.error
-          ? error.response.data.error
-          : 'Something went wrong... Please, try again later!'
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
         setErrors(errorMsg)
         setRegistered(false)
         setLoading(false)

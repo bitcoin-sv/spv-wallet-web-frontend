@@ -31,7 +31,8 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
         setTransactionData(response)
       })
       .catch((error) => {
-        error && setErrors('Something went wrong... Please try again later')
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+        errorMsg && setErrors(errorMsg)
       })
       .finally(() => {
         setLoading(false)

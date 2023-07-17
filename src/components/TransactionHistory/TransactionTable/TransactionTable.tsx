@@ -56,7 +56,8 @@ export const TransactionTable = () => {
         setLoading(false)
       })
       .catch((error) => {
-        setErrors(error)
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+        setErrors(errorMsg)
       })
       .finally(() => setLoading(false))
   }, [currentPage, autoupdate])
@@ -76,7 +77,7 @@ export const TransactionTable = () => {
           {!transactionsList ? (
             <NoDataInfo>No transaction yet</NoDataInfo>
           ) : errors ? (
-            <ErrorBar errorMsg="Something went wrong... Please try again later" withReloadButton />
+            <ErrorBar errorMsg={errors} withReloadButton />
           ) : (
             <Table>
               <thead>

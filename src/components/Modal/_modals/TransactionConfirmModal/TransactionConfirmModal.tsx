@@ -85,7 +85,9 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
           }
 
           setErrors(
-            'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
+            error.response.data
+              ? error.response.data
+              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
           )
         }
       })
