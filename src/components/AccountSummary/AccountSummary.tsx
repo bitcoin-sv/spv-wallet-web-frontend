@@ -38,9 +38,16 @@ export const AccountSummary = () => {
         setDetails(accountDetails)
       })
       .catch((error) => {
-        if (error) {
-          setErrors('Something went wrong... Please, try again later!')
+        let errorMsg
+
+        if (error.response.status === 404) {
+          errorMsg =
+            "User's account details not found. If you can't log in again, please contact our support or try again later!"
+        } else {
+          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
         }
+
+        setErrors(errorMsg)
       })
       .finally(() => {
         setLoading(false)

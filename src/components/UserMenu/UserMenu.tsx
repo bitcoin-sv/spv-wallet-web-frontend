@@ -54,7 +54,8 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
         Navigate('/')
       })
       .catch((error) => {
-        error && setErrors('Something went wrong... Please try again!')
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!'
+        errorMsg && setErrors(errorMsg)
       })
       .finally(() => {
         setLoading(false)
