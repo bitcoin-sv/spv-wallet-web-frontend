@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import { colors, fontWeight, sizes } from '@/styles'
-import { Button } from '@/components/Button'
 import { media } from '@/styles/media'
 import { css } from '@emotion/react'
 
@@ -66,6 +65,24 @@ export const Table = styled.table`
     vertical-align: top;
   }
 
+  tbody tr {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      padding: 0 1rem;
+      background-color: ${colors.trHoverEffect};
+
+      span {
+        text-decoration: none;
+      }
+    }
+
+    td:first-of-type {
+      padding-left: ${sizes(1)};
+    }
+  }
+
   td {
     position: relative;
     padding: ${sizes(2)} ${sizes(1)};
@@ -80,7 +97,9 @@ export const Table = styled.table`
 
     &:hover {
       span::after {
-        opacity: 1;
+        ${media.lg} {
+          opacity: 1;
+        }
       }
     }
   }
@@ -221,7 +240,7 @@ export const UserPrefix = styled.span`
   font-size: 12px;
 `
 
-export const IdLink = styled(Button)`
+export const Highlighted = styled('span')`
   display: block;
   text-align: left;
   width: 100%;
@@ -229,6 +248,7 @@ export const IdLink = styled(Button)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-decoration: underline;
   color: ${colors.tableLink};
 
   ${media.md} {

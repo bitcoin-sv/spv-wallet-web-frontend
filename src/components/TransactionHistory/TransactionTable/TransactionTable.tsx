@@ -1,7 +1,7 @@
 import {
   ContentWithInfoTip,
   CurrentPage,
-  IdLink,
+  Highlighted,
   LargeTd,
   LargeTh,
   MediumTd,
@@ -99,21 +99,16 @@ export const TransactionTable = () => {
               <tbody>
                 {transactionsList.map((transaction, index) => {
                   return (
-                    <tr key={index}>
+                    <tr key={index} onClick={() => setTransactionDetailsModal(transaction.id)}>
                       <LargeTd>
                         {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
                         {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
-                        <IdLink
-                          variant="transparent"
-                          isLink
-                          isTextLink
-                          onClick={() => setTransactionDetailsModal(transaction.id)}
-                        >
+                        <Highlighted>
                           {transaction.direction === 'incoming' &&
                             (transaction.sender ? transaction.sender : '$sender')}
                           {transaction.direction === 'outgoing' &&
                             (transaction.receiver ? transaction.receiver : '$receiver')}
-                        </IdLink>
+                        </Highlighted>
                       </LargeTd>
                       <MediumTd>
                         {transaction.direction === 'incoming' && (
