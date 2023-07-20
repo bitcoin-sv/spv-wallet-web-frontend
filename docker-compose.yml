@@ -8,6 +8,8 @@ services:
     container_name: bux-wallet-frontend
     ports:
       - "3002:80"
+    depends_on:
+      - bux-wallet-backend
     # volumes:
     #   - '/host/path/to/env-config.json:/usr/share/nginx/html/env-config.json'
       
