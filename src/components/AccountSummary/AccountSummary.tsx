@@ -38,8 +38,6 @@ export const AccountSummary = () => {
           email: response.email,
           paymail: response.paymail,
         }
-        console.log("Account Details", accountDetails)
-        setErrors('')
         setDetails(accountDetails)
       })
       .catch((error) => {

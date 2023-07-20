@@ -1,4 +1,4 @@
 {
-  "apiUrl": "http://localhost:3002",
+  "apiUrl": "https://bux.4chain.space/v1",
   "paymailDomain": "4chain.space"
 }

@@ -1,6 +1,17 @@
 version: "3.9"
 
 services:
+  bux-wallet-frontend:
+    build:
+      context: .
+      dockerfile: release/Dockerfile
+    container_name: bux-wallet-frontend
+    ports:
+      - "3002:80"
+    # volumes:
+    #   - '/host/path/to/env-config.json:/usr/share/nginx/html/env-config.json'
+      
+
   db:
     image: postgres:15.2-alpine
     volumes:
@@ -22,20 +33,18 @@ services:
     environment:
       DB_HOST: 'db'
       # For running bux-server locally
-      BUX_SERVER_URL: 'http://host.docker.internal:3003/v1'
-      # BUX_SERVER_URL: 'https://bux.4chain.space/v1'
+      # BUX_SERVER_URL: 'http://host.docker.internal:3003/v1'
+      BUX_SERVER_URL: 'https://bux.4chain.space/v1'
       BUX_PAYMAIL_DOMAIN: '4chain.space'
     env_file:
       - bux-wallet-backend.env.private
-      # Maybe this will be needed to have working session with frontend proxy
-    #      HTTP_SERVER_COOKIE_DOMAIN: 'localhost:3000'
     ports:
       - "8080:8080"
     links:
       - db
     # For running bux-server locally
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
     depends_on:
       db:
         condition: service_healthy
