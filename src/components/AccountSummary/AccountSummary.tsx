@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { getUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useApiUrl } from '@/api/apiUrl'
 
 interface CurrencyRates {
   usd?: number
@@ -22,19 +23,23 @@ interface AccountDetails {
 
 export const AccountSummary = () => {
   const { autoupdate } = useAutoupdate()
+  const apiUrl = useApiUrl()
   const [details, setDetails] = useState<AccountDetails | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
 
   useEffect(() => {
     setLoading(true)
-    getUser()
+    setErrors('')
+    getUser(apiUrl)
       .then((response) => {
         const accountDetails = {
           balance: response.balance,
           email: response.email,
           paymail: response.paymail,
         }
+        console.log("Account Details", accountDetails)
+        setErrors('')
         setDetails(accountDetails)
       })
       .catch((error) => {
@@ -52,7 +57,7 @@ export const AccountSummary = () => {
       .finally(() => {
         setLoading(false)
       })
-  }, [autoupdate])
+  }, [apiUrl, autoupdate])
 
   return (
     <DashboardTile tileTitle="Your total balance" paymail={details?.paymail} titleIcon={<AccountBalanceWalletIcon />}>

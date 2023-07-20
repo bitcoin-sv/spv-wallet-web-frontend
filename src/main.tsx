@@ -1,20 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
-import { AuthorizationProvider } from '@/providers'
+import { AuthorizationProvider, ConfigProvider } from '@/providers'
 import { BrowserRouter } from 'react-router-dom'
 import { AutoupdateProvider } from '@/providers/autoupdate'
 import { registerSW } from 'virtual:pwa-register'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <AuthorizationProvider>
-      <AutoupdateProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AutoupdateProvider>
-    </AuthorizationProvider>
+    <ConfigProvider>
+      <AuthorizationProvider>
+        <AutoupdateProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AutoupdateProvider>
+      </AuthorizationProvider>
+    </ConfigProvider>
   </React.StrictMode>
 )
 

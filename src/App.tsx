@@ -13,7 +13,7 @@ import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useEffect, useState } from 'react'
 import { ErrorBar } from '@/components/ErrorBar'
-import { useMountEffect } from '@/hooks'
+import { useApiUrl } from './api/apiUrl'
 
 const ROUTES = [
   {
@@ -59,14 +59,16 @@ const ROUTES_AUTHENTICATED = [
 
 export const App = () => {
   const { authorization, setAuthorization } = useAuthorization()
+  const apiUrl = useApiUrl()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [errors, setError] = useState('')
 
   const location = useLocation()
 
-  useMountEffect(() => {
-    getUser()
+  useEffect(() => {
+    setError('')
+    getUser(apiUrl)
       .then((response) => {
         const currentUserData: LoggedInUser = {
           email: response.email,
@@ -97,7 +99,8 @@ export const App = () => {
         setError(errorMsg)
         setLoading(false)
       })
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiUrl])
 
   useEffect(() => {
     if (location) {

@@ -11,6 +11,7 @@ import { Loader } from '@/components/Loader'
 import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
 import { RegisterNewUserDto } from '@/api/types/user'
 import { registerUser } from '@/api'
+import { useApiUrl } from '@/api/apiUrl'
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -23,6 +24,7 @@ export const SignupPage = () => {
   const [mnemonic, setMnemonic] = useState<string>('')
   const [paymail, setPaymail] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const apiUrl = useApiUrl()
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -46,7 +48,7 @@ export const SignupPage = () => {
       passwordConfirmation: confirmedPassword,
     }
 
-    registerUser(newUser)
+    registerUser(apiUrl, newUser)
       .then((response) => {
         setRegistered(true)
         setErrors('')

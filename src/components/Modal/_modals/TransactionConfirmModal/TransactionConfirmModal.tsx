@@ -11,6 +11,7 @@ import { sendTransaction } from '@/api/requests/SendTransaction'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
+import { useApiUrl } from '@/api/apiUrl'
 
 export interface TransactionData {
   paymail: string
@@ -39,6 +40,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   const [errorWithReload, setErrorWithReload] = useState<boolean>(false)
 
   const { setAutoupdate } = useAutoupdate()
+  const apiUrl = useApiUrl()
 
   const onFormSubmitHandler = () => {
     if (!password) {
@@ -58,7 +60,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       password: userPassword,
     }
 
-    sendTransaction(newTransactionData)
+    sendTransaction(apiUrl, newTransactionData)
       .then(() => {
         setSuccessMsg(SUCCESS_SCREEN_MSG)
 

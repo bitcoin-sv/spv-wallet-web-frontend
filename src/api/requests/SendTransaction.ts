@@ -1,7 +1,7 @@
-import { axiosClient } from '@/api/client'
 import { SendNewTransaction } from '@/api/types/transaction'
+import axios from 'axios'
 
-export const sendTransaction = async (data: SendNewTransaction) => {
-  const { data: response } = await axiosClient.post('/transaction', data)
+export const sendTransaction = async (apiUrl: string, data: SendNewTransaction) => {
+  const { data: response } = await axios.post(`${apiUrl}/transaction`, data)
   return response
 }

@@ -9,6 +9,7 @@ import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useConfig } from '@/providers'
 
 export const TransferForm = () => {
   const [paymail, setPaymail] = useState<string>('')
@@ -16,6 +17,8 @@ export const TransferForm = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
   const [errors, setErrors] = useState<string>('')
+
+  const { config } = useConfig()
 
   const sendButtonDisabled = !paymail || !amount
   const cancelButtonDisabled = !paymail && !amount
@@ -65,7 +68,7 @@ export const TransferForm = () => {
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
               <Input
-                labelText={`Paymail (example@${import.meta.env.VITE_BUX_PAYMAIL_DOMAIN || 'bux-domain.com'})`}
+                labelText={`Paymail (example@${config.paymailDomain || 'bux-domain.com'})`}
                 required
                 type="text"
                 onChange={(event) => setPaymail(event.target.value)}

@@ -1,6 +1,6 @@
-import { axiosClient } from '@/api/client'
+import axios from 'axios'
 
-export const getUser = async () => {
-  const { data: response } = await axiosClient.get('/user')
+export const getUser = async (apiUrl: string) => {
+  const { data: response } = await axios.get(`${apiUrl}/user`)
   return response
 }

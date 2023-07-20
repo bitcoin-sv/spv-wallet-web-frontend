@@ -27,6 +27,7 @@ import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useMediaMatch } from '@/hooks'
 import { useAutoupdate } from '@/providers/autoupdate'
+import { useApiUrl } from '@/api/apiUrl'
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -37,6 +38,7 @@ export const TransactionTable = () => {
   const [errors, setErrors] = useState<string>('')
 
   const { autoupdate } = useAutoupdate()
+  const apiUrl = useApiUrl()
 
   const ITEMS_PER_PAGE = 10
   const TOTAL_ITEMS = totalPages * ITEMS_PER_PAGE
@@ -47,7 +49,7 @@ export const TransactionTable = () => {
 
   useEffect(() => {
     setLoading(true)
-    getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
       .then((response) => {
         const transactions = response.transactions
 
@@ -60,7 +62,7 @@ export const TransactionTable = () => {
         setErrors(errorMsg)
       })
       .finally(() => setLoading(false))
-  }, [currentPage, autoupdate])
+  }, [apiUrl, currentPage, autoupdate])
 
   const smMatch = useMediaMatch('sm')
 
