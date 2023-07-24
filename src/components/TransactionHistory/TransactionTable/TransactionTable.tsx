@@ -49,19 +49,20 @@ export const TransactionTable = () => {
 
   useEffect(() => {
     setLoading(true)
-    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
-      .then((response) => {
-        const transactions = response.transactions
+    apiUrl &&
+      getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+        .then((response) => {
+          const transactions = response.transactions
 
-        setTotalPages(transactions.pages)
-        setTransactionsList(transactions.transactions)
-        setLoading(false)
-      })
-      .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-        setErrors(errorMsg)
-      })
-      .finally(() => setLoading(false))
+          setTotalPages(transactions.pages)
+          setTransactionsList(transactions.transactions)
+          setLoading(false)
+        })
+        .catch((error) => {
+          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+          setErrors(errorMsg)
+        })
+        .finally(() => setLoading(false))
   }, [apiUrl, currentPage, autoupdate])
 
   const smMatch = useMediaMatch('sm')

@@ -29,17 +29,18 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
 
   useEffect(() => {
     setErrors('')
-    getTransactionsDetails(apiUrl, id)
-      .then((response) => {
-        setTransactionData(response)
-      })
-      .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-        errorMsg && setErrors(errorMsg)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    apiUrl &&
+      getTransactionsDetails(apiUrl, id)
+        .then((response) => {
+          setTransactionData(response)
+        })
+        .catch((error) => {
+          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+          errorMsg && setErrors(errorMsg)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
   }, [apiUrl, id])
 
   return (

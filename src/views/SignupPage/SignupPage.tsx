@@ -48,20 +48,23 @@ export const SignupPage = () => {
       passwordConfirmation: confirmedPassword,
     }
 
-    registerUser(apiUrl, newUser)
-      .then((response) => {
-        setRegistered(true)
-        setErrors('')
-        setMnemonic(response.mnemonic)
-        setPaymail(response.paymail)
-        setLoading(false)
-      })
-      .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
-        setErrors(errorMsg)
-        setRegistered(false)
-        setLoading(false)
-      })
+    apiUrl &&
+      registerUser(apiUrl, newUser)
+        .then((response) => {
+          setRegistered(true)
+          setErrors('')
+          setMnemonic(response.mnemonic)
+          setPaymail(response.paymail)
+          setLoading(false)
+        })
+        .catch((error) => {
+          const errorMsg = error.response.data
+            ? error.response.data
+            : 'Something went wrong... Please, try again later!'
+          setErrors(errorMsg)
+          setRegistered(false)
+          setLoading(false)
+        })
   }
 
   return (

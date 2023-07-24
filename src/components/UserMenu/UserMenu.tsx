@@ -49,19 +49,20 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
 
   const logoutHandler = () => {
     setLoading(true)
-    logoutUser(apiUrl)
-      .then(() => {
-        closeModal()
-        setAuthorization(null)
-        Navigate('/')
-      })
-      .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!'
-        errorMsg && setErrors(errorMsg)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    apiUrl &&
+      logoutUser(apiUrl)
+        .then(() => {
+          closeModal()
+          setAuthorization(null)
+          Navigate('/')
+        })
+        .catch((error) => {
+          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!'
+          errorMsg && setErrors(errorMsg)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
   }
 
   return (

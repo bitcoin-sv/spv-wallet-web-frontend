@@ -38,23 +38,26 @@ export const LoginPage = () => {
       password: password,
     }
 
-    loginUser(apiUrl, User)
-      .then((response) => {
-        setErrors('')
-        const LoggedInUser: LoggedInUser = {
-          email: email,
-          paymail: response.paymail,
-          balance: response.balance,
-        }
-        setAuthorization(LoggedInUser)
-        navigate('/dashboard')
-        setLoading(false)
-      })
-      .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
-        setErrors(errorMsg)
-        setLoading(false)
-      })
+    apiUrl &&
+      loginUser(apiUrl, User)
+        .then((response) => {
+          setErrors('')
+          const LoggedInUser: LoggedInUser = {
+            email: email,
+            paymail: response.paymail,
+            balance: response.balance,
+          }
+          setAuthorization(LoggedInUser)
+          navigate('/dashboard')
+          setLoading(false)
+        })
+        .catch((error) => {
+          const errorMsg = error.response.data
+            ? error.response.data
+            : 'Something went wrong... Please, try again later!'
+          setErrors(errorMsg)
+          setLoading(false)
+        })
   }
 
   return (

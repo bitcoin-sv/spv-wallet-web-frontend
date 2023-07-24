@@ -31,30 +31,31 @@ export const AccountSummary = () => {
   useEffect(() => {
     setLoading(true)
     setErrors('')
-    getUser(apiUrl)
-      .then((response) => {
-        const accountDetails = {
-          balance: response.balance,
-          email: response.email,
-          paymail: response.paymail,
-        }
-        setDetails(accountDetails)
-      })
-      .catch((error) => {
-        let errorMsg
+    apiUrl &&
+      getUser(apiUrl)
+        .then((response) => {
+          const accountDetails = {
+            balance: response.balance,
+            email: response.email,
+            paymail: response.paymail,
+          }
+          setDetails(accountDetails)
+        })
+        .catch((error) => {
+          let errorMsg
 
-        if (error.response.status === 404) {
-          errorMsg =
-            "User's account details not found. If you can't log in again, please contact our support or try again later!"
-        } else {
-          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
-        }
+          if (error.response.status === 404) {
+            errorMsg =
+              "User's account details not found. If you can't log in again, please contact our support or try again later!"
+          } else {
+            errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
+          }
 
-        setErrors(errorMsg)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+          setErrors(errorMsg)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
   }, [apiUrl, autoupdate])
 
   return (

@@ -68,37 +68,40 @@ export const App = () => {
 
   useEffect(() => {
     setError('')
-    getUser(apiUrl)
-      .then((response) => {
-        const currentUserData: LoggedInUser = {
-          email: response.email,
-          paymail: response.paymail,
-          balance: response.balance,
-        }
+    apiUrl &&
+      apiUrl &&
+      getUser(apiUrl)
+        .then((response) => {
+          const currentUserData: LoggedInUser = {
+            email: response.email,
+            paymail: response.paymail,
+            balance: response.balance,
+          }
 
-        if (currentUserData) {
-          setAuthorization(currentUserData)
+          if (currentUserData) {
+            setAuthorization(currentUserData)
+            setLoading(false)
+          }
+        })
+        .catch((error) => {
+          let errorMsg
+          if (error.response.status === 401 || error.response.status === 400) {
+            setAuthorization(null)
+            navigate('/')
+            setLoading(false)
+            return
+          }
+
+          if (error.response.status === 404) {
+            errorMsg =
+              error.response.data + ". If you can't log in again, please contact our support or try again later!"
+          } else {
+            errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
+          }
+
+          setError(errorMsg)
           setLoading(false)
-        }
-      })
-      .catch((error) => {
-        let errorMsg
-        if (error.response.status === 401 || error.response.status === 400) {
-          setAuthorization(null)
-          navigate('/')
-          setLoading(false)
-          return
-        }
-
-        if (error.response.status === 404) {
-          errorMsg = error.response.data + ". If you can't log in again, please contact our support or try again later!"
-        } else {
-          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
-        }
-
-        setError(errorMsg)
-        setLoading(false)
-      })
+        })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiUrl])
 

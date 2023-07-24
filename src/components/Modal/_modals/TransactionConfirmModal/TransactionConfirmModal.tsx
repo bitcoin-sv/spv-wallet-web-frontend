@@ -60,42 +60,45 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       password: userPassword,
     }
 
-    sendTransaction(apiUrl, newTransactionData)
-      .then(() => {
-        setSuccessMsg(SUCCESS_SCREEN_MSG)
+    apiUrl &&
+      sendTransaction(apiUrl, newTransactionData)
+        .then(() => {
+          setSuccessMsg(SUCCESS_SCREEN_MSG)
 
-        //store info about new transaction in global context
-        const updateTime = new Date().toISOString()
-        setAutoupdate(updateTime)
+          //store info about new transaction in global context
+          const updateTime = new Date().toISOString()
+          setAutoupdate(updateTime)
 
-        setTimeout(() => {
-          setSuccessMsg('')
-          secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-        }, 3000)
-      })
-      .catch((error) => {
-        if (error) {
-          if (error.response.status === 401) {
-            setErrors('Session expired! Please login in to your wallet')
-            setErrorWithReload(true)
-            return
+          setTimeout(() => {
+            setSuccessMsg('')
+            secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
+          }, 3000)
+        })
+        .catch((error) => {
+          if (error) {
+            if (error.response.status === 401) {
+              setErrors('Session expired! Please login in to your wallet')
+              setErrorWithReload(true)
+              return
+            }
+
+            if (error.response.status === 400) {
+              setErrors(
+                'Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!'
+              )
+              return
+            }
+
+            setErrors(
+              error.response.data
+                ? error.response.data
+                : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
+            )
           }
-
-          if (error.response.status === 400) {
-            setErrors('Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!')
-            return
-          }
-
-          setErrors(
-            error.response.data
-              ? error.response.data
-              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
-          )
-        }
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+        })
+        .finally(() => {
+          setLoading(false)
+        })
   }
 
   //back states to initial values on close modal
