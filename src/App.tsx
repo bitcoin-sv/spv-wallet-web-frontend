@@ -69,7 +69,6 @@ export const App = () => {
   useEffect(() => {
     setError('')
     apiUrl &&
-      apiUrl &&
       getUser(apiUrl)
         .then((response) => {
           const currentUserData: LoggedInUser = {

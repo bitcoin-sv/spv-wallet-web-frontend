@@ -1,17 +1,17 @@
 import { loadConfigFromFile } from '@/utils/loadConfig'
-import { FC, ReactNode, createContext, useEffect, useState } from 'react'
+import { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react'
 
 export type ConfigType = {
   apiUrl: string | undefined
   paymailDomain: string | undefined
 }
 
-export type ConfigContextType = {
+type ConfigContextType = {
   config: ConfigType
   setConfig: React.Dispatch<React.SetStateAction<ConfigType>>
 }
 
-export const ConfigContext = createContext<ConfigContextType | undefined>(undefined)
+const ConfigContext = createContext<ConfigContextType | undefined>(undefined)
 ConfigContext.displayName = 'ConfigContext'
 
 type ConfigProviderProps = {
@@ -36,4 +36,12 @@ export const ConfigProvider: FC<ConfigProviderProps> = ({ children }) => {
   const value = { config, setConfig }
 
   return <ConfigContext.Provider value={value}>{children}</ConfigContext.Provider>
+}
+
+export const useConfig = () => {
+  const ctx = useContext(ConfigContext)
+  if (!ctx) {
+    throw new Error('useConfig must be use within ConfigProvider')
+  }
+  return ctx
 }
