@@ -30,3 +30,4 @@ bux-wallet-backend.env.private
 
 # overriden config
 env-config.json
+.env.config
