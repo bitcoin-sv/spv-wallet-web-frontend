@@ -1,5 +1,5 @@
-import { axiosClient } from '@/api/client'
+import axios from 'axios'
 
-export const logoutUser = async () => {
-  await axiosClient.post('/sign-out')
+export const logoutUser = async (apiUrl: string) => {
+  await axios.post(`${apiUrl}/sign-out`)
 }

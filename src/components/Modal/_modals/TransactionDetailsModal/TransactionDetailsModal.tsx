@@ -1,5 +1,5 @@
 import { Modal } from '@/components/Modal'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {
   DataName,
   DetailsLink,
@@ -7,11 +7,11 @@ import {
   ListElement,
 } from '@/components/Modal/_modals/TransactionDetailsModal/TransactionDetailsModal.styles'
 import { getTransactionsDetails } from '@/api/requests/GetTransactionDetails'
-import { useMountEffect } from '@/hooks'
 import { TransactionDetails } from '@/api/types/transaction'
 import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
+import { useApiUrl } from '@/api/apiUrl'
 
 interface TransactionDetailsProps {
   open: boolean
@@ -25,19 +25,23 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
   const [errors, setErrors] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
 
-  useMountEffect(() => {
-    getTransactionsDetails(id)
-      .then((response) => {
-        setTransactionData(response)
-      })
-      .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-        errorMsg && setErrors(errorMsg)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  })
+  const apiUrl = useApiUrl()
+
+  useEffect(() => {
+    setErrors('')
+    apiUrl &&
+      getTransactionsDetails(apiUrl, id)
+        .then((response) => {
+          setTransactionData(response)
+        })
+        .catch((error) => {
+          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+          errorMsg && setErrors(errorMsg)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+  }, [apiUrl, id])
 
   return (
     <Modal

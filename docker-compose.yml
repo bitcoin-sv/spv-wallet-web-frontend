@@ -1,17 +1,31 @@
 version: "3.9"
 
 services:
+  bux-wallet-frontend:
+    build:
+      context: .
+      dockerfile: release/Dockerfile
+    container_name: bux-wallet-frontend
+    ports:
+      - "3002:80"
+    depends_on:
+      - bux-wallet-backend
+    # volumes:
+    #   - '/host/path/to/env-config.json:/usr/share/nginx/html/env-config.json'
+      
+
   db:
     image: postgres:15.2-alpine
     volumes:
-      - ./data/sql/db:/var/lib/postgresql/data:Z
+      - pgdata:/var/lib/postgresql/data
+      # - ./data/sql/db:/var/lib/postgresql/data:Z
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-# Uncomment following lines if you need to check database (ex. for debugging)
-#    ports:
-#      - 5432:5432
+    # Uncomment following lines if you need to check database (ex. for debugging)
+    # ports:
+    #   - 5432:5432
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d postgres'"]
       timeout: 5s
@@ -21,15 +35,22 @@ services:
     image: 4chain/bux-wallet-backend:latest
     environment:
       DB_HOST: 'db'
+      # For running bux-server locally
+      # BUX_SERVER_URL: 'http://host.docker.internal:3003/v1'
       BUX_SERVER_URL: 'https://bux.4chain.space/v1'
+      BUX_PAYMAIL_DOMAIN: '4chain.space'
     env_file:
       - bux-wallet-backend.env.private
-      # Maybe this will be needed to have working session with frontend proxy
-    #      HTTP_SERVER_COOKIE_DOMAIN: 'localhost:3000'
     ports:
       - "8080:8080"
     links:
       - db
+    # For running bux-server locally
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
     depends_on:
       db:
         condition: service_healthy
+volumes:
+  pgdata:
+    driver: local

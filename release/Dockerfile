@@ -3,13 +3,9 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-RUN addgroup --system app && adduser -S -G app app && \
-    chown -R app:app /app
+RUN addgroup --system app && adduser --system app --ingroup app && chown -R app:app /app
 
 USER app
-
-ARG VITE_API_URL
-ARG VITE_BUX_PAYMAIL_DOMAIN
 
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin

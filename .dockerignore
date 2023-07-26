@@ -1,0 +1,5 @@
+**/dev-dist
+**/node_modules/
+**/dist
+.git
+npm-debug.log

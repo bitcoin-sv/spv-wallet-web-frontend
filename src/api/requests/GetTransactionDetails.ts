@@ -1,6 +1,6 @@
-import { axiosClient } from '@/api/client'
+import axios from 'axios'
 
-export const getTransactionsDetails = async (transactionId: string) => {
-  const { data: response } = await axiosClient.get(`/transaction/${transactionId}`)
+export const getTransactionsDetails = async (apiUrl: string, transactionId: string) => {
+  const { data: response } = await axios.get(`${apiUrl}/transaction/${transactionId}`)
   return response
 }
