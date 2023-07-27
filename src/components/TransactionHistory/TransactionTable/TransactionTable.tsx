@@ -15,7 +15,7 @@ import {
   UserPrefix,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
 import { getTransactions } from '@/api/requests/GetTransactions'
 import { Transaction } from '@/api/types/transaction'
@@ -65,6 +65,14 @@ export const TransactionTable = () => {
         .finally(() => setLoading(false))
   }, [apiUrl, currentPage, autoupdate])
 
+  const openModalByKeyboard = (e: React.KeyboardEvent<HTMLTableRowElement>, modalId: string) => {
+    if (e.code === 'Enter' || e.code === "Space") {
+      setTransactionDetailsModal(modalId)
+      return
+    }
+    return;
+  }
+
   const smMatch = useMediaMatch('sm')
 
   return (
@@ -99,7 +107,7 @@ export const TransactionTable = () => {
               <tbody>
                 {transactionsList.map((transaction, index) => {
                   return (
-                    <tr key={index} onClick={() => setTransactionDetailsModal(transaction.id)}>
+                    <tr key={index} onKeyDown={(e) => openModalByKeyboard(e, transaction.id)} onClick={() => setTransactionDetailsModal(transaction.id)} role="button" aria-label={`Open details of transaction id number: ${transaction.id}`} tabIndex={0}>
                       <LargeTd>
                         {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
                         {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}

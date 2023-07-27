@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { colors, fontWeight, sizes } from '@/styles'
 import { media } from '@/styles/media'
 import { css } from '@emotion/react'
+import {variables} from "@/styles/variables";
 
 interface TableWrapperProps {
   withPagination?: boolean
@@ -76,6 +77,12 @@ export const Table = styled.table`
       span {
         text-decoration: none;
       }
+    }
+    
+    &:focus-visible {
+      outline: 2px solid ${colors.lightPrimary};
+      outline-offset: 2px;
+      border-radius: calc(${variables.borderRadius} / 2);
     }
 
     td:first-of-type {
