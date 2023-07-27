@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export const logoutUser = async (apiUrl: string) => {
-  await axios.post(`${apiUrl}/sign-out`)
+  await axios.post(`${apiUrl}/sign-out`, { withCredentials: true })
 }

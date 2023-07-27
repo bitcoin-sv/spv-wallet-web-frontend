@@ -86,9 +86,8 @@
   },
   "sql": {
     "host": "localhost",
-    "name": "xapi",
-    "password": "",
-    "_port": "3306",
+    "name": "postgres",
+    "password": "postgres",
     "port": "5432",
     "replica": false,
     "skip_initialize_with_version": true,

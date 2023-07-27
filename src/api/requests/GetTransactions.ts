@@ -10,7 +10,8 @@ export const getTransactions = async (
   const { data: transactions } = await axios.get(
     `${apiUrl}/transaction?page=${PAGE || 1}&page_size=${PAGE_SIZE || 10}&order=${ORDER || 'created_at'}&sort=${
       SORT || 'desc'
-    }`
+    }`,
+      { withCredentials: true }
   )
   return {
     transactions,
