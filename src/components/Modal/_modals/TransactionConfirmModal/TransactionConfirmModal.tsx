@@ -12,11 +12,14 @@ import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { useApiUrl } from '@/api/apiUrl'
+import { SendNewTransaction } from '@/api/types/transaction.ts'
 
-export interface TransactionData {
+export interface PaymentTransactionData {
   paymail: string
   amount: string
 }
+
+export type TransactionData = PaymentTransactionData | { data: string }
 
 const SUCCESS_SCREEN_MSG = 'Great! Transaction sent to receiver!'
 
@@ -50,14 +53,22 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
     setErrors('')
     setLoading(true)
 
-    const receiver = transactionData?.paymail ? transactionData?.paymail : 'undefined'
-    const satoshisAmount = transactionData?.amount ? transactionData?.amount : '0'
     const userPassword = password ? password : 'undefined'
+    let newTransactionData: SendNewTransaction
+    if (transactionData != null && 'data' in transactionData) {
+      newTransactionData = {
+        data: transactionData.data,
+        password: userPassword,
+      }
+    } else {
+      const receiver = transactionData?.paymail ? transactionData?.paymail : 'undefined'
+      const satoshisAmount = transactionData?.amount ? transactionData?.amount : '0'
 
-    const newTransactionData = {
-      recipient: receiver,
-      satoshis: parseInt(satoshisAmount),
-      password: userPassword,
+      newTransactionData = {
+        recipient: receiver,
+        satoshis: parseInt(satoshisAmount),
+        password: userPassword,
+      }
     }
 
     apiUrl &&
@@ -126,9 +137,11 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       successScreenMsg={successMsg}
     >
       {loading && <Loader />}
-      <TextWithValues>
-        You try to send <Value>{transactionData?.amount} sat.</Value> to <Value>{transactionData?.paymail}</Value>
-      </TextWithValues>
+      {isPayment(transactionData) ? (
+        <TextWithValues>
+          You try to send <Value>{transactionData?.amount} sat.</Value> to <Value>{transactionData?.paymail}</Value>
+        </TextWithValues>
+      ) : null}
       <Form onSubmit={() => onFormSubmitHandler()}>
         <legend>
           <SrOnlySpan>Transaction confirmation form</SrOnlySpan>
@@ -150,4 +163,8 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       </Form>
     </Modal>
   )
+}
+
+function isPayment(transactionData: TransactionData | undefined | null): transactionData is PaymentTransactionData {
+  return !!transactionData && !('data' in transactionData)
 }

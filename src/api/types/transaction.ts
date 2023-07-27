@@ -23,7 +23,8 @@ export interface TransactionDetails {
 }
 
 export interface SendNewTransaction {
-  recipient: string
-  satoshis: number
+  recipient?: string
+  satoshis?: number
   password: string
+  data?: string
 }
