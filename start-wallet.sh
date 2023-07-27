@@ -54,9 +54,9 @@ while [[ $# -gt 0 ]]; do
 #        shift
 #        ;;
         -h|--help)
-        echo -e "\033[1mUsage: ./start-bux-server.sh [OPTIONS]$reset"
+        echo -e "\033[1mUsage: ./start-walletr.sh [OPTIONS]$reset"
         echo ""
-        echo "This script helps you to run Bux server with your preferred database and cache storage."
+        echo "This script helps you to run Bux wallet and Bux server with your preferred database and cache storage."
         echo ""
         echo -e "Options:$reset"
         echo -e "<----------   BUX WALLET SECTION"
