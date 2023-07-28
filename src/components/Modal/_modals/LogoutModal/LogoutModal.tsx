@@ -25,6 +25,7 @@ export const LogoutModal: FC<LogoutModalProps> = ({
       modalSubtitle="you want to log out?"
       primaryButton={{ text: 'Cancel', variant: 'reject', onClick: primaryButtonOnClickHandler }}
       secondaryButton={{ text: 'Yes', variant: 'accept', onClick: secondaryButtonOnClickHandler }}
+      onCloseByEsc={primaryButtonOnClickHandler}
     >
       {loader && <Loader />}
       {logoutError && <ErrorBar errorMsg={logoutError} withReloadButton />}

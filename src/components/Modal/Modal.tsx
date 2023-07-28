@@ -26,6 +26,8 @@ interface ModalProps {
   primaryButton?: ModalButtonProps
   secondaryButton?: ModalButtonProps
   successScreenMsg?: string
+  onCloseByEsc?: () => void
+  isLoading?: boolean
 }
 export const Modal: FC<ModalProps> = ({
   open,
@@ -35,14 +37,29 @@ export const Modal: FC<ModalProps> = ({
   secondaryButton,
   children,
   successScreenMsg,
+  onCloseByEsc,
+  isLoading,
 }) => {
   useEffect(() => {
     open ? disablePageScroll() : enablePageScroll()
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((successScreenMsg && successScreenMsg !== '') || isLoading) {
+        return
+      }
+
+      if (onCloseByEsc && e.code === 'Escape') {
+        onCloseByEsc()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
     return () => {
       enablePageScroll()
+      document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [open])
+  }, [open, isLoading, successScreenMsg, onCloseByEsc])
 
   return (
     <>

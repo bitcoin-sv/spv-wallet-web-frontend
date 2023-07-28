@@ -124,6 +124,8 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         type: 'submit',
       }}
       successScreenMsg={successMsg}
+      isLoading={loading}
+      onCloseByEsc={primaryButtonOnClickHandler}
     >
       {loading && <Loader />}
       <TextWithValues>
