@@ -33,6 +33,10 @@ while [[ $# -gt 0 ]]; do
         admin_xpub="$2"
         shift
         ;;
+        -p|--xpriv)
+        admin_xpriv="$2"
+        shift
+        ;;
         -l|--load)
         load_config="true"
         shift
@@ -45,14 +49,6 @@ while [[ $# -gt 0 ]]; do
         bux_wallet_backend="$2"
         shift
         ;;
-#        -s|--server-url)
-#        server-url="$2"
-#        shift
-#        ;;
-#        -p|--paymail-domain)
-#        paymail-domain="$2"
-#        shift
-#        ;;
         -h|--help)
         echo -e "\033[1mUsage: ./start-walletr.sh [OPTIONS]$reset"
         echo ""
@@ -62,6 +58,7 @@ while [[ $# -gt 0 ]]; do
         echo -e "<----------   BUX WALLET SECTION"
         echo -e "  -bwf,  --bux-wallet-frontend\t Whether the bux-server should be run - true/false$reset"
         echo -e "  -bwb,  --bux-wallet-backend\t Whether the bux-server should be run - true/false$reset"
+        echo -e "  -p,    --xpriv\t\t\t Define admin xPriv$reset"
         echo -e ""
         echo -e "<----------   BUX SERVER SECTION"
         echo -e "  -db,  --database\t\t Define database - postgresql, mongodb, sqlite$reset"
@@ -105,9 +102,17 @@ if [ "$load_config" == "true" ]; then
                     value="${line#*=}"
                     background="${value//\"}"
                 fi
+                if [[ "$line" =~ ^(RUN_WITH_XPUB_FROM_JSON=) ]]; then
+                    value="${line#*=}"
+                    xpub_from_json="${value//\"}"
+                fi
                 if [[ "$line" =~ ^(BUX_AUTHENTICATION__ADMIN_KEY=) ]]; then
                     value="${line#*=}"
                     admin_xpub="${value//\"}"
+                fi
+                if [[ "$line" =~ ^(BUX_ADMIN_XPRIV=) ]]; then
+                    value="${line#*=}"
+                    admin_xpriv="${value//\"}"
                 fi
                 if [[ "$line" =~ ^(RUN_BUX_WALLET_FRONTEND=) ]]; then
                     value="${line#*=}"
@@ -260,15 +265,26 @@ if [ "$bux_server" == "true" ]; then
       esac
   fi
 
-  if [ "$admin_xpub" == "" ]; then
-    if [ "$load_config" != "true" ]; then
+  if [ "$admin_xpub" == "" ] && [ "$xpub_from_json" != "true" ]; then
       # Ask for admin xPub choice
       echo -e "\033[1mDefine admin xPub $reset"
       echo -e "\033[4mLeave empty to use the one from selected environment config file $reset"
       read -p "> " admin_input
       if [[ -n "$admin_input" ]]; then
           admin_xpub=$admin_input
+      else
+          xpub_from_json="true"
       fi
+  fi
+
+  if [ "$admin_xpriv" == "" ] && [ "$bux_wallet_backend" == "true" ]; then
+    echo -e "\033[1mDefine admin xPriv $reset"
+    echo -e "\033[4mLeave empty to use the default one $reset"
+    read -p "> " admin_input
+    if [[ -n "$admin_input" ]]; then
+      admin_xpriv=$admin_input
+    else
+      admin_xpriv="xprv9s21ZrQH143K3A7d7FojiC2JoGqcTH2jsfqPKiP4uqoW1v17ZHaEZnX873FBrW4grcp66Rff8yU7deDCcxLDsrFy3Nkcsotv7PmHNhTAd43"
     fi
   fi
 
@@ -300,6 +316,9 @@ if [ "$bux_server" == "true" ]; then
     # Add additional settings to .env.config file based on the selected database
     if [ "$database" == "postgresql" ]; then
         echo 'BUX_SQL__HOST="bux-postgresql"' >> ./docker/.env.config
+        echo 'BUX_SQL__NAME="postgres"' >> .env.config
+        echo 'BUX_SQL__USER="postgres"' >> .env.config
+        echo 'BUX_SQL__PASSWORD="postgres"' >> .env.config
     fi
 
     # Add additional settings to .env.config file based on the selected database
@@ -314,6 +333,14 @@ if [ "$bux_server" == "true" ]; then
 
     if [ "$admin_xpub" != "" ]; then
       echo "BUX_AUTHENTICATION__ADMIN_KEY=\"$admin_xpub\"" >> ./docker/.env.config
+    fi
+
+    if [ "$xpub_from_json" == "true" ]; then
+      echo 'RUN_WITH_XPUB_FROM_JSON="true"' >> ./docker/.env.config
+    fi
+
+    if [ "$admin_xpriv" != "" ]; then
+      echo "BUX_ADMIN_XPRIV=\"$admin_xpriv\"" >> ./docker/.env.config
     fi
   fi
 

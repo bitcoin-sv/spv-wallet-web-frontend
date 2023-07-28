@@ -50,7 +50,7 @@ There are three ways of running this script:
   <----------   BUX WALLET SECTION
     -bwf,  --bux-wallet-frontend	 Whether the bux-server should be run - true/false
     -bwb,  --bux-wallet-backend	 Whether the bux-server should be run - true/false
-  
+    -p,    --xpriv\t\t\t Define admin xPriv          
   <----------   BUX SERVER SECTION
     -db,  --database		 Define database - postgresql, mongodb, sqlite
     -c,   --cache			 Define cache storage - freecache(in-memory), redis

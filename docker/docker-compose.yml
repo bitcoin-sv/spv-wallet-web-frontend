@@ -8,7 +8,7 @@ services:
     ports:
       - "3002:80"
     volumes:
-      - '../env-config.json:/usr/share/nginx/html/env-config.json'
+      - './env-config.json:/usr/share/nginx/html/env-config.json'
 
   bux-wallet-backend:
     image: 4chain/bux-wallet-backend:latest
@@ -18,7 +18,7 @@ services:
       BUX_PAYMAIL_DOMAIN: '4chain.space'
       HTTP_SERVER_CORS_ALLOWEDDOMAINS: 'http://localhost:3002'
     env_file:
-      - ../bux-wallet-backend.env.private
+      - .env.config
     ports:
       - "8080:8080"
     links:

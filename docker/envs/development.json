@@ -7,7 +7,7 @@
   "request_logging": true,
   "use_mapi_fee_quotes": true,
   "authentication": {
-    "admin_key": "xpub661MyMwAqRbcFrBJbKwBGCB7d3fr2SaAuXGM95BA62X41m6eW2ehRQGW4xLi9wkEXUGnQZYxVVj4PxXnyrLk7jdqvBAs1Qq9gf6ykMvjR7J",
+    "admin_key": "xpub661MyMwAqRbcFeC6DHLk5Ky3MJg6rjkbEtkz86ngUBLUtiLG6ptV7aqbxHhESmZ315CowCiWJ2VAiwWYLzyohdzhBqr7k27AHgBNevHPV9s",
     "require_signing": false,
     "scheme": "xpub",
     "signing_disabled": true
