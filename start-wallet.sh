@@ -316,9 +316,9 @@ if [ "$bux_server" == "true" ]; then
     # Add additional settings to .env.config file based on the selected database
     if [ "$database" == "postgresql" ]; then
         echo 'BUX_SQL__HOST="bux-postgresql"' >> ./docker/.env.config
-        echo 'BUX_SQL__NAME="postgres"' >> .env.config
-        echo 'BUX_SQL__USER="postgres"' >> .env.config
-        echo 'BUX_SQL__PASSWORD="postgres"' >> .env.config
+        echo 'BUX_SQL__NAME="postgres"' >> ./docker/.env.config
+        echo 'BUX_SQL__USER="postgres"' >> ./docker/.env.config
+        echo 'BUX_SQL__PASSWORD="postgres"' >> ./docker/.env.config
     fi
 
     # Add additional settings to .env.config file based on the selected database

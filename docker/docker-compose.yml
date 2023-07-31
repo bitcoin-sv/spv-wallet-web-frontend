@@ -8,7 +8,7 @@ services:
     ports:
       - "3002:80"
     volumes:
-      - './env-config.json:/usr/share/nginx/html/env-config.json'
+      - './env-config.json:/usr/share/nginx/html/env-config.json:ro'
 
   bux-wallet-backend:
     image: 4chain/bux-wallet-backend:latest
