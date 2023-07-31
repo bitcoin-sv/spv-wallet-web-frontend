@@ -1,6 +1,43 @@
 #!/bin/bash
 
 reset='\033[0m'
+choice=''
+function ask_for_choice() {
+    local prompt="$1"
+    local options=("${@:2}")
+
+    echo -e "$prompt"
+    for (( i = 0; i < ${#options[@]}; i++ )); do
+        echo "$((i+1)). ${options[i]}"
+    done
+
+
+    read -p "> " choice
+
+    while ! [[ "$choice" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#options[@]} )); do
+        echo -e "\033[0;31mInvalid choice! Please select a valid option.$reset"
+        read -p "> " choice
+    done
+}
+
+function ask_for_yes_or_no() {
+    local prompt="$1"
+    echo -e "$prompt"
+
+    local response
+    read -p "(y/n)> " response
+
+    while ! [[ "$response" =~ ^(yes|no|y|n)$ ]]; do
+        echo -e "\033[0;31mInvalid response! Please enter 'yes' or 'no'.$reset"
+        read -p "> " response
+    done
+
+    if [[ "$response" =~ ^(yes|y)$ ]]; then
+        choice="true"
+    else
+        choice="false"
+    fi
+}
 
 # Welcome message
 echo -e "\033[0;33m\033[1mWelcome in Bux Wallet!$reset"
@@ -134,55 +171,16 @@ fi
 # <----------   BUX WALLET SECTION
 
 if [ "$bux_wallet_frontend" == "" ]; then
-    # Ask for bux-wallet-frontend choice
-    echo -e "\033[1mDo you want to run Bux-wallet-frontend?$reset"
-    echo "1. YES"
-    echo "2. NO"
-    echo -e "\033[4mAny other number ends the program $reset"
-    read -p "> " bux_wallet_frontend_choice
-
-    # Validate bux-server choice
-    case $bux_wallet_frontend_choice in
-        1) bux_wallet_frontend="true";;
-        2) bux_wallet_frontend="false";;
-        *) echo -e "\033[0;31mExiting program...$reset"; exit 1;;
-    esac
+    ask_for_yes_or_no "Do you want to run Bux-wallet-frontend?"
+    bux_wallet_frontend="$choice"
+    echo -e "\033[0;33m[DEBUG] bux_wallet_frontend: $bux_wallet_frontend$reset"
 fi
 
 if [ "$bux_wallet_backend" == "" ]; then
-    # Ask for bux-wallet-backend choice
-    echo -e "\033[1mDo you want to run Bux-wallet-backend?$reset"
-    echo "1. YES"
-    echo "2. NO"
-    echo -e "\033[4mAny other number ends the program $reset"
-    read -p "> " bux_wallet_backend_choice
-
-    # Validate bux-server choice
-    case $bux_wallet_backend_choice in
-        1) bux_wallet_backend="true";;
-        2) bux_wallet_backend="false";;
-        *) echo -e "\033[0;31mExiting program...$reset"; exit 1;;
-    esac
+    ask_for_yes_or_no "Do you want to run Bux-wallet-backend?"
+    bux_wallet_backend="$choice"
+    echo -e "\033[0;33m[DEBUG] bux_wallet_backend: $bux_wallet_backend$reset"
 fi
-
-# <-------------------------------------------------------------------------
-
-#if [ "$bux_wallet_backend" == "true" ]; then
-#  if [ "$server_url" == "" ]; then
-#    # Ask for bux-wallet-backend choice
-#    echo -e "\033[1mSpecify Bux server url: $reset"
-#    echo -e "\033[4mLeave empty to use bux-server container $reset"
-#    read -p "> " server_url_input
-#    if [[ -n "$server_url_input" ]]; then
-#      server_url=$server_url_input
-#    else
-#      server_url="bux-server:3003/v1"
-#    fi
-#  fi
-#fi
-
-# <-------------------------------------------------------------------------
-
 
 if [ "$load_config" != "true" ]; then
   # Create the .env.config file
@@ -197,73 +195,41 @@ fi
 # <----------   BUX SERVER SECTION
 
 if [ "$bux_server" == "" ]; then
-    # Ask for bux-server choice
-    echo -e "\033[1mDo you want to run Bux-server?$reset"
-    echo "1. YES"
-    echo "2. NO"
-    echo -e "\033[4mAny other number ends the program $reset"
-    read -p "> " bux_server_choice
-
-    # Validate bux-server choice
-    case $bux_server_choice in
-        1) bux_server="true";;
-        2) bux_server="false";;
-        *) echo -e "\033[0;31mExiting program... Stopping additional services... $reset"; docker compose stop; exit 1;;
-    esac
+    ask_for_yes_or_no "Do you want to run Bux-server?"
+    bux_server="$choice"
+    echo -e "\033[0;33m[DEBUG] bux_server: $bux_server$reset"
 fi
 
+
 if [ "$bux_server" == "true" ]; then
+    if [ "$environment" == "" ]; then
+        ask_for_choice "Select your environment:" "development" "staging" "production"
+        case $choice in
+            1) environment="development";;
+            2) environment="staging";;
+            3) environment="production";;
+        esac
+        echo -e "\033[0;33m[DEBUG] environment: $environment$reset"
+    fi
 
-  if [ "$environment" == "" ]; then
-    # Ask for environment choice
-    echo -e "\033[1mSelect your environment:$reset"
-    echo "1. development"
-    echo "2. staging"
-    echo "3. production"
-    echo -e "\033[4mAny other number ends the program $reset"
-    read -p "> " environment_choice
-    # Validate environment choice
-    case $environment_choice in
-        1) environment="development";;
-        2) environment="staging";;
-        3) environment="production";;
-        *) echo -e "\033[0;31mExiting program... Stopping additional services... $reset"; docker compose stop; exit 1;;
-    esac
-  fi
+    if [ "$database" == "" ]; then
+        ask_for_choice "Select your database:" "postgresql" "mongodb" "sqlite"
+        case $choice in
+            1) database="postgresql";;
+            2) database="mongodb";;
+            3) database="sqlite";;
+        esac
+        echo -e "\033[0;33m[DEBUG] database: $database$reset"
+    fi
 
-  if [ "$database" == "" ]; then
-      # Ask for database choice
-      echo -e "\033[1mSelect your database: $reset"
-      echo "1. postgresql"
-      echo "2. mongodb"
-      echo "3. sqlite"
-      echo -e "\033[4mAny other number ends the program $reset"
-      read -p "> " database_choice
-
-      # Validate database choice
-      case $database_choice in
-          1) database="postgresql";;
-          2) database="mongodb";;
-          3) database="sqlite";;
-          *) echo -e "\033[0;31mExiting program...$reset"; exit 1;;
-      esac
-  fi
-
-  if [ "$cache" == "" ]; then
-      # Ask for cache storage choice
-      echo -e "\033[1mSelect your cache storage:$reset"
-      echo "1. freecache"
-      echo "2. redis"
-      echo -e "\033[4mAny other number ends the program $reset"
-      read -p "> " cache_storage_choice
-
-      # Validate cache storage choice
-      case $cache_storage_choice in
-          1) cache="freecache";;
-          2) cache="redis";;
-          *) echo -e "\033[0;31mExiting program...$reset"; exit 1;;
-      esac
-  fi
+    if [ "$cache" == "" ]; then
+        ask_for_choice "Select your cache storage:" "freecache" "redis"
+        case $choice in
+            1) cache="freecache";;
+            2) cache="redis";;
+        esac
+        echo -e "\033[0;33m[DEBUG] cache: $cache$reset"
+    fi
 
   if [ "$admin_xpub" == "" ] && [ "$xpub_from_json" != "true" ]; then
       # Ask for admin xPub choice
@@ -288,20 +254,11 @@ if [ "$bux_server" == "true" ]; then
     fi
   fi
 
-  if [ "$background" == "" ]; then
-      # Ask for background choice
-      echo -e "\033[1mDo you want to run Bux-server in background? $reset"
-      echo "1. YES"
-      echo "2. NO"
-      echo -e "\033[4mAny other number ends the program $reset"
-      read -p "> " background_choice
-      # Validate background choice
-      case $background_choice in
-          1) background="true";;
-          2) background="false";;
-          *) echo -e "\033[0;31mExiting program... Stopping additional services... $reset"; docker compose stop; exit 1;;
-      esac
-  fi
+    if [ "$background" == "" ]; then
+        ask_for_yes_or_no "Do you want to run Bux-server in the background?"
+        background="$choice"
+        echo -e "\033[0;33m[DEBUG] background: $background$reset"
+    fi
 
   if [ "$load_config" != "true" ]; then
     {
