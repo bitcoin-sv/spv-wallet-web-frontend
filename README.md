@@ -10,6 +10,66 @@
 
 ### Running backend locally
 
+There are two way of running backend locally:
+
+#### Using ./start-wallet.sh script 
+
+`bux-wallet-frontend` provides a `start-wallet.sh` script
+which is using `docker-compose.yml` file to starts up Bux Wallet Frontend, Backend and 
+Bux Server with selected database and cache storage. To start, we need to fill the 
+config json which we want to use, there is prepared custom config file `docker/envs/development.json`
+which is used in development environment. This script build local image of bux-wallet-frontend and use 
+already built ones for the rest of applications.
+
+Ports which are used:
+- 3002  - Bux wallet frontend
+- 3003  - Bux server
+- 5432  - PostgreSQL db
+- 6379  - Redis
+- 8080  - Bux wallet backend
+- 27017 - MongoDB
+
+There are three ways of running this script:
+1. With manual configuration - every option is displayed in terminal and user can choose
+   which applications should be started and configure how to run bux-server. Use command:
+  ```bash
+  ./start-wallet.sh
+  ```
+2. With flags which define how to set up docker services. Ever option is displayed when
+   you ran the script with flag `-h` or `--help`. Possible options:
+
+  ```bash
+  ./start-wallet.sh --help
+
+  Welcome in Bux Wallet!
+  Usage: ./start-wallet.sh [OPTIONS]
+  
+  This script helps you to run Bux wallet and Bux server with your preferred database and cache storage.
+  
+  Options:
+  <----------   BUX WALLET SECTION
+    -bwf,  --bux-wallet-frontend	 Whether the bux-server should be run - true/false
+    -bwb,  --bux-wallet-backend	 Whether the bux-server should be run - true/false
+    -p,    --xpriv\t\t\t Define admin xPriv          
+  <----------   BUX SERVER SECTION
+    -db,  --database		 Define database - postgresql, mongodb, sqlite
+    -c,   --cache			 Define cache storage - freecache(in-memory), redis
+    -bs,  --bux-server		 Whether the bux-server should be run - true/false
+    -env, --environment		 Define bux-server environment - development/staging/production
+    -b,   --background		 Whether the bux-server should be run in background - true/false
+    -x,   --xpub			 Define admin xPub
+    -l,   --load			 Load .env.config file and run bux-server with its settings
+  ```
+
+  ```bash
+  ./start-wallet.sh -db postgresql -c redis -bs true -env development -b false 
+  ```
+3. With `-l/--load` flag. This option add possibility to use previously created `.env.config` file and run whole environment with simple command:
+  ```bash
+  ./start-wallet.sh -l
+  ```
+
+#### Using docker compose
 To run backend locally you can use docker compose
 
 Before you use it, you need to create a file named

@@ -1,0 +1,86 @@
+version: "3.9"
+
+services:
+  bux-wallet-frontend:
+    build:
+      context: ..
+      dockerfile: ./release/Dockerfile
+    ports:
+      - "3002:80"
+    volumes:
+      - './env-config.json:/usr/share/nginx/html/env-config.json:ro'
+
+  bux-wallet-backend:
+    image: 4chain/bux-wallet-backend:latest
+    environment:
+      DB_HOST: 'bux-postgresql'
+      BUX_SERVER_URL: 'http://bux-server:3003/v1'
+      BUX_PAYMAIL_DOMAIN: '4chain.space'
+      HTTP_SERVER_CORS_ALLOWEDDOMAINS: 'http://localhost:3002'
+    env_file:
+      - .env.config
+    ports:
+      - "8080:8080"
+    links:
+      - bux-postgresql
+    depends_on:
+      bux-postgresql:
+        condition: service_healthy
+
+  bux-server:
+    platform: linux/x86_64
+    image: 4chainstudio/bux-server:v0.5.5
+    env_file:
+      - .env.config
+    ports:
+      - "3003:3003"
+    volumes:
+      - .:/config:Z
+
+  bux-postgresql:
+    image: postgres:15.2-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U postgres -d postgres'"]
+      timeout: 5s
+      retries: 3
+
+  bux-redis:
+    image: redis
+    hostname: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+
+  bux-mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: xapi
+    ports:
+      - '27017:27017'
+    volumes:
+      - db-data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongodb:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+volumes:
+  db-data:
+    driver: local
+  redis-data:
+    driver: local
