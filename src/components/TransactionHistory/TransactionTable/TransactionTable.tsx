@@ -37,6 +37,9 @@ export const TransactionTable = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
 
+  const KEY_NAME_ENTER = 'Enter'
+  const KEY_NAME_SPACE = 'Space'
+
   const { autoupdate } = useAutoupdate()
   const apiUrl = useApiUrl()
 
@@ -66,11 +69,10 @@ export const TransactionTable = () => {
   }, [apiUrl, currentPage, autoupdate])
 
   const openModalByKeyboard = (e: React.KeyboardEvent<HTMLTableRowElement>, modalId: string) => {
-    if (e.code === 'Enter' || e.code === "Space") {
-      setTransactionDetailsModal(modalId)
+    if (![KEY_NAME_ENTER, KEY_NAME_SPACE].includes(e.code)) {
       return
     }
-    return;
+    setTransactionDetailsModal(modalId)
   }
 
   const smMatch = useMediaMatch('sm')
@@ -107,7 +109,14 @@ export const TransactionTable = () => {
               <tbody>
                 {transactionsList.map((transaction, index) => {
                   return (
-                    <tr key={index} onKeyDown={(e) => openModalByKeyboard(e, transaction.id)} onClick={() => setTransactionDetailsModal(transaction.id)} role="button" aria-label={`Open details of transaction id number: ${transaction.id}`} tabIndex={0}>
+                    <tr
+                      key={index}
+                      onKeyDown={(e) => openModalByKeyboard(e, transaction.id)}
+                      onClick={() => setTransactionDetailsModal(transaction.id)}
+                      role="button"
+                      aria-label={`Open details of transaction id number: ${transaction.id}`}
+                      tabIndex={0}
+                    >
                       <LargeTd>
                         {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
                         {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
