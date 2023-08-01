@@ -1,4 +1,4 @@
-import { useConfig } from '@/providers'
+import { useConfig } from '@4chain-ag/react-configuration'
 
 export const useApiUrl = () => {
   const { config } = useConfig()

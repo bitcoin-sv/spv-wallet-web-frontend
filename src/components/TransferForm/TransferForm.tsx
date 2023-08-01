@@ -9,7 +9,7 @@ import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
-import { useConfig } from '@/providers'
+import { useConfig } from '@4chain-ag/react-configuration'
 
 export const TransferForm = () => {
   const [paymail, setPaymail] = useState<string>('')
