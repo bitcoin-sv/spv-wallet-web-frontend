@@ -48,6 +48,7 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
       open={open}
       modalTitle="Transaction details"
       primaryButton={{ text: 'Close', variant: 'reject', onClick: primaryButtonOnClickHandler }}
+      onCloseByEsc={primaryButtonOnClickHandler}
     >
       <>
         {loading && <Loader />}

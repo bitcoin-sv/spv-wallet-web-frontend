@@ -13,6 +13,8 @@ import { ButtonProps } from '@/components/Button'
 import { disablePageScroll, enablePageScroll } from 'scroll-lock'
 import { SuccessScreen } from '@/components/SuccessScreen'
 
+const KEY_NAME_ESC = 'Escape'
+
 type ModalButtonProps = {
   text: string
   primaryButtonOnClickHandler?: () => void
@@ -26,6 +28,8 @@ interface ModalProps {
   primaryButton?: ModalButtonProps
   secondaryButton?: ModalButtonProps
   successScreenMsg?: string
+  onCloseByEsc?: () => void
+  isLoading?: boolean
 }
 export const Modal: FC<ModalProps> = ({
   open,
@@ -35,14 +39,29 @@ export const Modal: FC<ModalProps> = ({
   secondaryButton,
   children,
   successScreenMsg,
+  onCloseByEsc,
+  isLoading,
 }) => {
   useEffect(() => {
     open ? disablePageScroll() : enablePageScroll()
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((successScreenMsg && successScreenMsg !== '') || isLoading) {
+        return
+      }
+
+      if (onCloseByEsc && e.code === KEY_NAME_ESC) {
+        onCloseByEsc()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
     return () => {
       enablePageScroll()
+      document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [open])
+  }, [open, isLoading, successScreenMsg, onCloseByEsc])
 
   return (
     <>
