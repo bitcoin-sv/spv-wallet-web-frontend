@@ -1,7 +1,7 @@
 import {
   ContentWithInfoTip,
   CurrentPage,
-  IdLink,
+  Highlighted,
   LargeTd,
   LargeTh,
   MediumTd,
@@ -15,7 +15,7 @@ import {
   UserPrefix,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
 import { getTransactions } from '@/api/requests/GetTransactions'
 import { Transaction } from '@/api/types/transaction'
@@ -36,6 +36,9 @@ export const TransactionTable = () => {
   const [transactionDetailsModal, setTransactionDetailsModal] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
+
+  const KEY_NAME_ENTER = 'Enter'
+  const KEY_NAME_SPACE = 'Space'
 
   const { autoupdate } = useAutoupdate()
   const apiUrl = useApiUrl()
@@ -64,6 +67,13 @@ export const TransactionTable = () => {
         })
         .finally(() => setLoading(false))
   }, [apiUrl, currentPage, autoupdate])
+
+  const openModalByKeyboard = (e: React.KeyboardEvent<HTMLTableRowElement>, modalId: string) => {
+    if (![KEY_NAME_ENTER, KEY_NAME_SPACE].includes(e.code)) {
+      return
+    }
+    setTransactionDetailsModal(modalId)
+  }
 
   const smMatch = useMediaMatch('sm')
 
@@ -99,21 +109,23 @@ export const TransactionTable = () => {
               <tbody>
                 {transactionsList.map((transaction, index) => {
                   return (
-                    <tr key={index}>
+                    <tr
+                      key={index}
+                      onKeyDown={(e) => openModalByKeyboard(e, transaction.id)}
+                      onClick={() => setTransactionDetailsModal(transaction.id)}
+                      role="button"
+                      aria-label={`Open details of transaction id number: ${transaction.id}`}
+                      tabIndex={0}
+                    >
                       <LargeTd>
                         {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
                         {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
-                        <IdLink
-                          variant="transparent"
-                          isLink
-                          isTextLink
-                          onClick={() => setTransactionDetailsModal(transaction.id)}
-                        >
+                        <Highlighted>
                           {transaction.direction === 'incoming' &&
                             (transaction.sender ? transaction.sender : '$sender')}
                           {transaction.direction === 'outgoing' &&
                             (transaction.receiver ? transaction.receiver : '$receiver')}
-                        </IdLink>
+                        </Highlighted>
                       </LargeTd>
                       <MediumTd>
                         {transaction.direction === 'incoming' && (
