@@ -13,6 +13,8 @@ import { ButtonProps } from '@/components/Button'
 import { disablePageScroll, enablePageScroll } from 'scroll-lock'
 import { SuccessScreen } from '@/components/SuccessScreen'
 
+const KEY_NAME_ESC = 'Escape'
+
 type ModalButtonProps = {
   text: string
   primaryButtonOnClickHandler?: () => void
@@ -48,7 +50,7 @@ export const Modal: FC<ModalProps> = ({
         return
       }
 
-      if (onCloseByEsc && e.code === 'Escape') {
+      if (onCloseByEsc && e.code === KEY_NAME_ESC) {
         onCloseByEsc()
       }
     }
