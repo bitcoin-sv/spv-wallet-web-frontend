@@ -28,6 +28,7 @@ import { ErrorBar } from '@/components/ErrorBar'
 import { useMediaMatch } from '@/hooks'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { useApiUrl } from '@/api/apiUrl'
+import _ from 'lodash'
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -39,8 +40,9 @@ export const TransactionTable = () => {
 
   const KEY_NAME_ENTER = 'Enter'
   const KEY_NAME_SPACE = 'Space'
+  const AUTOUPDATE_INTERVAL = 5000
 
-  const { autoupdate } = useAutoupdate()
+  const { autoupdate, setAutoupdate } = useAutoupdate()
   const apiUrl = useApiUrl()
 
   const ITEMS_PER_PAGE = 10
@@ -48,6 +50,21 @@ export const TransactionTable = () => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
+  }
+
+  const autoUpdateList = () => {
+    apiUrl &&
+      getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc').then((response) => {
+        const transactions = response.transactions
+
+        if (_.isEqual(transactions.transactions, transactionsList)) {
+          return
+        }
+
+        setTransactionsList(transactions.transactions)
+        const updateTime = new Date().toISOString()
+        setAutoupdate(updateTime)
+      })
   }
 
   useEffect(() => {
@@ -59,14 +76,23 @@ export const TransactionTable = () => {
 
           setTotalPages(transactions.pages)
           setTransactionsList(transactions.transactions)
-          setLoading(false)
         })
         .catch((error) => {
           const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
           setErrors(errorMsg)
         })
-        .finally(() => setLoading(false))
+        .finally(() => {
+          setLoading(false)
+        })
   }, [apiUrl, currentPage, autoupdate])
+
+  useEffect(() => {
+    const intervalId = setInterval(autoUpdateList, AUTOUPDATE_INTERVAL)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  })
 
   const openModalByKeyboard = (e: React.KeyboardEvent<HTMLTableRowElement>, modalId: string) => {
     if (![KEY_NAME_ENTER, KEY_NAME_SPACE].includes(e.code)) {
