@@ -5,7 +5,7 @@ import { Button } from '@/components/Button'
 import { ViewContent } from '@/components/_layout/ViewContent'
 import { Column, Row } from '@/styles/grid'
 import { FormEvent, useState } from 'react'
-import { EMAIL_REGEX } from '@/utils/constants'
+import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { Loader } from '@/components/Loader'
 import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
@@ -28,7 +28,6 @@ export const SignupPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setLoading(true)
 
     if (!email || !password || !confirmedPassword || !agreementTerms || !agreementPolicy) {
       return
@@ -36,11 +35,20 @@ export const SignupPage = () => {
 
     if (!email.match(EMAIL_REGEX)) {
       setErrors('Invalid email address!')
+      return
     }
 
     if (password !== confirmedPassword) {
       setErrors("Passwords don't match")
+      return
     }
+
+    if (password.length < PASSWORD_MIN_LENGTH) {
+      setErrors('Password is too short. Minimum length is 8 characters.')
+      return
+    }
+
+    setLoading(true)
 
     const newUser: RegisterNewUserDto = {
       email,
