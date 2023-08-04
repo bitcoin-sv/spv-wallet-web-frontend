@@ -24,6 +24,9 @@ dist-ssr
 *.sln
 *.sw?
 
+# relese
+/release/artifacts/
+
 # docker compose
 data/
 bux-wallet-backend.env.private

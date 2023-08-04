@@ -1,5 +1,5 @@
 # build stage
-FROM node:18-alpine as build
+FROM --platform=$TARGETPLATFORM node:18-alpine as build
 
 WORKDIR /app
 
@@ -24,7 +24,7 @@ RUN yarn run build
 
 # App final stage
 # serving the production build
-FROM nginx:1.25.1-alpine
+FROM --platform=$TARGETPLATFORM nginx:1.25.1-alpine
 
 # We need some custom nginx configuration, which we import here
 COPY release/nginx.default.conf /etc/nginx/conf.d/default.conf
