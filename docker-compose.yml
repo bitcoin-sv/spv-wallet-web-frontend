@@ -32,7 +32,7 @@ services:
       retries: 3
 
   bux-wallet-backend:
-    image: 4chain/bux-wallet-backend:latest
+    image: bsvb/bux-wallet-backend:latest
     environment:
       DB_HOST: 'db'
       # For running bux-server locally
