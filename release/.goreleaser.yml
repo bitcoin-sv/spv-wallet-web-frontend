@@ -1,0 +1,25 @@
+snapshot:
+  name_template: "{{ .Tag }}-Snapshot"
+dist: release
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^chore'
+      - '^docs'
+      - '^test'
+      - '^ci'
+      - '^style'
+
+# ---------------------------
+# Builder
+# ---------------------------
+builds:
+  - skip: true
+
+# ---------------------------
+# Github Release
+# ---------------------------
+release:
+  prerelease: false
+  name_template: "Release v{{.Version}}"
