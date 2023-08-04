@@ -11,7 +11,7 @@ services:
       - './env-config.json:/usr/share/nginx/html/env-config.json:ro'
 
   bux-wallet-backend:
-    image: 4chain/bux-wallet-backend:latest
+    image: bsvb/bux-wallet-backend:latest
     environment:
       DB_HOST: 'bux-postgresql'
       BUX_SERVER_URL: 'http://bux-server:3003/v1'
