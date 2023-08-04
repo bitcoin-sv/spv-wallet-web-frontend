@@ -130,3 +130,7 @@ In the main component file, we try to preserve a following structure:
 2. Derived state
 3. Event handlers
 4. Conditional returns
+
+## License
+
+[Open BSV License](https://github.com/bitcoin-sv/bitcoin-sv/blob/master/LICENSE).
