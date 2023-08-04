@@ -1,5 +1,8 @@
 # BUX WALLET APP
 
+The `bux-wallet-frontend` is a referential frontend application for a custodial web wallet. 
+It is used in conjunction with the `bux-wallet-backend` component, which serves as the backend server.
+
 ## Running the project
 
 `yarn` - install all dependencies
