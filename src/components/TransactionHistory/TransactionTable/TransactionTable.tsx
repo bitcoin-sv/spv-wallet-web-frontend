@@ -53,37 +53,43 @@ export const TransactionTable = () => {
   }
 
   const autoUpdateList = () => {
-    apiUrl &&
-      getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc').then((response) => {
-        const transactions = response.transactions
+    if (!apiUrl) {
+      return
+    }
 
-        if (_.isEqual(transactions.transactions, transactionsList)) {
-          return
-        }
+    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc').then((response) => {
+      const transactions = response.transactions
 
-        setTransactionsList(transactions.transactions)
-        const updateTime = new Date().toISOString()
-        setAutoupdate(updateTime)
-      })
+      if (_.isEqual(transactions.transactions, transactionsList)) {
+        return
+      }
+
+      setTransactionsList(transactions.transactions)
+      const updateTime = new Date().toISOString()
+      setAutoupdate(updateTime)
+    })
   }
 
   useEffect(() => {
     setLoading(true)
-    apiUrl &&
-      getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
-        .then((response) => {
-          const transactions = response.transactions
+    if (!apiUrl) {
+      return
+    }
 
-          setTotalPages(transactions.pages)
-          setTransactionsList(transactions.transactions)
-        })
-        .catch((error) => {
-          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-          setErrors(errorMsg)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+      .then((response) => {
+        const transactions = response.transactions
+
+        setTotalPages(transactions.pages)
+        setTransactionsList(transactions.transactions)
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+        setErrors(errorMsg)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [apiUrl, currentPage, autoupdate])
 
   useEffect(() => {
