@@ -47,7 +47,7 @@ elif (($(patchChangesCount "$rawVersion") > 0)); then
 fi
 
 if [ "$nextVersion" != "$rawVersion" ]; then
-  #git tag "$nextVersion"
+  git tag "$nextVersion"
   echo "New version $nextVersion tag created"
 else
   echo "Changes not affecting a version, creation of tag is skipped."
