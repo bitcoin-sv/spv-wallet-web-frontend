@@ -12,6 +12,7 @@ import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { useApiUrl } from '@/api/apiUrl'
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 export interface TransactionData {
   paymail: string
@@ -24,7 +25,7 @@ interface TransactionConfirmModalProps {
   open: boolean
   secondaryButtonOnClickHandler?: () => void
   primaryButtonOnClickHandler?: () => void
-  transactionData: TransactionData | null
+  transactionData: TransactionData
 }
 
 export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
@@ -42,6 +43,9 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   const { setAutoupdate } = useAutoupdate()
   const apiUrl = useApiUrl()
 
+  const receiver = transactionData.paymail
+  const satoshisAmount = transactionData.amount
+
   const onFormSubmitHandler = () => {
     if (!password) {
       setErrors('Password is required to confirm transaction.')
@@ -50,8 +54,6 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
     setErrors('')
     setLoading(true)
 
-    const receiver = transactionData?.paymail ? transactionData?.paymail : 'undefined'
-    const satoshisAmount = transactionData?.amount ? transactionData?.amount : '0'
     const userPassword = password ? password : 'undefined'
 
     const newTransactionData = {
@@ -129,7 +131,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
     >
       {loading && <Loader />}
       <TextWithValues>
-        You try to send <Value>{transactionData?.amount} sat.</Value> to <Value>{transactionData?.paymail}</Value>
+        You try to send <Value>{convertSatToBsv(satoshisAmount)} BSV</Value> to <Value>{receiver}</Value>
       </TextWithValues>
       <Form onSubmit={() => onFormSubmitHandler()}>
         <legend>

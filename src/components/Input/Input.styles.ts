@@ -97,3 +97,9 @@ export const VisibilityToggler = styled.button<InputStyledProps>`
     border-color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)}${colors.lightPrimary};
   }
 `
+
+export const FormattedValueLabel = styled.span`
+  display: inline-block;
+  margin: 0.5rem 0 0 0.25rem;
+  font-size: 14px;
+`
