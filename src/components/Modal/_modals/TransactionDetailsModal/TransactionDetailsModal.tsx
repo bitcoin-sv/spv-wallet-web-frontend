@@ -12,6 +12,7 @@ import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useApiUrl } from '@/api/apiUrl'
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 interface TransactionDetailsProps {
   open: boolean
@@ -66,10 +67,10 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
               <DataName>Direction:</DataName> <span>{transactionData?.direction}</span>
             </ListElement>
             <ListElement>
-              <DataName>Total Value:</DataName> <span>{transactionData?.totalValue} sat.</span>
+              <DataName>Total Value:</DataName> <span>{convertSatToBsv(transactionData?.totalValue)} BSV</span>
             </ListElement>
             <ListElement>
-              <DataName>Fee:</DataName> <span>{transactionData?.fee} sat.</span>
+              <DataName>Fee:</DataName> <span>{convertSatToBsv(transactionData?.fee)} BSV</span>
             </ListElement>
             <ListElement>
               <DataName>Block hash:</DataName> <span>{transactionData?.blockHash}</span>

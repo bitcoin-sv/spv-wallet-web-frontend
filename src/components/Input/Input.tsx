@@ -3,7 +3,7 @@ import { FC, InputHTMLAttributes, useState } from 'react'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
-import { InputStyled, InputWrapper, LabelStyled, VisibilityToggler } from './Input.styles'
+import { FormattedValueLabel, InputStyled, InputWrapper, LabelStyled, VisibilityToggler } from './Input.styles'
 
 type inputProps = {
   labelText: string
@@ -13,6 +13,7 @@ type inputProps = {
   customPlaceholder?: string
   togglePasswordVisibility?: boolean
   inputOnLightBackground?: boolean
+  formattedValue?: string
 } & InputHTMLAttributes<HTMLInputElement>
 
 export const Input: FC<inputProps> = ({
@@ -25,6 +26,7 @@ export const Input: FC<inputProps> = ({
   togglePasswordVisibility,
   type,
   inputOnLightBackground,
+  formattedValue,
   ...rest
 }) => {
   const [inputType, setInputType] = useState(type)
@@ -61,6 +63,7 @@ export const Input: FC<inputProps> = ({
           {inputType === 'text' ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </VisibilityToggler>
       )}
+      {formattedValue && <FormattedValueLabel>BSV: {formattedValue}</FormattedValueLabel>}
     </InputWrapper>
   )
 }

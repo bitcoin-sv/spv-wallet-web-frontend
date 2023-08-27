@@ -4,16 +4,21 @@ import { Button } from '@/components/Button'
 import { SrOnlySpan } from '@/styles'
 import { Input } from '@/components/Input'
 import { Column, Row } from '@/styles/grid'
-import { FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useConfig } from '@4chain-ag/react-configuration'
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 export const TransferForm = () => {
+  const FORMATTED_INITIAL_VALUE = '0.00000000'
+  const MAX_TRANSACTION_VALUE = 999999999999
+
   const [paymail, setPaymail] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
+  const [formattedValue, setFormattedValue] = useState<string>(FORMATTED_INITIAL_VALUE)
   const [loading, setLoading] = useState<boolean>(false)
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
   const [errors, setErrors] = useState<string>('')
@@ -57,6 +62,23 @@ export const TransferForm = () => {
     setErrors('')
   }
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    const formatted = convertSatToBsv(value)
+
+    if (!formatted || isNaN(parseInt(formatted))) {
+      setAmount('')
+      setFormattedValue(FORMATTED_INITIAL_VALUE)
+      return
+    }
+    if (parseInt(value) > MAX_TRANSACTION_VALUE) {
+      setFormattedValue(formatted)
+      return
+    }
+
+    setAmount(value)
+    setFormattedValue(formatted)
+  }
   return (
     <DashboardTile tileTitle="Send money" titleIcon={<SendIcon />}>
       {loading && <Loader />}
@@ -75,14 +97,17 @@ export const TransferForm = () => {
                 value={paymail}
               />
               <Input
-                labelText="Amount (BSV satoshis)"
+                labelText="Amount (sat)"
                 type="number"
-                required
                 min="0"
                 step="any"
-                onChange={(event) => setAmount(event.target.value)}
+                onChange={(event) => {
+                  handleChange(event)
+                }}
                 value={amount}
+                formattedValue={formattedValue}
               />
+
               {errors && <ErrorBar errorMsg={errors} />}
             </Column>
           </Row>
@@ -107,12 +132,14 @@ export const TransferForm = () => {
           </Row>
         </fieldset>
       </form>
-      <TransactionConfirmModal
-        open={!!transactionData}
-        transactionData={transactionData}
-        primaryButtonOnClickHandler={() => onCancelTransactionHandler()}
-        secondaryButtonOnClickHandler={() => onConfirmTransactionHandler()}
-      />
+      {transactionData && (
+        <TransactionConfirmModal
+          open={!!transactionData}
+          transactionData={transactionData}
+          primaryButtonOnClickHandler={() => onCancelTransactionHandler()}
+          secondaryButtonOnClickHandler={() => onConfirmTransactionHandler()}
+        />
+      )}
     </DashboardTile>
   )
 }

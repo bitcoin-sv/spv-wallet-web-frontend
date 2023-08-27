@@ -3,7 +3,7 @@ export interface Transaction {
   direction: string
   id: string
   status: string
-  totalValue: string
+  totalValue: number
   sender: string
   receiver: string
 }
@@ -19,7 +19,7 @@ export interface TransactionDetails {
   amount: string
   status: string
   createdAt: string
-  totalValue: 886
+  totalValue: number
 }
 
 export interface SendNewTransaction {

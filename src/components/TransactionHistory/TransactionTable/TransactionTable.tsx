@@ -29,6 +29,7 @@ import { useMediaMatch } from '@/hooks'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { useApiUrl } from '@/api/apiUrl'
 import _ from 'lodash'
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -129,9 +130,9 @@ export const TransactionTable = () => {
                 <tr>
                   <LargeTh>Sender/receiver</LargeTh>
                   <MediumTh>Amount</MediumTh>
-                  <SmallTh>Status</SmallTh>
                   {smMatch && (
                     <>
+                      <SmallTh>Status</SmallTh>
                       <SmallTh>Direction</SmallTh>
                       <MediumTh>Date</MediumTh>
                     </>
@@ -166,29 +167,29 @@ export const TransactionTable = () => {
                         {transaction.direction === 'outgoing' && (
                           <span style={{ color: colors.transactionOutgoing }}>- </span>
                         )}
-                        {transaction.totalValue} sat.
+                        {convertSatToBsv(transaction.totalValue)} BSV
                       </MediumTd>
-                      <SmallTd>
-                        {transaction.status === 'confirmed' ? (
-                          <ContentWithInfoTip
-                            uppercase
-                            data-value={transaction.status}
-                            isConfirmed={transaction.status === 'confirmed'}
-                          >
-                            <SrOnlySpan>confirmed</SrOnlySpan>
-                          </ContentWithInfoTip>
-                        ) : (
-                          <ContentWithInfoTip
-                            uppercase
-                            data-value={transaction.status}
-                            isConfirmed={transaction.status === 'confirmed'}
-                          >
-                            <SrOnlySpan>unconfirmed</SrOnlySpan>
-                          </ContentWithInfoTip>
-                        )}
-                      </SmallTd>
                       {smMatch && (
                         <>
+                          <SmallTd>
+                            {transaction.status === 'confirmed' ? (
+                              <ContentWithInfoTip
+                                uppercase
+                                data-value={transaction.status}
+                                isConfirmed={transaction.status === 'confirmed'}
+                              >
+                                <SrOnlySpan>confirmed</SrOnlySpan>
+                              </ContentWithInfoTip>
+                            ) : (
+                              <ContentWithInfoTip
+                                uppercase
+                                data-value={transaction.status}
+                                isConfirmed={transaction.status === 'confirmed'}
+                              >
+                                <SrOnlySpan>unconfirmed</SrOnlySpan>
+                              </ContentWithInfoTip>
+                            )}
+                          </SmallTd>
                           <SmallTd>
                             {transaction.direction === 'incoming' ? (
                               <ContentWithInfoTip uppercase data-value={transaction.direction}>

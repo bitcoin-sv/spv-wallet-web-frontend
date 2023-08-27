@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { colors, fontWeight, sizes } from '@/styles'
 import { media } from '@/styles/media'
 import { css } from '@emotion/react'
-import {variables} from "@/styles/variables";
+import { variables } from '@/styles/variables'
 
 interface TableWrapperProps {
   withPagination?: boolean
@@ -78,7 +78,7 @@ export const Table = styled.table`
         text-decoration: none;
       }
     }
-    
+
     &:focus-visible {
       outline: 2px solid ${colors.lightPrimary};
       outline-offset: 2px;
@@ -134,7 +134,7 @@ export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
   display: block;
 
   ${media.md} {
-    width: inherit;
+    width: 100%;
   }
 
   &:after {
@@ -173,7 +173,7 @@ export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
 `
 
 export const LargeTh = styled.th`
-  width: 60%;
+  width: 55%;
 
   ${media.md} {
     width: 270px;
@@ -184,7 +184,7 @@ export const LargeTh = styled.th`
   }
 `
 export const LargeTd = styled.td`
-  width: 60%;
+  width: 55%;
 
   ${media.md} {
     width: 270px;
@@ -196,7 +196,7 @@ export const LargeTd = styled.td`
 `
 
 export const MediumTh = styled.th`
-  width: 30%;
+  width: 45%;
 
   ${media.md} {
     width: 170px;
@@ -207,7 +207,7 @@ export const MediumTh = styled.th`
   }
 `
 export const MediumTd = styled.td`
-  width: 30%;
+  width: 45%;
 
   ${media.md} {
     width: 170px;
