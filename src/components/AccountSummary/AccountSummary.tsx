@@ -8,6 +8,7 @@ import { getUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useApiUrl } from '@/api/apiUrl'
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 interface CurrencyRates {
   usd?: number
@@ -68,7 +69,7 @@ export const AccountSummary = () => {
           ) : (
             <>
               <BalanceValue mainValue>
-                {details?.balance?.bsv} <Currency>BSV</Currency>
+                {convertSatToBsv(details?.balance?.satoshis)} <Currency>BSV</Currency>
               </BalanceValue>
               <BalanceValue>
                 {details?.balance?.satoshis} <Currency>sat.</Currency>
