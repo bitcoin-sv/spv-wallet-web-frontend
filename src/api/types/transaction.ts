@@ -27,3 +27,14 @@ export interface SendNewTransaction {
   satoshis: number
   password: string
 }
+
+export interface BaseWebsocketModel<T> {
+  data: T
+}
+
+export interface WebsocketTransaction {
+  status: string
+  error: null | string
+  event: string
+  transaction: Transaction
+}
