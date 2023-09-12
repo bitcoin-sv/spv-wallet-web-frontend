@@ -1,5 +1,5 @@
 {
   "apiUrl": "http://localhost:3002",
   "paymailDomain": "bux.com",
-  "wsUrl": "ws://localhost:8080/api/v1/connection/websocket"
+  "wsUrl": "ws://localhost:3002/api/v1/connection/websocket"
 }

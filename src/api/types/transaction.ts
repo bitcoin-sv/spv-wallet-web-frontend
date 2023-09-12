@@ -35,6 +35,6 @@ export interface BaseWebsocketModel<T> {
 export interface WebsocketTransaction {
   status: string
   error: null | string
-  event: string
+  eventType: string
   transaction: Transaction
 }

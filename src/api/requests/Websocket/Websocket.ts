@@ -9,7 +9,7 @@ export const SetupWebsocket = (url: string) => {
         const res = parseResponse(ctx)
 
         if (typeof res == "object" && res != undefined){
-            switch (res.event) {
+            switch (res.eventType) {
                 case "create_transaction":
                     // TODO: create notification
                     break;
