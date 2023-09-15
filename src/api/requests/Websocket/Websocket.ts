@@ -2,6 +2,7 @@ import {Centrifuge, MessageContext} from "centrifuge";
 import {BaseWebsocketModel, WebsocketTransaction} from '@/api/types/transaction'
 
 export const SetupWebsocket = (url: string) => {
+    let retries = 0;
     const centrifuge = new Centrifuge(url, {websocket: WebSocket});
     centrifuge.connect();
 
@@ -16,6 +17,13 @@ export const SetupWebsocket = (url: string) => {
             }
         }
     });
+
+    centrifuge.on('error', function () {
+        retries++
+        if (retries >= 3){
+            centrifuge.disconnect()
+        }
+    })
 
     const channel = "bux-wallet";
     const sub = centrifuge.newSubscription(channel);
