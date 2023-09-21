@@ -1,4 +1,5 @@
 {
   "apiUrl": "http://localhost:3002",
-  "paymailDomain": "4chain.space"
+  "paymailDomain": "bux.com",
+  "wsUrl": "ws://localhost:3002/connection/websocket"
 }
