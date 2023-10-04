@@ -2,6 +2,7 @@
 
 reset='\033[0m'
 choice=''
+
 function ask_for_choice() {
     local prompt="$1"
     local options=("${@:2}")
@@ -36,6 +37,19 @@ function ask_for_yes_or_no() {
         choice="true"
     else
         choice="false"
+    fi
+}
+
+compose_plugin=false
+if command docker compose version &> /dev/null; then
+	compose_plugin=true
+fi
+
+function docker_compose_up() {
+    if [ compose_plugin == true ]; then
+        docker compose -f docker/docker-compose.yml up $1
+    else
+        docker-compose -f docker/docker-compose.yml up $1
     fi
 }
 
@@ -303,13 +317,13 @@ if [ "$bux_server" == "true" ]; then
 
   echo -e "\033[0;32mStarting bux-server services with docker-compose...$reset"
   if [ "$cache" == "redis" ]; then
-      echo -e "\033[0;37mdocker compose up -d bux-redis$reset"
-      docker compose -f ./docker/docker-compose.yml up -d bux-redis
+		echo -e "\033[0;37mdocker compose up -d bux-redis$reset"
+		docker_compose_up "-d bux-redis"
   fi
   
   if [ "$database" != "sqlite" ]; then
-      echo -e "\033[0;37mdocker compose up -d bux-'$database'$reset"
-      docker compose -f ./docker/docker-compose.yml up-d bux-"$database"
+		echo -e "\033[0;37mdocker compose up -d bux-'$database'$reset"
+		docker_compose_up "-d bux-$database"
   fi
 fi
 
@@ -328,10 +342,10 @@ if [ "$bux_server" == "true" ]; then
     if [ "$cmd" != "docker compose -f ./docker/docker-compose.yml up " ]; then
       echo -e "It is not possible to run "
       echo -e "\033[0;37mdocker compose -f ./docker/docker-compose.yml up bux-server$reset"
-      docker compose -f ./docker/docker-compose.yml up -d bux-server
+			docker_compose_up "-d bux-server"
     else
       echo -e "\033[0;37mdocker compose -f ./docker/docker-compose.yml up -d bux-server$reset"
-      docker compose -f ./docker/docker-compose.yml up bux-server
+			docker_compose_up "bux-server"
     fi
   else
     cmd+="bux-server "
@@ -346,7 +360,11 @@ fi
 function cleanup {
     echo -e "\033[0;31mStopping all services...$reset"
     cd ./docker ||  exit 1;
-    docker compose stop
+		if [ $compose_plugin == true ]; then
+			docker compose stop
+		else
+			docker-compose stop
+		fi
     echo -e "\033[0;31mExiting program...$reset"
 }
 
