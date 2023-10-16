@@ -87,14 +87,14 @@ while [[ $# -gt 0 ]]; do
         shift
         ;;
         -h|--help)
-        echo -e "\033[1mUsage: ./start-walletr.sh [OPTIONS]$reset"
+        echo -e "\033[1mUsage: ./start-wallet.sh [OPTIONS]$reset"
         echo ""
         echo "This script helps you to run Bux wallet and Bux server with your preferred database and cache storage."
         echo ""
         echo -e "Options:$reset"
         echo -e "<----------   BUX WALLET SECTION"
-        echo -e "  -bwf,  --bux-wallet-frontend\t Whether the bux-server should be run - true/false$reset"
-        echo -e "  -bwb,  --bux-wallet-backend\t Whether the bux-server should be run - true/false$reset"
+        echo -e "  -bwf,  --bux-wallet-frontend\t Whether the bux-wallet-frontend should be run - true/false$reset"
+        echo -e "  -bwb,  --bux-wallet-backend\t Whether the bux-wallet-backend should be run - true/false$reset"
         echo -e "  -p,    --xpriv\t\t\t Define admin xPriv$reset"
         echo -e ""
         echo -e "<----------   BUX SERVER SECTION"
@@ -303,9 +303,11 @@ if [ "$bux_server" == "true" ]; then
 
   echo -e "\033[0;32mStarting bux-server services with docker-compose...$reset"
   if [ "$cache" == "redis" ]; then
-      echo -e "\033[0;37mdocker compose up -d bux-redis bux-'$database'$reset"
-      docker compose -f ./docker/docker-compose.yml up -d bux-redis bux-"$database"
-  else
+      echo -e "\033[0;37mdocker compose up -d bux-redis$reset"
+      docker compose -f ./docker/docker-compose.yml up -d bux-redis
+  fi
+  
+  if [ "$database" != "sqlite" ]; then
       echo -e "\033[0;37mdocker compose up -d bux-'$database'$reset"
       docker compose -f ./docker/docker-compose.yml up-d bux-"$database"
   fi
