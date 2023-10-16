@@ -317,13 +317,13 @@ if [ "$bux_server" == "true" ]; then
 
   echo -e "\033[0;32mStarting bux-server services with docker-compose...$reset"
   if [ "$cache" == "redis" ]; then
-		echo -e "\033[0;37mdocker compose up -d bux-redis$reset"
-		docker_compose_up "-d bux-redis"
+    echo -e "\033[0;37mdocker compose up -d bux-redis$reset"
+    docker_compose_up "-d bux-redis"
   fi
   
   if [ "$database" != "sqlite" ]; then
-		echo -e "\033[0;37mdocker compose up -d bux-'$database'$reset"
-		docker_compose_up "-d bux-$database"
+    echo -e "\033[0;37mdocker compose up -d bux-'$database'$reset"
+    docker_compose_up "-d bux-$database"
   fi
 fi
 
@@ -342,10 +342,10 @@ if [ "$bux_server" == "true" ]; then
     if [ "$cmd" != "docker compose -f ./docker/docker-compose.yml up " ]; then
       echo -e "It is not possible to run "
       echo -e "\033[0;37mdocker compose -f ./docker/docker-compose.yml up bux-server$reset"
-			docker_compose_up "-d bux-server"
+      docker_compose_up "-d bux-server"
     else
       echo -e "\033[0;37mdocker compose -f ./docker/docker-compose.yml up -d bux-server$reset"
-			docker_compose_up "bux-server"
+      docker_compose_up "bux-server"
     fi
   else
     cmd+="bux-server "
