@@ -46,11 +46,11 @@ if command docker compose version &> /dev/null; then
 fi
 
 function docker_compose_up() {
-    if [ compose_plugin == true ]; then
-        docker compose -f docker/docker-compose.yml up $1
-    else
-        docker-compose -f docker/docker-compose.yml up $1
-    fi
+	if [ compose_plugin == true ]; then
+		docker compose -f docker/docker-compose.yml up $1
+	else
+		docker-compose -f docker/docker-compose.yml up $1
+	fi
 }
 
 # Welcome message
@@ -358,14 +358,14 @@ if [ "$cmd" != "docker compose -f ./docker/docker-compose.yml up " ]; then
 fi
 
 function cleanup {
-    echo -e "\033[0;31mStopping all services...$reset"
-    cd ./docker ||  exit 1;
-		if [ $compose_plugin == true ]; then
-			docker compose stop
-		else
-			docker-compose stop
-		fi
-    echo -e "\033[0;31mExiting program...$reset"
+	echo -e "\033[0;31mStopping all services...$reset"
+	cd ./docker ||  exit 1;
+	if [ $compose_plugin == true ]; then
+		docker compose stop
+	else
+		docker-compose stop
+	fi
+	echo -e "\033[0;31mExiting program...$reset"
 }
 
 trap cleanup EXIT
