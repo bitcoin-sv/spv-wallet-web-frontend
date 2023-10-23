@@ -11,7 +11,12 @@ export const getTransactions = async (
     `${apiUrl}/transaction?page=${PAGE || 1}&page_size=${PAGE_SIZE || 10}&order=${ORDER || 'created_at'}&sort=${
       SORT || 'desc'
     }`,
-      { withCredentials: true }
+    {
+      withCredentials: true,
+      headers: {
+        'Cache-Control': 'no-store, no-cache',
+      },
+    }
   )
   return {
     transactions,
