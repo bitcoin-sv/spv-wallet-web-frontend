@@ -7,7 +7,7 @@ export const getTransactions = async (
   ORDER?: string,
   SORT?: 'desc' | 'asc'
 ) => {
-  const { data: transactions } = await axios.get(
+  const { data: response } = await axios.get(
     `${apiUrl}/transaction?page=${PAGE || 1}&page_size=${PAGE_SIZE || 10}&order=${ORDER || 'created_at'}&sort=${
       SORT || 'desc'
     }`,
@@ -18,7 +18,10 @@ export const getTransactions = async (
       },
     }
   )
+  if (response != null && typeof response !== 'object') {
+    throw new Error('Unexpected response from backend.', { cause: { response } })
+  }
   return {
-    transactions,
+    transactions: response,
   }
 }
