@@ -8,15 +8,15 @@ export const SetupWebsocket = (url: string) => {
   centrifuge.connect()
 
   centrifuge.on('message', function (ctx: MessageContext) {
-    const res = parseResponse(ctx)
+    const event = parseResponse(ctx)
 
-    if (typeof res == 'object' && res != undefined) {
-      switch (res.eventType) {
+    if (typeof event == 'object' && event != undefined) {
+      switch (event.eventType) {
         case 'create_transaction':
-          if (res.status === 'success') {
+          if (event.status === 'success') {
             toast.success('Transaction successfully sent')
-          } else if (res.status === 'error') {
-            toast.error('Error while sending transaction')
+          } else if (event.status === 'error') {
+            toast.error(event.error || 'Error while sending transaction')
           }
           break
       }
