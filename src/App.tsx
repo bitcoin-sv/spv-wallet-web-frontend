@@ -14,6 +14,9 @@ import { Loader } from '@/components/Loader'
 import { useEffect, useState } from 'react'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useApiUrl } from './api/apiUrl'
+import { ToastContainer } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const ROUTES = [
   {
@@ -115,6 +118,8 @@ export const App = () => {
   return (
     <>
       <GlobalStyles />
+      <ToastContainer theme="dark" />
+
       {loading ? (
         <Loader />
       ) : (
