@@ -58,7 +58,7 @@ export const useWebsocket = () => {
       sub.unsubscribe()
       sub.removeAllListeners()
     }
-  }, [])
+  }, [centrifuge])
 
   return {
     connect,
