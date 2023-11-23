@@ -1,6 +1,6 @@
 import { useWsUrl } from '@/api/wsUrl.ts'
-import { useEffect, useMemo, useState } from 'react'
-import { Centrifuge, MessageContext } from 'centrifuge'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Centrifuge, MessageContext, Subscription } from 'centrifuge'
 import { WebsocketTransaction } from '@/api/types/transaction.ts'
 import { toast } from 'react-toastify'
 
@@ -11,19 +11,17 @@ export const useWebsocket = () => {
 
   const centrifuge = useMemo(() => new Centrifuge(wsUrl, { websocket: WebSocket }), [wsUrl])
 
-  const connect = () => {
+  const connect = useCallback(() => {
     if (!isInitialized) {
-      centrifuge.connect()
       setIsInitialized(true)
-    } else {
-      throw new Error('Websocket connection is already initialized')
+      centrifuge.connect()
     }
-  }
+  }, [centrifuge, isInitialized])
 
-  const disconnect = () => {
-    centrifuge.disconnect()
+  const disconnect = useCallback(() => {
     setIsInitialized(false)
-  }
+    centrifuge.disconnect()
+  }, [centrifuge])
 
   useEffect(() => {
     const handleMessage = (ctx: MessageContext) => {
@@ -61,12 +59,17 @@ export const useWebsocket = () => {
 
   useEffect(() => {
     const channel = 'bux-wallet'
-    const sub = centrifuge.newSubscription(channel)
-    sub.subscribe()
+    let sub: Subscription
+    if (!centrifuge.getSubscription(channel)) {
+      sub = centrifuge.newSubscription(channel)
+      sub.subscribe()
+    }
 
     return () => {
-      sub.unsubscribe()
-      sub.removeAllListeners()
+      if (sub) {
+        sub.unsubscribe()
+        sub.removeAllListeners()
+      }
     }
   }, [centrifuge])
 
