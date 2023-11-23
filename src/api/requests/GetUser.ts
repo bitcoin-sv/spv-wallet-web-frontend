@@ -7,5 +7,10 @@ export const getUser = async (apiUrl: string) => {
       'Cache-Control': 'no-store, no-cache',
     },
   })
+
+  if (response != null && typeof response !== 'object') {
+    throw new Error('Unexpected response from backend.', { cause: { response } })
+  }
+
   return response
 }

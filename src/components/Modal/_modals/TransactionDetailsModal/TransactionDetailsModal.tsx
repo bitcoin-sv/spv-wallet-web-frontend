@@ -70,7 +70,7 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
               <DataName>Total Value:</DataName> <span>{convertSatToBsv(transactionData?.totalValue)} BSV</span>
             </ListElement>
             <ListElement>
-              <DataName>Fee:</DataName> <span>{convertSatToBsv(transactionData?.fee)} BSV</span>
+              <DataName>Fee:</DataName> <span>{convertSatToBsv(transactionData?.fee) || '0.00000000'} BSV</span>
             </ListElement>
             <ListElement>
               <DataName>Block hash:</DataName> <span>{transactionData?.blockHash}</span>

@@ -58,17 +58,23 @@ export const TransactionTable = () => {
       return
     }
 
-    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc').then((response) => {
-      const transactions = response.transactions
+    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+      .then((response) => {
+        const transactions = response.transactions
 
-      if (_.isEqual(transactions.transactions, transactionsList)) {
-        return
-      }
+        if (_.isEqual(transactions.transactions, transactionsList)) {
+          return
+        }
 
-      setTransactionsList(transactions.transactions)
-      const updateTime = new Date().toISOString()
-      setAutoupdate(updateTime)
-    })
+        setTransactionsList(transactions.transactions)
+        const updateTime = new Date().toISOString()
+        setAutoupdate(updateTime)
+      })
+      .catch((e) => {
+        const error = e?.response?.data ? e.response.data : e
+        const cause = error.cause ? error.cause : undefined
+        console.error('Error during updating transactions', error, cause)
+      })
   }
 
   useEffect(() => {
