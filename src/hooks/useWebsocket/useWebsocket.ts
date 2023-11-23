@@ -1,5 +1,5 @@
 import { useWsUrl } from '@/api/wsUrl.ts'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Centrifuge, MessageContext } from 'centrifuge'
 import { WebsocketTransaction } from '@/api/types/transaction.ts'
 import { toast } from 'react-toastify'
@@ -9,7 +9,7 @@ export const useWebsocket = () => {
   const [retries, setRetries] = useState(0)
   const wsUrl = useWsUrl()
 
-  const centrifuge = new Centrifuge(wsUrl, { websocket: WebSocket })
+  const centrifuge = useMemo(() => new Centrifuge(wsUrl, { websocket: WebSocket }), [wsUrl])
 
   const connect = () => {
     if (!isInitialized) {
