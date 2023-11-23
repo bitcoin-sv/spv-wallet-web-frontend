@@ -25,29 +25,39 @@ export const useWebsocket = () => {
     setIsInitialized(false)
   }
 
-  centrifuge.on('message', function (ctx: MessageContext) {
-    const event: WebsocketTransaction | undefined = ctx?.data
+  useEffect(() => {
+    const handleMessage = (ctx: MessageContext) => {
+      const event: WebsocketTransaction | undefined = ctx?.data
 
-    if (event !== null && typeof event == 'object' && !Array.isArray(event)) {
-      const { eventType, status, error } = event
-      switch (eventType) {
-        case 'create_transaction':
-          if (status === 'success') {
-            toast.success('Transaction successfully sent')
-          } else if (status === 'error') {
-            toast.error(error || 'Error while sending transaction')
-          }
-          break
+      if (event !== null && typeof event == 'object' && !Array.isArray(event)) {
+        const { eventType, status, error } = event
+        switch (eventType) {
+          case 'create_transaction':
+            if (status === 'success') {
+              toast.success('Transaction successfully sent')
+            } else if (status === 'error') {
+              toast.error(error || 'Error while sending transaction')
+            }
+            break
+        }
       }
     }
-  })
 
-  centrifuge.on('error', function () {
-    setRetries((prevState) => prevState + 1)
-    if (retries >= 3) {
-      centrifuge.disconnect()
+    const handleError = () => {
+      setRetries((prevState) => prevState + 1)
+      if (retries >= 3) {
+        centrifuge.disconnect()
+      }
     }
-  })
+
+    centrifuge.on('message', handleMessage)
+    centrifuge.on('error', handleError)
+
+    return () => {
+      centrifuge.removeAllListeners('message')
+      centrifuge.removeAllListeners('error')
+    }
+  }, [centrifuge, retries])
 
   useEffect(() => {
     const channel = 'bux-wallet'
