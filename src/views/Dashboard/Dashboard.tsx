@@ -3,21 +3,19 @@ import { useMediaMatch } from '@/hooks/useMediaMatch'
 import { AccountSummary } from '@/components/AccountSummary'
 import { TransferForm } from '@/components/TransferForm'
 import { TransactionHistory } from '@/components/TransactionHistory'
-import {useEffect, useState} from "react";
-import {SetupWebsocket} from "@/api";
-import {useWsUrl} from "@/api/wsUrl";
+import { useEffect } from 'react'
+import { useWebsocket } from '@/hooks'
 
 export const Dashboard = () => {
   const lgMatch = useMediaMatch('lg')
-  const wsUrl = useWsUrl()
-  const [wsInitialized, setWsInitializes ] = useState(false)
+  const { connect, disconnect } = useWebsocket()
 
   useEffect(() => {
-    setWsInitializes(true)
-    if (!wsInitialized) {
-      SetupWebsocket(wsUrl)
+    connect()
+    return () => {
+      disconnect()
     }
-  }, [wsInitialized, wsUrl])
+  }, [connect, disconnect])
 
   return (
     <>
