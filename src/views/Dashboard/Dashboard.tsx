@@ -12,10 +12,11 @@ export const Dashboard = () => {
 
   useEffect(() => {
     connect()
-    return () => {
-      disconnect()
-    }
-  }, [connect, disconnect])
+  }, [connect])
+
+  useEffect(() => {
+    return () => disconnect()
+  }, [disconnect])
 
   return (
     <>
