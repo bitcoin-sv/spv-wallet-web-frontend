@@ -219,6 +219,10 @@ while [[ $# -gt 0 ]]; do
         bux_server="$2"
         shift
         ;;
+        -pl|--pulse)
+        pulse="$2"
+        shift
+        ;;
         -bwf|--bux-wallet-frontend)
         bux_wallet_frontend="$2"
         shift
@@ -304,6 +308,7 @@ if [ "$load_config" == "true" ]; then
             load_from 'BUX_DB_DATASTORE_ENGINE' database
             load_from 'BUX_CACHE_ENGINE' cache
             load_from 'RUN_BUX_SERVER' bux_server
+            load_from 'RUN_PULSE' pulse
             load_from 'RUN_BUX_WALLET_FRONTEND' bux_wallet_frontend
             load_from 'RUN_BUX_WALLET_BACKEND' bux_wallet_backend
             load_from 'RUN_PAYMAIL_DOMAIN' paymail_domain
@@ -351,6 +356,12 @@ if [ "$bux_server" == "" ]; then
     ask_for_yes_or_no "Do you want to run Bux-server?"
     bux_server="$choice"
     print_debug "bux_server: $bux_server"
+fi
+
+if [ "$pulse" == "" ]; then
+    ask_for_yes_or_no "Do you want to run Pulse?"
+    pulse="$choice"
+    print_debug "pulse: $pulse"
 fi
 
 if [ "$bux_wallet_frontend" == "" ]; then
@@ -405,6 +416,7 @@ echo "# Used by start.sh. All unknown variables will be removed after running th
 save_to 'BUX_DB_DATASTORE_ENGINE' database
 save_to 'BUX_CACHE_ENGINE' cache
 save_to 'RUN_BUX_SERVER' bux_server
+save_to 'RUN_PULSE' pulse
 save_to 'RUN_PAYMAIL_DOMAIN' paymail_domain
 save_to 'RUN_BUX_WALLET_FRONTEND' bux_wallet_frontend
 save_to 'RUN_BUX_WALLET_BACKEND' bux_wallet_backend
@@ -438,6 +450,11 @@ if [ "$bux_wallet_backend" == "true" ]; then
   save_value 'DB_HOST' "bux-postgresql"
 fi
 
+if [ "$pulse" == "true" ]; then
+  save_value 'BUX_PAYMAIL_BEEF_PULSE_URL' "http://pulse:8080/api/v1/chain/merkleroot/verify"
+else
+  save_value 'BUX_PAYMAIL_BEEF_PULSE_URL' "http://host.docker.internal:8080/api/v1/chain/merkleroot/verify"
+fi
 print_debug "Exporting RUN_PAYMAIL_DOMAIN environment variable"
 export RUN_PAYMAIL_DOMAIN="$paymail_domain"
 
@@ -467,6 +484,10 @@ fi
 
 if [ "$bux_server" == "true" ]; then
   servicesToRun+=("bux-server")
+fi
+
+if [ "$pulse" == "true" ]; then
+  servicesToRun+=("pulse")
 fi
 
 if [ "$bux_wallet_backend" == "true" ]; then

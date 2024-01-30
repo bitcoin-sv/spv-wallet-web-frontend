@@ -29,7 +29,8 @@ Ports which are used:
 - 3003  - Bux server
 - 5432  - PostgreSQL db
 - 6379  - Redis
-- 8080  - Bux wallet backend
+- 8080  - Pulse
+- 8081  - Bux wallet backend
 - 27017 - MongoDB
 
 There are three ways of running this script:
