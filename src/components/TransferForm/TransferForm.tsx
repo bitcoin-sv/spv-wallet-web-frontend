@@ -9,8 +9,8 @@ import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
-import { useConfig } from '@4chain-ag/react-configuration'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
+import { usePaymailDomain } from '@/hooks/usePaymailDomain'
 
 export const TransferForm = () => {
   const FORMATTED_INITIAL_VALUE = '0.00000000'
@@ -23,7 +23,7 @@ export const TransferForm = () => {
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
   const [errors, setErrors] = useState<string>('')
 
-  const { config } = useConfig()
+  const paymailDomain = usePaymailDomain()
 
   const sendButtonDisabled = !paymail || !amount
   const cancelButtonDisabled = !paymail && !amount
@@ -90,13 +90,12 @@ export const TransferForm = () => {
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
               <Input
-                labelText={`Paymail (example@${config.paymailDomain || 'bux-domain.com'})`}
+                labelText={`Paymail (example@${paymailDomain})`}
                 required
                 type="text"
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
               />
-              {/*(TODO: CHECK THE DOMAIN*/}
               <Input
                 labelText="Amount (sat)"
                 type="number"

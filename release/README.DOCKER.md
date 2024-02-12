@@ -23,13 +23,13 @@ The configuration file `env-config.json` can contain all or part of the followin
 ```json
 {
   "apiUrl": "http://localhost:3002",
-  "paymailDomain": "4chain.space"
+  "paymailDomain": "other.example.com"
 }
 ```
 
 | Property        | Description                                                                                         | Default Value           |
 | --------------- | --------------------------------------------------------------------------------------------------- | ----------------------- |
 | `apiUrl`        | The URL pointing to the running `spv-wallet-web-backend`, to which this frontend should connect.    | `http://localhost:3002` |
-| `paymailDomain` | The paymail domain used to provide a user of this app with their paymail address for BSV transfers. | `4chain.space`          |
+| `paymailDomain` | The paymail domain used to provide a user of this app with their paymail address for BSV transfers. | `example.com`           |
 
 You can customize these properties in the `env-config.json` file to fit your specific deployment environment.
