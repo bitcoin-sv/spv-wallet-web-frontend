@@ -1,7 +1,7 @@
-# BUX WALLET APP
+# SPV WALLET WEB FRONTEND
 
-The `bux-wallet-frontend` is a referential frontend application for a custodial web wallet. 
-It is used in conjunction with the `bux-wallet-backend` component, which serves as the backend server.
+The `spv-wallet-web-frontend` is a referential frontend application for a custodial web wallet.
+It is used in conjunction with the `spv-wallet-web-backend` component, which serves as the backend server.
 
 ## Running the project
 
@@ -15,52 +15,62 @@ It is used in conjunction with the `bux-wallet-backend` component, which serves 
 
 There are two way of running backend locally:
 
-#### Using ./start.sh script 
+#### Using ./start.sh script
 
-`bux-wallet-frontend` provides a `start.sh` script
-which is using `docker-compose.yml` file to starts up Bux Wallet Frontend, Backend and 
-Bux Server with selected database and cache storage. To start, we need to fill the 
+`spv-wallet-web-frontend` provides a `start.sh` script
+which is using `docker-compose.yml` file to starts up `SPV Wallet` with web-frontend, web-backend and selected database and cache storage.
+
+To start, we need to fill the
 config json which we want to use, there is prepared custom config file `docker/envs/development.json`
-which is used in development environment. This script build local image of bux-wallet-frontend and use 
+which is used in development environment. This script build local image of spv-wallet-web-frontend and use
 already built ones for the rest of applications.
 
 Ports which are used:
-- 3002  - Bux wallet frontend
-- 3003  - Bux server
-- 5432  - PostgreSQL db
-- 6379  - Redis
-- 8080  - Pulse
-- 8081  - Bux wallet backend
+
+- 3002 - SPV wallet web-frontend
+- 8081 - SPV wallet web-backend
+- 3003 - SPV wallet (core service)
+- 5432 - PostgreSQL DB
+- 6379 - Redis
+- 8080 - Block Headers Service
 - 27017 - MongoDB
 
 There are three ways of running this script:
+
 1. With manual configuration - every option is displayed in terminal and user can choose
-   which applications should be started and configure how to run bux-server. Use command:
-  ```bash
-  ./start.sh
-  ```
+   which applications should be started and configure how to run `spv-wallet`. Use command:
+
+```bash
+./start.sh
+```
+
 2. With flags which define how to set up docker services. Ever option is displayed when
    you ran the script with flag `-h` or `--help`.
-  ```bash
-  ./start.sh -db postgresql -c redis -bs true -env development -b false 
-  ```
+
+```bash
+./start.sh -db postgresql -c redis -bs true -env development -b false
+```
+
 3. With `-l/--load` flag. This option add possibility to use previously created `.env.config` file and run whole environment with simple command:
-  ```bash
-  ./start.sh -l
-  ```
+
+```bash
+./start.sh -l
+```
 
 #### Using docker compose
+
 To run backend locally you can use docker compose
 
 Before you use it, you need to create a file named
-`bux-wallet-backend.env.private`
+`spv-wallet-web-backend.env.private`
 containing at least one entry:
 
-`BUX_ADMIN_XPRIV=xprv...` where `xpriv...` should be replaced with valid admin xpriv
+`SPV_WALLET_ADMIN_XPRIV=xprv...` where `xpriv...` should be replaced with valid admin xpriv
 
 You can do this for example with this command (just replace <<admin_xpriv>> with valid admin xpriv)
-```bash 
-echo 'BUX_ADMIN_XPRIV=<<admin_xpriv>>' > bux-wallet-backend.env.private 
+
+```bash
+echo 'SPV_WALLET_ADMIN_XPRIV=<<admin_xpriv>>' > spv-wallet-web-backend.env.private
 ```
 
 Now all you need to do is to run command:
@@ -77,11 +87,11 @@ http://localhost:8080/swagger/index.html
 ### Repo structure
 
 - `src/` - workspace app
-    - `assets` - extra assets required to use inside components - images for example
-    - `componets` - reusable components which create views and app
-    - `styles` - global styles for app
-    - _(optional)_ `hooks` - custom React hooks for app
-    - _(optional)_ `views` - directory to place views which create application and include reusable components
+  - `assets` - extra assets required to use inside components - images for example
+  - `componets` - reusable components which create views and app
+  - `styles` - global styles for app
+  - _(optional)_ `hooks` - custom React hooks for app
+  - _(optional)_ `views` - directory to place views which create application and include reusable components
 
 ### Directory structure
 
@@ -91,10 +101,10 @@ component should have its own directory named the same as the component. The dir
 files:
 
 - `Component/`
-    - `index.ts` - re-exporting anything needed
-    - `Component.tsx` - component code
-    - _(optional)_ `Component.styles.ts` - any styles needed for the component
-    - _(optional)_ `Component.stories.tsx` - Storybook stories exploring different use cases/variants of the component
+  - `index.ts` - re-exporting anything needed
+  - `Component.tsx` - component code
+  - _(optional)_ `Component.styles.ts` - any styles needed for the component
+  - _(optional)_ `Component.stories.tsx` - Storybook stories exploring different use cases/variants of the component
 
 In terms of naming, `PascalCase` should be used for component names and Typescript types. Constants should be named
 using `UPPER_CASE`. Everything else should use `camelCase`.

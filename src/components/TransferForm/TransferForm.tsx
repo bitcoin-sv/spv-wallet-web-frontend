@@ -96,6 +96,7 @@ export const TransferForm = () => {
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
               />
+              {/*(TODO: CHECK THE DOMAIN*/}
               <Input
                 labelText="Amount (sat)"
                 type="number"
