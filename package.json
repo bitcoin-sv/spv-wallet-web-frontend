@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "backend": "echo Check names... && docker compose pull bux-wallet-backend && echo Starting containers... && docker compose up db bux-wallet-backend",
+    "backend": "docker compose pull spv-wallet-web-backend && echo Starting containers... && docker compose up db spv-wallet-web-backend",
     "preview": "vite preview"
   },
   "dependencies": {

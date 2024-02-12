@@ -16,7 +16,7 @@ services:
     image: bsvb/bux-wallet-backend:latest # CHECK IT
     pull_policy: always
     environment:
-      BUX_PAYMAIL_DOMAIN: '${RUN_PAYMAIL_DOMAIN}' # CHECK IT
+      SPV_WALLET_PAYMAIL_DOMAIN: '${RUN_PAYMAIL_DOMAIN}'
       HTTP_SERVER_CORS_ALLOWEDDOMAINS: 'http://localhost:3002'
     env_file:
       - .env.config
@@ -42,7 +42,7 @@ services:
     image: buxorg/bux-server:latest # CHECK IT
     pull_policy: always
     environment:
-      BUX_PAYMAIL_DOMAINS: '${RUN_PAYMAIL_DOMAIN}' # CHECK IT
+      SPV_WALLET_PAYMAIL_DOMAINS: '${RUN_PAYMAIL_DOMAIN}'
     env_file:
       - .env.config
     ports:
