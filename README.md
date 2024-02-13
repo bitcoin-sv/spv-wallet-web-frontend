@@ -54,33 +54,6 @@ There are three ways of running this script:
 ./start.sh -l
 ```
 
-#### Using docker compose
-
-To run backend locally you can use docker compose
-
-Before you use it, you need to create a file named
-`spv-wallet-web-backend.env.private`
-containing at least one entry:
-
-`SPV_WALLET_ADMIN_XPRIV=xprv...` where `xpriv...` should be replaced with valid admin xpriv
-
-You can do this for example with this command (just replace <<admin_xpriv>> with valid admin xpriv)
-
-```bash
-echo 'SPV_WALLET_ADMIN_XPRIV=<<admin_xpriv>>' > spv-wallet-web-backend.env.private
-```
-
-Now all you need to do is to run command:
-
-```bash
-yarn backend
-```
-
-And you can play with the backend on localhost:8080
-for example you can find there a swagger:
-
-http://localhost:8080/swagger/index.html
-
 ### Repo structure
 
 - `src/` - workspace app
