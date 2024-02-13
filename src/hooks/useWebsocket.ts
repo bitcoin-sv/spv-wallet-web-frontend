@@ -58,7 +58,7 @@ export const useWebsocket = () => {
   }, [centrifuge, retries])
 
   useEffect(() => {
-    const channel = 'bux-wallet'
+    const channel = 'spv-wallet'
     let sub: Subscription
     if (!centrifuge.getSubscription(channel)) {
       sub = centrifuge.newSubscription(channel)

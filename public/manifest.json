@@ -1,6 +1,6 @@
 {
-  "name": "Bux wallet",
-  "short_name": "Bux wallet",
+  "name": "SPV wallet frontend",
+  "short_name": "SPV wallet frontend",
   "theme_color": "#9A51FA",
   "background_color": "#6324f9",
   "display": "standalone",

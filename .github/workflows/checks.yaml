@@ -27,5 +27,5 @@ jobs:
       - name: Install dependencies with yarn
         run: yarn install --frozen-lockfile
 
-      - name: Run bux-wallet ESLint
+      - name: Run spv-wallet ESLint
         run: yarn lint

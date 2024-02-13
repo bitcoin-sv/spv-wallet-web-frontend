@@ -1,10 +1,13 @@
 import { LegalList, MainHeadline, TextLink } from '@/components/LegalContent/LegalContent.styles'
+import { usePaymailDomain } from '@/hooks/usePaymailDomain'
 
 export const PrivacyPolicyContent = () => {
+  const paymailDomain = usePaymailDomain()
+
   return (
     <>
-      <MainHeadline>Privacy Policy for bux wallet</MainHeadline>
-      <p>Agreement between User and bux-wallet app</p>
+      <MainHeadline>Privacy Policy for SPV wallet</MainHeadline>
+      <p>Agreement between User and spv-wallet-frontend app</p>
 
       <h3>Lorem ipsum dolor:</h3>
       <p>
@@ -107,7 +110,7 @@ export const PrivacyPolicyContent = () => {
       <p>
         by email:{' '}
         <TextLink variant="transparent" isLink isTextLink underline to="https://#">
-          contact@bux-wallet.com
+          contact@{paymailDomain}
         </TextLink>{' '}
       </p>
       <p>

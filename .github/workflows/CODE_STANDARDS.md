@@ -45,7 +45,6 @@
     - [4.5 Markdown usage](#45-markdown-usage)
     - [4.5 Conclusion](#45-conclusion)
 
-
 ## Most important rules - Quick Checklist
 
 - [ ] Follow guidelines and local formatting and linting settings (like prettier) for style and formatting.
@@ -75,9 +74,9 @@
 
 ```ts
 const person = {
-  firstName: "Bill",
-  lastName: null,  // 🟥
-  lastName: "",    // ✅
+  firstName: 'Bill',
+  lastName: null, // 🟥
+  lastName: '', // ✅
 }
 ```
 
@@ -85,50 +84,52 @@ const person = {
 
 ```ts
 const person = {
-  firstName: "Bill",
+  firstName: 'Bill',
   address: undefined, // 🟥
-  address: null,      // ✅
+  address: null, // ✅
 }
 ```
 
 - When code you have no control over (external library) or JavaScript itself may return undefined, convert it to null (or preferably to a default value if possible).
 
 ```ts
-const found = arr.find((item) => item > 5);         // 🟥
-const found = arr.find((item) => item > 5) ?? null; // ✅
+const found = arr.find((item) => item > 5) // 🟥
+const found = arr.find((item) => item > 5) ?? null // ✅
 ```
 
 - Whenever writing TypeScript code, avoid using `any` and always annotate types for Props passed to a Component.
 
 ```ts
 interface MyComponentProps {
-  setName: any                                           // 🟥
-  setName: React.Dispatch<React.SetStateAction<string>>  // ✅
+  setName: any // 🟥
+  setName: React.Dispatch<React.SetStateAction<string>> // ✅
 }
 
-const MyComponent = (props: any) => {}                      // 🟥
-const MyComponent: FC<MyComponentProps> = ({setName}) => {} // ✅
+const MyComponent = (props: any) => {} // 🟥
+const MyComponent: FC<MyComponentProps> = ({ setName }) => {} // ✅
 ```
 
 - Use curly braces `{}` instead of `new Object()`.
 
 ```ts
-const newObject = new Object()  // 🟥
-const newObject = {}            // ✅
+const newObject = new Object() // 🟥
+const newObject = {} // ✅
 ```
 
 - Use brackets `[]` instead of `new Array()`.
- 
+
 ```ts
-const newArray = new Array()  // 🟥
-const newArray = []           // ✅
+const newArray = new Array() // 🟥
+const newArray = [] // ✅
 ```
 
 - Use `===` and `!==` instead of `==` and `!=`.
 
 ```ts
-if (oneObject == anotherObject) {}   // 🟥
-if (oneObject === anotherObject) {}  // ✅
+if (oneObject == anotherObject) {
+} // 🟥
+if (oneObject === anotherObject) {
+} // ✅
 ```
 
 - When writing html/jsx/tsx, use proper semantic html tags, suitable for a given component.
@@ -153,8 +154,8 @@ List of all categorized html tags with short description: [HTML Elements Referen
 - When an import needs to go to more than one directory above, use full-path imports.
 
 ```typescript
-import { MyComponent } from "../../../MyComponent"         // 🟥
-import { MyComponent } from "/src/components/MyComponent"  // ✅
+import { MyComponent } from '../../../MyComponent' // 🟥
+import { MyComponent } from '/src/components/MyComponent' // ✅
 ```
 
 ### 2.2 File structure
@@ -165,6 +166,7 @@ Style files should take the name of the component with the suffix .style.{js/ts}
 Custom hooks can take the name of use\<componentName\>.{js/tx}. For example: `useMyComponent.js`.
 
 Example:
+
 ```
 |-- index.html
 |-- index.js
@@ -183,7 +185,7 @@ Example:
 
 #### As a Developer
 
-- Refactoring tasks should be strategically undertaken; not every piece of code warrants modification. If a segment of code, despite comments, remains untouched and unproblematic, it is   likely fulfilling its purpose effectively.
+- Refactoring tasks should be strategically undertaken; not every piece of code warrants modification. If a segment of code, despite comments, remains untouched and unproblematic, it is likely fulfilling its purpose effectively.
 - When embarking on feature additions or bug fixes, and encountering commented code, consider extracting functions and creating a PR before proceeding with the primary task. This helps maintain code clarity and function.
 - Should you come across a superfluous comment during your changes, do take the initiative to remove it and create a PR for that. This practice contributes to keeping the repository neat and well-maintained.
 - Endeavor to minimize the addition of comments when making any changes to the code.
@@ -212,12 +214,12 @@ Developers are required to diligently cover their changes with tests and organiz
    - **Then**: Verify if the outcomes match the expectations.
 
    ```js
-   import { importantFunction } from "./index.js"
+   import { importantFunction } from './index.js'
 
-   test("Test Something Very Useful Is Happening", () => {
+   test('Test Something Very Useful Is Happening', () => {
      // given
-     const functionInput = "importantInput"
-     const expectedResult = "importantResult"
+     const functionInput = 'importantInput'
+     const expectedResult = 'importantResult'
 
      // when
      const result = importantFunction(functionInput)
@@ -225,14 +227,14 @@ Developers are required to diligently cover their changes with tests and organiz
      // then
      expect(result).toBe(expectedResult)
    })
-    ```
+   ```
 
 4. **Test Isolation**: Ensure test isolation by avoiding the use of global variables and shared state. Each test should be independent and not rely on the execution of other tests. If a test requires a shared state, use a setup function to create the state before each test.
 
 5. **Test Data**: Avoid random data in tests. Instead, use predefined data to ensure test consistency and reproducibility. If random data is required, use a seed to ensure the same data is generated each time the test is run.
 
 6. **Test Cases**: If you are writing a public functions - it should be covered by tests. We should have test cases for all possible scenarios. That means that **we should have tests for all possible errors** that can be returned from the function.
-Of course not only error paths should be covered - **we should highlight the happy path as well**.
+   Of course not only error paths should be covered - **we should highlight the happy path as well**.
 
 7. **Testing private (unexported) functions**: When testing private functions, we should test them through the public (exported) functions that use them. The exception is when the private function is too complex to be tested through the public function. Good example is for example a function that is implementing a complex algorithm. In this case we should test the private function directly.
 
@@ -353,8 +355,8 @@ Additional information and guidelines on Conventional Commits can be found [here
 
 Good example:
 
-```bash
-feat: add possibility to create a new user by admin (#BUX-123)
+```
+feat(#123): add possibility to create a new user by admin
 ```
 
 Bad example:

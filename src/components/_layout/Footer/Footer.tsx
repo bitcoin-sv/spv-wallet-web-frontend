@@ -10,7 +10,7 @@ export const Footer = () => {
       <Row>
         <Column>
           <FooterContent>
-            <CopyrightText>&copy; {new Date().getFullYear()} Bux wallet. All rights reserved</CopyrightText>
+            <CopyrightText>&copy; {new Date().getFullYear()} SPV wallet. All rights reserved</CopyrightText>
 
             <Navigation>
               <NavElement>
