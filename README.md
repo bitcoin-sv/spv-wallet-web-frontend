@@ -1,7 +1,7 @@
 # SPV WALLET WEB FRONTEND
 
-The `spv-wallet-web-frontend` is a referential frontend application for a custodial web wallet.
-It is used in conjunction with the `spv-wallet-web-backend` component, which serves as the backend server.
+The `spv-wallet-web-frontend` is a referential frontend app designed as a part of the **SPV Wallet** which is a custodial wallet for Bitcoin SV.
+It utliizes the `spv-wallet` service as a non-custodial wallet in conjunction with the `spv-wallet-web-backend` as a backend server which is responsible for storing user data and private keys.
 
 ## Running the project
 
