@@ -6,7 +6,7 @@ export const PrivacyPolicyContent = () => {
 
   return (
     <>
-      <MainHeadline>Privacy Policy for SPV wallet</MainHeadline>
+      <MainHeadline>Privacy Policy for SPV Wallet</MainHeadline>
       <p>Agreement between User and spv-wallet-frontend app</p>
 
       <h3>Lorem ipsum dolor:</h3>
