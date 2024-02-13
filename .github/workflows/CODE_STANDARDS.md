@@ -359,8 +359,6 @@ Good example:
 feat(#123): add possibility to create a new user by admin
 ```
 
-<!--- # How to rename the BUX task name -->
-
 Bad example:
 
 ```bash
