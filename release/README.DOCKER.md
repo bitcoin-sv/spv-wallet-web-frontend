@@ -3,14 +3,14 @@
 The `spv-wallet-web-frontend` is a referential frontend app designed as a part of the **SPV Wallet** which is a custodial wallet for Bitcoin SV.
 It utliizes the `spv-wallet` service as a non-custodial wallet in conjunction with the `spv-wallet-web-backend` as a backend server which is responsible for storing user data and private keys.
 
-The frontend is written in React and can be run as a Docker image named `${DOCKERHUB_OWNER}/${DOCKERHUB_REPO}`, exposed on port 3002.
+The frontend is written in React and can be run as a Docker image named `${DOCKERHUB_OWNER}/${DOCKERHUB_REPO}`, exposed on port 80.
 
 ## Running as a Docker Image
 
 To run the `spv-wallet-web-frontend` as a Docker image, execute the following command:
 
 ```bash
-docker run -p 3002:3002 -v /path/to/env-config.json:/usr/share/nginx/html/env-config.json ${DOCKERHUB_OWNER}/${DOCKERHUB_REPO}:latest
+docker run -p 3002:80 -v /path/to/env-config.json:/usr/share/nginx/html/env-config.json ${DOCKERHUB_OWNER}/${DOCKERHUB_REPO}:latest
 ```
 
 Replace `/path/to/env-config.json` with the actual path to your `env-config.json` file.
@@ -24,14 +24,16 @@ The configuration file `env-config.json` can contain all or part of the followin
 
 ```json
 {
-  "apiUrl": "http://localhost:3002",
+  "apiUrl": "http://localhost:8080",
+  "wsUrl": "ws://localhost:8080/api/websocket",
   "paymailDomain": "other.example.com"
 }
 ```
 
-| Property        | Description                                                                                         | Default Value           |
-| --------------- | --------------------------------------------------------------------------------------------------- | ----------------------- |
-| `apiUrl`        | The URL pointing to the running `spv-wallet-web-backend`, to which this frontend should connect.    | `http://localhost:3002` |
-| `paymailDomain` | The paymail domain used to provide a user of this app with their paymail address for BSV transfers. | `example.com`           |
+| Property         | Description                                                                                           | Default Value                       |
+|------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------|
+| `apiUrl`         | The URL pointing to the running `spv-wallet-web-backend`, to which this frontend should connect.      | `http://localhost:3002`             |
+| `wsUrl`          | The URL pointing to endpoint in `spv-wallet-web-backend`, used for establishing websocket connection. | `ws://localhost:3002/api/websocket` |
+| `paymailDomain`  | The paymail domain used to provide a user of this app with their paymail address for BSV transfers.   | `example.com`                       |
 
 You can customize these properties in the `env-config.json` file to fit your specific deployment environment.
