@@ -6,7 +6,7 @@ export const TermsAndConditionsContent = () => {
 
   return (
     <>
-      <MainHeadline>Terms and conditions for SPV wallet</MainHeadline>
+      <MainHeadline>Terms and conditions for SPV Wallet</MainHeadline>
       <p>Agreement between User and spv-wallet-frontend app</p>
 
       <h3>Lorem ipsum dolor:</h3>
