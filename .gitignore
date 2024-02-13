@@ -29,7 +29,6 @@ dist-ssr
 
 # docker compose
 data/
-spv-wallet-web-backend.env.private
 
 # overriden config
 /env-config.json

@@ -19,10 +19,7 @@ There are two way of running backend locally:
 
 `spv-wallet-web-frontend` provides a `start.sh` script
 which is using `docker-compose.yml` file to starts up `SPV Wallet` with web-frontend, web-backend and selected database and cache storage.
-
-To start, we need to fill the
-config json which we want to use, there is prepared custom config file `docker/envs/development.json`
-which is used in development environment. This script build local image of spv-wallet-web-frontend and use
+This script build local image of spv-wallet-web-frontend and use
 already built ones for the rest of applications.
 
 Ports which are used:
