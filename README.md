@@ -25,7 +25,7 @@ already built ones for the rest of applications.
 Ports which are used:
 
 - 3002 - SPV Wallet web-frontend
-- 8081 - SPV Wallet web-backend
+- 5000 - SPV Wallet web-backend
 - 3003 - SPV Wallet (core service)
 - 5432 - PostgreSQL DB
 - 6379 - Redis
