@@ -24,8 +24,8 @@ The configuration file `env-config.json` can contain all or part of the followin
 
 ```json
 {
-  "apiUrl": "http://localhost:5000",
-  "wsUrl": "ws://localhost:5000/api/websocket",
+  "apiUrl": "http://localhost:8180",
+  "wsUrl": "ws://localhost:8180/api/websocket",
   "paymailDomain": "other.example.com"
 }
 ```
