@@ -21,7 +21,7 @@ services:
     env_file:
       - .env.config
     ports:
-      - "8180:8080"
+      - "8081:8080"
     links:
       - bux-postgresql
     depends_on:
