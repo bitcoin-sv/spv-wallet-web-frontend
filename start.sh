@@ -122,7 +122,6 @@ function print_state() {
     print_debug "  admin_xpub=${admin_xpub}"
     print_debug "  admin_xpriv=${admin_xpriv}"
     print_debug "  load_config=${load_config}"
-    print_debug "  no_rebuild=${no_rebuild}"
     print_debug "  debug=${debug}"
     print_debug ""
 }
@@ -247,10 +246,6 @@ while [[ $# -gt 0 ]]; do
         load_config="true"
         # no additional arguments so now `shift` command
         ;;
-        -nrb|--no-rebuild)
-        no_rebuild="true"
-        # no additional arguments so now `shift` command
-        ;;
         -b|--background)
         background="true"
         # no additional arguments so now `shift` command
@@ -267,7 +262,6 @@ while [[ $# -gt 0 ]]; do
         echo -e "Options:"
         echo -e "  -pm,  --paymail\t\t PayMail domain for which to run all applications"
         echo -e "  -l,   --load\t\t\t Load previously stored config from .env.config file"
-        echo -e "  -nrb, --no-rebuild\t\t Prevent rebuild of docker images before running"
         echo -e "  -b,   --background\t\t Whether the applications should be run in background"
         echo -e "  -d,   --debug\t\t\t Run in debug mode"
         echo -e "  -h,   --help\t\t\t Show this message"
@@ -277,6 +271,9 @@ while [[ $# -gt 0 ]]; do
         echo -e "  -db,  --database\t\t Define database - postgresql, mongodb, sqlite"
         echo -e "  -c,   --cache\t\t\t Define cache storage - freecache(in-memory), redis"
         echo -e "  --xpub\t\t\t Define admin xPub"
+        echo ""
+        echo -e "<----------   BLOCK HEADERS SERVICE SECTION"
+        echo -e "  -bhs,  --blockchain-headers-service\t Whether the block-headers-service should be run - true/false"
         echo ""
         echo -e "<----------   SPV WALLET COMPONENT SECTION"
         echo -e "  -wf,  --wallet-frontend\t Whether the wallet-frontend should be run - true/false"
@@ -316,7 +313,6 @@ if [ "$load_config" == "true" ]; then
             load_from 'RUN_WITH_DEFAULT_XPUB' default_xpub
             load_from 'SPVWALLET_AUTH_ADMIN_KEY' admin_xpub
             load_from 'SPVWALLET_ADMIN_XPRIV' admin_xpriv
-            load_from 'RUN_WITHOUT_REBUILD' no_rebuild
         done < ".env.config"
         print_success "Config loaded from .env.config file"
         print_debug "Config after loading .env.config:"
@@ -358,20 +354,22 @@ if [ "$spv_wallet" == "" ]; then
     print_debug "spv_wallet: $spv_wallet"
 fi
 
+# <----------   BLOCK HEADERS SERVICE SECTION
 if [ "$block_headers_service" == "" ]; then
-    ask_for_yes_or_no "Do you want to run Block Headers Service?"
+    ask_for_yes_or_no "Do you want to run block-headers-service?"
     block_headers_service="$choice"
     print_debug "block_headers_service: $block_headers_service"
 fi
 
+# <----------   SPV WALLET COMPONENT SECTION
 if [ "$wallet_frontend" == "" ]; then
-    ask_for_yes_or_no "Do you want to run wallet-frontend?"
+    ask_for_yes_or_no "Do you want to run spv-wallet-web-frontend?"
     wallet_frontend="$choice"
     print_debug "wallet_frontend: $wallet_frontend"
 fi
 
 if [ "$wallet_backend" == "" ]; then
-    ask_for_yes_or_no "Do you want to run wallet-backend?"
+    ask_for_yes_or_no "Do you want to run spv-wallet-web-backend?"
     wallet_backend="$choice"
     print_debug "wallet_backend: $wallet_backend"
 fi
@@ -424,7 +422,6 @@ save_to 'RUN_IN_BACKGROUND' background
 save_to 'RUN_WITH_DEFAULT_XPUB' default_xpub
 save_to 'SPVWALLET_AUTH_ADMIN_KEY' admin_xpub
 save_to 'SPVWALLET_ADMIN_XPRIV' admin_xpriv
-save_to 'RUN_WITHOUT_REBUILD' no_rebuild
 case $database in
   postgresql)
     save_value 'SPVWALLET_DB_SQL_HOST' "wallet-postgresql"
@@ -499,10 +496,6 @@ fi
 if [ "$wallet_frontend" == "true" ]; then
   servicesToRun+=("wallet-frontend")
   servicesToHideLogs+=("wallet-frontend")
-fi
-
-if [ "$no_rebuild" != "true" ]; then
-  additionalFlags+=("--build")
 fi
 
 if [ "$background" == "true" ]; then

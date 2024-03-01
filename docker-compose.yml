@@ -20,7 +20,7 @@ services:
     env_file:
       - .env.config
     ports:
-      - "8081:8180"
+      - "8180:8180"
     links:
       - wallet-postgresql
     depends_on:
@@ -105,5 +105,6 @@ configs:
     content: |
       {
           "paymailDomain": "${RUN_PAYMAIL_DOMAIN}",
-          "apiUrl": "http://localhost:8081"
+          "apiUrl": "http://localhost:8180"
+          "wsUrl": "ws://localhost:8180/api/websocket"
       }
