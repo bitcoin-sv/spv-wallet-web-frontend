@@ -309,8 +309,8 @@ if [ "$load_config" == "true" ]; then
             load_from 'SPVWALLET_CACHE_ENGINE' cache
             load_from 'RUN_SPVWALLET' spv_wallet
             load_from 'RUN_BLOCK_HEADERS_SERVICE' block_headers_service
-            load_from 'RUN_SPVWALLET_WALLET_FRONTEND' wallet_frontend
-            load_from 'RUN_SPVWALLET_WALLET_BACKEND' wallet_backend
+            load_from 'RUN_SPVWALLET_FRONTEND' wallet_frontend
+            load_from 'RUN_SPVWALLET_BACKEND' wallet_backend
             load_from 'RUN_PAYMAIL_DOMAIN' paymail_domain
             load_from 'RUN_IN_BACKGROUND' background
             load_from 'RUN_WITH_DEFAULT_XPUB' default_xpub
@@ -418,8 +418,8 @@ save_to 'SPVWALLET_CACHE_ENGINE' cache
 save_to 'RUN_SPVWALLET' spv_wallet
 save_to 'RUN_BLOCK_HEADERS_SERVICE' block_headers_service
 save_to 'RUN_PAYMAIL_DOMAIN' paymail_domain
-save_to 'RUN_SPVWALLET_WALLET_FRONTEND' wallet_frontend
-save_to 'RUN_SPVWALLET_WALLET_BACKEND' wallet_backend
+save_to 'RUN_SPVWALLET_FRONTEND' wallet_frontend
+save_to 'RUN_SPVWALLET_BACKEND' wallet_backend
 save_to 'RUN_IN_BACKGROUND' background
 save_to 'RUN_WITH_DEFAULT_XPUB' default_xpub
 save_to 'SPVWALLET_AUTH_ADMIN_KEY' admin_xpub
