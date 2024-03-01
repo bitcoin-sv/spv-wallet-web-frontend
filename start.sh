@@ -448,9 +448,9 @@ if [ "$wallet_backend" == "true" ]; then
 fi
 
 if [ "$block_headers_service" == "true" ]; then
-  save_value 'SPVWALLET_PAYMAIL_BEEF_BLOCK_HEADERS_SERVICE_URL' "http://block-headers-service:8080/api/v1/chain/merkleroot/verify"
+  save_value 'SPVWALLET_PAYMAIL_BEEF_BLOCK_HEADER_SERVICE_URL' "http://block-headers-service:8080/api/v1/chain/merkleroot/verify"
 else
-  save_value 'SPVWALLET_PAYMAIL_BEEF_BLOCK_HEADERS_SERVICE_URL' "http://host.docker.internal:8080/api/v1/chain/merkleroot/verify"
+  save_value 'SPVWALLET_PAYMAIL_BEEF_BLOCK_HEADER_SERVICE_URL' "http://host.docker.internal:8080/api/v1/chain/merkleroot/verify"
 fi
 print_debug "Exporting RUN_PAYMAIL_DOMAIN environment variable"
 export RUN_PAYMAIL_DOMAIN="$paymail_domain"
