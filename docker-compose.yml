@@ -3,9 +3,8 @@
 ########################################################
 services:
   wallet-frontend:
-    build:
-      context: .
-      dockerfile: ./release/Dockerfile
+    image: bsvb/spv-wallet-web-frontend:latest
+    pull_policy: always
     ports:
       - "3002:80"
     configs:
