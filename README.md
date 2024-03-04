@@ -45,7 +45,7 @@ There are three ways of running this script:
    you ran the script with flag `-h` or `--help`.
 
 ```bash
-./start.sh -db postgresql -c redis -bs true -env development -b false
+./start.sh -db postgresql -c redis -sw true -b false
 ```
 
 3. With `-l/--load` flag. This option add possibility to use previously created `.env.config` file and run whole environment with simple command:
