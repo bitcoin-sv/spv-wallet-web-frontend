@@ -17,18 +17,9 @@ There are two way of running backend locally:
 
 #### Using ./start.sh script
 
-`spv-wallet-web-frontend` provides a `start.sh` script
-which is using `docker-compose.yml` file to starts up `SPV Wallet` with web-frontend, web-backend and selected database and cache storage.
+`spv-wallet-web-frontend` provides a `start.sh` script, which is actually downloading and using the newest version of `start.sh` script from `spv-wallet` repository.
 
-Ports which are used:
-
-- 3002 - SPV Wallet web-frontend
-- 8180 - SPV Wallet web-backend
-- 3003 - SPV Wallet (core service)
-- 5432 - PostgreSQL DB
-- 6379 - Redis
-- 8080 - Block Headers Service
-- 27017 - MongoDB
+It is using `docker-compose.yml` file to starts up `SPV Wallet` with web-frontend, web-backend and selected database and cache storage.
 
 There are three ways of running this script:
 

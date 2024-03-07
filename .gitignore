@@ -32,4 +32,8 @@ data/
 
 # overriden config
 /env-config.json
+
+
+# start.sh
 .env.config
+.local/
