@@ -1,10 +1,5 @@
-import { useConfig } from '@4chain-ag/react-configuration'
+import { useServerConfig } from '@/providers/server_config/hooks'
 
 export const usePaymailDomain = () => {
-  const { config } = useConfig()
-  const domain = config?.paymailDomain
-  if (typeof domain !== 'string') {
-    return 'example.com'
-  }
-  return domain
+  return useServerConfig().paymail_domain
 }

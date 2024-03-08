@@ -3,7 +3,6 @@ import { LoginPage } from '@/views/LoginPage'
 import { TermsAndConditions } from '@/views/TermsAndConditions'
 import { PrivacyPolicy } from '@/views/PrivacyPolicy'
 import { SignupPage } from '@/views/SignupPage'
-import { GlobalStyles } from '@/styles'
 import { Header } from '@/components/_layout/Header'
 import { Main } from '@/components/_layout/Main'
 import { Footer } from '@/components/_layout/Footer'
@@ -117,7 +116,6 @@ export const App = () => {
 
   return (
     <>
-      <GlobalStyles />
       <ToastContainer theme="dark" />
 
       {loading ? (
