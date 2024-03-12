@@ -25,7 +25,9 @@ export const ServerConfigProvider: FC<PropsWithChildren> = ({ children }) => {
       .finally(() => setLoading(false))
   }, [apiUrl])
 
-  if (loading) return null
+  if (loading) {
+     return null
+  }
 
   if (!serverConfig) {
     throw new Error('Cannot fetch server configuration. Please try again later.')
