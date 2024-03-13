@@ -17,7 +17,7 @@ import {
 import { Pagination } from '@/components/Pagination'
 import React, { useEffect, useState } from 'react'
 import { TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
-import { getTransactions } from '@/api/requests/GetTransactions'
+import { getTransactions } from '@/api/requests'
 import { Transaction } from '@/api/types/transaction'
 import { colors, SrOnlySpan } from '@/styles'
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
@@ -27,7 +27,6 @@ import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useMediaMatch } from '@/hooks'
 import { useAutoupdate } from '@/providers/autoupdate'
-import { useApiUrl } from '@/api/apiUrl'
 import _ from 'lodash'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
@@ -44,7 +43,6 @@ export const TransactionTable = () => {
   const AUTOUPDATE_INTERVAL = 5000
 
   const { autoupdate, setAutoupdate } = useAutoupdate()
-  const apiUrl = useApiUrl()
 
   const ITEMS_PER_PAGE = 10
   const TOTAL_ITEMS = totalPages * ITEMS_PER_PAGE
@@ -54,11 +52,7 @@ export const TransactionTable = () => {
   }
 
   const autoUpdateList = () => {
-    if (!apiUrl) {
-      return
-    }
-
-    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+    getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
       .then((response) => {
         const transactions = response.transactions
 
@@ -79,11 +73,8 @@ export const TransactionTable = () => {
 
   useEffect(() => {
     setLoading(true)
-    if (!apiUrl) {
-      return
-    }
 
-    getTransactions(apiUrl, currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+    getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
       .then((response) => {
         const transactions = response.transactions
 
@@ -97,7 +88,7 @@ export const TransactionTable = () => {
       .finally(() => {
         setLoading(false)
       })
-  }, [apiUrl, currentPage, autoupdate])
+  }, [currentPage, autoupdate])
 
   useEffect(() => {
     const intervalId = setInterval(autoUpdateList, AUTOUPDATE_INTERVAL)

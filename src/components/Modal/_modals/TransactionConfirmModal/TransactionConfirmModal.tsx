@@ -7,11 +7,10 @@ import {
 } from '@/components/Modal/_modals/TransactionConfirmModal/TransactionConfirmModal.styles'
 import { SrOnlySpan } from '@/styles'
 import { Input } from '@/components/Input'
-import { sendTransaction } from '@/api/requests/SendTransaction'
+import { sendTransaction } from '@/api/requests'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
-import { useApiUrl } from '@/api/apiUrl'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 export interface TransactionData {
@@ -41,7 +40,6 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   const [errorWithReload, setErrorWithReload] = useState<boolean>(false)
 
   const { setAutoupdate } = useAutoupdate()
-  const apiUrl = useApiUrl()
 
   const receiver = transactionData.paymail
   const satoshisAmount = transactionData.amount
@@ -62,45 +60,42 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       password: userPassword,
     }
 
-    apiUrl &&
-      sendTransaction(apiUrl, newTransactionData)
-        .then(() => {
-          setSuccessMsg(SUCCESS_SCREEN_MSG)
+    sendTransaction(newTransactionData)
+      .then(() => {
+        setSuccessMsg(SUCCESS_SCREEN_MSG)
 
-          //store info about new transaction in global context
-          const updateTime = new Date().toISOString()
-          setAutoupdate(updateTime)
+        //store info about new transaction in global context
+        const updateTime = new Date().toISOString()
+        setAutoupdate(updateTime)
 
-          setTimeout(() => {
-            setSuccessMsg('')
-            secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-          }, 3000)
-        })
-        .catch((error) => {
-          if (error) {
-            if (error.response.status === 401) {
-              setErrors('Session expired! Please login in to your wallet')
-              setErrorWithReload(true)
-              return
-            }
-
-            if (error.response.status === 400) {
-              setErrors(
-                'Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!'
-              )
-              return
-            }
-
-            setErrors(
-              error.response.data
-                ? error.response.data
-                : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
-            )
+        setTimeout(() => {
+          setSuccessMsg('')
+          secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
+        }, 3000)
+      })
+      .catch((error) => {
+        if (error) {
+          if (error.response.status === 401) {
+            setErrors('Session expired! Please login in to your wallet')
+            setErrorWithReload(true)
+            return
           }
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+
+          if (error.response.status === 400) {
+            setErrors('Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!')
+            return
+          }
+
+          setErrors(
+            error.response.data
+              ? error.response.data
+              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
+          )
+        }
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   //back states to initial values on close modal

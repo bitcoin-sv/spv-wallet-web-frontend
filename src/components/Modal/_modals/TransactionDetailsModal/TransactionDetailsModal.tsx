@@ -6,12 +6,11 @@ import {
   DetailsList,
   ListElement,
 } from '@/components/Modal/_modals/TransactionDetailsModal/TransactionDetailsModal.styles'
-import { getTransactionsDetails } from '@/api/requests/GetTransactionDetails'
+import { getTransactionsDetails } from '@/api/requests'
 import { TransactionDetails } from '@/api/types/transaction'
 import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
-import { useApiUrl } from '@/api/apiUrl'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 
 interface TransactionDetailsProps {
@@ -26,23 +25,20 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
   const [errors, setErrors] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
 
-  const apiUrl = useApiUrl()
-
   useEffect(() => {
     setErrors('')
-    apiUrl &&
-      getTransactionsDetails(apiUrl, id)
-        .then((response) => {
-          setTransactionData(response)
-        })
-        .catch((error) => {
-          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-          errorMsg && setErrors(errorMsg)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
-  }, [apiUrl, id])
+    getTransactionsDetails(id)
+      .then((response) => {
+        setTransactionData(response)
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
+        errorMsg && setErrors(errorMsg)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [id])
 
   return (
     <Modal

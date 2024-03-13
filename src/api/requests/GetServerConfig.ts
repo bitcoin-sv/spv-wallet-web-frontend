@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-export const getServerConfig = async (apiUrl: string) => {
-  const { data: response } = await axios.get(`${apiUrl}/config`, {
-    withCredentials: false,
-  })
+export const getServerConfig = async () => {
+  const { data: response } = await axios.get(`/config`)
   return response
 }
