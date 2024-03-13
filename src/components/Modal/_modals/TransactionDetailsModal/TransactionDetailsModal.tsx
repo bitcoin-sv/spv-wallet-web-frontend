@@ -7,7 +7,7 @@ import {
   ListElement,
 } from '@/components/Modal/_modals/TransactionDetailsModal/TransactionDetailsModal.styles'
 import { getTransactionsDetails } from '@/api/requests'
-import { TransactionDetails } from '@/api/types/transaction'
+import { TransactionDetails } from '@/api/types'
 import { format } from 'date-fns'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'

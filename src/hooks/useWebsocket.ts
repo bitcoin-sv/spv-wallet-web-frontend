@@ -1,7 +1,7 @@
 import { useWsUrl } from '@/api/wsUrl.ts'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Centrifuge, MessageContext, Subscription } from 'centrifuge'
-import { WebsocketTransaction } from '@/api/types/transaction.ts'
+import { WebsocketTransaction } from '@/api/types'
 import { toast } from 'react-toastify'
 
 export const useWebsocket = () => {

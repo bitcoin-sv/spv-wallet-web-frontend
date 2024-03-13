@@ -15,10 +15,10 @@ import {
   UserPrefix,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
 import { getTransactions } from '@/api/requests'
-import { Transaction } from '@/api/types/transaction'
+import { Transaction } from '@/api/types'
 import { colors, SrOnlySpan } from '@/styles'
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
@@ -29,6 +29,12 @@ import { useMediaMatch } from '@/hooks'
 import { useAutoupdate } from '@/providers/autoupdate'
 import _ from 'lodash'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
+import { PaginationParams } from '@/api/types/pagination'
+
+const KEY_NAME_ENTER = 'Enter'
+const KEY_NAME_SPACE = 'Space'
+const AUTOUPDATE_INTERVAL = 5000
+const ITEMS_PER_PAGE = 10
 
 export const TransactionTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -37,22 +43,25 @@ export const TransactionTable = () => {
   const [transactionDetailsModal, setTransactionDetailsModal] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>('')
-
-  const KEY_NAME_ENTER = 'Enter'
-  const KEY_NAME_SPACE = 'Space'
-  const AUTOUPDATE_INTERVAL = 5000
-
   const { autoupdate, setAutoupdate } = useAutoupdate()
 
-  const ITEMS_PER_PAGE = 10
-  const TOTAL_ITEMS = totalPages * ITEMS_PER_PAGE
+  const totalItems = totalPages * ITEMS_PER_PAGE
+
+  const pagination: PaginationParams = useMemo(() => {
+    return {
+      page: currentPage,
+      page_size: ITEMS_PER_PAGE,
+      order: 'created_at',
+      sort: 'desc',
+    }
+  }, [currentPage])
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
   }
 
   const autoUpdateList = () => {
-    getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+    getTransactions(pagination)
       .then((response) => {
         const transactions = response.transactions
 
@@ -74,7 +83,7 @@ export const TransactionTable = () => {
   useEffect(() => {
     setLoading(true)
 
-    getTransactions(currentPage, ITEMS_PER_PAGE, 'created_at', 'desc')
+    getTransactions(pagination)
       .then((response) => {
         const transactions = response.transactions
 
@@ -88,7 +97,7 @@ export const TransactionTable = () => {
       .finally(() => {
         setLoading(false)
       })
-  }, [currentPage, autoupdate])
+  }, [pagination, autoupdate])
 
   useEffect(() => {
     const intervalId = setInterval(autoUpdateList, AUTOUPDATE_INTERVAL)
@@ -213,7 +222,7 @@ export const TransactionTable = () => {
       </TableWrapper>
       {totalPages > 1 && (
         <Pagination
-          totalItems={TOTAL_ITEMS}
+          totalItems={totalItems}
           itemsPerPage={ITEMS_PER_PAGE}
           currentPage={currentPage}
           onPageChange={handlePageChange}

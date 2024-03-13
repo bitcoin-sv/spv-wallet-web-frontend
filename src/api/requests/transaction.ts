@@ -1,16 +1,15 @@
 import axios from 'axios'
-import { SendNewTransaction } from '@/api/types/transaction'
+import { SendNewTransaction } from '@/api/types'
+import { PaginationParams } from '../types/pagination'
 
-export const getTransactions = async (page?: number, pageSize?: number, order?: string, sort?: 'desc' | 'asc') => {
-  const { data: response } = await axios.get(
-    `/transaction?page=${page || 1}&page_size=${pageSize || 10}&order=${order || 'created_at'}&sort=${sort || 'desc'}`,
-    {
-      withCredentials: true,
-      headers: {
-        'Cache-Control': 'no-store, no-cache',
-      },
-    }
-  )
+export const getTransactions = async (pagination: PaginationParams) => {
+  const { data: response } = await axios.get(`/transaction`, {
+    withCredentials: true,
+    headers: {
+      'Cache-Control': 'no-store, no-cache',
+    },
+    params: pagination,
+  })
   if (response != null && typeof response !== 'object') {
     throw new Error('Unexpected response from backend.', { cause: { response } })
   }
