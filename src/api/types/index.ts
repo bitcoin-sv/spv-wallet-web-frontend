@@ -1,4 +1,4 @@
 export * from './user'
-export * from './public_config'
+export * from './serverConfig'
 export * from './pagination'
 export * from './transaction'
