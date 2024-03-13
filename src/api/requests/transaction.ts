@@ -4,10 +4,6 @@ import { PaginationParams } from '../types/pagination'
 
 export const getTransactions = async (pagination: PaginationParams) => {
   const { data: response } = await axios.get(`/transaction`, {
-    withCredentials: true,
-    headers: {
-      'Cache-Control': 'no-store, no-cache',
-    },
     params: pagination,
   })
   if (response != null && typeof response !== 'object') {
@@ -19,16 +15,11 @@ export const getTransactions = async (pagination: PaginationParams) => {
 }
 
 export const getTransactionsDetails = async (transactionId: string) => {
-  const { data: response } = await axios.get(`/transaction/${transactionId}`, {
-    withCredentials: true,
-    headers: {
-      'Cache-Control': 'no-store, no-cache',
-    },
-  })
+  const { data: response } = await axios.get(`/transaction/${transactionId}`)
   return response
 }
 
 export const sendTransaction = async (data: SendNewTransaction) => {
-  const { data: response } = await axios.post('/transaction', data, { withCredentials: true })
+  const { data: response } = await axios.post('/transaction', data)
   return response
 }
