@@ -1,5 +1,4 @@
 {
   "apiUrl": "http://localhost:3002",
-  "paymailDomain": "example.com",
   "wsUrl": "ws://localhost:3002/api/websocket"
 }

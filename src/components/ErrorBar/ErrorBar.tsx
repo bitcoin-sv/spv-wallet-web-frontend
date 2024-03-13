@@ -1,7 +1,6 @@
 import ErrorIcon from '@mui/icons-material/Error'
 import { FC } from 'react'
 import { BarWrapper, ErrorText, ReloadButton } from '@/components/ErrorBar/ErrorProps.styles'
-import { useNavigate } from 'react-router-dom'
 
 interface ErrorProps {
   errorMsg: string
@@ -9,9 +8,8 @@ interface ErrorProps {
 }
 
 export const ErrorBar: FC<ErrorProps> = ({ errorMsg, withReloadButton }) => {
-  const navigate = useNavigate()
   const reloadHandler = () => {
-    navigate('/')
+    window.location.href = '/'
     window.location.reload()
   }
 

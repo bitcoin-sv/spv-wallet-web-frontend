@@ -25,15 +25,13 @@ The configuration file `env-config.json` can contain all or part of the followin
 ```json
 {
   "apiUrl": "http://localhost:8180",
-  "wsUrl": "ws://localhost:8180/api/websocket",
-  "paymailDomain": "other.example.com"
+  "wsUrl": "ws://localhost:8180/api/websocket"
 }
 ```
 
-| Property         | Description                                                                                           | Default Value                       |
-|------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------|
-| `apiUrl`         | The URL pointing to the running `spv-wallet-web-backend`, to which this frontend should connect.      | `http://localhost:3002`             |
-| `wsUrl`          | The URL pointing to endpoint in `spv-wallet-web-backend`, used for establishing websocket connection. | `ws://localhost:3002/api/websocket` |
-| `paymailDomain`  | The paymail domain used to provide a user of this app with their paymail address for BSV transfers.   | `example.com`                       |
+| Property | Description                                                                                           | Default Value                       |
+| -------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `apiUrl` | The URL pointing to the running `spv-wallet-web-backend`, to which this frontend should connect.      | `http://localhost:3002`             |
+| `wsUrl`  | The URL pointing to endpoint in `spv-wallet-web-backend`, used for establishing websocket connection. | `ws://localhost:3002/api/websocket` |
 
 You can customize these properties in the `env-config.json` file to fit your specific deployment environment.

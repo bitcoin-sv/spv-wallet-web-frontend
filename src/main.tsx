@@ -6,18 +6,26 @@ import { ConfigProvider } from '@4chain-ag/react-configuration'
 import { BrowserRouter } from 'react-router-dom'
 import { AutoupdateProvider } from '@/providers/autoupdate'
 import { registerSW } from 'virtual:pwa-register'
+import { ServerConfigProvider } from './providers/server_config/provider'
+import { ErrorBoundary } from './ErrorBoundary'
+import { GlobalStyles } from '@/styles'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ConfigProvider>
-      <AuthorizationProvider>
-        <AutoupdateProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </AutoupdateProvider>
-      </AuthorizationProvider>
-    </ConfigProvider>
+    <GlobalStyles />
+    <ErrorBoundary>
+      <ConfigProvider>
+        <ServerConfigProvider>
+          <AuthorizationProvider>
+            <AutoupdateProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </AutoupdateProvider>
+          </AuthorizationProvider>
+        </ServerConfigProvider>
+      </ConfigProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 )
 
