@@ -2,7 +2,6 @@ import { DashboardTile } from '@/components/DashboardTile'
 import SendIcon from '@mui/icons-material/Send'
 import { Button } from '@/components/Button'
 import { SrOnlySpan } from '@/styles'
-import { Input } from '@/components/Input'
 import { Column, Row } from '@/styles/grid'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Loader } from '@/components/Loader'
@@ -10,8 +9,8 @@ import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_mo
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
-import { usePaymailDomain } from '@/hooks/usePaymailDomain'
 import { CoinsInput } from '../Input/CoinsInput'
+import { PaymailInput } from '../Input/PaymailInput'
 
 export const TransferForm = () => {
   const MAX_TRANSACTION_VALUE = 999999999999
@@ -21,8 +20,6 @@ export const TransferForm = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
   const [errors, setErrors] = useState<string>('')
-
-  const paymailDomain = usePaymailDomain()
 
   const sendButtonDisabled = !paymail || !amount
   const cancelButtonDisabled = !paymail && !amount
@@ -81,12 +78,11 @@ export const TransferForm = () => {
               <legend>
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
-              <Input
-                labelText={`Paymail (example@${paymailDomain})`}
+              <PaymailInput
                 required
-                type="text"
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
+                showContactsButton
               />
               <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 

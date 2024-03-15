@@ -12,3 +12,7 @@ export type InputProps = {
 export type PasswordInputProps = Omit<InputProps, 'type' | 'withIcon'>
 
 export type CoinsInputProps = Omit<InputProps, 'type' | 'step' | 'min'>
+
+export type PaymailInputProps = {
+  showContactsButton?: boolean
+} & Omit<InputProps, 'type' | 'labelText'>

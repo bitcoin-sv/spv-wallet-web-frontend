@@ -3,7 +3,7 @@ import { FC, useState } from 'react'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 
-import { VisibilityToggler } from './Input.styles'
+import { InputButton } from './Input.styles'
 import { Input } from './Input'
 import { PasswordInputProps } from './types'
 
@@ -13,13 +13,13 @@ export const PasswordInput: FC<PasswordInputProps> = (props) => {
 
   return (
     <Input {...props} type={type} withIcon>
-      <VisibilityToggler
+      <InputButton
         type="button"
         inputOnLightBackground={props.inputOnLightBackground || undefined}
         onClick={() => setShowPassword((prev) => !prev)}
       >
         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-      </VisibilityToggler>
+      </InputButton>
     </Input>
   )
 }
