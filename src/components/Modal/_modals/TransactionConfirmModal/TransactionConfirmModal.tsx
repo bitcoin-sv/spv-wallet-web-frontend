@@ -6,12 +6,12 @@ import {
   Value,
 } from '@/components/Modal/_modals/TransactionConfirmModal/TransactionConfirmModal.styles'
 import { SrOnlySpan } from '@/styles'
-import { Input } from '@/components/Input'
 import { sendTransaction } from '@/api/requests'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
+import { PasswordInput } from '@/components/Input/PasswordInput'
 
 export interface TransactionData {
   paymail: string
@@ -133,12 +133,9 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
           <SrOnlySpan>Transaction confirmation form</SrOnlySpan>
         </legend>
         <fieldset>
-          <Input
+          <PasswordInput
             labelText="Password"
-            type="password"
             inputOnLightBackground
-            withIcon
-            togglePasswordVisibility
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             required
