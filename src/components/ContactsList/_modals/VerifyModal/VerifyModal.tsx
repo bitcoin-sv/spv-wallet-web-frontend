@@ -4,6 +4,7 @@ import { Contact, ContactAwaitingAcceptance, ContactConfirmed, ContactNotConfirm
 import { useYourTOTP, YourTOTP } from './YourTOTP'
 import { colors } from '@/styles'
 import { PeerTOTP, usePeerTOTP } from './PeerTOTP'
+import styled from '@emotion/styled'
 
 type VerifyModalProps = {
   peer: Contact
@@ -39,19 +40,35 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
       }
       onCloseByEsc={onClose}
     >
-      <div style={{ padding: 20, maxWidth: '80vw', width: 800 }}>
+      <Container>
         {children}
         <YourTOTP {...yourTOTP} peerName={peer.name} />
-        <div style={{ marginTop: 30 }}>
+        <Content>
           {peer.status === ContactConfirmed ? (
-            <p style={{ color: colors.successScreen, fontSize: 24 }}>
+            <TrustedContactMsg>
               <b>{peer.name}</b> is your trusted contact.
-            </p>
+            </TrustedContactMsg>
           ) : (
             <PeerTOTP {...peerTOTP} peerName={peer.name} />
           )}
-        </div>
-      </div>
+        </Content>
+      </Container>
     </Modal>
   )
 }
+
+const Container = styled.div`
+  padding: 20px;
+  max-width: 80vw;
+  width: 800px;
+`
+
+const Content = styled.div`
+  margin-top: 30px;
+`
+
+const TrustedContactMsg = styled.div`
+  color: ${colors.successScreen};
+  font-size: 18px;
+  padding-bottom: 10px;
+`

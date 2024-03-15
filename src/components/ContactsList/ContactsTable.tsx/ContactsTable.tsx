@@ -18,7 +18,7 @@ import { AcceptReject } from '../AcceptReject'
 import { useContacts } from '@/providers'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useSortedContacts } from './useSortedContacts'
-import { colors } from '@/styles'
+import { JustAddedContactMsg } from './JustAddedContcatMsg'
 
 export const ContactsTable: FC = () => {
   const { contacts, loading, error, refresh } = useContacts()
@@ -106,15 +106,7 @@ export const ContactsTable: FC = () => {
             setJustAddedContact(false)
           }}
         >
-          {justAddedContact && contactForVerification.status === 'not-confirmed' && (
-            <div style={{ paddingBottom: 20 }}>
-              <div style={{ color: colors.successScreen, fontSize: 18, paddingBottom: 10 }}>
-                You've successfully accepted the contact.
-              </div>
-              Until confirmed, it will be displayed as <StatusBadge status="not-confirmed" />. <br />
-              You can confirm it right now or return to this process later by using the "Show code" button.
-            </div>
-          )}
+          {justAddedContact && contactForVerification.status === 'not-confirmed' && <JustAddedContactMsg />}
         </VerifyModal>
       )}
     </>
