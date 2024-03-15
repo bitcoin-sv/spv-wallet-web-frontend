@@ -4,6 +4,7 @@ import { Loader } from '@/components/Loader'
 import { useYourTOTP } from './useYourTOTP'
 import { Contact } from '@/api/types/contact'
 import { YourTOTP } from './YourTOTP'
+import { colors } from '@/styles'
 
 type VerifyModalProps = {
   contact: Contact
@@ -12,6 +13,9 @@ type VerifyModalProps = {
 }
 
 export const VerifyModal: FC<VerifyModalProps> = ({ contact, onRequestRefresh, onClose }) => {
+  if (contact.status === 'pending-invitation') {
+    throw new Error('Contact is pending invitation')
+  }
   const totp = useYourTOTP()
   const [confirming, setConfirming] = useState(false)
 
@@ -48,6 +52,13 @@ export const VerifyModal: FC<VerifyModalProps> = ({ contact, onRequestRefresh, o
       {loading && <Loader />}
       <div style={{ padding: 20 }}>
         <YourTOTP {...totp} contactName={contact.name} />
+        <div style={{ marginTop: 30 }}>
+          {contact.status === 'trusted' && (
+            <p style={{ color: colors.successScreen, fontSize: 24 }}>
+              <b>{contact.name}</b> is your trusted contact.
+            </p>
+          )}
+        </div>
       </div>
     </Modal>
   )

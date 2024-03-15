@@ -34,6 +34,7 @@ const Container = styled.div<ContainerProps>`
     padding: ${sizes(4)};
     font-size: 22px;
     border-radius: ${variables.borderRadius};
+    color: white;
     box-shadow: ${variables.shadow.inputEffectShadow};
     background-color: ${({ error }) => (error ? colors.primaryBackground : colors.infoBackground)};
 }

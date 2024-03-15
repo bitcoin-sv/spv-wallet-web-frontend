@@ -87,14 +87,18 @@ export const ContactsTable: FC = () => {
                   <StatusBadge status={contact.status} />
                 </MediumTd>
                 <MediumTd>
-                  <SmallButton
-                    variant="accept"
-                    onClick={() => {
-                      setContactIdForVerification(contact.paymail)
-                    }}
-                  >
-                    Show code
-                  </SmallButton>
+                  {contact.status !== 'pending-invitation' ? (
+                    <SmallButton
+                      variant="accept"
+                      onClick={() => {
+                        setContactIdForVerification(contact.paymail)
+                      }}
+                    >
+                      Show code
+                    </SmallButton>
+                  ) : (
+                    <SmallButton variant="accept">Accept</SmallButton>
+                  )}
                   <SetPaymailButton
                     paymail={contact.paymail}
                     variant={contact.status === 'trusted' ? 'accept' : 'primary'}
