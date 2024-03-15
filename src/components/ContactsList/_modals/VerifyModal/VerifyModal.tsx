@@ -13,13 +13,10 @@ type VerifyModalProps = {
 }
 
 export const VerifyModal: FC<VerifyModalProps> = ({ contact, onRequestRefresh, onClose }) => {
-  if (contact.status === 'pending-invitation') {
-    throw new Error('Contact is pending invitation')
-  }
   const totp = useYourTOTP()
   const [confirming, setConfirming] = useState(false)
 
-  const loading = totp.loading || confirming
+  const loading = totp.loading || confirming || contact.status == 'pending-invitation'
 
   const onConfirm = () => {
     //TODO implement it

@@ -9,10 +9,11 @@ import {
   TableWrapper,
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { StatusBadge } from './StatusBadge'
 import { VerifyModal } from '../_modals'
 import { SmallButton } from '@/components/Button'
+import { AcceptReject } from '../AcceptReject'
 
 //TODO: unify shared components with TransactionTable
 
@@ -43,14 +44,19 @@ export const ContactsTable: FC = () => {
     return contacts.find((contact) => contact.paymail === contactIdForVerification)
   }, [contactIdForVerification, contacts])
 
-  useEffect(() => {
+  const fetchContacts = useCallback(() => {
     //TODO: featch contacts from the server
+    setLoading(true)
     setContacts(mockupContacts)
 
     setTimeout(() => {
       setLoading(false)
     }, 200)
   }, [])
+
+  useEffect(() => {
+    fetchContacts()
+  }, [fetchContacts])
 
   const sortedContacts = useMemo(() => {
     //show pending-invitation first
@@ -97,7 +103,17 @@ export const ContactsTable: FC = () => {
                       Show code
                     </SmallButton>
                   ) : (
-                    <SmallButton variant="accept">Accept</SmallButton>
+                    <>
+                      <AcceptReject
+                        onAccept={() => {
+                          fetchContacts()
+                          setContactIdForVerification(contact.paymail)
+                        }}
+                        onReject={() => {
+                          fetchContacts()
+                        }}
+                      />
+                    </>
                   )}
                   <SetPaymailButton
                     paymail={contact.paymail}

@@ -82,8 +82,8 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
       )}
       <LogoutModal
         open={modalOpen}
-        primaryButtonOnClickHandler={closeModal}
-        secondaryButtonOnClickHandler={logoutHandler}
+        onCancel={closeModal}
+        onConfirm={logoutHandler}
         logoutError={errors}
         loader={loading}
       />
