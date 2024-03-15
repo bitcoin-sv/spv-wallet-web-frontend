@@ -131,7 +131,7 @@ export const TransactionTable = () => {
           ) : errors ? (
             <ErrorBar errorMsg={errors} withReloadButton />
           ) : (
-            <Table>
+            <Table clickable>
               <thead>
                 <tr>
                   <LargeTh>Sender/receiver</LargeTh>

@@ -11,6 +11,8 @@ import {
 import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton'
 import { FC, useEffect, useMemo, useState } from 'react'
 import { StatusBadge } from './StatusBadge'
+import { VerifyModal } from '../_modals'
+import { SmallButton } from '@/components/Button'
 
 //TODO: unify shared components with TransactionTable
 
@@ -35,6 +37,11 @@ const mockupContacts: Contact[] = [
 export const ContactsTable: FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([])
   const [loading, setLoading] = useState(true)
+  const [contactIdForVerification, setContactIdForVerification] = useState<string | null>(null)
+
+  const contactForVerification = useMemo(() => {
+    return contacts.find((contact) => contact.paymail === contactIdForVerification)
+  }, [contactIdForVerification, contacts])
 
   useEffect(() => {
     //TODO: featch contacts from the server
@@ -73,13 +80,21 @@ export const ContactsTable: FC = () => {
           </thead>
           <tbody>
             {sortedContacts.map((contact, index) => (
-              <tr key={index}>
+              <tr key={index} style={{ height: 50 }}>
                 <LargeTd>{contact.paymail}</LargeTd>
                 <MediumTd>{contact.name}</MediumTd>
                 <MediumTd>
                   <StatusBadge status={contact.status} />
                 </MediumTd>
                 <MediumTd>
+                  <SmallButton
+                    variant="accept"
+                    onClick={() => {
+                      setContactIdForVerification(contact.paymail)
+                    }}
+                  >
+                    Show code
+                  </SmallButton>
                   <SetPaymailButton
                     paymail={contact.paymail}
                     variant={contact.status === 'trusted' ? 'accept' : 'primary'}
@@ -90,6 +105,15 @@ export const ContactsTable: FC = () => {
           </tbody>
         </Table>
       </TableWrapper>
+      {contactForVerification != null && (
+        <VerifyModal
+          contact={contactForVerification}
+          onRequestRefresh={() => {
+            //TODO
+          }}
+          onClose={() => setContactIdForVerification(null)}
+        />
+      )}
     </>
   )
 }
