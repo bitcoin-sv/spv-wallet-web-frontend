@@ -2,26 +2,24 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { variables } from '@/styles'
 import { colors, sizes } from '@/styles'
-import { timeoutPromise } from '@/utils/timeoutPromise'
+import { getTOTP } from '@/api'
 
-export const useYourTOTP = () => {
+export const useYourTOTP = (peerPaymai: string) => {
   const [totp, setTotp] = useState(0)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState(false)
 
   const fetchTotp = useCallback(async () => {
     setLoading(true)
-    setError('')
+    setError(false)
     try {
-      //TODO implement it
-      await timeoutPromise(300)
-      setTotp(Math.floor(Math.random() * 1000000))
+      setTotp(await getTOTP(peerPaymai))
     } catch {
-      setError('Error during fetching your TOTP')
+      setError(true)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [peerPaymai])
 
   useEffect(() => {
     fetchTotp()
@@ -42,7 +40,7 @@ export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, peerName }) 
   return (
     <Container error={!!error}>
       {error ? (
-        `Error: ${error}`
+        <> Error during fetching your TOTP </>
       ) : (
         <span>
           Your TOTP code is: <b>{totp}</b>. Pass this code to {peerName}.

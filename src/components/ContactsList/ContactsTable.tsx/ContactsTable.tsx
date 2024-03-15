@@ -71,8 +71,8 @@ export const ContactsTable: FC = () => {
                       <AcceptReject
                         contact={contact}
                         onAccept={() => {
-                          refresh()
                           setContactIdForVerification(contact.paymail)
+                          refresh()
                         }}
                         onReject={refresh}
                       />
@@ -91,8 +91,8 @@ export const ContactsTable: FC = () => {
       {contactForVerification && (
         <VerifyModal
           peer={contactForVerification}
-          onRequestRefresh={() => {
-            //TODO
+          onConfirmed={() => {
+            refresh()
           }}
           onClose={() => setContactIdForVerification(null)}
         />

@@ -8,15 +8,15 @@ import { PeerTOTP, usePeerTOTP } from './PeerTOTP'
 
 type VerifyModalProps = {
   peer: Contact
-  onRequestRefresh: () => void
+  onConfirmed: () => void
   onClose: () => void
 }
 
-export const VerifyModal: FC<VerifyModalProps> = ({ peer, onRequestRefresh, onClose }) => {
-  const yourTOTP = useYourTOTP()
-  const peerTOTP = usePeerTOTP(onRequestRefresh)
+export const VerifyModal: FC<VerifyModalProps> = ({ peer, onConfirmed, onClose }) => {
+  const yourTOTP = useYourTOTP(peer.paymail)
+  const peerTOTP = usePeerTOTP(peer.paymail, onConfirmed)
 
-  const loading = yourTOTP.loading || peerTOTP.confirming || peer.status == ContactAwaitingAcceptance
+  const loading = yourTOTP.loading || peer.status == ContactAwaitingAcceptance
 
   return (
     <Modal
@@ -32,6 +32,7 @@ export const VerifyModal: FC<VerifyModalProps> = ({ peer, onRequestRefresh, onCl
               onClick: peerTOTP.onConfirm,
               type: 'button',
               disabled: !peerTOTP.valid || peerTOTP.confirming,
+              loading: peerTOTP.confirming,
             }
           : undefined
       }

@@ -29,7 +29,22 @@ export const rejectContact = async (paymail: string) => {
 export const acceptContact = async (paymail: string) => {
   await timeoutPromise(1000)
   const index = contacts.findIndex((contact) => contact.paymail === paymail)
-  contacts[index].status = 'not-confirmed'
+  if (index !== -1) {
+    contacts[index].status = 'not-confirmed'
+  }
+}
+
+export const getTOTP = async (_paymail: string) => {
+  await timeoutPromise(1000)
+  return Math.floor(10 + Math.random() * 89)
+}
+
+export const confirmContactWithTOTP = async (paymail: string, _totp: number) => {
+  await timeoutPromise(1000)
+  const index = contacts.findIndex((contact) => contact.paymail === paymail)
+  if (index !== -1) {
+    contacts[index].status = 'confirmed'
+  }
 }
 
 /// Mocked contacts
