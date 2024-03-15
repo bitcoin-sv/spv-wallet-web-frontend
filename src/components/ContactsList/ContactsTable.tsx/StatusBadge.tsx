@@ -1,4 +1,4 @@
-import { ContactStatus } from '@/api/types/contact'
+import { ContactAwaitingAcceptance, ContactConfirmed, ContactNotConfirmed, ContactStatus } from '@/api/types/contact'
 import { FC } from 'react'
 import { Chip, ChipProps } from '@mui/material'
 
@@ -13,7 +13,7 @@ export const StatusBadge: FC<StatusBadgeProps> = ({ status }) => {
 }
 
 const dictionary: Record<ContactStatus, { label: string; color: ChipProps['color'] }> = {
-  'pending-invitation': { label: 'Pending', color: 'primary' },
-  'untrusted': { label: 'Untrusted', color: 'secondary' },
-  'trusted': { label: 'Trusted', color: 'success' },
+  [ContactAwaitingAcceptance]: { label: 'Pending', color: 'primary' },
+  [ContactNotConfirmed]: { label: 'Untrusted', color: 'secondary' },
+  [ContactConfirmed]: { label: 'Trusted', color: 'success' },
 }

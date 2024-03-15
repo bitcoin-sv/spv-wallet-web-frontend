@@ -1,4 +1,4 @@
-import { Contact } from '@/api/types/contact'
+import { Contact, ContactAwaitingAcceptance, ContactConfirmed, ContactNotConfirmed } from '@/api/types/contact'
 import { Loader } from '@/components/Loader'
 import {
   LargeTd,
@@ -21,17 +21,17 @@ const mockupContacts: Contact[] = [
   {
     paymail: 'bob@example.com',
     name: 'Bob',
-    status: 'trusted',
+    status: ContactConfirmed,
   },
   {
     paymail: 'bobi@example.com',
     name: 'Bobi',
-    status: 'untrusted',
+    status: ContactNotConfirmed,
   },
   {
     paymail: 'new@invitation.com',
     name: 'Newbie',
-    status: 'pending-invitation',
+    status: ContactAwaitingAcceptance,
   },
 ]
 
@@ -59,12 +59,12 @@ export const ContactsTable: FC = () => {
   }, [fetchContacts])
 
   const sortedContacts = useMemo(() => {
-    //show pending-invitation first
+    //show awaiting-acceptance first
     return contacts.sort((a, b) => {
-      if (a.status === 'pending-invitation') {
+      if (a.status === ContactAwaitingAcceptance) {
         return -1
       }
-      if (b.status === 'pending-invitation') {
+      if (b.status === ContactAwaitingAcceptance) {
         return 1
       }
       return 0
@@ -93,7 +93,7 @@ export const ContactsTable: FC = () => {
                   <StatusBadge status={contact.status} />
                 </MediumTd>
                 <MediumTd>
-                  {contact.status !== 'pending-invitation' ? (
+                  {contact.status !== ContactAwaitingAcceptance ? (
                     <SmallButton
                       variant="accept"
                       onClick={() => {
@@ -117,7 +117,7 @@ export const ContactsTable: FC = () => {
                   )}
                   <SetPaymailButton
                     paymail={contact.paymail}
-                    variant={contact.status === 'trusted' ? 'accept' : 'primary'}
+                    variant={contact.status === ContactConfirmed ? 'accept' : 'primary'}
                   />
                 </MediumTd>
               </tr>
