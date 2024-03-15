@@ -17,6 +17,21 @@ export const addContact = async (paymail: string, name: string) => {
   })
 }
 
+export const rejectContact = async (paymail: string) => {
+  console.log('reject')
+  await timeoutPromise(1000)
+  const index = contacts.findIndex((contact) => contact.paymail === paymail)
+  if (index !== -1) {
+    contacts.splice(index, 1)
+  }
+}
+
+export const acceptContact = async (paymail: string) => {
+  await timeoutPromise(1000)
+  const index = contacts.findIndex((contact) => contact.paymail === paymail)
+  contacts[index].status = 'not-confirmed'
+}
+
 /// Mocked contacts
 
 const contacts: Contact[] = [

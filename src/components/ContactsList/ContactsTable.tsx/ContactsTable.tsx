@@ -24,7 +24,6 @@ export const ContactsTable: FC = () => {
   const [contactIdForVerification, setContactIdForVerification] = useState<string | null>(null)
 
   const contactForVerification = useMemo(() => {
-    console.log('contacts', contacts)
     return contacts?.find((contact) => contact.paymail === contactIdForVerification)
   }, [contactIdForVerification, contacts])
 
@@ -51,8 +50,8 @@ export const ContactsTable: FC = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedContacts.map((contact, index) => (
-                <tr key={`${contact.paymail}-${index}`} style={{ height: 50 }}>
+              {sortedContacts.map((contact) => (
+                <tr key={contact.paymail} style={{ height: 50 }}>
                   <LargeTd>{contact.paymail}</LargeTd>
                   <MediumTd>{contact.name}</MediumTd>
                   <MediumTd>
@@ -69,15 +68,14 @@ export const ContactsTable: FC = () => {
                         Show code
                       </SmallButton>
                     ) : (
-                      <>
-                        <AcceptReject
-                          onAccept={() => {
-                            refresh()
-                            setContactIdForVerification(contact.paymail)
-                          }}
-                          onReject={refresh}
-                        />
-                      </>
+                      <AcceptReject
+                        contact={contact}
+                        onAccept={() => {
+                          refresh()
+                          setContactIdForVerification(contact.paymail)
+                        }}
+                        onReject={refresh}
+                      />
                     )}
                     <SetPaymailButton
                       paymail={contact.paymail}
@@ -90,7 +88,7 @@ export const ContactsTable: FC = () => {
           </Table>
         )}
       </TableWrapper>
-      {contactForVerification != null && (
+      {contactForVerification && (
         <VerifyModal
           peer={contactForVerification}
           onRequestRefresh={() => {

@@ -80,13 +80,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
           </MenuElement>
         </MenuList>
       )}
-      <LogoutModal
-        open={modalOpen}
-        onCancel={closeModal}
-        onConfirm={logoutHandler}
-        logoutError={errors}
-        loader={loading}
-      />
+      <LogoutModal open={modalOpen} onCancel={closeModal} onConfirm={logoutHandler} error={errors} loading={loading} />
     </UserMenuWrapper>
   )
 }
