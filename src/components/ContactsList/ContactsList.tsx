@@ -8,7 +8,7 @@ export const ContactsList = () => {
     <DashboardTile fullHeight tileTitle="Contacts" titleIcon={<Contacts />}>
       <Row>
         <Column>
-          <div>TEST</div>
+          <div>COMMING SOON</div>
         </Column>
       </Row>
     </DashboardTile>

@@ -6,13 +6,13 @@ import { media } from '@/styles/media'
 export const DetailsList = styled.ul`
   width: 100%;
   margin-top: ${sizes(4)};
-  font-size: 14px;
+  font-size: 12px;
   text-align: left;
   word-break: break-word;
 
   ${media.sm} {
     margin-top: ${sizes(8)};
-    font-size: 18px;
+    font-size: 14px;
   }
 `
 
@@ -26,4 +26,13 @@ export const DataName = styled.strong`
 
 export const DetailsLink = styled(Button)`
   color: ${colors.textHighlighted};
+`
+
+type HighlightedProps = {
+  enabled: boolean
+}
+
+export const Highlighted = styled.span<HighlightedProps>`
+  font-weight: ${({ enabled }) => (enabled ? 'bold' : 'normal')};
+  font-size: ${({ enabled }) => (enabled ? '22px' : 'inherit')};
 `

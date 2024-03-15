@@ -16,7 +16,7 @@ import {
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
 import React, { useEffect, useMemo, useState } from 'react'
-import { TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
+import { TransactionDetailsModal } from '@/components/Modal'
 import { getTransactions } from '@/api/requests'
 import { Transaction } from '@/api/types'
 import { colors, SrOnlySpan } from '@/styles'
@@ -147,6 +147,8 @@ export const TransactionTable = () => {
               </thead>
               <tbody>
                 {transactionsList.map((transaction, index) => {
+                  const dir = transaction.direction
+                  const amount = convertSatToBsv(transaction.totalValue) ?? 'unknown'
                   return (
                     <tr
                       key={index}
@@ -157,23 +159,17 @@ export const TransactionTable = () => {
                       tabIndex={0}
                     >
                       <LargeTd>
-                        {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
-                        {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
+                        {dir === 'incoming' && <UserPrefix>from:</UserPrefix>}
+                        {dir === 'outgoing' && <UserPrefix>to:</UserPrefix>}
                         <Highlighted>
-                          {transaction.direction === 'incoming' &&
-                            (transaction.sender ? transaction.sender : '$sender')}
-                          {transaction.direction === 'outgoing' &&
-                            (transaction.receiver ? transaction.receiver : '$receiver')}
+                          {dir === 'incoming' && (transaction.sender ? transaction.sender : '$sender')}
+                          {dir === 'outgoing' && (transaction.receiver ? transaction.receiver : '$receiver')}
                         </Highlighted>
                       </LargeTd>
                       <MediumTd>
-                        {transaction.direction === 'incoming' && (
-                          <span style={{ color: colors.transactionIncoming }}>+ </span>
-                        )}
-                        {transaction.direction === 'outgoing' && (
-                          <span style={{ color: colors.transactionOutgoing }}>- </span>
-                        )}
-                        {convertSatToBsv(transaction.totalValue)} BSV
+                        {dir === 'incoming' && <span style={{ color: colors.transactionIncoming }}>+ </span>}
+                        {dir === 'outgoing' && <span style={{ color: colors.transactionOutgoing }}>- </span>}
+                        {amount} BSV
                       </MediumTd>
                       {smMatch && (
                         <>
@@ -197,13 +193,13 @@ export const TransactionTable = () => {
                             )}
                           </SmallTd>
                           <SmallTd>
-                            {transaction.direction === 'incoming' ? (
-                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                            {dir === 'incoming' ? (
+                              <ContentWithInfoTip uppercase data-value={dir}>
                                 <KeyboardDoubleArrowDownIcon style={{ color: colors.transactionIncoming }} />
                                 <SrOnlySpan>incoming</SrOnlySpan>
                               </ContentWithInfoTip>
                             ) : (
-                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                              <ContentWithInfoTip uppercase data-value={dir}>
                                 <KeyboardDoubleArrowUpIcon style={{ color: colors.transactionOutgoing }} />
                                 <SrOnlySpan>outgoing</SrOnlySpan>
                               </ContentWithInfoTip>

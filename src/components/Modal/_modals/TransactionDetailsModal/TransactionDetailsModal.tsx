@@ -5,6 +5,7 @@ import {
   DetailsLink,
   DetailsList,
   ListElement,
+  Highlighted,
 } from '@/components/Modal/_modals/TransactionDetailsModal/TransactionDetailsModal.styles'
 import { getTransactionsDetails } from '@/api/requests'
 import { TransactionDetails } from '@/api/types'
@@ -53,6 +54,14 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, pri
           <ErrorBar errorMsg={errors} withReloadButton />
         ) : (
           <DetailsList>
+            <ListElement>
+              <DataName>Sender:</DataName>
+              <Highlighted enabled={transactionData?.direction === 'incoming'}>{transactionData?.sender}</Highlighted>
+            </ListElement>
+            <ListElement>
+              <DataName>Receiver:</DataName>
+              <Highlighted enabled={transactionData?.direction === 'outgoing'}>{transactionData?.receiver}</Highlighted>
+            </ListElement>
             <ListElement>
               <DataName>Transaction ID:</DataName> <span>{id}</span>
             </ListElement>
