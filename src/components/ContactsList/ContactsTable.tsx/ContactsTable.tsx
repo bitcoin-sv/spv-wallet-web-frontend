@@ -127,7 +127,7 @@ export const ContactsTable: FC = () => {
       </TableWrapper>
       {contactForVerification != null && (
         <VerifyModal
-          contact={contactForVerification}
+          peer={contactForVerification}
           onRequestRefresh={() => {
             //TODO
           }}

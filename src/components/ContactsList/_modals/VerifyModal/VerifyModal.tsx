@@ -1,45 +1,37 @@
 import { Modal } from '@/components/Modal'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { Loader } from '@/components/Loader'
-import { useYourTOTP } from './useYourTOTP'
 import { Contact } from '@/api/types/contact'
-import { YourTOTP } from './YourTOTP'
+import { useYourTOTP, YourTOTP } from './YourTOTP'
 import { colors } from '@/styles'
+import { PeerTOTP, usePeerTOTP } from './PeerTOTP'
 
 type VerifyModalProps = {
-  contact: Contact
+  peer: Contact
   onRequestRefresh: () => void
   onClose: () => void
 }
 
-export const VerifyModal: FC<VerifyModalProps> = ({ contact, onRequestRefresh, onClose }) => {
-  const totp = useYourTOTP()
-  const [confirming, setConfirming] = useState(false)
+export const VerifyModal: FC<VerifyModalProps> = ({ peer, onRequestRefresh, onClose }) => {
+  const yourTOTP = useYourTOTP()
+  const peerTOTP = usePeerTOTP(onRequestRefresh)
 
-  const loading = totp.loading || confirming || contact.status == 'pending-invitation'
-
-  const onConfirm = () => {
-    //TODO implement it
-    setConfirming(true)
-    setTimeout(() => {
-      setConfirming(false)
-      onRequestRefresh()
-    }, 1000)
-  }
+  const loading = yourTOTP.loading || peerTOTP.confirming || peer.status == 'pending-invitation'
 
   return (
     <Modal
       open={true}
-      modalTitle={`Verify ${contact.name}`}
-      modalSubtitle={contact.paymail}
+      modalTitle={`Verify ${peer.name}`}
+      modalSubtitle={peer.paymail}
       primaryButton={{ text: 'Close', variant: 'reject', onClick: onClose }}
       secondaryButton={
-        contact.status === 'untrusted'
+        peer.status === 'untrusted'
           ? {
               text: 'Confirm the contact',
               variant: 'accept',
-              onClick: onConfirm,
+              onClick: peerTOTP.onConfirm,
               type: 'button',
+              disabled: !peerTOTP.valid || peerTOTP.confirming,
             }
           : undefined
       }
@@ -48,12 +40,14 @@ export const VerifyModal: FC<VerifyModalProps> = ({ contact, onRequestRefresh, o
     >
       {loading && <Loader />}
       <div style={{ padding: 20 }}>
-        <YourTOTP {...totp} contactName={contact.name} />
+        <YourTOTP {...yourTOTP} peerName={peer.name} />
         <div style={{ marginTop: 30 }}>
-          {contact.status === 'trusted' && (
+          {peer.status === 'trusted' ? (
             <p style={{ color: colors.successScreen, fontSize: 24 }}>
-              <b>{contact.name}</b> is your trusted contact.
+              <b>{peer.name}</b> is your trusted contact.
             </p>
+          ) : (
+            <PeerTOTP {...peerTOTP} peerName={peer.name} />
           )}
         </div>
       </div>

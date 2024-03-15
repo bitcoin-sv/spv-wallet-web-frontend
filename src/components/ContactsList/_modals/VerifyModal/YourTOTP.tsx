@@ -1,14 +1,41 @@
-import { FC } from 'react'
-import { useYourTOTP } from './useYourTOTP'
+import { FC, useCallback, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { variables } from '@/styles'
 import { colors, sizes } from '@/styles'
 
-type YourTOTPProps = ReturnType<typeof useYourTOTP> & {
-  contactName: string
+export const useYourTOTP = () => {
+  const [totp, setTotp] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const fetchTotp = useCallback(async () => {
+    setLoading(true)
+    setError('')
+    try {
+      //TODO implement it
+      await asyncSetTimeout(300)
+      setTotp(Math.floor(Math.random() * 1000000))
+    } catch {
+      setError('Error during fetching your TOTP')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchTotp()
+  }, [fetchTotp])
+
+  return { totp, loading, error }
 }
 
-export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, contactName }) => {
+const asyncSetTimeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+type YourTOTPProps = ReturnType<typeof useYourTOTP> & {
+  peerName: string
+}
+
+export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, peerName }) => {
   if (loading) {
     return <></>
   }
@@ -19,7 +46,7 @@ export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, contactName 
         `Error: ${error}`
       ) : (
         <span>
-          Your TOTP code is: <b>{totp}</b>. Pass this code to {contactName}.
+          Your TOTP code is: <b>{totp}</b>. Pass this code to {peerName}.
         </span>
       )}
     </Container>
