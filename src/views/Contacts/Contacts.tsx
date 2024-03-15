@@ -2,10 +2,10 @@ import { Column, Row } from '@/styles/grid'
 import { useMediaMatch } from '@/hooks/useMediaMatch'
 import { AccountSummary } from '@/components/AccountSummary'
 import { TransferForm } from '@/components/TransferForm'
-import { TransactionHistory } from '@/components/TransactionHistory'
+import { ContactsList } from '@/components/ContactsList'
 import { useWebsocket } from '@/hooks'
 
-export const Dashboard = () => {
+export const Contacts = () => {
   const lgMatch = useMediaMatch('lg')
   useWebsocket()
 
@@ -13,7 +13,7 @@ export const Dashboard = () => {
     <>
       <Row smallReverse>
         <Column percentageWidth={lgMatch ? 70 : 100}>
-          <TransactionHistory />
+          <ContactsList />
         </Column>
         <Column percentageWidth={lgMatch ? 30 : 100}>
           <AccountSummary />
