@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { variables } from '@/styles'
 import { colors, sizes } from '@/styles'
 import { getTOTP } from '@/api'
+import { CircularProgress } from '@mui/material'
 
 export const useYourTOTP = (peerPaymai: string) => {
   const [totp, setTotp] = useState(0)
@@ -33,17 +34,13 @@ type YourTOTPProps = ReturnType<typeof useYourTOTP> & {
 }
 
 export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, peerName }) => {
-  if (loading) {
-    return <></>
-  }
-
   return (
     <Container error={!!error}>
       {error ? (
         <> Error during fetching your TOTP </>
       ) : (
         <span>
-          Your TOTP code is: <b>{totp}</b>. Pass this code to {peerName}.
+          Your TOTP code is: <b>{loading ? <CircularProgress size={22} /> : totp}</b>. Pass this code to {peerName}.
         </span>
       )}
     </Container>

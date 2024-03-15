@@ -1,6 +1,5 @@
 import { Modal } from '@/components/Modal'
-import { FC } from 'react'
-import { Loader } from '@/components/Loader'
+import { FC, PropsWithChildren } from 'react'
 import { Contact, ContactAwaitingAcceptance, ContactConfirmed, ContactNotConfirmed } from '@/api/types/contact'
 import { useYourTOTP, YourTOTP } from './YourTOTP'
 import { colors } from '@/styles'
@@ -12,11 +11,13 @@ type VerifyModalProps = {
   onClose: () => void
 }
 
-export const VerifyModal: FC<VerifyModalProps> = ({ peer, onConfirmed, onClose }) => {
+export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children, peer, onConfirmed, onClose }) => {
   const yourTOTP = useYourTOTP(peer.paymail)
   const peerTOTP = usePeerTOTP(peer.paymail, onConfirmed)
 
-  const loading = yourTOTP.loading || peer.status == ContactAwaitingAcceptance
+  if (peer.status == ContactAwaitingAcceptance) {
+    return null
+  }
 
   return (
     <Modal
@@ -36,11 +37,10 @@ export const VerifyModal: FC<VerifyModalProps> = ({ peer, onConfirmed, onClose }
             }
           : undefined
       }
-      isLoading={loading}
       onCloseByEsc={onClose}
     >
-      {loading && <Loader />}
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 20, maxWidth: '80vw', width: 800 }}>
+        {children}
         <YourTOTP {...yourTOTP} peerName={peer.name} />
         <div style={{ marginTop: 30 }}>
           {peer.status === ContactConfirmed ? (

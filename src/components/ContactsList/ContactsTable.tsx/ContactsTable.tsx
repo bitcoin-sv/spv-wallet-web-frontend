@@ -18,14 +18,21 @@ import { AcceptReject } from '../AcceptReject'
 import { useContacts } from '@/providers'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useSortedContacts } from './useSortedContacts'
+import { colors } from '@/styles'
 
 export const ContactsTable: FC = () => {
   const { contacts, loading, error, refresh } = useContacts()
   const [contactIdForVerification, setContactIdForVerification] = useState<string | null>(null)
+  const [justAddedContact, setJustAddedContact] = useState(false)
 
   const contactForVerification = useMemo(() => {
     return contacts?.find((contact) => contact.paymail === contactIdForVerification)
   }, [contactIdForVerification, contacts])
+
+  const openVerificationWindow = (peerPaymail: string, justAdded = false) => {
+    setJustAddedContact(justAdded)
+    setContactIdForVerification(peerPaymail)
+  }
 
   const sortedContacts = useSortedContacts(contacts)
 
@@ -62,7 +69,7 @@ export const ContactsTable: FC = () => {
                       <SmallButton
                         variant="accept"
                         onClick={() => {
-                          setContactIdForVerification(contact.paymail)
+                          openVerificationWindow(contact.paymail)
                         }}
                       >
                         Show code
@@ -71,7 +78,7 @@ export const ContactsTable: FC = () => {
                       <AcceptReject
                         contact={contact}
                         onAccept={() => {
-                          setContactIdForVerification(contact.paymail)
+                          openVerificationWindow(contact.paymail, true)
                           refresh()
                         }}
                         onReject={refresh}
@@ -94,8 +101,21 @@ export const ContactsTable: FC = () => {
           onConfirmed={() => {
             refresh()
           }}
-          onClose={() => setContactIdForVerification(null)}
-        />
+          onClose={() => {
+            setContactIdForVerification(null)
+            setJustAddedContact(false)
+          }}
+        >
+          {justAddedContact && contactForVerification.status === 'not-confirmed' && (
+            <div style={{ paddingBottom: 20 }}>
+              <div style={{ color: colors.successScreen, fontSize: 18, paddingBottom: 10 }}>
+                You've successfully accepted the contact.
+              </div>
+              Until confirmed, it will be displayed as <StatusBadge status="not-confirmed" />. <br />
+              You can confirm it right now or return to this process later by using the "Show code" button.
+            </div>
+          )}
+        </VerifyModal>
       )}
     </>
   )

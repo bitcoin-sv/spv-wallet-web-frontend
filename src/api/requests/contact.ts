@@ -10,28 +10,30 @@ export const searchContacts = async (_pagination?: PaginationParams) => {
 
 export const addContact = async (paymail: string, name: string) => {
   await timeoutPromise(1000)
-  contacts.push({
-    paymail,
-    name,
-    status: 'awaiting-acceptance',
-  })
+  contacts = [
+    ...contacts,
+    {
+      paymail,
+      name,
+      status: 'awaiting-acceptance',
+    },
+  ]
 }
 
 export const rejectContact = async (paymail: string) => {
   console.log('reject')
   await timeoutPromise(1000)
-  const index = contacts.findIndex((contact) => contact.paymail === paymail)
-  if (index !== -1) {
-    contacts.splice(index, 1)
-  }
+  contacts = contacts.filter((contact) => contact.paymail !== paymail)
 }
 
 export const acceptContact = async (paymail: string) => {
   await timeoutPromise(1000)
-  const index = contacts.findIndex((contact) => contact.paymail === paymail)
-  if (index !== -1) {
-    contacts[index].status = 'not-confirmed'
-  }
+  contacts = contacts.map((contact) => {
+    if (contact.paymail === paymail) {
+      contact.status = 'not-confirmed'
+    }
+    return { ...contact }
+  })
 }
 
 export const getTOTP = async (_paymail: string) => {
@@ -41,15 +43,17 @@ export const getTOTP = async (_paymail: string) => {
 
 export const confirmContactWithTOTP = async (paymail: string, _totp: number) => {
   await timeoutPromise(1000)
-  const index = contacts.findIndex((contact) => contact.paymail === paymail)
-  if (index !== -1) {
-    contacts[index].status = 'confirmed'
-  }
+  contacts = contacts.map((contact) => {
+    if (contact.paymail === paymail) {
+      contact.status = 'confirmed'
+    }
+    return { ...contact }
+  })
 }
 
 /// Mocked contacts
 
-const contacts: Contact[] = [
+let contacts: Contact[] = [
   {
     paymail: 'bob@example.com',
     name: 'Bob',
