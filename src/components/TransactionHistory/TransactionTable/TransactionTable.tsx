@@ -228,7 +228,7 @@ export const TransactionTable = () => {
         <TransactionDetailsModal
           id={transactionDetailsModal}
           open={transactionDetailsModal !== ''}
-          primaryButtonOnClickHandler={() => setTransactionDetailsModal('')}
+          onClose={() => setTransactionDetailsModal('')}
         />
       )}
     </>

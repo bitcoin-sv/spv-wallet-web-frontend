@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send'
 import { Button } from '@/components/Button'
 import { SrOnlySpan } from '@/styles'
 import { Column, Row } from '@/styles/grid'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
@@ -11,6 +11,8 @@ import { ErrorBar } from '@/components/ErrorBar'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 import { CoinsInput } from '../Input/CoinsInput'
 import { PaymailInput } from '../Input/PaymailInput'
+import { useSubscribePaymailEvent } from './setPaymailEvent'
+import { usePaymailInputAnimation } from './paymailInputAnimation'
 
 export const TransferForm = () => {
   const MAX_TRANSACTION_VALUE = 999999999999
@@ -23,6 +25,17 @@ export const TransferForm = () => {
 
   const sendButtonDisabled = !paymail || !amount
   const cancelButtonDisabled = !paymail && !amount
+
+  const { ref: paymailInputRef, startAnimation } = usePaymailInputAnimation()
+  const onPaymailEvent = useCallback(
+    (paymail: string) => {
+      setPaymail(paymail)
+      startAnimation()
+    },
+    [startAnimation]
+  )
+
+  useSubscribePaymailEvent(onPaymailEvent)
 
   const cancelTransactionHandler = () => {
     setPaymail('')
@@ -79,6 +92,7 @@ export const TransferForm = () => {
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
               <PaymailInput
+                ref={paymailInputRef}
                 required
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}

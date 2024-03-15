@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { forwardRef } from 'react'
 
 import { Input } from './Input'
 import { PaymailInputProps } from './types'
@@ -6,11 +6,11 @@ import { usePaymailDomain } from '@/hooks/usePaymailDomain'
 import { InputLinkButton } from './Input.styles'
 import ContactsIcon from '@mui/icons-material/Contacts'
 
-export const PaymailInput: FC<PaymailInputProps> = ({ showContactsButton, ...props }) => {
+export const PaymailInput = forwardRef<HTMLInputElement, PaymailInputProps>(({ showContactsButton, ...props }, ref) => {
   const paymailDomain = usePaymailDomain()
 
   return (
-    <Input {...props} type="text" labelText={`Paymail (example@${paymailDomain})`}>
+    <Input ref={ref} {...props} type="text" labelText={`Paymail (example@${paymailDomain})`}>
       {showContactsButton && (
         <InputLinkButton to="/contacts" inputOnLightBackground={props.inputOnLightBackground || undefined}>
           <ContactsIcon />
@@ -18,4 +18,6 @@ export const PaymailInput: FC<PaymailInputProps> = ({ showContactsButton, ...pro
       )}
     </Input>
   )
-}
+})
+
+PaymailInput.displayName = 'PaymailInput'
