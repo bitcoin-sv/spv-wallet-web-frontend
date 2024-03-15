@@ -10,6 +10,7 @@ import {
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton'
 import { FC, useEffect, useMemo, useState } from 'react'
+import { StatusBadge } from './StatusBadge'
 
 //TODO: unify shared components with TransactionTable
 
@@ -75,7 +76,9 @@ export const ContactsTable: FC = () => {
               <tr key={index}>
                 <LargeTd>{contact.paymail}</LargeTd>
                 <MediumTd>{contact.name}</MediumTd>
-                <MediumTd>{contact.status}</MediumTd>
+                <MediumTd>
+                  <StatusBadge status={contact.status} />
+                </MediumTd>
                 <MediumTd>
                   <SetPaymailButton
                     paymail={contact.paymail}
