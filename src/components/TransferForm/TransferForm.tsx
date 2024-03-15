@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send'
 import { Button } from '@/components/Button'
 import { SrOnlySpan } from '@/styles'
 import { Column, Row } from '@/styles/grid'
-import { ChangeEvent, FormEvent, useCallback, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useState, FC } from 'react'
 import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
@@ -14,7 +14,11 @@ import { PaymailInput } from '../Input/PaymailInput'
 import { useSubscribePaymailEvent } from './setPaymailEvent'
 import { usePaymailInputAnimation } from './paymailInputAnimation'
 
-export const TransferForm = () => {
+type TransferFormProps = {
+  showContactsButton?: boolean
+}
+
+export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
   const MAX_TRANSACTION_VALUE = 999999999999
 
   const [paymail, setPaymail] = useState<string>('')
@@ -96,7 +100,7 @@ export const TransferForm = () => {
                 required
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
-                showContactsButton
+                showContactsButton={showContactsButton}
               />
               <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 

@@ -17,7 +17,7 @@ export const Dashboard = () => {
         </Column>
         <Column percentageWidth={lgMatch ? 30 : 100}>
           <AccountSummary />
-          <TransferForm />
+          <TransferForm showContactsButton />
         </Column>
       </Row>
     </>

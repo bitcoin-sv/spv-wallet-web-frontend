@@ -12,7 +12,7 @@ export const PaymailInput = forwardRef<HTMLInputElement, PaymailInputProps>(({ s
   return (
     <Input ref={ref} {...props} type="text" labelText={`Paymail (example@${paymailDomain})`}>
       {showContactsButton && (
-        <InputLinkButton to="/contacts" inputOnLightBackground={props.inputOnLightBackground || undefined}>
+        <InputLinkButton to="/contacts">
           <ContactsIcon />
         </InputLinkButton>
       )}

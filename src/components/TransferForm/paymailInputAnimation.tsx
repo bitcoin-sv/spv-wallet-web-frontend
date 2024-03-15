@@ -1,5 +1,5 @@
 import { HighlightAnimationClassName } from '@/styles/highlightAnimation'
-import { useCallback, useEffect, useRef, useState, RefObject } from 'react'
+import { useCallback, useRef, RefObject } from 'react'
 
 type PaymailAnimation = {
   startAnimation: () => void
@@ -8,31 +8,17 @@ type PaymailAnimation = {
 
 export const usePaymailInputAnimation = (): PaymailAnimation => {
   const ref = useRef<HTMLInputElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-  const [isAnimating, setIsAnimating] = useState(false)
 
-  const startAnimation = useCallback(() => setIsAnimating(true), [])
-
-  useEffect(() => {
-    if (ref.current == null) {
+  const startAnimation = useCallback(() => {
+    const element = ref.current
+    if (element == null) {
       return
     }
-    const element = ref.current
-    if (!isAnimating) {
-      element.classList.remove(HighlightAnimationClassName)
-    } else {
+    element.classList.remove(HighlightAnimationClassName)
+    setTimeout(() => {
       element.classList.add(HighlightAnimationClassName)
-      timeoutRef.current = setTimeout(() => {
-        setIsAnimating(false)
-      }, 1000)
-
-      return () => {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current)
-        }
-      }
-    }
-  }, [ref, isAnimating])
+    }, 1)
+  }, [])
 
   return { startAnimation, ref }
 }
