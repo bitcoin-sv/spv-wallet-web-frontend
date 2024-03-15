@@ -1,18 +1,14 @@
 import { FC } from 'react'
 
-import { FormattedValueLabel, InputStyled, InputWrapper, LabelStyled } from './Input.styles'
+import { InputStyled, InputWrapper, LabelStyled } from './Input.styles'
 import { InputProps } from './types'
 
 export const Input: FC<InputProps> = ({
   labelText,
   className,
   id,
-  error,
-  withIcon,
   customPlaceholder,
-  type,
   inputOnLightBackground,
-  formattedValue,
   children,
   ...rest
 }) => {
@@ -21,10 +17,6 @@ export const Input: FC<InputProps> = ({
       <InputStyled
         {...rest}
         placeholder={customPlaceholder || labelText}
-        type={type}
-        id={id}
-        error={error}
-        withIcon={type === 'password' || withIcon}
         inputOnLightBackground={inputOnLightBackground || undefined}
       />
       <LabelStyled htmlFor={id} inputOnLightBackground={inputOnLightBackground || undefined}>
@@ -32,8 +24,6 @@ export const Input: FC<InputProps> = ({
       </LabelStyled>
 
       {children}
-
-      {formattedValue && <FormattedValueLabel>BSV: {formattedValue}</FormattedValueLabel>}
     </InputWrapper>
   )
 }

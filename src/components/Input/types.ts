@@ -7,7 +7,8 @@ export type InputProps = {
   withIcon?: boolean
   customPlaceholder?: string
   inputOnLightBackground?: boolean
-  formattedValue?: string
 } & InputHTMLAttributes<HTMLInputElement>
 
 export type PasswordInputProps = Omit<InputProps, 'type' | 'withIcon'>
+
+export type CoinsInputProps = Omit<InputProps, 'type' | 'step' | 'min'>

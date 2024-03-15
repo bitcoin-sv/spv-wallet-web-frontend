@@ -11,14 +11,13 @@ import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 import { usePaymailDomain } from '@/hooks/usePaymailDomain'
+import { CoinsInput } from '../Input/CoinsInput'
 
 export const TransferForm = () => {
-  const FORMATTED_INITIAL_VALUE = '0.00000000'
   const MAX_TRANSACTION_VALUE = 999999999999
 
   const [paymail, setPaymail] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
-  const [formattedValue, setFormattedValue] = useState<string>(FORMATTED_INITIAL_VALUE)
   const [loading, setLoading] = useState<boolean>(false)
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
   const [errors, setErrors] = useState<string>('')
@@ -68,16 +67,9 @@ export const TransferForm = () => {
 
     if (!formatted || isNaN(parseInt(formatted))) {
       setAmount('')
-      setFormattedValue(FORMATTED_INITIAL_VALUE)
-      return
+    } else if (parseInt(value) <= MAX_TRANSACTION_VALUE) {
+      setAmount(value)
     }
-    if (parseInt(value) > MAX_TRANSACTION_VALUE) {
-      setFormattedValue(formatted)
-      return
-    }
-
-    setAmount(value)
-    setFormattedValue(formatted)
   }
   return (
     <DashboardTile tileTitle="Send money" titleIcon={<SendIcon />}>
@@ -96,17 +88,7 @@ export const TransferForm = () => {
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
               />
-              <Input
-                labelText="Amount (sat)"
-                type="number"
-                min="0"
-                step="any"
-                onChange={(event) => {
-                  handleChange(event)
-                }}
-                value={amount}
-                formattedValue={formattedValue}
-              />
+              <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 
               {errors && <ErrorBar errorMsg={errors} />}
             </Column>
