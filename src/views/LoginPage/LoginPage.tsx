@@ -9,7 +9,6 @@ import { Loader } from '@/components/Loader'
 import { useAuthorization } from '@/providers'
 import { useNavigate } from 'react-router-dom'
 import { LoggedInUser, loginUser } from '@/api'
-import { useApiUrl } from '@/api/apiUrl'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -19,7 +18,6 @@ export const LoginPage = () => {
 
   const { setAuthorization } = useAuthorization()
   const navigate = useNavigate()
-  const apiUrl = useApiUrl()
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -38,26 +36,23 @@ export const LoginPage = () => {
       password: password,
     }
 
-    apiUrl &&
-      loginUser(apiUrl, User)
-        .then((response) => {
-          setErrors('')
-          const LoggedInUser: LoggedInUser = {
-            email: email,
-            paymail: response.paymail,
-            balance: response.balance,
-          }
-          setAuthorization(LoggedInUser)
-          navigate('/dashboard')
-          setLoading(false)
-        })
-        .catch((error) => {
-          const errorMsg = error.response.data
-            ? error.response.data
-            : 'Something went wrong... Please, try again later!'
-          setErrors(errorMsg)
-          setLoading(false)
-        })
+    loginUser(User)
+      .then((response) => {
+        setErrors('')
+        const LoggedInUser: LoggedInUser = {
+          email: email,
+          paymail: response.paymail,
+          balance: response.balance,
+        }
+        setAuthorization(LoggedInUser)
+        navigate('/dashboard')
+        setLoading(false)
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
+        setErrors(errorMsg)
+        setLoading(false)
+      })
   }
 
   return (

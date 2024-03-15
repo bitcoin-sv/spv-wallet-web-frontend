@@ -9,21 +9,24 @@ import { registerSW } from 'virtual:pwa-register'
 import { ServerConfigProvider } from './providers/server_config/provider'
 import { ErrorBoundary } from './ErrorBoundary'
 import { GlobalStyles } from '@/styles'
+import { AxiosProvider } from './api/AxiosProvider'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <GlobalStyles />
     <ErrorBoundary>
       <ConfigProvider>
-        <ServerConfigProvider>
-          <AuthorizationProvider>
-            <AutoupdateProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </AutoupdateProvider>
-          </AuthorizationProvider>
-        </ServerConfigProvider>
+        <AxiosProvider>
+          <ServerConfigProvider>
+            <AuthorizationProvider>
+              <AutoupdateProvider>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </AutoupdateProvider>
+            </AuthorizationProvider>
+          </ServerConfigProvider>
+        </AxiosProvider>
       </ConfigProvider>
     </ErrorBoundary>
   </React.StrictMode>

@@ -1,21 +1,15 @@
 import { ServerConfig } from '@/api'
-import { useApiUrl } from '@/api/apiUrl'
 import { getServerConfig } from '@/api/requests'
 import { FC, PropsWithChildren, createContext, useEffect, useState } from 'react'
 
 export const ServerConfigContext = createContext<ServerConfig>(null as never)
 
 export const ServerConfigProvider: FC<PropsWithChildren> = ({ children }) => {
-  const apiUrl = useApiUrl()
   const [loading, setLoading] = useState(true)
   const [serverConfig, setServerConfig] = useState<ServerConfig | null>(null)
 
   useEffect(() => {
-    if (!apiUrl) {
-      return
-    }
-
-    getServerConfig(apiUrl)
+    getServerConfig()
       .then((response) => {
         setServerConfig(response)
       })
@@ -23,10 +17,10 @@ export const ServerConfigProvider: FC<PropsWithChildren> = ({ children }) => {
         console.error('Error during fetching server config', e)
       })
       .finally(() => setLoading(false))
-  }, [apiUrl])
+  }, [])
 
   if (loading) {
-     return null
+    return null
   }
 
   if (!serverConfig) {

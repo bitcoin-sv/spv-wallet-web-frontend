@@ -5,8 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { LogoutModal } from '@/components/Modal'
 import { useNavigate } from 'react-router-dom'
 import { useAuthorization } from '@/providers'
-import { logoutUser } from '@/api/requests/Logout'
-import { useApiUrl } from '@/api/apiUrl'
+import { logoutUser } from '@/api/requests'
 
 interface MenuProps {
   userEmail?: string
@@ -19,7 +18,6 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const Navigate = useNavigate()
   const { setAuthorization } = useAuthorization()
-  const apiUrl = useApiUrl()
 
   const userMenuHandler = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation()
@@ -49,20 +47,19 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
 
   const logoutHandler = () => {
     setLoading(true)
-    apiUrl &&
-      logoutUser(apiUrl)
-        .then(() => {
-          closeModal()
-          setAuthorization(null)
-          Navigate('/')
-        })
-        .catch((error) => {
-          const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!'
-          errorMsg && setErrors(errorMsg)
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+    logoutUser()
+      .then(() => {
+        closeModal()
+        setAuthorization(null)
+        Navigate('/')
+      })
+      .catch((error) => {
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!'
+        errorMsg && setErrors(errorMsg)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   return (
