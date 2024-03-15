@@ -10,11 +10,7 @@ export const ContactsList = () => {
     <DashboardTile fullHeight tileTitle="Contacts (feature preview)" titleIcon={<Contacts />}>
       <Row>
         <Column>
-          <ContactAdd
-            onRequestRefresh={() => {
-              //TODO: refresh contacts
-            }}
-          />
+          <ContactAdd />
         </Column>
       </Row>
       <Row>

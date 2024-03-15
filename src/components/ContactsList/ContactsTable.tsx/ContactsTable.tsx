@@ -52,7 +52,7 @@ export const ContactsTable: FC = () => {
             </thead>
             <tbody>
               {sortedContacts.map((contact, index) => (
-                <tr key={index} style={{ height: 50 }}>
+                <tr key={`${contact.paymail}-${index}`} style={{ height: 50 }}>
                   <LargeTd>{contact.paymail}</LargeTd>
                   <MediumTd>{contact.name}</MediumTd>
                   <MediumTd>

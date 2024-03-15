@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { variables } from '@/styles'
 import { colors, sizes } from '@/styles'
+import { timeoutPromise } from '@/utils/timeoutPromise'
 
 export const useYourTOTP = () => {
   const [totp, setTotp] = useState(0)
@@ -13,7 +14,7 @@ export const useYourTOTP = () => {
     setError('')
     try {
       //TODO implement it
-      await asyncSetTimeout(300)
+      await timeoutPromise(300)
       setTotp(Math.floor(Math.random() * 1000000))
     } catch {
       setError('Error during fetching your TOTP')
@@ -28,8 +29,6 @@ export const useYourTOTP = () => {
 
   return { totp, loading, error }
 }
-
-const asyncSetTimeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 type YourTOTPProps = ReturnType<typeof useYourTOTP> & {
   peerName: string

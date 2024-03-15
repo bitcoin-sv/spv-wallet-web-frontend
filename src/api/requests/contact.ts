@@ -1,10 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { timeoutPromise } from '@/utils/timeoutPromise'
 import { PaginationParams } from '../types'
 import { Contact } from '../types/contact'
 
 export const searchContacts = async (_pagination?: PaginationParams) => {
-  await asyncSetTimeout(1000)
+  await timeoutPromise(500)
   return contacts
+}
+
+export const addContact = async (paymail: string, name: string) => {
+  await timeoutPromise(1000)
+  contacts.push({
+    paymail,
+    name,
+    status: 'awaiting-acceptance',
+  })
 }
 
 /// Mocked contacts
@@ -26,5 +36,3 @@ const contacts: Contact[] = [
     status: 'not-confirmed',
   },
 ]
-
-const asyncSetTimeout = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

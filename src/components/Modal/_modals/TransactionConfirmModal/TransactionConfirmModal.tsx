@@ -12,6 +12,7 @@ import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
 import { PasswordInput } from '@/components/Input/PasswordInput'
+import { modalCloseTimeout } from '../../modalCloseTimeout'
 
 export interface TransactionData {
   paymail: string
@@ -68,10 +69,10 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         const updateTime = new Date().toISOString()
         setAutoupdate(updateTime)
 
-        setTimeout(() => {
+        modalCloseTimeout().then(() => {
           setSuccessMsg('')
-          secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-        }, 3000)
+          secondaryButtonOnClickHandler?.()
+        })
       })
       .catch((error) => {
         if (error) {

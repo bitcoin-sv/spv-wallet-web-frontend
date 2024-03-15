@@ -3,6 +3,10 @@ import { FC, useState } from 'react'
 import { SrOnlySpan } from '@/styles'
 import { Loader } from '@/components/Loader'
 import { PaymailInput } from '@/components/Input/PaymailInput'
+import { Input } from '@/components/Input'
+import { addContact } from '@/api/requests/contact'
+import { modalCloseTimeout } from '@/components/Modal/modalCloseTimeout'
+import { ErrorBar } from '@/components/ErrorBar'
 
 type ContactAddModalProps = {
   open: boolean
@@ -12,26 +16,29 @@ type ContactAddModalProps = {
 
 export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, onCancel }) => {
   const [paymail, setPaymail] = useState<string>('')
-  // const [name, setName] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
+  const [name, setName] = useState<string>('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   const [successMessage, setSuccessMessage] = useState<string>('')
 
-  const onSuccess = () => {
+  const onSuccess = async () => {
     setSuccessMessage('Contact added successfully!')
-    setTimeout(() => {
-      onSubmitted()
-    }, 3000)
-    setSuccessMessage('Contact added successfully!')
+    await modalCloseTimeout()
+    onSubmitted()
   }
 
-  const onSubmit = () => {
-    //TODO implement it
+  const onSubmit = async () => {
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
+    setError(false)
+    try {
+      addContact(paymail, name)
       onSuccess()
-    }, 1000)
+    } catch (error) {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -51,6 +58,7 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
       onCloseByEsc={onCancel}
     >
       {loading && <Loader />}
+      {error && <ErrorBar errorMsg="Failed to add contact" />}
       <form onSubmit={() => onSubmit()}>
         <legend>
           <SrOnlySpan>Add contact form</SrOnlySpan>
@@ -60,6 +68,13 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
             inputOnLightBackground
             value={paymail}
             onChange={(event) => setPaymail(event.target.value)}
+            required
+          />
+          <Input
+            inputOnLightBackground
+            labelText="Name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
             required
           />
         </fieldset>

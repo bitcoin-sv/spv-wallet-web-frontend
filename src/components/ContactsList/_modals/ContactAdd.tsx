@@ -1,13 +1,11 @@
 import { FC, useState } from 'react'
 import { Button } from '@/components/Button'
 import { ContactAddModal } from './ContactAddModal/ContactAddModal'
+import { useContacts } from '@/providers'
 
-type ContactAddProps = {
-  onRequestRefresh: () => void
-}
-
-export const ContactAdd: FC<ContactAddProps> = ({ onRequestRefresh }) => {
+export const ContactAdd: FC = () => {
   const [open, setOpen] = useState(false)
+  const { refresh } = useContacts()
 
   return (
     <>
@@ -19,7 +17,7 @@ export const ContactAdd: FC<ContactAddProps> = ({ onRequestRefresh }) => {
           open={true}
           onSubmitted={() => {
             setOpen(false)
-            onRequestRefresh()
+            refresh()
           }}
           onCancel={() => setOpen(false)}
         />
