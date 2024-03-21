@@ -33,8 +33,8 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
               variant: 'accept',
               onClick: peerTOTP.onConfirm,
               type: 'button',
-              disabled: !peerTOTP.valid || peerTOTP.confirming,
-              loading: peerTOTP.confirming,
+              disabled: !peerTOTP.valid || peerTOTP.loading,
+              loading: peerTOTP.loading,
             }
           : undefined
       }

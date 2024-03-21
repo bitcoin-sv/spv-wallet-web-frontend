@@ -7,21 +7,17 @@ export const ContactAdd: FC = () => {
   const [open, setOpen] = useState(false)
   const { refresh } = useContacts()
 
+  const onSubmitted = () => {
+    setOpen(false)
+    refresh()
+  }
+
   return (
     <>
       <Button variant="primary" small onClick={() => setOpen(true)}>
         Add contact
       </Button>
-      {open && (
-        <ContactAddModal
-          open={true}
-          onSubmitted={() => {
-            setOpen(false)
-            refresh()
-          }}
-          onCancel={() => setOpen(false)}
-        />
-      )}
+      {open && <ContactAddModal open={true} onSubmitted={onSubmitted} onCancel={() => setOpen(false)} />}
     </>
   )
 }

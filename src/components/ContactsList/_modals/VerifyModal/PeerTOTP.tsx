@@ -7,7 +7,7 @@ const TOTP_VALID_REGEX = /^\d{2}$/
 
 export const usePeerTOTP = (peerPaymail: string, onConfirmed: () => void) => {
   const [value, setValue] = useState('')
-  const [confirming, setConfirming] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
   const valid = useMemo(() => {
@@ -15,26 +15,26 @@ export const usePeerTOTP = (peerPaymail: string, onConfirmed: () => void) => {
   }, [value])
 
   const onConfirm = async () => {
-    setConfirming(true)
+    setLoading(true)
     setError(false)
     try {
       await confirmContactWithTOTP(peerPaymail, parseInt(value))
     } catch {
       setError(true)
     } finally {
-      setConfirming(false)
+      setLoading(false)
       onConfirmed()
     }
   }
 
-  return { value, setValue, valid, confirming, onConfirm, error }
+  return { value, setValue, valid, loading, onConfirm, error }
 }
 
 type PeerTOTPProps = ReturnType<typeof usePeerTOTP> & {
   peerName: string
 }
 
-export const PeerTOTP: FC<PeerTOTPProps> = ({ value, setValue, valid, peerName, error, confirming }) => {
+export const PeerTOTP: FC<PeerTOTPProps> = ({ value, setValue, valid, peerName, error, loading }) => {
   return (
     <div>
       <hr />
@@ -46,7 +46,7 @@ export const PeerTOTP: FC<PeerTOTPProps> = ({ value, setValue, valid, peerName, 
         onChange={(e) => setValue(e.target.value)}
         error={!valid}
         type="number"
-        disabled={confirming}
+        disabled={loading}
       />
     </div>
   )

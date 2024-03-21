@@ -7,12 +7,12 @@ type StatusBadgeProps = {
 }
 
 export const StatusBadge: FC<StatusBadgeProps> = ({ status }) => {
-  const { label, color } = dictionary[status]
+  const { label, color } = contactStatuses[status]
 
   return <Chip size="small" label={label} color={color} />
 }
 
-const dictionary: Record<ContactStatus, { label: string; color: ChipProps['color'] }> = {
+const contactStatuses: Record<ContactStatus, { label: string; color: ChipProps['color'] }> = {
   [ContactAwaitingAcceptance]: { label: 'Pending', color: 'primary' },
   [ContactNotConfirmed]: { label: 'Untrusted', color: 'secondary' },
   [ContactConfirmed]: { label: 'Trusted', color: 'success' },

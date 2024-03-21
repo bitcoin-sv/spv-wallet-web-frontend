@@ -98,9 +98,7 @@ export const ContactsTable: FC = () => {
       {contactForVerification && (
         <VerifyModal
           peer={contactForVerification}
-          onConfirmed={() => {
-            refresh()
-          }}
+          onConfirmed={refresh}
           onClose={() => {
             setContactIdForVerification(null)
             setJustAddedContact(false)

@@ -162,8 +162,8 @@ export const TransactionTable = () => {
                         {dir === 'incoming' && <UserPrefix>from:</UserPrefix>}
                         {dir === 'outgoing' && <UserPrefix>to:</UserPrefix>}
                         <Highlighted>
-                          {dir === 'incoming' && (transaction.sender ? transaction.sender : '$sender')}
-                          {dir === 'outgoing' && (transaction.receiver ? transaction.receiver : '$receiver')}
+                          {dir === 'incoming' && (transaction.sender ?? '$sender')}
+                          {dir === 'outgoing' && (transaction.receiver ?? '$receiver')}
                         </Highlighted>
                       </LargeTd>
                       <MediumTd>

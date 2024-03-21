@@ -59,7 +59,7 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
     >
       {loading && <Loader />}
       {error && <ErrorBar errorMsg="Failed to add contact" />}
-      <form onSubmit={() => onSubmit()}>
+      <form onSubmit={onSubmit}>
         <legend>
           <SrOnlySpan>Add contact form</SrOnlySpan>
         </legend>

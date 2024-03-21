@@ -129,7 +129,7 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       <TextWithValues>
         You try to send <Value>{convertSatToBsv(satoshisAmount)} BSV</Value> to <Value>{receiver}</Value>
       </TextWithValues>
-      <Form onSubmit={() => onFormSubmitHandler()}>
+      <Form onSubmit={onFormSubmitHandler}>
         <legend>
           <SrOnlySpan>Transaction confirmation form</SrOnlySpan>
         </legend>
