@@ -4,6 +4,9 @@ const EVENT_NAME = 'paymail'
 
 export const setPaymailEvent = new EventTarget()
 
+// useSubscribePaymailEvent allows to subscribe to the paymail event
+// when the <SetPaymailButton /> is clicked it will emit the paymail event
+// this is a way to communicate between components without using props and context
 export const useSubscribePaymailEvent = (callback: (data: string) => void) => {
   useEffect(() => {
     const handler = (event: Event) => {
