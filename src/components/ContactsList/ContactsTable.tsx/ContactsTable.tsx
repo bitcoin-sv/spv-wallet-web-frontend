@@ -57,37 +57,34 @@ export const ContactsTable: FC = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedContacts.map((contact) => (
-                <tr key={contact.paymail} style={{ height: 50 }}>
-                  <LargeTd>{contact.paymail}</LargeTd>
-                  <MediumTd>{contact.name}</MediumTd>
+              {sortedContacts.map(({ paymail, status, name }) => (
+                <tr key={paymail} style={{ height: 50 }}>
+                  <LargeTd>{paymail}</LargeTd>
+                  <MediumTd>{name}</MediumTd>
                   <MediumTd>
-                    <StatusBadge status={contact.status} />
+                    <StatusBadge status={status} />
                   </MediumTd>
                   <MediumTd>
-                    {contact.status !== ContactAwaitingAcceptance ? (
+                    {status !== ContactAwaitingAcceptance ? (
                       <SmallButton
                         variant="accept"
                         onClick={() => {
-                          openVerificationWindow(contact.paymail)
+                          openVerificationWindow(paymail)
                         }}
                       >
                         Show code
                       </SmallButton>
                     ) : (
                       <AcceptReject
-                        contact={contact}
+                        paymail={paymail}
                         onAccept={() => {
-                          openVerificationWindow(contact.paymail, true)
+                          openVerificationWindow(paymail, true)
                           refresh()
                         }}
                         onReject={refresh}
                       />
                     )}
-                    <SetPaymailButton
-                      paymail={contact.paymail}
-                      variant={contact.status === ContactConfirmed ? 'accept' : 'primary'}
-                    />
+                    <SetPaymailButton paymail={paymail} variant={status === ContactConfirmed ? 'accept' : 'primary'} />
                   </MediumTd>
                 </tr>
               ))}

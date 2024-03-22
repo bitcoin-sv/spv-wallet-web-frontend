@@ -1,27 +1,26 @@
 import { acceptContact, rejectContact } from '@/api/requests'
-import { Contact } from '@/api/types'
 import { SmallButton } from '@/components/Button'
 import { ConfirmationModal } from '@/components/Modal'
 import { FC, useState } from 'react'
 
 type AcceptRejectProps = {
-  contact: Contact
+  paymail: string
   onAccept: () => void
   onReject: () => void
 }
 
-export const AcceptReject: FC<AcceptRejectProps> = ({ contact, onAccept, onReject }) => {
+export const AcceptReject: FC<AcceptRejectProps> = ({ paymail, onAccept, onReject }) => {
   const [state, setState] = useState<'none' | 'accept' | 'reject'>('none')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
   const submitAccept = async () => {
-    await acceptContact(contact.paymail)
+    await acceptContact(paymail)
     onAccept()
   }
 
   const submitReject = async () => {
-    await rejectContact(contact.paymail)
+    await rejectContact(paymail)
     onReject()
   }
 

@@ -147,23 +147,23 @@ export const TransactionTable = () => {
               </thead>
               <tbody>
                 {transactionsList.map((transaction, index) => {
-                  const dir = transaction.direction
-                  const amount = convertSatToBsv(transaction.totalValue) ?? 'unknown'
+                  const { direction: dir, totalValue, id, sender, receiver, status, createdAt } = transaction
+                  const amount = convertSatToBsv(totalValue) ?? 'unknown'
                   return (
                     <tr
                       key={index}
-                      onKeyDown={(e) => openModalByKeyboard(e, transaction.id)}
-                      onClick={() => setTransactionDetailsModal(transaction.id)}
+                      onKeyDown={(e) => openModalByKeyboard(e, id)}
+                      onClick={() => setTransactionDetailsModal(id)}
                       role="button"
-                      aria-label={`Open details of transaction id number: ${transaction.id}`}
+                      aria-label={`Open details of transaction id number: ${id}`}
                       tabIndex={0}
                     >
                       <LargeTd>
                         {dir === 'incoming' && <UserPrefix>from:</UserPrefix>}
                         {dir === 'outgoing' && <UserPrefix>to:</UserPrefix>}
                         <Highlighted>
-                          {dir === 'incoming' && (transaction.sender ?? '$sender')}
-                          {dir === 'outgoing' && (transaction.receiver ?? '$receiver')}
+                          {dir === 'incoming' && (sender ?? '$sender')}
+                          {dir === 'outgoing' && (receiver ?? '$receiver')}
                         </Highlighted>
                       </LargeTd>
                       <MediumTd>
@@ -174,20 +174,12 @@ export const TransactionTable = () => {
                       {smMatch && (
                         <>
                           <SmallTd>
-                            {transaction.status === 'confirmed' ? (
-                              <ContentWithInfoTip
-                                uppercase
-                                data-value={transaction.status}
-                                isConfirmed={transaction.status === 'confirmed'}
-                              >
+                            {status === 'confirmed' ? (
+                              <ContentWithInfoTip uppercase data-value={status} isConfirmed={status === 'confirmed'}>
                                 <SrOnlySpan>confirmed</SrOnlySpan>
                               </ContentWithInfoTip>
                             ) : (
-                              <ContentWithInfoTip
-                                uppercase
-                                data-value={transaction.status}
-                                isConfirmed={transaction.status === 'confirmed'}
-                              >
+                              <ContentWithInfoTip uppercase data-value={status} isConfirmed={status === 'confirmed'}>
                                 <SrOnlySpan>unconfirmed</SrOnlySpan>
                               </ContentWithInfoTip>
                             )}
@@ -205,7 +197,7 @@ export const TransactionTable = () => {
                               </ContentWithInfoTip>
                             )}
                           </SmallTd>
-                          <MediumTd>{format(new Date(transaction.createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
+                          <MediumTd>{format(new Date(createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
                         </>
                       )}
                     </tr>

@@ -13,21 +13,22 @@ type VerifyModalProps = {
 }
 
 export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children, peer, onConfirmed, onClose }) => {
-  const yourTOTP = useYourTOTP(peer.paymail)
-  const peerTOTP = usePeerTOTP(peer.paymail, onConfirmed)
+  const { name, paymail, status } = peer
+  const yourTOTP = useYourTOTP(paymail)
+  const peerTOTP = usePeerTOTP(paymail, onConfirmed)
 
-  if (peer.status == ContactAwaitingAcceptance) {
+  if (status == ContactAwaitingAcceptance) {
     return null
   }
 
   return (
     <Modal
       open={true}
-      modalTitle={`Verify ${peer.name}`}
-      modalSubtitle={peer.paymail}
+      modalTitle={`Verify ${name}`}
+      modalSubtitle={paymail}
       primaryButton={{ text: 'Close', variant: 'reject', onClick: onClose }}
       secondaryButton={
-        peer.status === ContactNotConfirmed
+        status === ContactNotConfirmed
           ? {
               text: 'Confirm the contact',
               variant: 'accept',
@@ -42,14 +43,14 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
     >
       <Container>
         {children}
-        <YourTOTP {...yourTOTP} peerName={peer.name} />
+        <YourTOTP {...yourTOTP} peerName={name} />
         <Content>
-          {peer.status === ContactConfirmed ? (
+          {status === ContactConfirmed ? (
             <TrustedContactMsg>
-              <b>{peer.name}</b> is your trusted contact.
+              <b>{name}</b> is your trusted contact.
             </TrustedContactMsg>
           ) : (
-            <PeerTOTP {...peerTOTP} peerName={peer.name} />
+            <PeerTOTP {...peerTOTP} peerName={name} />
           )}
         </Content>
       </Container>
