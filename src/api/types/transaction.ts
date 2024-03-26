@@ -1,25 +1,21 @@
-export interface Transaction {
+export type TransactionDirection = 'incoming' | 'outgoing'
+
+export type Transaction = {
   createdAt: string
-  direction: string
+  direction: TransactionDirection
   id: string
   status: string
   totalValue: number
   sender: string
   receiver: string
+  fee: number
 }
 
-export interface TransactionDetails {
+export type TransactionDetails = Transaction & {
   blockHash: string
   blockHeight: number
-  id: string
-  direction: string
-  fee: number
   numberOfInputs: number
   numberOfOutputs: number
-  amount: string
-  status: string
-  createdAt: string
-  totalValue: number
 }
 
 export interface SendNewTransaction {

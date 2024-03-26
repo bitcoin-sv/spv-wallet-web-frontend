@@ -73,8 +73,11 @@ export const useWebsocket = () => {
     }
   }, [centrifuge])
 
-  return {
-    connect,
-    disconnect,
-  }
+  useEffect(() => {
+    connect()
+  }, [connect])
+
+  useEffect(() => {
+    return () => disconnect()
+  }, [disconnect])
 }

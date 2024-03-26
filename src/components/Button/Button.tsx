@@ -4,6 +4,7 @@ import { getLinkPropsFromTo } from '@/utils/buttons'
 
 import { ButtonStyled, ButtonVariants } from './Button.styles'
 import { To } from 'history'
+import { CircularProgress } from '@mui/material'
 
 export type ButtonProps = {
   isLink?: boolean
@@ -17,6 +18,7 @@ export type ButtonProps = {
   newTab?: boolean
   small?: boolean
   variant: ButtonVariants
+  loading?: boolean
 } & PropsWithChildren &
   ButtonHTMLAttributes<HTMLButtonElement>
 export const Button: FC<ButtonProps> = ({
@@ -30,6 +32,7 @@ export const Button: FC<ButtonProps> = ({
   newTab,
   small,
   variant,
+  loading,
   ...rest
 }) => {
   return (
@@ -44,7 +47,7 @@ export const Button: FC<ButtonProps> = ({
       variant={variant}
       {...getLinkPropsFromTo(to, newTab)}
     >
-      {children}
+      {loading ? <CircularProgress size={16} /> : children}
     </ButtonStyled>
   )
 }

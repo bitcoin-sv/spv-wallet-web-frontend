@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App'
-import { AuthorizationProvider } from '@/providers'
+import { AuthorizationProvider, ContactsProvider } from '@/providers'
 import { ConfigProvider } from '@4chain-ag/react-configuration'
 import { BrowserRouter } from 'react-router-dom'
 import { AutoupdateProvider } from '@/providers/autoupdate'
@@ -20,9 +20,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <ServerConfigProvider>
             <AuthorizationProvider>
               <AutoupdateProvider>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
+                <ContactsProvider>
+                  <BrowserRouter>
+                    <App />
+                  </BrowserRouter>
+                </ContactsProvider>
               </AutoupdateProvider>
             </AuthorizationProvider>
           </ServerConfigProvider>

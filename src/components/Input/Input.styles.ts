@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { media } from '@/styles/media'
 import { colors, sizes } from '@/styles'
 import { variables } from '@/styles/variables'
+import { NavLink } from 'react-router-dom'
 
 interface InputStyledProps {
   error?: boolean
@@ -76,7 +77,7 @@ export const InputStyled = styled.input<InputStyledProps>`
   }
 `
 
-export const VisibilityToggler = styled.button<InputStyledProps>`
+const BaseInputStyles = styled.div<InputStyledProps>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -94,9 +95,13 @@ export const VisibilityToggler = styled.button<InputStyledProps>`
 
   &:focus-visible {
     outline-color: transparent;
-    border-color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)}${colors.lightPrimary};
+    border-color: <span class="math-inline">\{\(\{ inputOnLightBackground \}\) \=\> \(inputOnLightBackground ? colors\.darkPrimary \: colors\.lightPrimary\)\}</span>{colors.lightPrimary};
   }
 `
+
+export const InputButton = styled(BaseInputStyles)``.withComponent('button')
+
+export const InputLinkButton = styled(BaseInputStyles)``.withComponent(NavLink)
 
 export const FormattedValueLabel = styled.span`
   display: inline-block;

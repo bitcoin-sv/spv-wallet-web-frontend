@@ -9,6 +9,7 @@ import { Loader } from '@/components/Loader'
 import { useAuthorization } from '@/providers'
 import { useNavigate } from 'react-router-dom'
 import { LoggedInUser, loginUser } from '@/api'
+import { PasswordInput } from '@/components/Input/PasswordInput'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -75,14 +76,11 @@ export const LoginPage = () => {
               onChange={(event) => setEmail(event.target.value)}
               required
             />
-            <Input
+            <PasswordInput
               id="password"
-              type="password"
               labelText="Password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              withIcon
-              togglePasswordVisibility
               required
             />
             {errors && <ErrorBar errorMsg={errors} />}

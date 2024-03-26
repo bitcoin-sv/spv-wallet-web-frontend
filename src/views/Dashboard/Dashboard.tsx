@@ -3,20 +3,14 @@ import { useMediaMatch } from '@/hooks/useMediaMatch'
 import { AccountSummary } from '@/components/AccountSummary'
 import { TransferForm } from '@/components/TransferForm'
 import { TransactionHistory } from '@/components/TransactionHistory'
-import { useEffect } from 'react'
 import { useWebsocket } from '@/hooks'
+import { usePikeEnabled } from '@/hooks/useFeatureFlags'
 
 export const Dashboard = () => {
   const lgMatch = useMediaMatch('lg')
-  const { connect, disconnect } = useWebsocket()
+  useWebsocket()
 
-  useEffect(() => {
-    connect()
-  }, [connect])
-
-  useEffect(() => {
-    return () => disconnect()
-  }, [disconnect])
+  const pikeEnabled = usePikeEnabled()
 
   return (
     <>
@@ -26,7 +20,7 @@ export const Dashboard = () => {
         </Column>
         <Column percentageWidth={lgMatch ? 30 : 100}>
           <AccountSummary />
-          <TransferForm />
+          <TransferForm showContactsButton={pikeEnabled} />
         </Column>
       </Row>
     </>
