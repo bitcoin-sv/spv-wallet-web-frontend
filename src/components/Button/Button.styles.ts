@@ -45,7 +45,7 @@ export const getButtonColorVariant = ({ variant }: ButtonProps) => {
   }
 }
 
-export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconButton }: ButtonProps) => {
+export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconButton, small }: ButtonProps) => {
   if (isOnlyIconButton) {
     return css`
       padding: ${sizes(1)};
@@ -117,7 +117,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
     padding: ${sizes(3)};
     border-radius: ${variables.doubleBorderRadius};
     border: none;
-    box-shadow: ${variables.shadow.buttonShadow};
+    box-shadow: ${small ? variables.shadow.smallButtonShadow : variables.shadow.buttonShadow};
     outline: 2px solid transparent;
     outline-offset: 2px;
     transition: all 0.2s ease-in-out;
@@ -130,7 +130,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
     &:hover,
     &:focus,
     &:focus-visible {
-      box-shadow: ${variables.shadow.buttonEffectShadow};
+      box-shadow: ${small ? variables.shadow.smallButtonEffectShadow : variables.shadow.buttonEffectShadow};
     }
 
     &:focus-visible {

@@ -6,6 +6,7 @@ import { getHeadlineSizes, typography } from './typography'
 import { sizes } from './sizes'
 import { variables } from '@/styles/variables'
 import styled from '@emotion/styled'
+import { HighlightAnimation } from './highlightAnimation'
 
 const globalStyles = css`
   ${emotionNormalize}
@@ -71,6 +72,8 @@ const globalStyles = css`
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
+  ${HighlightAnimation}
 `
 
 export const srOnlyStyles = css`

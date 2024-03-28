@@ -11,6 +11,7 @@ import { Loader } from '@/components/Loader'
 import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
 import { RegisterNewUserDto } from '@/api/types/user'
 import { registerUser } from '@/api'
+import { PasswordInput } from '@/components/Input/PasswordInput'
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -91,25 +92,19 @@ export const SignupPage = () => {
                 onChange={(event) => setEmail(event.target.value)}
                 required
               />
-              <Input
+              <PasswordInput
                 id="password"
-                type="password"
                 labelText="Password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 required
-                withIcon
-                togglePasswordVisibility
               />
-              <Input
+              <PasswordInput
                 id="confirm-password"
-                type="password"
                 labelText="Confirm password"
                 required
                 value={confirmedPassword}
                 onChange={(event) => setConfirmedPassword(event.target.value)}
-                withIcon
-                togglePasswordVisibility
               />
               <CustomCheckbox
                 required

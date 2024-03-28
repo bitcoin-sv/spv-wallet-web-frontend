@@ -6,12 +6,13 @@ import {
   Value,
 } from '@/components/Modal/_modals/TransactionConfirmModal/TransactionConfirmModal.styles'
 import { SrOnlySpan } from '@/styles'
-import { Input } from '@/components/Input'
 import { sendTransaction } from '@/api/requests'
 import { Loader } from '@/components/Loader'
 import { ErrorBar } from '@/components/ErrorBar'
 import { useAutoupdate } from '@/providers/autoupdate'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
+import { PasswordInput } from '@/components/Input/PasswordInput'
+import { modalCloseTimeout } from '../../modalCloseTimeout'
 
 export interface TransactionData {
   paymail: string
@@ -68,10 +69,10 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         const updateTime = new Date().toISOString()
         setAutoupdate(updateTime)
 
-        setTimeout(() => {
+        modalCloseTimeout().then(() => {
           setSuccessMsg('')
-          secondaryButtonOnClickHandler && secondaryButtonOnClickHandler()
-        }, 3000)
+          secondaryButtonOnClickHandler?.()
+        })
       })
       .catch((error) => {
         if (error) {
@@ -128,17 +129,14 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       <TextWithValues>
         You try to send <Value>{convertSatToBsv(satoshisAmount)} BSV</Value> to <Value>{receiver}</Value>
       </TextWithValues>
-      <Form onSubmit={() => onFormSubmitHandler()}>
+      <Form onSubmit={onFormSubmitHandler}>
         <legend>
           <SrOnlySpan>Transaction confirmation form</SrOnlySpan>
         </legend>
         <fieldset>
-          <Input
+          <PasswordInput
             labelText="Password"
-            type="password"
             inputOnLightBackground
-            withIcon
-            togglePasswordVisibility
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             required
