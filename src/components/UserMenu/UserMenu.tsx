@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react'
-import PersonIcon from '@mui/icons-material/Person'
 import { Avatar, MenuButton, MenuElement, MenuList, UserMenuWrapper } from '@/components/UserMenu/UserMenu.styles'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { LogoutModal } from '@/components/Modal'
 import { useNavigate } from 'react-router-dom'
 import { useAuthorization } from '@/providers'
 import { logoutUser } from '@/api/requests'
+import { BsvLogo } from '@/components/BsvLogo';
 
 interface MenuProps {
   userEmail?: string
@@ -67,7 +67,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
       <MenuButton variant="transparent" onClick={(event) => userMenuHandler(event)} isOpen={userMenu}>
         <span>{userEmail}</span>
         <Avatar>
-          <PersonIcon />
+          <BsvLogo />
         </Avatar>
       </MenuButton>
       {userMenu && (
