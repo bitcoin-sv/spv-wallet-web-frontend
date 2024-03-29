@@ -16,7 +16,7 @@ import {
 } from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
 import { Pagination } from '@/components/Pagination'
 import React, { useEffect, useMemo, useState } from 'react'
-import { TransactionDetailsModal } from '@/components/Modal/_modals/TransactionDetailsModal'
+import { TransactionDetailsModal } from '@/components/Modal'
 import { getTransactions } from '@/api/requests'
 import { Transaction } from '@/api/types'
 import { colors, SrOnlySpan } from '@/styles'
@@ -131,7 +131,7 @@ export const TransactionTable = () => {
           ) : errors ? (
             <ErrorBar errorMsg={errors} withReloadButton />
           ) : (
-            <Table>
+            <Table clickable>
               <thead>
                 <tr>
                   <LargeTh>Sender/receiver</LargeTh>
@@ -147,69 +147,57 @@ export const TransactionTable = () => {
               </thead>
               <tbody>
                 {transactionsList.map((transaction, index) => {
+                  const { direction: dir, totalValue, id, sender, receiver, status, createdAt } = transaction
+                  const amount = convertSatToBsv(totalValue) ?? 'unknown'
                   return (
                     <tr
                       key={index}
-                      onKeyDown={(e) => openModalByKeyboard(e, transaction.id)}
-                      onClick={() => setTransactionDetailsModal(transaction.id)}
+                      onKeyDown={(e) => openModalByKeyboard(e, id)}
+                      onClick={() => setTransactionDetailsModal(id)}
                       role="button"
-                      aria-label={`Open details of transaction id number: ${transaction.id}`}
+                      aria-label={`Open details of transaction id number: ${id}`}
                       tabIndex={0}
                     >
                       <LargeTd>
-                        {transaction.direction === 'incoming' && <UserPrefix>from:</UserPrefix>}
-                        {transaction.direction === 'outgoing' && <UserPrefix>to:</UserPrefix>}
+                        {dir === 'incoming' && <UserPrefix>from:</UserPrefix>}
+                        {dir === 'outgoing' && <UserPrefix>to:</UserPrefix>}
                         <Highlighted>
-                          {transaction.direction === 'incoming' &&
-                            (transaction.sender ? transaction.sender : '$sender')}
-                          {transaction.direction === 'outgoing' &&
-                            (transaction.receiver ? transaction.receiver : '$receiver')}
+                          {dir === 'incoming' && (sender ?? '$sender')}
+                          {dir === 'outgoing' && (receiver ?? '$receiver')}
                         </Highlighted>
                       </LargeTd>
                       <MediumTd>
-                        {transaction.direction === 'incoming' && (
-                          <span style={{ color: colors.transactionIncoming }}>+ </span>
-                        )}
-                        {transaction.direction === 'outgoing' && (
-                          <span style={{ color: colors.transactionOutgoing }}>- </span>
-                        )}
-                        {convertSatToBsv(transaction.totalValue)} BSV
+                        {dir === 'incoming' && <span style={{ color: colors.transactionIncoming }}>+ </span>}
+                        {dir === 'outgoing' && <span style={{ color: colors.transactionOutgoing }}>- </span>}
+                        {amount} BSV
                       </MediumTd>
                       {smMatch && (
                         <>
                           <SmallTd>
-                            {transaction.status === 'confirmed' ? (
-                              <ContentWithInfoTip
-                                uppercase
-                                data-value={transaction.status}
-                                isConfirmed={transaction.status === 'confirmed'}
-                              >
+                            {status === 'confirmed' ? (
+                              <ContentWithInfoTip uppercase data-value={status} isConfirmed={status === 'confirmed'}>
                                 <SrOnlySpan>confirmed</SrOnlySpan>
                               </ContentWithInfoTip>
                             ) : (
-                              <ContentWithInfoTip
-                                uppercase
-                                data-value={transaction.status}
-                                isConfirmed={transaction.status === 'confirmed'}
-                              >
+                              <ContentWithInfoTip uppercase data-value={status} isConfirmed={status === 'confirmed'}>
                                 <SrOnlySpan>unconfirmed</SrOnlySpan>
                               </ContentWithInfoTip>
                             )}
                           </SmallTd>
                           <SmallTd>
-                            {transaction.direction === 'incoming' ? (
-                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                            {dir === 'incoming' ? (
+                              <ContentWithInfoTip uppercase data-value={dir}>
                                 <KeyboardDoubleArrowDownIcon style={{ color: colors.transactionIncoming }} />
                                 <SrOnlySpan>incoming</SrOnlySpan>
                               </ContentWithInfoTip>
                             ) : (
-                              <ContentWithInfoTip uppercase data-value={transaction.direction}>
+                              <ContentWithInfoTip uppercase data-value={dir}>
                                 <KeyboardDoubleArrowUpIcon style={{ color: colors.transactionOutgoing }} />
                                 <SrOnlySpan>outgoing</SrOnlySpan>
                               </ContentWithInfoTip>
                             )}
                           </SmallTd>
-                          <MediumTd>{format(new Date(transaction.createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
+                          <MediumTd>{format(new Date(createdAt), 'd.MM.yyyy, HH:mm:ss')}</MediumTd>
                         </>
                       )}
                     </tr>
@@ -232,7 +220,7 @@ export const TransactionTable = () => {
         <TransactionDetailsModal
           id={transactionDetailsModal}
           open={transactionDetailsModal !== ''}
-          primaryButtonOnClickHandler={() => setTransactionDetailsModal('')}
+          onClose={() => setTransactionDetailsModal('')}
         />
       )}
     </>

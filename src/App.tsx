@@ -7,7 +7,8 @@ import { Header } from '@/components/_layout/Header'
 import { Main } from '@/components/_layout/Main'
 import { Footer } from '@/components/_layout/Footer'
 import { useAuthorization } from '@/providers'
-import { Dashboard } from '@/views/Dashboard/Dashboard'
+import { Dashboard } from '@/views/Dashboard'
+import { Contacts } from '@/views/Contacts'
 import { getUser, LoggedInUser } from '@/api'
 import { Loader } from '@/components/Loader'
 import { useEffect, useState } from 'react'
@@ -51,6 +52,10 @@ const ROUTES_AUTHENTICATED = [
   {
     path: `/privacy-policy`,
     element: <PrivacyPolicy />,
+  },
+  {
+    path: `/contacts`,
+    element: <Contacts />,
   },
   {
     path: '*',

@@ -16,6 +16,8 @@ export const variables = {
     tileShadow: '0 0 40px rgba(8, 7, 16, 0.6)',
     buttonShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
     buttonEffectShadow: '0 5px 35px rgba(0, 0, 0, 0.3)',
+    smallButtonShadow: '0 1px 3px rgba(0, 0, 0, 0.3)',
+    smallButtonEffectShadow: '0 1px 7px rgba(0, 0, 0, 0.3)',
     inputEffectShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
   },
   transition: {

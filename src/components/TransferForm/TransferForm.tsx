@@ -2,31 +2,44 @@ import { DashboardTile } from '@/components/DashboardTile'
 import SendIcon from '@mui/icons-material/Send'
 import { Button } from '@/components/Button'
 import { SrOnlySpan } from '@/styles'
-import { Input } from '@/components/Input'
 import { Column, Row } from '@/styles/grid'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useState, FC } from 'react'
 import { Loader } from '@/components/Loader'
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal'
 import { EMAIL_REGEX } from '@/utils/constants'
 import { ErrorBar } from '@/components/ErrorBar'
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
-import { usePaymailDomain } from '@/hooks/usePaymailDomain'
+import { CoinsInput } from '../Input/CoinsInput'
+import { PaymailInput } from '../Input/PaymailInput'
+import { useSubscribePaymailEvent } from './setPaymailEvent'
+import { usePaymailInputAnimation } from './paymailInputAnimation'
 
-export const TransferForm = () => {
-  const FORMATTED_INITIAL_VALUE = '0.00000000'
+type TransferFormProps = {
+  showContactsButton?: boolean
+}
+
+export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
   const MAX_TRANSACTION_VALUE = 999999999999
 
   const [paymail, setPaymail] = useState<string>('')
   const [amount, setAmount] = useState<string>('')
-  const [formattedValue, setFormattedValue] = useState<string>(FORMATTED_INITIAL_VALUE)
   const [loading, setLoading] = useState<boolean>(false)
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null)
   const [errors, setErrors] = useState<string>('')
 
-  const paymailDomain = usePaymailDomain()
-
   const sendButtonDisabled = !paymail || !amount
   const cancelButtonDisabled = !paymail && !amount
+
+  const { ref: paymailInputRef, startAnimation } = usePaymailInputAnimation()
+  const onPaymailEvent = useCallback(
+    (paymail: string) => {
+      setPaymail(paymail)
+      startAnimation()
+    },
+    [startAnimation]
+  )
+
+  useSubscribePaymailEvent(onPaymailEvent)
 
   const cancelTransactionHandler = () => {
     setPaymail('')
@@ -68,16 +81,9 @@ export const TransferForm = () => {
 
     if (!formatted || isNaN(parseInt(formatted))) {
       setAmount('')
-      setFormattedValue(FORMATTED_INITIAL_VALUE)
-      return
+    } else if (parseInt(value) <= MAX_TRANSACTION_VALUE) {
+      setAmount(value)
     }
-    if (parseInt(value) > MAX_TRANSACTION_VALUE) {
-      setFormattedValue(formatted)
-      return
-    }
-
-    setAmount(value)
-    setFormattedValue(formatted)
   }
   return (
     <DashboardTile tileTitle="Send money" titleIcon={<SendIcon />}>
@@ -89,24 +95,14 @@ export const TransferForm = () => {
               <legend>
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
-              <Input
-                labelText={`Paymail (example@${paymailDomain})`}
+              <PaymailInput
+                ref={paymailInputRef}
                 required
-                type="text"
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
+                showContactsButton={showContactsButton}
               />
-              <Input
-                labelText="Amount (sat)"
-                type="number"
-                min="0"
-                step="any"
-                onChange={(event) => {
-                  handleChange(event)
-                }}
-                value={amount}
-                formattedValue={formattedValue}
-              />
+              <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 
               {errors && <ErrorBar errorMsg={errors} />}
             </Column>

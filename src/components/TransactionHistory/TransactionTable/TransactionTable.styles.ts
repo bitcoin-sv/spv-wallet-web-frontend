@@ -32,7 +32,11 @@ export const PageNumber = styled.span`
   font-weight: ${fontWeight.bold};
 `
 
-export const Table = styled.table`
+type TableProps = {
+  clickable?: boolean
+}
+
+export const Table = styled.table<TableProps>`
   width: 100%;
   margin: 0 auto;
   vertical-align: middle;
@@ -67,7 +71,7 @@ export const Table = styled.table`
   }
 
   tbody tr {
-    cursor: pointer;
+    cursor: ${({ clickable }) => (clickable ? 'pointer' : 'default')};
     transition: all 0.2s ease-in-out;
 
     &:hover {
