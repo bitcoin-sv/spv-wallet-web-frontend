@@ -1,31 +1,31 @@
-import { Modal } from '@/components/Modal'
-import { FC, useEffect, useState } from 'react'
+import { Modal } from '@/components/Modal';
+import { FC, useEffect, useState } from 'react';
 import {
   Form,
   TextWithValues,
   Value,
-} from '@/components/Modal/_modals/TransactionConfirmModal/TransactionConfirmModal.styles'
-import { SrOnlySpan } from '@/styles'
-import { sendTransaction } from '@/api/requests'
-import { Loader } from '@/components/Loader'
-import { ErrorBar } from '@/components/ErrorBar'
-import { useAutoupdate } from '@/providers/autoupdate'
-import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
-import { PasswordInput } from '@/components/Input/PasswordInput'
-import { modalCloseTimeout } from '../../modalCloseTimeout'
+} from '@/components/Modal/_modals/TransactionConfirmModal/TransactionConfirmModal.styles';
+import { SrOnlySpan } from '@/styles';
+import { sendTransaction } from '@/api/requests';
+import { Loader } from '@/components/Loader';
+import { ErrorBar } from '@/components/ErrorBar';
+import { useAutoupdate } from '@/providers/autoupdate';
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
+import { PasswordInput } from '@/components/Input/PasswordInput';
+import { modalCloseTimeout } from '../../modalCloseTimeout';
 
 export interface TransactionData {
-  paymail: string
-  amount: string
+  paymail: string;
+  amount: string;
 }
 
-const SUCCESS_SCREEN_MSG = 'Great! Transaction sent to receiver!'
+const SUCCESS_SCREEN_MSG = 'Great! Transaction sent to receiver!';
 
 interface TransactionConfirmModalProps {
-  open: boolean
-  secondaryButtonOnClickHandler?: () => void
-  primaryButtonOnClickHandler?: () => void
-  transactionData: TransactionData
+  open: boolean;
+  secondaryButtonOnClickHandler?: () => void;
+  primaryButtonOnClickHandler?: () => void;
+  transactionData: TransactionData;
 }
 
 export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
@@ -34,80 +34,82 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
   secondaryButtonOnClickHandler,
   transactionData,
 }) => {
-  const [password, setPassword] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
-  const [errors, setErrors] = useState<string>('')
-  const [successMsg, setSuccessMsg] = useState<string>('')
-  const [errorWithReload, setErrorWithReload] = useState<boolean>(false)
+  const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string>('');
+  const [successMsg, setSuccessMsg] = useState<string>('');
+  const [errorWithReload, setErrorWithReload] = useState<boolean>(false);
 
-  const { setAutoupdate } = useAutoupdate()
+  const { setAutoupdate } = useAutoupdate();
 
-  const receiver = transactionData.paymail
-  const satoshisAmount = transactionData.amount
+  const receiver = transactionData.paymail;
+  const satoshisAmount = transactionData.amount;
 
   const onFormSubmitHandler = () => {
     if (!password) {
-      setErrors('Password is required to confirm transaction.')
-      return
+      setErrors('Password is required to confirm transaction.');
+      return;
     }
-    setErrors('')
-    setLoading(true)
+    setErrors('');
+    setLoading(true);
 
-    const userPassword = password ? password : 'undefined'
+    const userPassword = password ? password : 'undefined';
 
     const newTransactionData = {
       recipient: receiver,
       satoshis: parseInt(satoshisAmount),
       password: userPassword,
-    }
+    };
 
     sendTransaction(newTransactionData)
       .then(() => {
-        setSuccessMsg(SUCCESS_SCREEN_MSG)
+        setSuccessMsg(SUCCESS_SCREEN_MSG);
 
         //store info about new transaction in global context
-        const updateTime = new Date().toISOString()
-        setAutoupdate(updateTime)
+        const updateTime = new Date().toISOString();
+        setAutoupdate(updateTime);
 
         modalCloseTimeout().then(() => {
-          setSuccessMsg('')
-          secondaryButtonOnClickHandler?.()
-        })
+          setSuccessMsg('');
+          secondaryButtonOnClickHandler?.();
+        });
       })
       .catch((error) => {
         if (error) {
           if (error.response.status === 401) {
-            setErrors('Session expired! Please login in to your wallet')
-            setErrorWithReload(true)
-            return
+            setErrors('Session expired! Please login in to your wallet');
+            setErrorWithReload(true);
+            return;
           }
 
           if (error.response.status === 400) {
-            setErrors('Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!')
-            return
+            setErrors(
+              'Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!',
+            );
+            return;
           }
 
           setErrors(
             error.response.data
               ? error.response.data
-              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.'
-          )
+              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.',
+          );
         }
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }
+        setLoading(false);
+      });
+  };
 
   //back states to initial values on close modal
   useEffect(() => {
     return () => {
-      setPassword('')
-      setErrors('')
-      setErrorWithReload(false)
-      setSuccessMsg('')
-    }
-  }, [open])
+      setPassword('');
+      setErrors('');
+      setErrorWithReload(false);
+      setSuccessMsg('');
+    };
+  }, [open]);
 
   return (
     <Modal
@@ -146,5 +148,5 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
         {errors && <ErrorBar errorMsg={errors} withReloadButton={errorWithReload} />}
       </Form>
     </Modal>
-  )
-}
+  );
+};

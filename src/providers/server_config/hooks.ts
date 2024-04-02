@@ -1,11 +1,11 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 
-import { ServerConfigContext } from './provider'
+import { ServerConfigContext } from './provider';
 
 export const useServerConfig = () => {
-  const ctx = useContext(ServerConfigContext)
+  const ctx = useContext(ServerConfigContext);
   if (!ctx) {
-    throw new Error('ServerConfig provider is missing')
+    throw new Error('ServerConfig provider is missing');
   }
-  return ctx
-}
+  return ctx;
+};

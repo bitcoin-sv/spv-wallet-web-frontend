@@ -1,45 +1,45 @@
-import { Modal } from '@/components/Modal'
-import { FC, useState } from 'react'
-import { SrOnlySpan } from '@/styles'
-import { Loader } from '@/components/Loader'
-import { PaymailInput } from '@/components/Input/PaymailInput'
-import { Input } from '@/components/Input'
-import { addContact } from '@/api/requests/contact'
-import { modalCloseTimeout } from '@/components/Modal/modalCloseTimeout'
-import { ErrorBar } from '@/components/ErrorBar'
+import { Modal } from '@/components/Modal';
+import { FC, useState } from 'react';
+import { SrOnlySpan } from '@/styles';
+import { Loader } from '@/components/Loader';
+import { PaymailInput } from '@/components/Input/PaymailInput';
+import { Input } from '@/components/Input';
+import { addContact } from '@/api/requests/contact';
+import { modalCloseTimeout } from '@/components/Modal/modalCloseTimeout';
+import { ErrorBar } from '@/components/ErrorBar';
 
 type ContactAddModalProps = {
-  open: boolean
-  onSubmitted: () => void
-  onCancel: () => void
-}
+  open: boolean;
+  onSubmitted: () => void;
+  onCancel: () => void;
+};
 
 export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, onCancel }) => {
-  const [paymail, setPaymail] = useState<string>('')
-  const [name, setName] = useState<string>('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [paymail, setPaymail] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  const [successMessage, setSuccessMessage] = useState<string>('')
+  const [successMessage, setSuccessMessage] = useState<string>('');
 
   const onSuccess = async () => {
-    setSuccessMessage('Contact added successfully!')
-    await modalCloseTimeout()
-    onSubmitted()
-  }
+    setSuccessMessage('Contact added successfully!');
+    await modalCloseTimeout();
+    onSubmitted();
+  };
 
   const onSubmit = async () => {
-    setLoading(true)
-    setError(false)
+    setLoading(true);
+    setError(false);
     try {
-      addContact(paymail, name)
-      onSuccess()
+      addContact(paymail, name);
+      onSuccess();
     } catch (error) {
-      setError(true)
+      setError(true);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <Modal
@@ -80,5 +80,5 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
         </fieldset>
       </form>
     </Modal>
-  )
-}
+  );
+};

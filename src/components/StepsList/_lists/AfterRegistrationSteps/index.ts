@@ -1,1 +1,1 @@
-export * from './AfterRegistrationSteps'
+export * from './AfterRegistrationSteps';

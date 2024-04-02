@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
-import { sizes } from '@/styles/sizes'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { sizes } from '@/styles/sizes';
+import { media } from '@/styles/media';
 
 interface GridProps {
-  smallReverse?: boolean
-  fullHeight?: boolean
+  smallReverse?: boolean;
+  fullHeight?: boolean;
 }
 
 export const Row = styled.div<GridProps>`
@@ -19,11 +19,11 @@ export const Row = styled.div<GridProps>`
   ${media.lg} {
     flex-direction: row;
   }
-`
+`;
 
 interface ColumnProps {
-  percentageWidth?: number
-  fullHeight?: boolean
+  percentageWidth?: number;
+  fullHeight?: boolean;
 }
 
 export const Column = styled.div<ColumnProps>`
@@ -32,4 +32,4 @@ export const Column = styled.div<ColumnProps>`
   height: ${({ fullHeight }) => (fullHeight ? '100%' : 'initial')};
   padding-left: ${sizes(2)};
   padding-right: ${sizes(2)};
-`
+`;

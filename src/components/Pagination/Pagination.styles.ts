@@ -1,13 +1,13 @@
-import styled from '@emotion/styled'
-import { colors, sizes } from '@/styles'
-import { Button } from '@/components/Button'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { colors, sizes } from '@/styles';
+import { Button } from '@/components/Button';
+import { media } from '@/styles/media';
 
 export const PaginationNav = styled.nav`
   display: flex;
   justify-content: center;
   width: 100%;
-`
+`;
 
 export const PaginationList = styled.ul`
   display: flex;
@@ -15,10 +15,10 @@ export const PaginationList = styled.ul`
   max-width: 100%;
   margin: ${sizes(4)} 0 0;
   overflow-x: auto;
-`
+`;
 
 interface PaginationButtonProps {
-  isActive: boolean
+  isActive: boolean;
 }
 
 export const PaginationButton = styled(Button)<PaginationButtonProps>`
@@ -37,4 +37,4 @@ export const PaginationButton = styled(Button)<PaginationButtonProps>`
   &:hover {
     text-decoration: underline;
   }
-`
+`;

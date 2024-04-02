@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export const getServerConfig = async () => {
-  const { data: response } = await axios.get(`/config`)
-  return response
-}
+  const { data: response } = await axios.get(`/config`);
+  return response;
+};

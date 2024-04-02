@@ -1,21 +1,21 @@
-import { HeaderContent, HeaderStyled, Logo, LogoBackButton, LogoLink } from './Header.styles'
-import { Column, Row } from '@/styles/grid'
-import { Navigation } from '@/components/Navigation'
-import { NavElement } from '@/components/Navigation/Navigation.styes'
-import { Button } from '@/components/Button'
-import { SrOnlySpan } from '@/styles'
-import { useAuthorization } from '@/providers'
+import { HeaderContent, HeaderStyled, Logo, LogoBackButton, LogoLink } from './Header.styles';
+import { Column, Row } from '@/styles/grid';
+import { Navigation } from '@/components/Navigation';
+import { NavElement } from '@/components/Navigation/Navigation.styes';
+import { Button } from '@/components/Button';
+import { SrOnlySpan } from '@/styles';
+import { useAuthorization } from '@/providers';
 
-import { UserMenu } from '@/components/UserMenu'
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
-import { useLocation } from 'react-router-dom'
+import { UserMenu } from '@/components/UserMenu';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import { useLocation } from 'react-router-dom';
 
 export const Header = () => {
-  const { authorization } = useAuthorization()
-  const isAuthorized = !!authorization
+  const { authorization } = useAuthorization();
+  const isAuthorized = !!authorization;
 
-  const location = useLocation()
-  const backButtonEnabled = location.pathname !== '/' && location.pathname !== '/dashboard'
+  const location = useLocation();
+  const backButtonEnabled = location.pathname !== '/' && location.pathname !== '/dashboard';
 
   return (
     <HeaderStyled>
@@ -53,5 +53,5 @@ export const Header = () => {
         </Column>
       </Row>
     </HeaderStyled>
-  )
-}
+  );
+};

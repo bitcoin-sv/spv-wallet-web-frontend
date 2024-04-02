@@ -1,1 +1,1 @@
-export * from './WarningBar'
+export * from './WarningBar';

@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
-import { colors, sizes } from '@/styles'
-import { variables } from '@/styles/variables'
-import { media } from '@/styles/media'
-import { Button } from '@/components/Button'
+import styled from '@emotion/styled';
+import { colors, sizes } from '@/styles';
+import { variables } from '@/styles/variables';
+import { media } from '@/styles/media';
+import { Button } from '@/components/Button';
 
 export const ModalWrapper = styled.div`
   position: fixed;
@@ -16,7 +16,7 @@ export const ModalWrapper = styled.div`
   background: ${colors.modalWrapperBackground};
   backdrop-filter: blur(10px);
   z-index: 9;
-`
+`;
 
 export const ModalContent = styled.section`
   position: relative;
@@ -43,7 +43,7 @@ export const ModalContent = styled.section`
     width: auto;
     min-width: 480px;
   }
-`
+`;
 
 export const ContentWrapper = styled.article`
   display: flex;
@@ -51,22 +51,22 @@ export const ContentWrapper = styled.article`
   height: 100%;
   max-height: 100%;
   overflow-y: hidden;
-`
+`;
 
 export const ModalMainContent = styled.main`
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-`
+`;
 
 export const ModalHeadline = styled.h3`
   font-size: 22px;
   margin-bottom: ${sizes(2)};
-`
+`;
 
 export const ModalSubheadline = styled.p`
   font-size: 18px;
-`
+`;
 
 export const ButtonsWrapper = styled.footer`
   position: relative;
@@ -76,7 +76,7 @@ export const ButtonsWrapper = styled.footer`
   justify-content: center;
   margin: ${sizes(12)} 0 ${sizes(6)};
   z-index: 1;
-`
+`;
 
 export const ModalButton = styled(Button)`
   width: 50%;
@@ -92,4 +92,4 @@ export const ModalButton = styled(Button)`
     outline: 2px solid ${colors.lightPrimary};
     outline-offset: 2px;
   }
-`
+`;

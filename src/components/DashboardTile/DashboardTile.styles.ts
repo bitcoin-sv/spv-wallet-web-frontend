@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
-import { colors, sizes } from '@/styles'
-import { variables } from '@/styles/variables'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { colors, sizes } from '@/styles';
+import { variables } from '@/styles/variables';
+import { media } from '@/styles/media';
 
 interface WrapperProps {
-  fullHeight?: boolean
+  fullHeight?: boolean;
 }
 
 export const DashboardTileWrapper = styled.section<WrapperProps>`
@@ -20,13 +20,13 @@ export const DashboardTileWrapper = styled.section<WrapperProps>`
   ${media.md} {
     padding: ${sizes(4)};
   }
-`
+`;
 
 export const TileTitle = styled.h3`
   position: relative;
   padding-right: ${sizes(12)};
   margin: 0 0 ${sizes(2)};
-`
+`;
 
 export const TitleIconWrapper = styled.span`
   position: absolute;
@@ -37,4 +37,4 @@ export const TitleIconWrapper = styled.span`
   svg {
     font-size: 150%;
   }
-`
+`;

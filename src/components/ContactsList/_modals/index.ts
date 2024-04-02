@@ -1,2 +1,2 @@
-export * from './ContactAddModal/ContactAddModal'
-export * from './VerifyModal/VerifyModal'
+export * from './ContactAddModal/ContactAddModal';
+export * from './VerifyModal/VerifyModal';

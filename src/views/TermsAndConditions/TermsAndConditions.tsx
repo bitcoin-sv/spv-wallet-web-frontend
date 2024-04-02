@@ -1,6 +1,6 @@
-import { ViewContent } from '@/components/_layout/ViewContent'
-import { Column, Row } from '@/styles/grid'
-import { TermsAndConditionsContent } from '@/components/LegalContent'
+import { ViewContent } from '@/components/_layout/ViewContent';
+import { Column, Row } from '@/styles/grid';
+import { TermsAndConditionsContent } from '@/components/LegalContent';
 
 export const TermsAndConditions = () => {
   return (
@@ -11,5 +11,5 @@ export const TermsAndConditions = () => {
         </Column>
       </Row>
     </ViewContent>
-  )
-}
+  );
+};

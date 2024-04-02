@@ -1,15 +1,15 @@
-import { CloseButton, HighlightedText, WarningText, Wrapper } from '@/components/WarningBar/WarningBar.styles'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber'
-import { FC, useState } from 'react'
-import { SrOnlySpan } from '@/styles'
+import { CloseButton, HighlightedText, WarningText, Wrapper } from '@/components/WarningBar/WarningBar.styles';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { FC, useState } from 'react';
+import { SrOnlySpan } from '@/styles';
 
 interface BarProps {
-  highlightedText?: string
-  warningText: string
+  highlightedText?: string;
+  warningText: string;
 }
 
 export const WarningBar: FC<BarProps> = ({ highlightedText, warningText }) => {
-  const [warningVisible, setWarningVisible] = useState<boolean>(true)
+  const [warningVisible, setWarningVisible] = useState<boolean>(true);
   return (
     <>
       {warningVisible && (
@@ -25,5 +25,5 @@ export const WarningBar: FC<BarProps> = ({ highlightedText, warningText }) => {
         </Wrapper>
       )}
     </>
-  )
-}
+  );
+};

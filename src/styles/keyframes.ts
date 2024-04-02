@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/react'
+import { keyframes } from '@emotion/react';
 
 export const PulseKeyframe = keyframes`
   0% {
@@ -10,7 +10,7 @@ export const PulseKeyframe = keyframes`
   100% {
     transform: scale(0);
   }
-`
+`;
 
 export const UserMenuFadeIn = keyframes`
   from {
@@ -20,4 +20,4 @@ export const UserMenuFadeIn = keyframes`
   to {
     opacity: 1;
   }
-`
+`;

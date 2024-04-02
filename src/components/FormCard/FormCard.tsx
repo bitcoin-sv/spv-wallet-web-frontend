@@ -5,20 +5,20 @@ import {
   Form,
   FormCardWrapper,
   FormLegend,
-} from '@/components/FormCard/FormCard.styles'
-import { FC, FormEvent, ReactNode } from 'react'
-import { Button } from '@/components/Button'
-import { WarningBar } from '@/components/WarningBar'
+} from '@/components/FormCard/FormCard.styles';
+import { FC, FormEvent, ReactNode } from 'react';
+import { Button } from '@/components/Button';
+import { WarningBar } from '@/components/WarningBar';
 
-type CardType = 'login' | 'signup' | 'signup-typ'
+type CardType = 'login' | 'signup' | 'signup-typ';
 
 interface CardProps {
-  headline: string
-  subheadline?: string
-  formLegend?: string
-  children: ReactNode
-  cardType: CardType
-  onFormSubmitHandler?: (event: FormEvent<HTMLFormElement>) => void
+  headline: string;
+  subheadline?: string;
+  formLegend?: string;
+  children: ReactNode;
+  cardType: CardType;
+  onFormSubmitHandler?: (event: FormEvent<HTMLFormElement>) => void;
 }
 export const FormCard: FC<CardProps> = ({
   headline,
@@ -72,5 +72,5 @@ export const FormCard: FC<CardProps> = ({
         </CardFooter>
       )}
     </FormCardWrapper>
-  )
-}
+  );
+};

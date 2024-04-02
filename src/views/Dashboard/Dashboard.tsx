@@ -1,16 +1,16 @@
-import { Column, Row } from '@/styles/grid'
-import { useMediaMatch } from '@/hooks/useMediaMatch'
-import { AccountSummary } from '@/components/AccountSummary'
-import { TransferForm } from '@/components/TransferForm'
-import { TransactionHistory } from '@/components/TransactionHistory'
-import { useWebsocket } from '@/hooks'
-import { usePikeEnabled } from '@/hooks/useFeatureFlags'
+import { Column, Row } from '@/styles/grid';
+import { useMediaMatch } from '@/hooks/useMediaMatch';
+import { AccountSummary } from '@/components/AccountSummary';
+import { TransferForm } from '@/components/TransferForm';
+import { TransactionHistory } from '@/components/TransactionHistory';
+import { useWebsocket } from '@/hooks';
+import { usePikeEnabled } from '@/hooks/useFeatureFlags';
 
 export const Dashboard = () => {
-  const lgMatch = useMediaMatch('lg')
-  useWebsocket()
+  const lgMatch = useMediaMatch('lg');
+  useWebsocket();
 
-  const pikeEnabled = usePikeEnabled()
+  const pikeEnabled = usePikeEnabled();
 
   return (
     <>
@@ -24,5 +24,5 @@ export const Dashboard = () => {
         </Column>
       </Row>
     </>
-  )
-}
+  );
+};

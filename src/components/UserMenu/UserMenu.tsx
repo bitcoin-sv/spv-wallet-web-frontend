@@ -1,66 +1,66 @@
-import React, { FC, useState } from 'react'
-import PersonIcon from '@mui/icons-material/Person'
-import { Avatar, MenuButton, MenuElement, MenuList, UserMenuWrapper } from '@/components/UserMenu/UserMenu.styles'
-import LogoutIcon from '@mui/icons-material/Logout'
-import { LogoutModal } from '@/components/Modal'
-import { useNavigate } from 'react-router-dom'
-import { useAuthorization } from '@/providers'
-import { logoutUser } from '@/api/requests'
+import React, { FC, useState } from 'react';
+import PersonIcon from '@mui/icons-material/Person';
+import { Avatar, MenuButton, MenuElement, MenuList, UserMenuWrapper } from '@/components/UserMenu/UserMenu.styles';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { LogoutModal } from '@/components/Modal';
+import { useNavigate } from 'react-router-dom';
+import { useAuthorization } from '@/providers';
+import { logoutUser } from '@/api/requests';
 
 interface MenuProps {
-  userEmail?: string
+  userEmail?: string;
 }
 
 export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
-  const [userMenu, setUserMenu] = useState<boolean>(false)
-  const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const [errors, setErrors] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
-  const Navigate = useNavigate()
-  const { setAuthorization } = useAuthorization()
+  const [userMenu, setUserMenu] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const Navigate = useNavigate();
+  const { setAuthorization } = useAuthorization();
 
   const userMenuHandler = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation()
+    event.stopPropagation();
 
-    const currentTarget = event.currentTarget
+    const currentTarget = event.currentTarget;
     document.addEventListener(
       'click',
       (event) => {
         if (event.target !== currentTarget) {
-          setUserMenu(false)
+          setUserMenu(false);
         }
       },
-      { once: true }
-    )
+      { once: true },
+    );
 
-    setUserMenu(!userMenu)
-  }
+    setUserMenu(!userMenu);
+  };
 
   const logoutModalHandler = () => {
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
 
   const closeModal = () => {
-    setModalOpen(false)
-    setErrors('')
-  }
+    setModalOpen(false);
+    setErrors('');
+  };
 
   const logoutHandler = () => {
-    setLoading(true)
+    setLoading(true);
     logoutUser()
       .then(() => {
-        closeModal()
-        setAuthorization(null)
-        Navigate('/')
+        closeModal();
+        setAuthorization(null);
+        Navigate('/');
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!'
-        errorMsg && setErrors(errorMsg)
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!';
+        errorMsg && setErrors(errorMsg);
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }
+        setLoading(false);
+      });
+  };
 
   return (
     <UserMenuWrapper>
@@ -82,5 +82,5 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
       )}
       <LogoutModal open={modalOpen} onCancel={closeModal} onConfirm={logoutHandler} error={errors} loading={loading} />
     </UserMenuWrapper>
-  )
-}
+  );
+};

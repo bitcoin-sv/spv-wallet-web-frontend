@@ -1,1 +1,1 @@
-export * from './AcceptReject'
+export * from './AcceptReject';

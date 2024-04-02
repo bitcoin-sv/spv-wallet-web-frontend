@@ -1,9 +1,9 @@
-import { DashboardTile } from '@/components/DashboardTile'
-import Contacts from '@mui/icons-material/Contacts'
+import { DashboardTile } from '@/components/DashboardTile';
+import Contacts from '@mui/icons-material/Contacts';
 
-import { Column, Row } from '@/styles/grid'
-import { ContactsTable } from './ContactsTable.tsx'
-import { ContactAdd } from './_modals/ContactAdd.tsx'
+import { Column, Row } from '@/styles/grid';
+import { ContactsTable } from './ContactsTable.tsx';
+import { ContactAdd } from './_modals/ContactAdd.tsx';
 
 export const ContactsList = () => {
   return (
@@ -19,5 +19,5 @@ export const ContactsList = () => {
         </Column>
       </Row>
     </DashboardTile>
-  )
-}
+  );
+};

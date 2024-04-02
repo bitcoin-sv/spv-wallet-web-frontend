@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
-import { PulseKeyframe } from '@/styles/keyframes'
-import { colors } from '@/styles'
-import { variables } from '@/styles/variables'
+import styled from '@emotion/styled';
+import { PulseKeyframe } from '@/styles/keyframes';
+import { colors } from '@/styles';
+import { variables } from '@/styles/variables';
 
 export const LoaderContainer = styled.div`
   position: absolute;
@@ -26,7 +26,7 @@ export const LoaderContainer = styled.div`
       animation-delay: 0.4s;
     }
   }
-`
+`;
 
 export const SvgBullet = styled.svg`
   animation-name: ${PulseKeyframe};
@@ -37,4 +37,4 @@ export const SvgBullet = styled.svg`
   circle {
     fill: ${colors.secondaryBackground};
   }
-`
+`;

@@ -1,9 +1,9 @@
-import { StepsListStyles } from './StepsList.styles'
-import { FC, ReactNode } from 'react'
+import { StepsListStyles } from './StepsList.styles';
+import { FC, ReactNode } from 'react';
 
 interface ListProps {
-  children: ReactNode
+  children: ReactNode;
 }
 export const StepsList: FC<ListProps> = ({ children }) => {
-  return <StepsListStyles>{children}</StepsListStyles>
-}
+  return <StepsListStyles>{children}</StepsListStyles>;
+};

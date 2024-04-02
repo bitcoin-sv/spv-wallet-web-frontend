@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
-import { Button } from '@/components/Button'
-import { colors, sizes, UserMenuFadeIn } from '@/styles'
-import { variables } from '@/styles/variables'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { Button } from '@/components/Button';
+import { colors, sizes, UserMenuFadeIn } from '@/styles';
+import { variables } from '@/styles/variables';
+import { media } from '@/styles/media';
 
 export const UserMenuWrapper = styled.div`
   position: relative;
@@ -13,10 +13,10 @@ export const UserMenuWrapper = styled.div`
   ${media.sm} {
     width: auto;
   }
-`
+`;
 
 interface MenuButtonProps {
-  isOpen?: boolean
+  isOpen?: boolean;
 }
 
 export const MenuButton = styled(Button)<MenuButtonProps>`
@@ -51,7 +51,7 @@ export const MenuButton = styled(Button)<MenuButtonProps>`
       transform: scale(1.1);
     }
   }
-`
+`;
 
 export const Avatar = styled.div`
   display: flex;
@@ -69,7 +69,7 @@ export const Avatar = styled.div`
     margin-right: 0;
     margin-left: ${sizes(6)};
   }
-`
+`;
 
 export const MenuList = styled.ul`
   position: absolute;
@@ -88,9 +88,9 @@ export const MenuList = styled.ul`
     transform: translateY(-90%);
     width: 200px;
   }
-`
+`;
 
 export const MenuElement = styled.li`
   border-radius: ${variables.borderRadius};
   background: ${colors.userMenuBackground};
-`
+`;

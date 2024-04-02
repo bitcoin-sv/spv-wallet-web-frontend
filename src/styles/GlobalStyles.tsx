@@ -1,12 +1,12 @@
-import { Global, css } from '@emotion/react'
-import emotionNormalize from 'emotion-normalize'
+import { Global, css } from '@emotion/react';
+import emotionNormalize from 'emotion-normalize';
 
-import { colors } from './colors'
-import { getHeadlineSizes, typography } from './typography'
-import { sizes } from './sizes'
-import { variables } from '@/styles/variables'
-import styled from '@emotion/styled'
-import { HighlightAnimation } from './highlightAnimation'
+import { colors } from './colors';
+import { getHeadlineSizes, typography } from './typography';
+import { sizes } from './sizes';
+import { variables } from '@/styles/variables';
+import styled from '@emotion/styled';
+import { HighlightAnimation } from './highlightAnimation';
 
 const globalStyles = css`
   ${emotionNormalize}
@@ -74,7 +74,7 @@ const globalStyles = css`
   }
 
   ${HighlightAnimation}
-`
+`;
 
 export const srOnlyStyles = css`
   border: 0 !important;
@@ -87,12 +87,12 @@ export const srOnlyStyles = css`
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important;
-`
+`;
 
 export const SrOnlySpan = styled.span`
   ${srOnlyStyles}
-`
+`;
 
 export const GlobalStyles = () => {
-  return <Global styles={[globalStyles]} />
-}
+  return <Global styles={[globalStyles]} />;
+};

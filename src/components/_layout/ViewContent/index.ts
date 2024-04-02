@@ -1,1 +1,1 @@
-export * from './ViewContent.styles'
+export * from './ViewContent.styles';

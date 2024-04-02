@@ -13,39 +13,39 @@ import {
   Table,
   TableWrapper,
   UserPrefix,
-} from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
-import { Pagination } from '@/components/Pagination'
-import React, { useEffect, useMemo, useState } from 'react'
-import { TransactionDetailsModal } from '@/components/Modal'
-import { getTransactions } from '@/api/requests'
-import { Transaction } from '@/api/types'
-import { colors, SrOnlySpan } from '@/styles'
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
-import { format } from 'date-fns'
-import { Loader } from '@/components/Loader'
-import { ErrorBar } from '@/components/ErrorBar'
-import { useMediaMatch } from '@/hooks'
-import { useAutoupdate } from '@/providers/autoupdate'
-import _ from 'lodash'
-import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
-import { PaginationParams } from '@/api/types/pagination'
+} from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles';
+import { Pagination } from '@/components/Pagination';
+import React, { useEffect, useMemo, useState } from 'react';
+import { TransactionDetailsModal } from '@/components/Modal';
+import { getTransactions } from '@/api/requests';
+import { Transaction } from '@/api/types';
+import { colors, SrOnlySpan } from '@/styles';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import { format } from 'date-fns';
+import { Loader } from '@/components/Loader';
+import { ErrorBar } from '@/components/ErrorBar';
+import { useMediaMatch } from '@/hooks';
+import { useAutoupdate } from '@/providers/autoupdate';
+import _ from 'lodash';
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
+import { PaginationParams } from '@/api/types/pagination';
 
-const KEY_NAME_ENTER = 'Enter'
-const KEY_NAME_SPACE = 'Space'
-const AUTOUPDATE_INTERVAL = 5000
-const ITEMS_PER_PAGE = 10
+const KEY_NAME_ENTER = 'Enter';
+const KEY_NAME_SPACE = 'Space';
+const AUTOUPDATE_INTERVAL = 5000;
+const ITEMS_PER_PAGE = 10;
 
 export const TransactionTable = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [totalPages, setTotalPages] = useState<number>(0)
-  const [transactionsList, setTransactionsList] = useState<Array<Transaction>>([])
-  const [transactionDetailsModal, setTransactionDetailsModal] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
-  const [errors, setErrors] = useState<string>('')
-  const { autoupdate, setAutoupdate } = useAutoupdate()
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [transactionsList, setTransactionsList] = useState<Array<Transaction>>([]);
+  const [transactionDetailsModal, setTransactionDetailsModal] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string>('');
+  const { autoupdate, setAutoupdate } = useAutoupdate();
 
-  const totalItems = totalPages * ITEMS_PER_PAGE
+  const totalItems = totalPages * ITEMS_PER_PAGE;
 
   const pagination: PaginationParams = useMemo(() => {
     return {
@@ -53,68 +53,68 @@ export const TransactionTable = () => {
       page_size: ITEMS_PER_PAGE,
       order: 'created_at',
       sort: 'desc',
-    }
-  }, [currentPage])
+    };
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-  }
+    setCurrentPage(page);
+  };
 
   const autoUpdateList = () => {
     getTransactions(pagination)
       .then((response) => {
-        const transactions = response.transactions
+        const transactions = response.transactions;
 
         if (_.isEqual(transactions.transactions, transactionsList)) {
-          return
+          return;
         }
 
-        setTransactionsList(transactions.transactions)
-        const updateTime = new Date().toISOString()
-        setAutoupdate(updateTime)
+        setTransactionsList(transactions.transactions);
+        const updateTime = new Date().toISOString();
+        setAutoupdate(updateTime);
       })
       .catch((e) => {
-        const error = e?.response?.data ? e.response.data : e
-        const cause = error.cause ? error.cause : undefined
-        console.error('Error during updating transactions', error, cause)
-      })
-  }
+        const error = e?.response?.data ? e.response.data : e;
+        const cause = error.cause ? error.cause : undefined;
+        console.error('Error during updating transactions', error, cause);
+      });
+  };
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
 
     getTransactions(pagination)
       .then((response) => {
-        const transactions = response.transactions
+        const transactions = response.transactions;
 
-        setTotalPages(transactions.pages)
-        setTransactionsList(transactions.transactions)
+        setTotalPages(transactions.pages);
+        setTransactionsList(transactions.transactions);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-        setErrors(errorMsg)
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later';
+        setErrors(errorMsg);
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }, [pagination, autoupdate])
+        setLoading(false);
+      });
+  }, [pagination, autoupdate]);
 
   useEffect(() => {
-    const intervalId = setInterval(autoUpdateList, AUTOUPDATE_INTERVAL)
+    const intervalId = setInterval(autoUpdateList, AUTOUPDATE_INTERVAL);
 
     return () => {
-      clearInterval(intervalId)
-    }
-  })
+      clearInterval(intervalId);
+    };
+  });
 
   const openModalByKeyboard = (e: React.KeyboardEvent<HTMLTableRowElement>, modalId: string) => {
     if (![KEY_NAME_ENTER, KEY_NAME_SPACE].includes(e.code)) {
-      return
+      return;
     }
-    setTransactionDetailsModal(modalId)
-  }
+    setTransactionDetailsModal(modalId);
+  };
 
-  const smMatch = useMediaMatch('sm')
+  const smMatch = useMediaMatch('sm');
 
   return (
     <>
@@ -147,8 +147,8 @@ export const TransactionTable = () => {
               </thead>
               <tbody>
                 {transactionsList.map((transaction, index) => {
-                  const { direction: dir, totalValue, id, sender, receiver, status, createdAt } = transaction
-                  const amount = convertSatToBsv(totalValue) ?? 'unknown'
+                  const { direction: dir, totalValue, id, sender, receiver, status, createdAt } = transaction;
+                  const amount = convertSatToBsv(totalValue) ?? 'unknown';
                   return (
                     <tr
                       key={index}
@@ -201,7 +201,7 @@ export const TransactionTable = () => {
                         </>
                       )}
                     </tr>
-                  )
+                  );
                 })}
               </tbody>
             </Table>
@@ -224,5 +224,5 @@ export const TransactionTable = () => {
         />
       )}
     </>
-  )
-}
+  );
+};

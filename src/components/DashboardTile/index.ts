@@ -1,1 +1,1 @@
-export * from './DashboardTile'
+export * from './DashboardTile';

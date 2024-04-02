@@ -1,1 +1,1 @@
-export * from './ErrorBar'
+export * from './ErrorBar';

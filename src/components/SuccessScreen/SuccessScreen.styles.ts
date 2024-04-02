@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
-import { colors, fontWeight, sizes } from '@/styles'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { colors, fontWeight, sizes } from '@/styles';
+import { media } from '@/styles/media';
 
 export const Screen = styled.div`
   position: absolute;
@@ -17,7 +17,7 @@ export const Screen = styled.div`
     width: 128px;
     height: 128px;
   }
-`
+`;
 
 export const ScreenText = styled.p`
   margin-top: ${sizes(12)};
@@ -27,4 +27,4 @@ export const ScreenText = styled.p`
   ${media.sm} {
     font-size: 32px;
   }
-`
+`;

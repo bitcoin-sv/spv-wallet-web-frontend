@@ -1,17 +1,17 @@
-import ErrorIcon from '@mui/icons-material/Error'
-import { FC } from 'react'
-import { BarWrapper, ErrorText, ReloadButton } from '@/components/ErrorBar/ErrorProps.styles'
+import ErrorIcon from '@mui/icons-material/Error';
+import { FC } from 'react';
+import { BarWrapper, ErrorText, ReloadButton } from '@/components/ErrorBar/ErrorProps.styles';
 
 interface ErrorProps {
-  errorMsg: string
-  withReloadButton?: boolean
+  errorMsg: string;
+  withReloadButton?: boolean;
 }
 
 export const ErrorBar: FC<ErrorProps> = ({ errorMsg, withReloadButton }) => {
   const reloadHandler = () => {
-    window.location.href = '/'
-    window.location.reload()
-  }
+    window.location.href = '/';
+    window.location.reload();
+  };
 
   return (
     <>
@@ -25,5 +25,5 @@ export const ErrorBar: FC<ErrorProps> = ({ errorMsg, withReloadButton }) => {
         </ReloadButton>
       )}
     </>
-  )
-}
+  );
+};

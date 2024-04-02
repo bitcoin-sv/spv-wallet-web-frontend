@@ -1,13 +1,13 @@
-import { Column, Row } from '@/styles/grid'
-import { useMediaMatch } from '@/hooks/useMediaMatch'
-import { AccountSummary } from '@/components/AccountSummary'
-import { TransferForm } from '@/components/TransferForm'
-import { ContactsList } from '@/components/ContactsList'
-import { useWebsocket } from '@/hooks'
+import { Column, Row } from '@/styles/grid';
+import { useMediaMatch } from '@/hooks/useMediaMatch';
+import { AccountSummary } from '@/components/AccountSummary';
+import { TransferForm } from '@/components/TransferForm';
+import { ContactsList } from '@/components/ContactsList';
+import { useWebsocket } from '@/hooks';
 
 export const Contacts = () => {
-  const lgMatch = useMediaMatch('lg')
-  useWebsocket()
+  const lgMatch = useMediaMatch('lg');
+  useWebsocket();
 
   return (
     <>
@@ -21,5 +21,5 @@ export const Contacts = () => {
         </Column>
       </Row>
     </>
-  )
-}
+  );
+};

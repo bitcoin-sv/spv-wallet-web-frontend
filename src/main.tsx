@@ -1,15 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { App } from './App'
-import { AuthorizationProvider, ContactsProvider } from '@/providers'
-import { ConfigProvider } from '@4chain-ag/react-configuration'
-import { BrowserRouter } from 'react-router-dom'
-import { AutoupdateProvider } from '@/providers/autoupdate'
-import { registerSW } from 'virtual:pwa-register'
-import { ServerConfigProvider } from './providers/server_config/provider'
-import { ErrorBoundary } from './ErrorBoundary'
-import { GlobalStyles } from '@/styles'
-import { AxiosProvider } from './api/AxiosProvider'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { App } from './App';
+import { AuthorizationProvider, ContactsProvider } from '@/providers';
+import { ConfigProvider } from '@4chain-ag/react-configuration';
+import { BrowserRouter } from 'react-router-dom';
+import { AutoupdateProvider } from '@/providers/autoupdate';
+import { registerSW } from 'virtual:pwa-register';
+import { ServerConfigProvider } from './providers/server_config/provider';
+import { ErrorBoundary } from './ErrorBoundary';
+import { GlobalStyles } from '@/styles';
+import { AxiosProvider } from './api/AxiosProvider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -31,28 +31,28 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         </AxiosProvider>
       </ConfigProvider>
     </ErrorBoundary>
-  </React.StrictMode>
-)
+  </React.StrictMode>,
+);
 
-const intervalMS = 30 * 60 * 1000
+const intervalMS = 30 * 60 * 1000;
 
 registerSW({
   onRegisteredSW(swUrl, worker) {
     worker &&
       setInterval(async () => {
-        if (!(!worker.installing && navigator)) return
+        if (!(!worker.installing && navigator)) return;
 
-        if ('connection' in navigator && !navigator.onLine) return
+        if ('connection' in navigator && !navigator.onLine) return;
 
         const resp = await fetch(swUrl, {
           cache: 'no-store',
           headers: {
-            'cache': 'no-store',
+            cache: 'no-store',
             'cache-control': 'no-cache',
           },
-        })
+        });
 
-        if (resp?.status === 200) await worker.update()
-      }, intervalMS)
+        if (resp?.status === 200) await worker.update();
+      }, intervalMS);
   },
-})
+});
