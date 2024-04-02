@@ -1,6 +1,8 @@
 # SPV WALLET WEB FRONTEND
 
-[SPV Wallet GitBook](https://bsvblockchain.gitbook.io/docs)
+## Documentation
+
+For in-depth information and guidance, please refer to the [SPV Wallet Documentation](https://bsvblockchain.gitbook.io/docs).
 
 The `spv-wallet-web-frontend` is a referential frontend app designed as a part of the **SPV Wallet** which is a custodial wallet for Bitcoin SV.
 It utliizes the `spv-wallet` service as a non-custodial wallet in conjunction with the `spv-wallet-web-backend` as a backend server which is responsible for storing user data and private keys.
