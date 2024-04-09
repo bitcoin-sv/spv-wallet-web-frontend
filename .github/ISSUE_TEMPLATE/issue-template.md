@@ -1,19 +1,18 @@
 ---
 name: Issue Template
 about: Create a report to help us fix bugs/inaccuracies
-title: "[BUG]"
+title: '[BUG]'
 labels: bug
 assignees: ''
-
 ---
 
 **TL;DR**
 Check if your issue answers those question:
 
-- [ ]  Does my issue clearly describe what exactly is not working properly?
-- [ ]  Does my issue clearly describe what are my expectations and what is the current output?
-- [ ]  Did I attach logs/screenshots/errors which ocured?
-- [ ]  Did I provide information how I run the code/library/application and on which platform/browser?
+- [ ] Does my issue clearly describe what exactly is not working properly?
+- [ ] Does my issue clearly describe what are my expectations and what is the current output?
+- [ ] Did I attach logs/screenshots/errors which ocured?
+- [ ] Did I provide information how I run the code/library/application and on which platform/browser?
 
 **Describe the bug**
 A clear and concise description of what the bug is.
