@@ -1,20 +1,20 @@
-import styled from '@emotion/styled'
-import { media } from '@/styles/media'
-import { colors, sizes } from '@/styles'
-import { variables } from '@/styles/variables'
-import { NavLink } from 'react-router-dom'
+import styled from '@emotion/styled';
+import { media } from '@/styles/media';
+import { colors, sizes } from '@/styles';
+import { variables } from '@/styles/variables';
+import { NavLink } from 'react-router-dom';
 
 interface InputStyledProps {
-  error?: boolean
-  withIcon?: boolean
-  inputOnLightBackground?: boolean
+  error?: boolean;
+  withIcon?: boolean;
+  inputOnLightBackground?: boolean;
 }
 
 export const InputWrapper = styled.div`
   position: relative;
   display: block;
   margin: ${sizes(6)} 0;
-`
+`;
 
 export const LabelStyled = styled.label<InputStyledProps>`
   position: absolute;
@@ -36,7 +36,7 @@ export const LabelStyled = styled.label<InputStyledProps>`
   &:hover {
     cursor: text;
   }
-`
+`;
 
 export const InputStyled = styled.input<InputStyledProps>`
   width: 100%;
@@ -75,7 +75,7 @@ export const InputStyled = styled.input<InputStyledProps>`
       color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
     }
   }
-`
+`;
 
 const BaseInputStyles = styled.div<InputStyledProps>`
   position: absolute;
@@ -97,14 +97,14 @@ const BaseInputStyles = styled.div<InputStyledProps>`
     outline-color: transparent;
     border-color: <span class="math-inline">\{\(\{ inputOnLightBackground \}\) \=\> \(inputOnLightBackground ? colors\.darkPrimary \: colors\.lightPrimary\)\}</span>{colors.lightPrimary};
   }
-`
+`;
 
-export const InputButton = styled(BaseInputStyles)``.withComponent('button')
+export const InputButton = styled(BaseInputStyles)``.withComponent('button');
 
-export const InputLinkButton = styled(BaseInputStyles)``.withComponent(NavLink)
+export const InputLinkButton = styled(BaseInputStyles)``.withComponent(NavLink);
 
 export const FormattedValueLabel = styled.span`
   display: inline-block;
   margin: 0.5rem 0 0 0.25rem;
   font-size: 14px;
-`
+`;

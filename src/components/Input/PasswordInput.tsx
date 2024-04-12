@@ -1,15 +1,15 @@
-import { FC, useState } from 'react'
+import { FC, useState } from 'react';
 
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import { InputButton } from './Input.styles'
-import { Input } from './Input'
-import { PasswordInputProps } from './types'
+import { InputButton } from './Input.styles';
+import { Input } from './Input';
+import { PasswordInputProps } from './types';
 
 export const PasswordInput: FC<PasswordInputProps> = (props) => {
-  const [showPassword, setShowPassword] = useState(false)
-  const type = showPassword ? 'text' : 'password'
+  const [showPassword, setShowPassword] = useState(false);
+  const type = showPassword ? 'text' : 'password';
 
   return (
     <Input {...props} type={type} withIcon>
@@ -21,5 +21,5 @@ export const PasswordInput: FC<PasswordInputProps> = (props) => {
         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
       </InputButton>
     </Input>
-  )
-}
+  );
+};

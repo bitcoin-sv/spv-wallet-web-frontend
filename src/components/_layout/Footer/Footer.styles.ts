@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
-import { sizes } from '@/styles'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { sizes } from '@/styles';
+import { media } from '@/styles/media';
 
 export const FooterStyled = styled.footer`
   padding: ${sizes(4)} 0;
-`
+`;
 
 export const FooterContent = styled.div`
   width: 100%;
@@ -18,10 +18,10 @@ export const FooterContent = styled.div`
     justify-content: space-between;
     padding: ${sizes(6)} 0;
   }
-`
+`;
 
 export const CopyrightText = styled.p`
   ${media.md} {
     margin: 0;
   }
-`
+`;

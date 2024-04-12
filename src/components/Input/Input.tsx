@@ -1,7 +1,7 @@
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 
-import { InputStyled, InputWrapper, LabelStyled } from './Input.styles'
-import { InputProps } from './types'
+import { InputStyled, InputWrapper, LabelStyled } from './Input.styles';
+import { InputProps } from './types';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ labelText, className, id, customPlaceholder, inputOnLightBackground, children, ...rest }, ref) => {
@@ -19,8 +19,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         {children}
       </InputWrapper>
-    )
-  }
-)
+    );
+  },
+);
 
-Input.displayName = 'Input'
+Input.displayName = 'Input';

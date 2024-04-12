@@ -1,17 +1,17 @@
-import styled from '@emotion/styled'
-import { colors, sizes, srOnlyStyles } from '@/styles'
-import { variables } from '@/styles/variables'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { colors, sizes, srOnlyStyles } from '@/styles';
+import { variables } from '@/styles/variables';
+import { media } from '@/styles/media';
 
 export const InputWrapper = styled.div`
   position: relative;
   display: block;
   margin: ${sizes(5)} 0;
   text-align: left;
-`
+`;
 
 interface InputStyledProps {
-  error?: boolean
+  error?: boolean;
 }
 
 export const LabelStyled = styled.label`
@@ -28,7 +28,7 @@ export const LabelStyled = styled.label`
     padding-left: ${sizes(8)};
     padding-top: ${sizes(1)};
   }
-`
+`;
 
 export const InputStyled = styled.input<InputStyledProps>`
   ${srOnlyStyles}
@@ -70,4 +70,4 @@ export const InputStyled = styled.input<InputStyledProps>`
       outline: 2px solid ${colors.lightPrimary};
     }
   }
-`
+`;

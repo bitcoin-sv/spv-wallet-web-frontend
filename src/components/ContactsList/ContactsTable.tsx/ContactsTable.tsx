@@ -1,5 +1,5 @@
-import { ContactAwaitingAcceptance, ContactConfirmed } from '@/api/types/contact'
-import { Loader } from '@/components/Loader'
+import { ContactAwaitingAcceptance, ContactConfirmed } from '@/api/types/contact';
+import { Loader } from '@/components/Loader';
 import {
   LargeTd,
   LargeTh,
@@ -8,36 +8,36 @@ import {
   NoDataInfo,
   Table,
   TableWrapper,
-} from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles'
-import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton'
-import { FC, useMemo, useState } from 'react'
-import { StatusBadge } from './StatusBadge'
-import { VerifyModal } from '../_modals'
-import { SmallButton } from '@/components/Button'
-import { AcceptReject } from '../AcceptReject'
-import { useContacts } from '@/providers'
-import { ErrorBar } from '@/components/ErrorBar'
-import { useSortedContacts } from './useSortedContacts'
-import { JustAddedContactMsg } from './JustAddedContcatMsg'
+} from '@/components/TransactionHistory/TransactionTable/TransactionTable.styles';
+import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton';
+import { FC, useMemo, useState } from 'react';
+import { StatusBadge } from './StatusBadge';
+import { VerifyModal } from '../_modals';
+import { SmallButton } from '@/components/Button';
+import { AcceptReject } from '../AcceptReject';
+import { useContacts } from '@/providers';
+import { ErrorBar } from '@/components/ErrorBar';
+import { useSortedContacts } from './useSortedContacts';
+import { JustAddedContactMsg } from './JustAddedContcatMsg';
 
 export const ContactsTable: FC = () => {
-  const { contacts, loading, error, refresh } = useContacts()
-  const [contactIdForVerification, setContactIdForVerification] = useState<string | null>(null)
-  const [justAddedContact, setJustAddedContact] = useState(false)
+  const { contacts, loading, error, refresh } = useContacts();
+  const [contactIdForVerification, setContactIdForVerification] = useState<string | null>(null);
+  const [justAddedContact, setJustAddedContact] = useState(false);
 
   const contactForVerification = useMemo(() => {
-    return contacts?.find((contact) => contact.paymail === contactIdForVerification)
-  }, [contactIdForVerification, contacts])
+    return contacts?.find((contact) => contact.paymail === contactIdForVerification);
+  }, [contactIdForVerification, contacts]);
 
   const openVerificationWindow = (peerPaymail: string, justAdded = false) => {
-    setJustAddedContact(justAdded)
-    setContactIdForVerification(peerPaymail)
-  }
+    setJustAddedContact(justAdded);
+    setContactIdForVerification(peerPaymail);
+  };
 
-  const sortedContacts = useSortedContacts(contacts)
+  const sortedContacts = useSortedContacts(contacts);
 
   if (error) {
-    return <ErrorBar errorMsg="Failed to load contacts" />
+    return <ErrorBar errorMsg="Failed to load contacts" />;
   }
 
   return (
@@ -69,7 +69,7 @@ export const ContactsTable: FC = () => {
                       <SmallButton
                         variant="accept"
                         onClick={() => {
-                          openVerificationWindow(paymail)
+                          openVerificationWindow(paymail);
                         }}
                       >
                         Show code
@@ -78,8 +78,8 @@ export const ContactsTable: FC = () => {
                       <AcceptReject
                         paymail={paymail}
                         onAccept={() => {
-                          openVerificationWindow(paymail, true)
-                          refresh()
+                          openVerificationWindow(paymail, true);
+                          refresh();
                         }}
                         onReject={refresh}
                       />
@@ -97,13 +97,13 @@ export const ContactsTable: FC = () => {
           peer={contactForVerification}
           onConfirmed={refresh}
           onClose={() => {
-            setContactIdForVerification(null)
-            setJustAddedContact(false)
+            setContactIdForVerification(null);
+            setJustAddedContact(false);
           }}
         >
           {justAddedContact && contactForVerification.status === 'not-confirmed' && <JustAddedContactMsg />}
         </VerifyModal>
       )}
     </>
-  )
-}
+  );
+};

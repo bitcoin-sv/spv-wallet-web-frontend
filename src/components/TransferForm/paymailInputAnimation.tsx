@@ -1,24 +1,24 @@
-import { HighlightAnimationClassName } from '@/styles/highlightAnimation'
-import { useCallback, useRef, RefObject } from 'react'
+import { HighlightAnimationClassName } from '@/styles/highlightAnimation';
+import { useCallback, useRef, RefObject } from 'react';
 
 type PaymailAnimation = {
-  startAnimation: () => void
-  ref: RefObject<HTMLInputElement>
-}
+  startAnimation: () => void;
+  ref: RefObject<HTMLInputElement>;
+};
 
 export const usePaymailInputAnimation = (): PaymailAnimation => {
-  const ref = useRef<HTMLInputElement>(null)
+  const ref = useRef<HTMLInputElement>(null);
 
   const startAnimation = useCallback(() => {
-    const element = ref.current
+    const element = ref.current;
     if (element == null) {
-      return
+      return;
     }
-    element.classList.remove(HighlightAnimationClassName)
+    element.classList.remove(HighlightAnimationClassName);
     setTimeout(() => {
-      element.classList.add(HighlightAnimationClassName)
-    }, 1)
-  }, [])
+      element.classList.add(HighlightAnimationClassName);
+    }, 1);
+  }, []);
 
-  return { startAnimation, ref }
-}
+  return { startAnimation, ref };
+};

@@ -1,26 +1,26 @@
-import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react'
+import { ButtonHTMLAttributes, FC, PropsWithChildren } from 'react';
 
-import { getLinkPropsFromTo } from '@/utils/buttons'
+import { getLinkPropsFromTo } from '@/utils/buttons';
 
-import { ButtonStyled, ButtonVariants } from './Button.styles'
-import { To } from 'history'
-import { CircularProgress } from '@mui/material'
+import { ButtonStyled, ButtonVariants } from './Button.styles';
+import { To } from 'history';
+import { CircularProgress } from '@mui/material';
 
 export type ButtonProps = {
-  isLink?: boolean
-  disabled?: boolean
-  fullWidth?: boolean
-  secondary?: boolean
-  underline?: boolean
-  isTextLink?: boolean
-  isOnlyIconButton?: boolean
-  to?: To
-  newTab?: boolean
-  small?: boolean
-  variant: ButtonVariants
-  loading?: boolean
+  isLink?: boolean;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  secondary?: boolean;
+  underline?: boolean;
+  isTextLink?: boolean;
+  isOnlyIconButton?: boolean;
+  to?: To;
+  newTab?: boolean;
+  small?: boolean;
+  variant: ButtonVariants;
+  loading?: boolean;
 } & PropsWithChildren &
-  ButtonHTMLAttributes<HTMLButtonElement>
+  ButtonHTMLAttributes<HTMLButtonElement>;
 export const Button: FC<ButtonProps> = ({
   children,
   isLink,
@@ -49,5 +49,5 @@ export const Button: FC<ButtonProps> = ({
     >
       {loading ? <CircularProgress size={16} /> : children}
     </ButtonStyled>
-  )
-}
+  );
+};

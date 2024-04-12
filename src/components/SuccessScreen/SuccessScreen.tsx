@@ -1,9 +1,9 @@
-import { Screen, ScreenText } from '@/components/SuccessScreen/SuccessScreen.styles'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { FC } from 'react'
+import { Screen, ScreenText } from '@/components/SuccessScreen/SuccessScreen.styles';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { FC } from 'react';
 
 interface ScreenProps {
-  text: string
+  text: string;
 }
 export const SuccessScreen: FC<ScreenProps> = ({ text }) => {
   return (
@@ -11,5 +11,5 @@ export const SuccessScreen: FC<ScreenProps> = ({ text }) => {
       <CheckCircleIcon />
       <ScreenText>{text}</ScreenText>
     </Screen>
-  )
-}
+  );
+};

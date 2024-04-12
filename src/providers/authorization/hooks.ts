@@ -1,11 +1,11 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 
-import { AuthorizationContext } from './provider'
+import { AuthorizationContext } from './provider';
 
 export const useAuthorization = () => {
-  const ctx = useContext(AuthorizationContext)
+  const ctx = useContext(AuthorizationContext);
   if (!ctx) {
-    throw new Error('useApi must be used within AuthorizationProvider')
+    throw new Error('useApi must be used within AuthorizationProvider');
   }
-  return ctx
-}
+  return ctx;
+};

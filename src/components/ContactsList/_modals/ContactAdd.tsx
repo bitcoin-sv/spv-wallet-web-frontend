@@ -1,16 +1,16 @@
-import { FC, useState } from 'react'
-import { Button } from '@/components/Button'
-import { ContactAddModal } from './ContactAddModal/ContactAddModal'
-import { useContacts } from '@/providers'
+import { FC, useState } from 'react';
+import { Button } from '@/components/Button';
+import { ContactAddModal } from './ContactAddModal/ContactAddModal';
+import { useContacts } from '@/providers';
 
 export const ContactAdd: FC = () => {
-  const [open, setOpen] = useState(false)
-  const { refresh } = useContacts()
+  const [open, setOpen] = useState(false);
+  const { refresh } = useContacts();
 
   const onSubmitted = () => {
-    setOpen(false)
-    refresh()
-  }
+    setOpen(false);
+    refresh();
+  };
 
   return (
     <>
@@ -19,5 +19,5 @@ export const ContactAdd: FC = () => {
       </Button>
       {open && <ContactAddModal open={true} onSubmitted={onSubmitted} onCancel={() => setOpen(false)} />}
     </>
-  )
-}
+  );
+};

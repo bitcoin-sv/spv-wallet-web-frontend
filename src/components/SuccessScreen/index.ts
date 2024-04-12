@@ -1,1 +1,1 @@
-export * from './SuccessScreen'
+export * from './SuccessScreen';

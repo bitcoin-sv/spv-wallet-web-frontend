@@ -1,8 +1,8 @@
 export type ExperimentalConfig = {
-  pike_enabled: boolean
-}
+  pike_enabled: boolean;
+};
 
 export type ServerConfig = {
-  paymail_domain: string
-  experimental_features: ExperimentalConfig
-}
+  paymail_domain: string;
+  experimental_features: ExperimentalConfig;
+};

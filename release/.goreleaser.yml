@@ -1,5 +1,5 @@
 snapshot:
-  name_template: "{{ .Tag }}-Snapshot"
+  name_template: '{{ .Tag }}-Snapshot'
 dist: release
 changelog:
   sort: asc
@@ -22,4 +22,4 @@ builds:
 # ---------------------------
 release:
   prerelease: false
-  name_template: "Release v{{.Version}}"
+  name_template: 'Release v{{.Version}}'

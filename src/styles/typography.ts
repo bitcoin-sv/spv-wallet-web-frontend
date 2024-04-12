@@ -1,15 +1,15 @@
-import { css } from '@emotion/react'
-import { media } from '@/styles/media'
+import { css } from '@emotion/react';
+import { media } from '@/styles/media';
 
 export const typography = {
   primaryFontFamily: "'Lato', 'Arial', sans-serif",
-}
+};
 
 export const fontWeight = {
   light: 300,
   regular: 400,
   bold: 600,
-}
+};
 
 export const getHeadlineSizes = () => {
   return css`
@@ -28,5 +28,5 @@ export const getHeadlineSizes = () => {
         font-size: 24px;
       }
     }
-  `
-}
+  `;
+};

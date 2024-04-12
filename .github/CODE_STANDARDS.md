@@ -77,7 +77,7 @@ const person = {
   firstName: 'Bill',
   lastName: null, // 🟥
   lastName: '', // ✅
-}
+};
 ```
 
 - If for some reason a default value cannot be assigned or it is impractical to assign a default value, assign a `null` value rather than an `undefined` value.
@@ -87,40 +87,40 @@ const person = {
   firstName: 'Bill',
   address: undefined, // 🟥
   address: null, // ✅
-}
+};
 ```
 
 - When code you have no control over (external library) or JavaScript itself may return undefined, convert it to null (or preferably to a default value if possible).
 
 ```ts
-const found = arr.find((item) => item > 5) // 🟥
-const found = arr.find((item) => item > 5) ?? null // ✅
+const found = arr.find((item) => item > 5); // 🟥
+const found = arr.find((item) => item > 5) ?? null; // ✅
 ```
 
 - Whenever writing TypeScript code, avoid using `any` and always annotate types for Props passed to a Component.
 
 ```ts
 interface MyComponentProps {
-  setName: any // 🟥
-  setName: React.Dispatch<React.SetStateAction<string>> // ✅
+  setName: any; // 🟥
+  setName: React.Dispatch<React.SetStateAction<string>>; // ✅
 }
 
-const MyComponent = (props: any) => {} // 🟥
-const MyComponent: FC<MyComponentProps> = ({ setName }) => {} // ✅
+const MyComponent = (props: any) => {}; // 🟥
+const MyComponent: FC<MyComponentProps> = ({ setName }) => {}; // ✅
 ```
 
 - Use curly braces `{}` instead of `new Object()`.
 
 ```ts
-const newObject = new Object() // 🟥
-const newObject = {} // ✅
+const newObject = new Object(); // 🟥
+const newObject = {}; // ✅
 ```
 
 - Use brackets `[]` instead of `new Array()`.
 
 ```ts
-const newArray = new Array() // 🟥
-const newArray = [] // ✅
+const newArray = new Array(); // 🟥
+const newArray = []; // ✅
 ```
 
 - Use `===` and `!==` instead of `==` and `!=`.
@@ -154,8 +154,8 @@ List of all categorized html tags with short description: [HTML Elements Referen
 - When an import needs to go to more than one directory above, use full-path imports.
 
 ```typescript
-import { MyComponent } from '../../../MyComponent' // 🟥
-import { MyComponent } from '/src/components/MyComponent' // ✅
+import { MyComponent } from '../../../MyComponent'; // 🟥
+import { MyComponent } from '/src/components/MyComponent'; // ✅
 ```
 
 ### 2.2 File structure
@@ -214,19 +214,19 @@ Developers are required to diligently cover their changes with tests and organiz
    - **Then**: Verify if the outcomes match the expectations.
 
    ```js
-   import { importantFunction } from './index.js'
+   import { importantFunction } from './index.js';
 
    test('Test Something Very Useful Is Happening', () => {
      // given
-     const functionInput = 'importantInput'
-     const expectedResult = 'importantResult'
+     const functionInput = 'importantInput';
+     const expectedResult = 'importantResult';
 
      // when
-     const result = importantFunction(functionInput)
+     const result = importantFunction(functionInput);
 
      // then
-     expect(result).toBe(expectedResult)
-   })
+     expect(result).toBe(expectedResult);
+   });
    ```
 
 4. **Test Isolation**: Ensure test isolation by avoiding the use of global variables and shared state. Each test should be independent and not rely on the execution of other tests. If a test requires a shared state, use a setup function to create the state before each test.

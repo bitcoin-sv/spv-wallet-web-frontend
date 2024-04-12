@@ -1,6 +1,6 @@
-import { ViewContent } from '@/components/_layout/ViewContent'
-import { Column, Row } from '@/styles/grid'
-import { PrivacyPolicyContent } from '@/components/LegalContent/_content/'
+import { ViewContent } from '@/components/_layout/ViewContent';
+import { Column, Row } from '@/styles/grid';
+import { PrivacyPolicyContent } from '@/components/LegalContent/_content/';
 
 export const PrivacyPolicy = () => {
   return (
@@ -11,5 +11,5 @@ export const PrivacyPolicy = () => {
         </Column>
       </Row>
     </ViewContent>
-  )
-}
+  );
+};

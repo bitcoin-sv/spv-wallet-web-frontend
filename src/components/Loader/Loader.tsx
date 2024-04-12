@@ -1,4 +1,4 @@
-import { LoaderContainer, SvgBullet } from '@/components/Loader/Loader.styles'
+import { LoaderContainer, SvgBullet } from '@/components/Loader/Loader.styles';
 
 export const Loader = () => {
   return (
@@ -13,5 +13,5 @@ export const Loader = () => {
         <circle id="c3" cx="10" cy="10" r="10" />
       </SvgBullet>
     </LoaderContainer>
-  )
-}
+  );
+};

@@ -1,42 +1,42 @@
-import { acceptContact, rejectContact } from '@/api/requests'
-import { SmallButton } from '@/components/Button'
-import { ConfirmationModal } from '@/components/Modal'
-import { FC, useState } from 'react'
+import { acceptContact, rejectContact } from '@/api/requests';
+import { SmallButton } from '@/components/Button';
+import { ConfirmationModal } from '@/components/Modal';
+import { FC, useState } from 'react';
 
 type AcceptRejectProps = {
-  paymail: string
-  onAccept: () => void
-  onReject: () => void
-}
+  paymail: string;
+  onAccept: () => void;
+  onReject: () => void;
+};
 
 export const AcceptReject: FC<AcceptRejectProps> = ({ paymail, onAccept, onReject }) => {
-  const [state, setState] = useState<'none' | 'accept' | 'reject'>('none')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [state, setState] = useState<'none' | 'accept' | 'reject'>('none');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const submitAccept = async () => {
-    await acceptContact(paymail)
-    onAccept()
-  }
+    await acceptContact(paymail);
+    onAccept();
+  };
 
   const submitReject = async () => {
-    await rejectContact(paymail)
-    onReject()
-  }
+    await rejectContact(paymail);
+    onReject();
+  };
 
   const onConfirm = async () => {
-    const submit = state === 'accept' ? submitAccept : submitReject
-    setError(false)
-    setLoading(true)
+    const submit = state === 'accept' ? submitAccept : submitReject;
+    setError(false);
+    setLoading(true);
     try {
-      await submit()
+      await submit();
     } catch {
-      setError(true)
+      setError(true);
     } finally {
-      setLoading(false)
-      setState('none')
+      setLoading(false);
+      setState('none');
     }
-  }
+  };
 
   return (
     <>
@@ -56,5 +56,5 @@ export const AcceptReject: FC<AcceptRejectProps> = ({ paymail, onAccept, onRejec
         onCancel={() => setState('none')}
       />
     </>
-  )
-}
+  );
+};

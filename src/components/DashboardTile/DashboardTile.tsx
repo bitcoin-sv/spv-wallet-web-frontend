@@ -1,13 +1,13 @@
-import { DashboardTileWrapper, TileTitle, TitleIconWrapper } from './DashboardTile.styles'
-import { FC, ReactNode } from 'react'
-import { Column, Row } from '@/styles/grid'
+import { DashboardTileWrapper, TileTitle, TitleIconWrapper } from './DashboardTile.styles';
+import { FC, ReactNode } from 'react';
+import { Column, Row } from '@/styles/grid';
 
 interface TileProps {
-  tileTitle: string
-  paymail?: string
-  titleIcon?: ReactNode
-  children?: ReactNode
-  fullHeight?: boolean
+  tileTitle: string;
+  paymail?: string;
+  titleIcon?: ReactNode;
+  children?: ReactNode;
+  fullHeight?: boolean;
 }
 
 export const DashboardTile: FC<TileProps> = ({ tileTitle, paymail, titleIcon, children, fullHeight }) => {
@@ -27,5 +27,5 @@ export const DashboardTile: FC<TileProps> = ({ tileTitle, paymail, titleIcon, ch
 
       <main>{children}</main>
     </DashboardTileWrapper>
-  )
-}
+  );
+};

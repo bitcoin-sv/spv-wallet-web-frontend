@@ -1,37 +1,37 @@
-import { FC, useCallback, useEffect, useState } from 'react'
-import styled from '@emotion/styled'
-import { variables } from '@/styles'
-import { colors, sizes } from '@/styles'
-import { getTOTP } from '@/api'
-import { CircularProgress } from '@mui/material'
+import { FC, useCallback, useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import { variables } from '@/styles';
+import { colors, sizes } from '@/styles';
+import { getTOTP } from '@/api';
+import { CircularProgress } from '@mui/material';
 
 export const useYourTOTP = (peerPaymai: string) => {
-  const [totp, setTotp] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [totp, setTotp] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchTotp = useCallback(async () => {
-    setLoading(true)
-    setError(false)
+    setLoading(true);
+    setError(false);
     try {
-      setTotp(await getTOTP(peerPaymai))
+      setTotp(await getTOTP(peerPaymai));
     } catch {
-      setError(true)
+      setError(true);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [peerPaymai])
+  }, [peerPaymai]);
 
   useEffect(() => {
-    fetchTotp()
-  }, [fetchTotp])
+    fetchTotp();
+  }, [fetchTotp]);
 
-  return { totp, loading, error }
-}
+  return { totp, loading, error };
+};
 
 type YourTOTPProps = ReturnType<typeof useYourTOTP> & {
-  peerName: string
-}
+  peerName: string;
+};
 
 export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, peerName }) => {
   return (
@@ -44,12 +44,12 @@ export const YourTOTP: FC<YourTOTPProps> = ({ error, loading, totp, peerName }) 
         </span>
       )}
     </Container>
-  )
-}
+  );
+};
 
 type ContainerProps = {
-  error: boolean
-}
+  error: boolean;
+};
 
 const Container = styled.div<ContainerProps>`
     padding: ${sizes(4)};
@@ -59,4 +59,4 @@ const Container = styled.div<ContainerProps>`
     box-shadow: ${variables.shadow.inputEffectShadow};
     background-color: ${({ error }) => (error ? colors.primaryBackground : colors.infoBackground)};
 }
-`
+`;

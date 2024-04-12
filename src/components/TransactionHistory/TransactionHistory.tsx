@@ -1,7 +1,7 @@
-import { DashboardTile } from '@/components/DashboardTile'
-import DataThresholdingIcon from '@mui/icons-material/DataThresholding'
-import { TransactionTable } from '@/components/TransactionHistory/TransactionTable'
-import { Column, Row } from '@/styles/grid'
+import { DashboardTile } from '@/components/DashboardTile';
+import DataThresholdingIcon from '@mui/icons-material/DataThresholding';
+import { TransactionTable } from '@/components/TransactionHistory/TransactionTable';
+import { Column, Row } from '@/styles/grid';
 
 export const TransactionHistory = () => {
   return (
@@ -12,5 +12,5 @@ export const TransactionHistory = () => {
         </Column>
       </Row>
     </DashboardTile>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
-import { breakpoints } from './breakpoints'
+import { breakpoints } from './breakpoints';
 
 function buildQuery(br: string) {
-  return `@media screen and (min-width: ${br})`
+  return `@media screen and (min-width: ${br})`;
 }
 
 export const media = {
@@ -13,4 +13,4 @@ export const media = {
   xl: buildQuery(breakpoints.xl),
   xxl: buildQuery(breakpoints.xxl),
   xxxl: buildQuery(breakpoints.xxxl),
-}
+};

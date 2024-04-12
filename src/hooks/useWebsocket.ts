@@ -1,83 +1,83 @@
-import { useWsUrl } from '@/api/wsUrl.ts'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Centrifuge, MessageContext, Subscription } from 'centrifuge'
-import { WebsocketTransaction } from '@/api/types'
-import { toast } from 'react-toastify'
+import { useWsUrl } from '@/api/wsUrl.ts';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Centrifuge, MessageContext, Subscription } from 'centrifuge';
+import { WebsocketTransaction } from '@/api/types';
+import { toast } from 'react-toastify';
 
 export const useWebsocket = () => {
-  const [isInitialized, setIsInitialized] = useState(false)
-  const [retries, setRetries] = useState(0)
-  const wsUrl = useWsUrl()
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [retries, setRetries] = useState(0);
+  const wsUrl = useWsUrl();
 
-  const centrifuge = useMemo(() => new Centrifuge(wsUrl, { websocket: WebSocket }), [wsUrl])
+  const centrifuge = useMemo(() => new Centrifuge(wsUrl, { websocket: WebSocket }), [wsUrl]);
 
   const connect = useCallback(() => {
     if (!isInitialized) {
-      setIsInitialized(true)
-      centrifuge.connect()
+      setIsInitialized(true);
+      centrifuge.connect();
     }
-  }, [centrifuge, isInitialized])
+  }, [centrifuge, isInitialized]);
 
   const disconnect = useCallback(() => {
-    setIsInitialized(false)
-    centrifuge.disconnect()
-  }, [centrifuge])
+    setIsInitialized(false);
+    centrifuge.disconnect();
+  }, [centrifuge]);
 
   useEffect(() => {
     const handleMessage = (ctx: MessageContext) => {
-      const event: WebsocketTransaction | undefined = ctx?.data
+      const event: WebsocketTransaction | undefined = ctx?.data;
 
       if (event !== null && typeof event == 'object' && !Array.isArray(event)) {
-        const { eventType, status, error } = event
+        const { eventType, status, error } = event;
         switch (eventType) {
           case 'create_transaction':
             if (status === 'success') {
-              toast.success('Transaction successfully sent')
+              toast.success('Transaction successfully sent');
             } else if (status === 'error') {
-              toast.error(error || 'Error while sending transaction')
+              toast.error(error || 'Error while sending transaction');
             }
-            break
+            break;
         }
       }
-    }
+    };
 
     const handleError = () => {
-      setRetries((prevState) => prevState + 1)
+      setRetries((prevState) => prevState + 1);
       if (retries >= 3) {
-        centrifuge.disconnect()
+        centrifuge.disconnect();
       }
-    }
+    };
 
-    centrifuge.on('message', handleMessage)
-    centrifuge.on('error', handleError)
+    centrifuge.on('message', handleMessage);
+    centrifuge.on('error', handleError);
 
     return () => {
-      centrifuge.removeAllListeners('message')
-      centrifuge.removeAllListeners('error')
-    }
-  }, [centrifuge, retries])
+      centrifuge.removeAllListeners('message');
+      centrifuge.removeAllListeners('error');
+    };
+  }, [centrifuge, retries]);
 
   useEffect(() => {
-    const channel = 'spv-wallet'
-    let sub: Subscription
+    const channel = 'spv-wallet';
+    let sub: Subscription;
     if (!centrifuge.getSubscription(channel)) {
-      sub = centrifuge.newSubscription(channel)
-      sub.subscribe()
+      sub = centrifuge.newSubscription(channel);
+      sub.subscribe();
     }
 
     return () => {
       if (sub) {
-        sub.unsubscribe()
-        sub.removeAllListeners()
+        sub.unsubscribe();
+        sub.removeAllListeners();
       }
-    }
-  }, [centrifuge])
+    };
+  }, [centrifuge]);
 
   useEffect(() => {
-    connect()
-  }, [connect])
+    connect();
+  }, [connect]);
 
   useEffect(() => {
-    return () => disconnect()
-  }, [disconnect])
-}
+    return () => disconnect();
+  }, [disconnect]);
+};

@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
-import { colors, sizes } from '@/styles'
-import { variables } from '@/styles/variables'
-import { media } from '@/styles/media'
-import { Button } from '@/components/Button'
+import styled from '@emotion/styled';
+import { colors, sizes } from '@/styles';
+import { variables } from '@/styles/variables';
+import { media } from '@/styles/media';
+import { Button } from '@/components/Button';
 
 export const BarWrapper = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const BarWrapper = styled.div`
     margin-left: auto;
     margin-right: auto;
   }
-`
+`;
 
 export const ErrorText = styled.p`
   padding-top: ${sizes(1)};
@@ -27,10 +27,10 @@ export const ErrorText = styled.p`
   margin-bottom: 0;
   text-align: left;
   flex-grow: 1;
-`
+`;
 
 export const ReloadButton = styled(Button)`
   display: block;
   width: 200px;
   margin: ${sizes(12)} auto;
-`
+`;

@@ -1,48 +1,48 @@
-import { Modal } from '@/components/Modal'
-import { FC, useEffect, useState } from 'react'
+import { Modal } from '@/components/Modal';
+import { FC, useEffect, useState } from 'react';
 import {
   DataName,
   DetailsLink,
   DetailsList,
   ListElement,
   Highlighted,
-} from '@/components/Modal/_modals/TransactionDetailsModal/TransactionDetailsModal.styles'
-import { getTransactionsDetails } from '@/api/requests'
-import { TransactionDetails } from '@/api/types'
-import { format } from 'date-fns'
-import { Loader } from '@/components/Loader'
-import { ErrorBar } from '@/components/ErrorBar'
-import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv'
-import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton'
+} from '@/components/Modal/_modals/TransactionDetailsModal/TransactionDetailsModal.styles';
+import { getTransactionsDetails } from '@/api/requests';
+import { TransactionDetails } from '@/api/types';
+import { format } from 'date-fns';
+import { Loader } from '@/components/Loader';
+import { ErrorBar } from '@/components/ErrorBar';
+import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
+import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton';
 
 type TransactionDetailsProps = {
-  open: boolean
-  onClose?: () => void
-  id: string | ''
-}
+  open: boolean;
+  onClose?: () => void;
+  id: string | '';
+};
 
 export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, onClose, id }) => {
-  const [transactionData, setTransactionData] = useState<TransactionDetails | null>(null)
-  const [errors, setErrors] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(true)
+  const [transactionData, setTransactionData] = useState<TransactionDetails | null>(null);
+  const [errors, setErrors] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setErrors('')
+    setErrors('');
     getTransactionsDetails(id)
       .then((response) => {
-        setTransactionData(response)
+        setTransactionData(response);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later'
-        errorMsg && setErrors(errorMsg)
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later';
+        errorMsg && setErrors(errorMsg);
       })
       .finally(() => {
-        setLoading(false)
-      })
-  }, [id])
+        setLoading(false);
+      });
+  }, [id]);
 
-  const isIncoming = transactionData?.direction === 'incoming'
-  const isOutgoing = transactionData?.direction === 'outgoing'
+  const isIncoming = transactionData?.direction === 'incoming';
+  const isOutgoing = transactionData?.direction === 'outgoing';
 
   return (
     <Modal
@@ -123,5 +123,5 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, onC
         )}
       </>
     </Modal>
-  )
-}
+  );
+};

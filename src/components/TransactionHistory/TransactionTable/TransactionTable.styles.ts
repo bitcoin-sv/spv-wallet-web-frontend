@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
-import { colors, fontWeight, sizes } from '@/styles'
-import { media } from '@/styles/media'
-import { css } from '@emotion/react'
-import { variables } from '@/styles/variables'
+import styled from '@emotion/styled';
+import { colors, fontWeight, sizes } from '@/styles';
+import { media } from '@/styles/media';
+import { css } from '@emotion/react';
+import { variables } from '@/styles/variables';
 
 interface TableWrapperProps {
-  withPagination?: boolean
+  withPagination?: boolean;
 }
 
 export const TableWrapper = styled.div<TableWrapperProps>`
@@ -20,21 +20,21 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   ${media.sm} {
     overflow-x: auto;
   }
-`
+`;
 
 export const CurrentPage = styled.p`
   margin: ${sizes(4)} 0 ${sizes(6)};
   font-size: 22px;
   text-align: right;
-`
+`;
 
 export const PageNumber = styled.span`
   font-weight: ${fontWeight.bold};
-`
+`;
 
 type TableProps = {
-  clickable?: boolean
-}
+  clickable?: boolean;
+};
 
 export const Table = styled.table<TableProps>`
   width: 100%;
@@ -114,24 +114,24 @@ export const Table = styled.table<TableProps>`
       }
     }
   }
-`
+`;
 
 interface ContentWithInfoTip {
-  isConfirmed?: boolean
-  uppercase?: boolean
+  isConfirmed?: boolean;
+  uppercase?: boolean;
 }
 
 const getContentForBefore = ({ isConfirmed }: ContentWithInfoTip) => {
   if (isConfirmed === true || isConfirmed === false) {
     return css`
       content: '';
-    `
+    `;
   }
 
   return css`
     content: none;
-  `
-}
+  `;
+};
 
 export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
   position: relative;
@@ -174,7 +174,7 @@ export const ContentWithInfoTip = styled.span<ContentWithInfoTip>`
     background: ${({ isConfirmed }) => (isConfirmed ? colors.transactionConfirmed : colors.transactionUnconfirmed)};
     pointer-events: none;
   }
-`
+`;
 
 export const LargeTh = styled.th`
   width: 55%;
@@ -186,7 +186,7 @@ export const LargeTh = styled.th`
   ${media.xl} {
     width: 310px;
   }
-`
+`;
 export const LargeTd = styled.td`
   width: 55%;
 
@@ -197,7 +197,7 @@ export const LargeTd = styled.td`
   ${media.xl} {
     width: 310px;
   }
-`
+`;
 
 export const MediumTh = styled.th`
   width: 45%;
@@ -209,7 +209,7 @@ export const MediumTh = styled.th`
   ${media.xl} {
     width: 200px;
   }
-`
+`;
 export const MediumTd = styled.td`
   width: 45%;
 
@@ -220,7 +220,7 @@ export const MediumTd = styled.td`
   ${media.xl} {
     width: 200px;
   }
-`
+`;
 
 export const SmallTh = styled.th`
   width: 10%;
@@ -232,7 +232,7 @@ export const SmallTh = styled.th`
   ${media.xl} {
     width: 100px;
   }
-`
+`;
 export const SmallTd = styled.td`
   width: 10%;
 
@@ -243,13 +243,13 @@ export const SmallTd = styled.td`
   ${media.xl} {
     width: 100px;
   }
-`
+`;
 
 export const UserPrefix = styled.span`
   display: block;
   text-align: left;
   font-size: 12px;
-`
+`;
 
 export const Highlighted = styled('span')`
   display: block;
@@ -265,10 +265,10 @@ export const Highlighted = styled('span')`
   ${media.md} {
     width: inherit;
   }
-`
+`;
 
 export const NoDataInfo = styled.p`
   text-align: center;
   margin: ${sizes(8)};
   font-size: 24px;
-`
+`;

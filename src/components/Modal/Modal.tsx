@@ -7,29 +7,29 @@ import {
   ModalMainContent,
   ModalSubheadline,
   ModalWrapper,
-} from '@/components/Modal/Modal.styles'
-import { FC, ReactNode, useEffect } from 'react'
-import { ButtonProps } from '@/components/Button'
-import { disablePageScroll, enablePageScroll } from 'scroll-lock'
-import { SuccessScreen } from '@/components/SuccessScreen'
+} from '@/components/Modal/Modal.styles';
+import { FC, ReactNode, useEffect } from 'react';
+import { ButtonProps } from '@/components/Button';
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
+import { SuccessScreen } from '@/components/SuccessScreen';
 
-const KEY_NAME_ESC = 'Escape'
+const KEY_NAME_ESC = 'Escape';
 
 type ModalButtonProps = {
-  text: string
-  primaryButtonOnClickHandler?: () => void
-} & ButtonProps
+  text: string;
+  primaryButtonOnClickHandler?: () => void;
+} & ButtonProps;
 
 interface ModalProps {
-  open: boolean
-  modalTitle?: string
-  modalSubtitle?: string
-  children?: ReactNode
-  primaryButton?: ModalButtonProps
-  secondaryButton?: ModalButtonProps
-  successScreenMsg?: string
-  onCloseByEsc?: () => void
-  isLoading?: boolean
+  open: boolean;
+  modalTitle?: string;
+  modalSubtitle?: string;
+  children?: ReactNode;
+  primaryButton?: ModalButtonProps;
+  secondaryButton?: ModalButtonProps;
+  successScreenMsg?: string;
+  onCloseByEsc?: () => void;
+  isLoading?: boolean;
 }
 export const Modal: FC<ModalProps> = ({
   open,
@@ -43,25 +43,25 @@ export const Modal: FC<ModalProps> = ({
   isLoading,
 }) => {
   useEffect(() => {
-    open ? disablePageScroll() : enablePageScroll()
+    open ? disablePageScroll() : enablePageScroll();
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((successScreenMsg && successScreenMsg !== '') || isLoading) {
-        return
+        return;
       }
 
       if (onCloseByEsc && e.code === KEY_NAME_ESC) {
-        onCloseByEsc()
+        onCloseByEsc();
       }
-    }
+    };
 
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      enablePageScroll()
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [open, isLoading, successScreenMsg, onCloseByEsc])
+      enablePageScroll();
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, isLoading, successScreenMsg, onCloseByEsc]);
 
   return (
     <>
@@ -88,5 +88,5 @@ export const Modal: FC<ModalProps> = ({
         </ModalWrapper>
       )}
     </>
-  )
-}
+  );
+};

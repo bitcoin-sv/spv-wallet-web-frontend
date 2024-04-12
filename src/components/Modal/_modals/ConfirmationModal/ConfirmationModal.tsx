@@ -1,16 +1,16 @@
-import { Modal } from '@/components/Modal'
-import { FC } from 'react'
-import { ErrorBar } from '@/components/ErrorBar'
+import { Modal } from '@/components/Modal';
+import { FC } from 'react';
+import { ErrorBar } from '@/components/ErrorBar';
 
 export type ConfirmationModalProps = {
-  open: boolean
-  onConfirm?: () => void
-  onCancel?: () => void
-  error?: string
-  loading?: boolean
-  title?: string
-  subtitle?: string
-}
+  open: boolean;
+  onConfirm?: () => void;
+  onCancel?: () => void;
+  error?: string;
+  loading?: boolean;
+  title?: string;
+  subtitle?: string;
+};
 
 export const ConfirmationModal: FC<ConfirmationModalProps> = ({
   open,
@@ -32,5 +32,5 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
     >
       {error && <ErrorBar errorMsg={error} withReloadButton />}
     </Modal>
-  )
-}
+  );
+};

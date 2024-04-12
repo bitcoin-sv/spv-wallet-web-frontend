@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { checker } from 'vite-plugin-checker'
-import * as path from 'path'
-import { VitePWA } from 'vite-plugin-pwa'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { checker } from 'vite-plugin-checker';
+import * as path from 'path';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // @ts-ignore it's just a config file
 // https://vitejs.dev/config/
@@ -50,4 +50,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-})
+});

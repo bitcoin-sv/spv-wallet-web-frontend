@@ -1,4 +1,4 @@
-import { StepsList } from '@/components/StepsList'
+import { StepsList } from '@/components/StepsList';
 import {
   BoxLabel,
   CopiedConfirmation,
@@ -8,38 +8,38 @@ import {
   StepDesc,
   StepElement,
   StepHeadline,
-} from '@/components/StepsList/StepsList.styles'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { SrOnlySpan } from '@/styles'
-import { Button } from '@/components/Button'
-import { FC, useState } from 'react'
+} from '@/components/StepsList/StepsList.styles';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { SrOnlySpan } from '@/styles';
+import { Button } from '@/components/Button';
+import { FC, useState } from 'react';
 
 interface ListProps {
-  mnemonic: string
-  paymail: string
+  mnemonic: string;
+  paymail: string;
 }
 
 export const AfterRegistrationSteps: FC<ListProps> = ({ mnemonic, paymail }) => {
-  const [mnemonicCopied, setMnemonicCopied] = useState(false)
-  const [paymailCopied, setPaymailCopiedCopied] = useState(false)
+  const [mnemonicCopied, setMnemonicCopied] = useState(false);
+  const [paymailCopied, setPaymailCopiedCopied] = useState(false);
   const copyToClipboardHandler = (textToCopy: string) => {
-    setMnemonicCopied(false)
-    setPaymailCopiedCopied(false)
-    navigator.clipboard.writeText(textToCopy)
+    setMnemonicCopied(false);
+    setPaymailCopiedCopied(false);
+    navigator.clipboard.writeText(textToCopy);
 
     if (textToCopy === mnemonic) {
-      setMnemonicCopied(true)
+      setMnemonicCopied(true);
     }
 
     if (textToCopy === paymail) {
-      setPaymailCopiedCopied(true)
+      setPaymailCopiedCopied(true);
     }
 
     setTimeout(() => {
-      setMnemonicCopied(false)
-      setPaymailCopiedCopied(false)
-    }, 5000)
-  }
+      setMnemonicCopied(false);
+      setPaymailCopiedCopied(false);
+    }, 5000);
+  };
 
   return (
     <StepsList>
@@ -86,5 +86,5 @@ export const AfterRegistrationSteps: FC<ListProps> = ({ mnemonic, paymail }) => 
         </Button>
       </StepElement>
     </StepsList>
-  )
-}
+  );
+};

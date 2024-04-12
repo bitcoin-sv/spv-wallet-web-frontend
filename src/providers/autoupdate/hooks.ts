@@ -1,11 +1,11 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 
-import { AutoupdateContext } from './provider'
+import { AutoupdateContext } from './provider';
 
 export const useAutoupdate = () => {
-  const ctx = useContext(AutoupdateContext)
+  const ctx = useContext(AutoupdateContext);
   if (!ctx) {
-    throw new Error('useApi must be used within AuthorizationProvider')
+    throw new Error('useApi must be used within AuthorizationProvider');
   }
-  return ctx
-}
+  return ctx;
+};

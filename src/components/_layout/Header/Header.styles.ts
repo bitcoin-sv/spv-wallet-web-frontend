@@ -1,11 +1,11 @@
-import styled from '@emotion/styled'
-import { sizes } from '@/styles'
-import { Button } from '@/components/Button'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { sizes } from '@/styles';
+import { Button } from '@/components/Button';
+import { media } from '@/styles/media';
 
 type AuthorizationProps = {
-  isAuthorized?: boolean
-}
+  isAuthorized?: boolean;
+};
 
 export const HeaderStyled = styled.header<AuthorizationProps>`
   padding: ${sizes(2)} 0;
@@ -14,7 +14,7 @@ export const HeaderStyled = styled.header<AuthorizationProps>`
   ${media.sm} {
     padding: ${sizes(4)} 0;
   }
-`
+`;
 
 export const HeaderContent = styled.div<AuthorizationProps>`
   display: flex;
@@ -26,7 +26,7 @@ export const HeaderContent = styled.div<AuthorizationProps>`
   nav {
     flex-grow: ${({ isAuthorized }) => (isAuthorized ? '1' : 'initial')};
   }
-`
+`;
 
 export const LogoLink = styled(Button)<AuthorizationProps>`
   padding: 0;
@@ -39,7 +39,7 @@ export const LogoLink = styled(Button)<AuthorizationProps>`
   ${media.md} {
     margin-right: ${({ isAuthorized: authorizationState }) => (authorizationState ? sizes(12) : 'initial')};
   }
-`
+`;
 
 export const Logo = styled.img`
   width: 115px;
@@ -50,7 +50,7 @@ export const Logo = styled.img`
   ${media.sm} {
     width: 250px;
   }
-`
+`;
 
 export const LogoBackButton = styled.div`
   display: flex;
@@ -60,4 +60,4 @@ export const LogoBackButton = styled.div`
   :hover {
     opacity: 0.8;
   }
-`
+`;

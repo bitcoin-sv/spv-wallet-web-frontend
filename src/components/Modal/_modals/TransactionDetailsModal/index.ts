@@ -1,1 +1,1 @@
-export * from './TransactionDetailsModal'
+export * from './TransactionDetailsModal';

@@ -1,1 +1,1 @@
-export * from './TransactionConfirmModal'
+export * from './TransactionConfirmModal';

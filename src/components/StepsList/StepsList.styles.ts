@@ -1,14 +1,14 @@
-import styled from '@emotion/styled'
-import { colors, fontWeight, sizes } from '@/styles'
-import { variables } from '@/styles/variables'
-import { Button } from '@/components/Button'
-import { media } from '@/styles/media'
+import styled from '@emotion/styled';
+import { colors, fontWeight, sizes } from '@/styles';
+import { variables } from '@/styles/variables';
+import { Button } from '@/components/Button';
+import { media } from '@/styles/media';
 
 export const StepsListStyles = styled.ul`
   counter-reset: decimal-counter;
   text-align: left;
   margin: ${sizes(12)} 0;
-`
+`;
 
 export const StepElement = styled.li`
   position: relative;
@@ -45,11 +45,11 @@ export const StepElement = styled.li`
       font-size: 14px;
     }
   }
-`
+`;
 
 export const StepHeadline = styled.h3`
   margin-bottom: ${sizes(1)};
-`
+`;
 
 export const StepDesc = styled.p`
   font-size: 14px;
@@ -57,7 +57,7 @@ export const StepDesc = styled.p`
   & > strong {
     line-height: 2;
   }
-`
+`;
 
 export const DataBox = styled.div`
   position: relative;
@@ -73,11 +73,11 @@ export const DataBox = styled.div`
   ${media.sm} {
     margin-top: ${sizes(6)};
   }
-`
+`;
 
 export const DataText = styled.p`
   margin: 0;
-`
+`;
 
 export const BoxLabel = styled.small`
   position: absolute;
@@ -86,14 +86,14 @@ export const BoxLabel = styled.small`
   font-size: 12px;
   font-weight: ${fontWeight.regular};
   color: ${colors.lightPrimary};
-`
+`;
 
 export const CopyButton = styled(Button)`
   position: absolute;
   top: 50%;
   right: ${sizes(1)};
   transform: translateY(-50%);
-`
+`;
 
 export const CopiedConfirmation = styled.span`
   position: absolute;
@@ -103,4 +103,4 @@ export const CopiedConfirmation = styled.span`
   font-weight: ${fontWeight.regular};
   color: ${colors.lightPrimary};
   word-spacing: initial;
-`
+`;

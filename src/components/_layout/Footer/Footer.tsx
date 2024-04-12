@@ -1,8 +1,8 @@
-import { Column, Row } from '@/styles/grid'
-import { CopyrightText, FooterContent, FooterStyled } from '@/components/_layout/Footer/Footer.styles'
-import { Button } from '@/components/Button'
-import { Navigation } from '@/components/Navigation'
-import { NavElement } from '@/components/Navigation/Navigation.styes'
+import { Column, Row } from '@/styles/grid';
+import { CopyrightText, FooterContent, FooterStyled } from '@/components/_layout/Footer/Footer.styles';
+import { Button } from '@/components/Button';
+import { Navigation } from '@/components/Navigation';
+import { NavElement } from '@/components/Navigation/Navigation.styes';
 
 export const Footer = () => {
   return (
@@ -28,5 +28,5 @@ export const Footer = () => {
         </Column>
       </Row>
     </FooterStyled>
-  )
-}
+  );
+};

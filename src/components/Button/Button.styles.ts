@@ -1,49 +1,49 @@
-import isPropValid from '@emotion/is-prop-valid'
-import styled from '@emotion/styled'
-import { sizes } from '@/styles/sizes'
-import { colors } from '@/styles/colors'
-import { css } from '@emotion/react'
-import { fontWeight } from '@/styles'
-import { variables } from '@/styles/variables'
-import { media } from '@/styles/media'
+import isPropValid from '@emotion/is-prop-valid';
+import styled from '@emotion/styled';
+import { sizes } from '@/styles/sizes';
+import { colors } from '@/styles/colors';
+import { css } from '@emotion/react';
+import { fontWeight } from '@/styles';
+import { variables } from '@/styles/variables';
+import { media } from '@/styles/media';
 
-export type ButtonVariants = 'primary' | 'transparent' | 'accept' | 'reject'
+export type ButtonVariants = 'primary' | 'transparent' | 'accept' | 'reject';
 
 interface ButtonProps {
-  isLink?: boolean
-  fullWidth?: boolean
-  disabled?: boolean
-  secondary?: boolean
-  underline?: boolean
-  isTextLink?: boolean
-  isOnlyIconButton?: boolean
-  small?: boolean
-  variant: ButtonVariants
+  isLink?: boolean;
+  fullWidth?: boolean;
+  disabled?: boolean;
+  secondary?: boolean;
+  underline?: boolean;
+  isTextLink?: boolean;
+  isOnlyIconButton?: boolean;
+  small?: boolean;
+  variant: ButtonVariants;
 }
 
 export const getButtonColorVariant = ({ variant }: ButtonProps) => {
   if (variant === 'primary') {
     return css`
       background: ${variables.gradients.buttonPrimaryBackground};
-    `
+    `;
   }
   if (variant === 'transparent') {
     return css`
       background: transparent;
       border: none;
-    `
+    `;
   }
   if (variant === 'reject') {
     return css`
       background: linear-gradient(90deg, rgba(255, 141, 104, 1) 0%, rgba(255, 119, 84, 1) 100%);
-    `
+    `;
   }
   if (variant === 'accept') {
     return css`
       background: linear-gradient(90deg, rgba(76, 228, 246, 1) 0%, rgba(42, 163, 219, 1) 100%);
-    `
+    `;
   }
-}
+};
 
 export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconButton, small }: ButtonProps) => {
   if (isOnlyIconButton) {
@@ -52,7 +52,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
       background: transparent;
       color: inherit;
       border: none;
-    `
+    `;
   }
 
   if (isLink) {
@@ -65,7 +65,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
         &:hover {
           text-decoration: none;
         }
-      `
+      `;
     }
 
     if (underline) {
@@ -76,7 +76,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
         &:hover {
           text-decoration: none;
         }
-      `
+      `;
     }
 
     return css`
@@ -110,7 +110,7 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
           opacity: 1;
         }
       }
-    `
+    `;
   }
 
   return css`
@@ -136,8 +136,8 @@ export const getDetailedStyles = ({ isLink, underline, isTextLink, isOnlyIconBut
     &:focus-visible {
       outline-color: ${colors.lightPrimary};
     }
-  `
-}
+  `;
+};
 
 export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })<ButtonProps>`
   position: relative;
@@ -161,4 +161,4 @@ export const ButtonStyled = styled('button', { shouldForwardProp: isPropValid })
   &:focus-visible {
     outline-color: ${colors.lightPrimary};
   }
-`
+`;

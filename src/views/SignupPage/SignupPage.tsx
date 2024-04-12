@@ -1,75 +1,75 @@
-import { Input } from '@/components/Input'
-import { FormCard } from '@/components/FormCard'
-import { CustomCheckbox } from '@/components/CustomCheckbox'
-import { Button } from '@/components/Button'
-import { ViewContent } from '@/components/_layout/ViewContent'
-import { Column, Row } from '@/styles/grid'
-import { FormEvent, useState } from 'react'
-import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from '@/utils/constants'
-import { ErrorBar } from '@/components/ErrorBar'
-import { Loader } from '@/components/Loader'
-import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps'
-import { RegisterNewUserDto } from '@/api/types/user'
-import { registerUser } from '@/api'
-import { PasswordInput } from '@/components/Input/PasswordInput'
+import { Input } from '@/components/Input';
+import { FormCard } from '@/components/FormCard';
+import { CustomCheckbox } from '@/components/CustomCheckbox';
+import { Button } from '@/components/Button';
+import { ViewContent } from '@/components/_layout/ViewContent';
+import { Column, Row } from '@/styles/grid';
+import { FormEvent, useState } from 'react';
+import { EMAIL_REGEX, PASSWORD_MIN_LENGTH } from '@/utils/constants';
+import { ErrorBar } from '@/components/ErrorBar';
+import { Loader } from '@/components/Loader';
+import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegistrationSteps';
+import { RegisterNewUserDto } from '@/api/types/user';
+import { registerUser } from '@/api';
+import { PasswordInput } from '@/components/Input/PasswordInput';
 
 export const SignupPage = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [confirmedPassword, setConfirmedPassword] = useState<string>('')
-  const [agreementTerms, setAgreementTerms] = useState<boolean>(false)
-  const [agreementPolicy, setAgreementPolicy] = useState<boolean>(false)
-  const [errors, setErrors] = useState<string>('')
-  const [registered, setRegistered] = useState(false)
-  const [mnemonic, setMnemonic] = useState<string>('')
-  const [paymail, setPaymail] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmedPassword, setConfirmedPassword] = useState<string>('');
+  const [agreementTerms, setAgreementTerms] = useState<boolean>(false);
+  const [agreementPolicy, setAgreementPolicy] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string>('');
+  const [registered, setRegistered] = useState(false);
+  const [mnemonic, setMnemonic] = useState<string>('');
+  const [paymail, setPaymail] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (!email || !password || !confirmedPassword || !agreementTerms || !agreementPolicy) {
-      return
+      return;
     }
 
     if (!email.match(EMAIL_REGEX)) {
-      setErrors('Invalid email address!')
-      return
+      setErrors('Invalid email address!');
+      return;
     }
 
     if (password !== confirmedPassword) {
-      setErrors("Passwords don't match")
-      return
+      setErrors("Passwords don't match");
+      return;
     }
 
     if (password.length < PASSWORD_MIN_LENGTH) {
-      setErrors('Password is too short. Minimum length is 8 characters.')
-      return
+      setErrors('Password is too short. Minimum length is 8 characters.');
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     const newUser: RegisterNewUserDto = {
       email,
       password,
       passwordConfirmation: confirmedPassword,
-    }
+    };
 
     registerUser(newUser)
       .then((response) => {
-        setRegistered(true)
-        setErrors('')
-        setMnemonic(response.mnemonic)
-        setPaymail(response.paymail)
-        setLoading(false)
+        setRegistered(true);
+        setErrors('');
+        setMnemonic(response.mnemonic);
+        setPaymail(response.paymail);
+        setLoading(false);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!'
-        setErrors(errorMsg)
-        setRegistered(false)
-        setLoading(false)
-      })
-  }
+        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
+        setErrors(errorMsg);
+        setRegistered(false);
+        setLoading(false);
+      });
+  };
 
   return (
     <ViewContent centeredContent>
@@ -148,5 +148,5 @@ export const SignupPage = () => {
         </Column>
       </Row>
     </ViewContent>
-  )
-}
+  );
+};

@@ -22,4 +22,4 @@ export const colors = {
   transactionOutgoing: '#ff3434',
   textHighlighted: '#ff774e',
   warningBackground: '#f68989',
-}
+};

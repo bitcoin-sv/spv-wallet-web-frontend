@@ -1,12 +1,12 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true,
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
   },
-  "settings": {
-    "react": {
-      "version": "detect"
+  settings: {
+    react: {
+      version: 'detect',
     },
     'import/resolver': {
       node: {
@@ -19,7 +19,7 @@ module.exports = {
       },
     },
   },
-  "extends": [
+  extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
@@ -29,30 +29,25 @@ module.exports = {
     'prettier',
     'eslint-config-prettier',
   ],
-  "overrides": [
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module",
-    project: "./tsconfig.json"
+  overrides: [],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json',
   },
-  "plugins": [
-    "react",
-    "@emotion",
-    "@typescript-eslint"
-  ],
-  "rules": {
-    "react/no-unescaped-entities": 0,
-    "react/react-in-jsx-scope": "off",
+  plugins: ['react', '@emotion', '@typescript-eslint'],
+  rules: {
+    'react/no-unescaped-entities': 0,
+    'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
     'react/self-closing-comp': [
       'warn',
       {
-        'component': true,
-        'html': true,
+        component: true,
+        html: true,
       },
     ],
     '@typescript-eslint/ban-ts-comment': [
@@ -64,5 +59,5 @@ module.exports = {
     '@emotion/pkg-renaming': 'error',
     '@emotion/no-vanilla': 'error',
     '@emotion/syntax-preference': [2, 'string'],
-  }
-}
+  },
+};

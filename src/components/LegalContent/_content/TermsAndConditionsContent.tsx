@@ -1,8 +1,8 @@
-import { LegalList, MainHeadline, TextLink } from '@/components/LegalContent/LegalContent.styles'
-import { usePaymailDomain } from '@/hooks/usePaymailDomain'
+import { LegalList, MainHeadline, TextLink } from '@/components/LegalContent/LegalContent.styles';
+import { usePaymailDomain } from '@/hooks/usePaymailDomain';
 
 export const TermsAndConditionsContent = () => {
-  const paymailDomain = usePaymailDomain()
+  const paymailDomain = usePaymailDomain();
 
   return (
     <>
@@ -121,5 +121,5 @@ export const TermsAndConditionsContent = () => {
         </TextLink>{' '}
       </p>
     </>
-  )
-}
+  );
+};
