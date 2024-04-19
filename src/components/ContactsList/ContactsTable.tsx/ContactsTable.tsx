@@ -57,10 +57,10 @@ export const ContactsTable: FC = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedContacts.map(({ paymail, status, name }) => (
+              {sortedContacts.map(({ paymail, status, fullName }) => (
                 <tr key={paymail} style={{ height: 50 }}>
                   <LargeTd>{paymail}</LargeTd>
-                  <MediumTd>{name}</MediumTd>
+                  <MediumTd>{fullName}</MediumTd>
                   <MediumTd>
                     <StatusBadge status={status} />
                   </MediumTd>
@@ -101,7 +101,7 @@ export const ContactsTable: FC = () => {
             setJustAddedContact(false);
           }}
         >
-          {justAddedContact && contactForVerification.status === 'not-confirmed' && <JustAddedContactMsg />}
+          {justAddedContact && contactForVerification.status === 'unconfirmed' && <JustAddedContactMsg />}
         </VerifyModal>
       )}
     </>

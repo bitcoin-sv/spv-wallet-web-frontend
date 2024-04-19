@@ -7,7 +7,7 @@ export const JustAddedContactMsg: FC = () => {
   return (
     <Container>
       <SuccessInfo>You've successfully accepted the contact.</SuccessInfo>
-      Until confirmed, it will be displayed as <StatusBadge status="not-confirmed" />. <br />
+      Until confirmed, it will be displayed as <StatusBadge status="unconfirmed" />. <br />
       You can confirm it right now or return to this process later by using the "Show code" button.
     </Container>
   );

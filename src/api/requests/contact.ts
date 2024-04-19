@@ -2,22 +2,17 @@
 import { timeoutPromise } from '@/utils/timeoutPromise';
 import { PaginationParams } from '../types';
 import { Contact } from '../types/contact';
+import axios from 'axios';
 
 export const searchContacts = async (_pagination?: PaginationParams) => {
-  await timeoutPromise(500);
-  return contacts;
+  const { data: response } = await axios.get(`/contact/search`);
+  return response;
 };
 
-export const addContact = async (paymail: string, name: string) => {
-  await timeoutPromise(1000);
-  contacts = [
-    ...contacts,
-    {
-      paymail,
-      name,
-      status: 'awaiting-acceptance',
-    },
-  ];
+export const upsertContact = async (paymail: string, fullName: string) => {
+  await axios.put(`/contact/${encodeURIPaymail(paymail)}`, {
+    fullName,
+  });
 };
 
 export const rejectContact = async (paymail: string) => {
@@ -30,7 +25,7 @@ export const acceptContact = async (paymail: string) => {
   await timeoutPromise(1000);
   contacts = contacts.map((contact) => {
     if (contact.paymail === paymail) {
-      contact.status = 'not-confirmed';
+      contact.status = 'unconfirmed';
     }
     return { ...contact };
   });
@@ -51,22 +46,36 @@ export const confirmContactWithTOTP = async (paymail: string, _totp: number) => 
   });
 };
 
+const encodeURIPaymail = (paymail: string) => {
+  // Remove control characters from the paymail
+  function* iterator() {
+    for (let i = 0; i < paymail.length; i++) {
+      const code = paymail.charCodeAt(i);
+      if (code > 32 && code !== 127) {
+        yield code;
+      }
+    }
+  }
+  const sanitizedPaymail = String.fromCharCode(...iterator());
+  return encodeURIComponent(sanitizedPaymail);
+};
+
 /// Mocked contacts
 
 let contacts: Contact[] = [
   {
     paymail: 'bob@example.com',
-    name: 'Bob',
+    fullName: 'Bob',
     status: 'confirmed',
   },
   {
     paymail: 'tester@example.com',
-    name: 'Tester',
-    status: 'awaiting-acceptance',
+    fullName: 'Tester',
+    status: 'awaiting',
   },
   {
     paymail: 'theguy@example.com',
-    name: 'The Guy',
-    status: 'not-confirmed',
+    fullName: 'The Guy',
+    status: 'unconfirmed',
   },
 ];

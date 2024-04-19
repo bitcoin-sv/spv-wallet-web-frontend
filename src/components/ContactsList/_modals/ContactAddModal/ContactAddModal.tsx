@@ -4,7 +4,7 @@ import { SrOnlySpan } from '@/styles';
 import { Loader } from '@/components/Loader';
 import { PaymailInput } from '@/components/Input/PaymailInput';
 import { Input } from '@/components/Input';
-import { addContact } from '@/api/requests/contact';
+import { upsertContact } from '@/api/requests/contact';
 import { modalCloseTimeout } from '@/components/Modal/modalCloseTimeout';
 import { ErrorBar } from '@/components/ErrorBar';
 
@@ -32,9 +32,10 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
     setLoading(true);
     setError(false);
     try {
-      addContact(paymail, name);
+      await upsertContact(paymail, name);
       onSuccess();
     } catch (error) {
+      console.log('error', error);
       setError(true);
     } finally {
       setLoading(false);
