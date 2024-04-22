@@ -5,3 +5,4 @@ export * from './sizes';
 export * from './breakpoints';
 export * from './keyframes';
 export * from './variables';
+export * from './textWrapper';

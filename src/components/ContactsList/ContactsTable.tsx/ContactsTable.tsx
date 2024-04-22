@@ -19,6 +19,7 @@ import { useContacts } from '@/providers';
 import { ErrorBar } from '@/components/ErrorBar';
 import { useSortedContacts } from './useSortedContacts';
 import { JustAddedContactMsg } from './JustAddedContcatMsg';
+import { TextWrapper } from '@/styles';
 
 export const ContactsTable: FC = () => {
   const { contacts, loading, error, refresh } = useContacts();
@@ -61,7 +62,9 @@ export const ContactsTable: FC = () => {
                 const { paymail, fullName, status } = contact;
                 return (
                   <tr key={paymail} style={{ height: 50 }}>
-                    <LargeTd>{paymail}</LargeTd>
+                    <LargeTd>
+                      <TextWrapper>{paymail}</TextWrapper>
+                    </LargeTd>
                     <MediumTd>{fullName}</MediumTd>
                     <MediumTd>
                       <StatusBadge status={status} />
