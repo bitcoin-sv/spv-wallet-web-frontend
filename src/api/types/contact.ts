@@ -10,9 +10,17 @@ export type ContactStatus =
   | typeof ContactRejected;
 
 export type Contact = {
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+  metadata?: ContactMetadata;
+  id: string;
+  pubKey: string;
   paymail: string;
-  fullName: string;
   status: ContactStatus;
+  fullName: string;
+};
 
-  //TODO: Add more fields (...metadata)
+export type ContactMetadata = {
+  phoneNumber?: string;
 };

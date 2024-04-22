@@ -15,4 +15,5 @@ export type CoinsInputProps = Omit<InputProps, 'type' | 'step' | 'min'>;
 
 export type PaymailInputProps = {
   showContactsButton?: boolean;
+  labelSuffix?: string;
 } & Omit<InputProps, 'type' | 'labelText'>;

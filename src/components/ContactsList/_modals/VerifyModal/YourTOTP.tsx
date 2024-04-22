@@ -2,10 +2,10 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { variables } from '@/styles';
 import { colors, sizes } from '@/styles';
-import { getTOTP } from '@/api';
+import { Contact, getTOTP } from '@/api';
 import { CircularProgress } from '@mui/material';
 
-export const useYourTOTP = (peerPaymai: string) => {
+export const useYourTOTP = (peer: Contact) => {
   const [totp, setTotp] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -14,13 +14,13 @@ export const useYourTOTP = (peerPaymai: string) => {
     setLoading(true);
     setError(false);
     try {
-      setTotp(await getTOTP(peerPaymai));
+      setTotp(await getTOTP(peer));
     } catch {
       setError(true);
     } finally {
       setLoading(false);
     }
-  }, [peerPaymai]);
+  }, [peer]);
 
   useEffect(() => {
     fetchTotp();

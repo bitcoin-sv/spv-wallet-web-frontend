@@ -12,7 +12,7 @@ import {
 import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton';
 import { FC, useMemo, useState } from 'react';
 import { StatusBadge } from './StatusBadge';
-import { VerifyModal } from '../_modals';
+import { ContactEdit, VerifyModal } from '../_modals';
 import { SmallButton } from '@/components/Button';
 import { AcceptReject } from '../AcceptReject';
 import { useContacts } from '@/providers';
@@ -57,37 +57,44 @@ export const ContactsTable: FC = () => {
               </tr>
             </thead>
             <tbody>
-              {sortedContacts.map(({ paymail, status, fullName }) => (
-                <tr key={paymail} style={{ height: 50 }}>
-                  <LargeTd>{paymail}</LargeTd>
-                  <MediumTd>{fullName}</MediumTd>
-                  <MediumTd>
-                    <StatusBadge status={status} />
-                  </MediumTd>
-                  <MediumTd>
-                    {status !== ContactAwaitingAcceptance ? (
-                      <SmallButton
-                        variant="accept"
-                        onClick={() => {
-                          openVerificationWindow(paymail);
-                        }}
-                      >
-                        Show code
-                      </SmallButton>
-                    ) : (
-                      <AcceptReject
+              {sortedContacts.map((contact) => {
+                const { paymail, fullName, status } = contact;
+                return (
+                  <tr key={paymail} style={{ height: 50 }}>
+                    <LargeTd>{paymail}</LargeTd>
+                    <MediumTd>{fullName}</MediumTd>
+                    <MediumTd>
+                      <StatusBadge status={status} />
+                    </MediumTd>
+                    <MediumTd>
+                      <ContactEdit contact={contact} />
+                      {status !== ContactAwaitingAcceptance ? (
+                        <SmallButton
+                          variant="accept"
+                          onClick={() => {
+                            openVerificationWindow(paymail);
+                          }}
+                        >
+                          Show code
+                        </SmallButton>
+                      ) : (
+                        <AcceptReject
+                          paymail={paymail}
+                          onAccept={() => {
+                            openVerificationWindow(paymail, true);
+                            refresh();
+                          }}
+                          onReject={refresh}
+                        />
+                      )}
+                      <SetPaymailButton
                         paymail={paymail}
-                        onAccept={() => {
-                          openVerificationWindow(paymail, true);
-                          refresh();
-                        }}
-                        onReject={refresh}
+                        variant={status === ContactConfirmed ? 'accept' : 'primary'}
                       />
-                    )}
-                    <SetPaymailButton paymail={paymail} variant={status === ContactConfirmed ? 'accept' : 'primary'} />
-                  </MediumTd>
-                </tr>
-              ))}
+                    </MediumTd>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         )}

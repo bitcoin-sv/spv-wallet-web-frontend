@@ -14,8 +14,8 @@ type VerifyModalProps = {
 
 export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children, peer, onConfirmed, onClose }) => {
   const { fullName, paymail, status } = peer;
-  const yourTOTP = useYourTOTP(paymail);
-  const peerTOTP = usePeerTOTP(paymail, onConfirmed);
+  const yourTOTP = useYourTOTP(peer);
+  const peerTOTP = usePeerTOTP(peer, onConfirmed);
 
   if (status == ContactAwaitingAcceptance) {
     return null;

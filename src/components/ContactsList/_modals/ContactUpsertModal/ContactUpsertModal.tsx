@@ -7,36 +7,58 @@ import { Input } from '@/components/Input';
 import { upsertContact } from '@/api/requests/contact';
 import { modalCloseTimeout } from '@/components/Modal/modalCloseTimeout';
 import { ErrorBar } from '@/components/ErrorBar';
+import { isValidPhone } from '@/utils/helpers/validatePhone';
+import { ContactFields } from './useContactFields';
 
-type ContactAddModalProps = {
-  open: boolean;
+type ContactUpsertModal = {
   onSubmitted: () => void;
   onCancel: () => void;
+  sucessMsg: string;
+  errorMsg: string;
+  modalTitle: string;
+  modalSubtitle: string;
+  fields: ContactFields;
+  disabledPaymailInput: boolean;
 };
 
-export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, onCancel }) => {
-  const [paymail, setPaymail] = useState<string>('');
-  const [name, setName] = useState<string>('');
+export const ContactUpsertModal: FC<ContactUpsertModal> = ({
+  onSubmitted,
+  onCancel,
+  fields,
+  errorMsg,
+  sucessMsg,
+  modalTitle,
+  modalSubtitle,
+  disabledPaymailInput,
+}) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
+  const [error, setError] = useState<string | undefined>(undefined);
   const [successMessage, setSuccessMessage] = useState<string>('');
+  const { name, paymail, phone, setName, setPaymail, setPhone } = fields;
 
   const onSuccess = async () => {
-    setSuccessMessage('Contact added successfully!');
+    setSuccessMessage(sucessMsg);
     await modalCloseTimeout();
     onSubmitted();
   };
 
   const onSubmit = async () => {
+    if (phone && !isValidPhone(phone)) {
+      setError('Wrong phone number.');
+      return;
+    }
+    if (!paymail || !name) {
+      setError('Both Paymail and Name are required');
+      return;
+    }
     setLoading(true);
-    setError(false);
+    setError(undefined);
     try {
-      await upsertContact(paymail, name);
+      await upsertContact(paymail, name, phone ? { phoneNumber: phone } : undefined);
       onSuccess();
     } catch (error) {
-      console.log('error', error);
-      setError(true);
+      console.error('error', error);
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -44,12 +66,12 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
 
   return (
     <Modal
-      open={open}
-      modalTitle="Add contact"
-      modalSubtitle="Please double check the paymail address on which the invitation will be sent"
+      open={true}
+      modalTitle={modalTitle}
+      modalSubtitle={modalSubtitle}
       primaryButton={{ text: 'Cancel', variant: 'reject', onClick: onCancel }}
       secondaryButton={{
-        text: 'Create',
+        text: 'Submit',
         variant: 'accept',
         onClick: onSubmit,
         type: 'submit',
@@ -59,24 +81,32 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ open, onSubmitted, o
       onCloseByEsc={onCancel}
     >
       {loading && <Loader />}
-      {error && <ErrorBar errorMsg="Failed to add contact" />}
+      {error && <ErrorBar errorMsg={error} />}
       <form onSubmit={onSubmit}>
         <legend>
-          <SrOnlySpan>Add contact form</SrOnlySpan>
+          <SrOnlySpan>{modalTitle}</SrOnlySpan>
         </legend>
         <fieldset>
           <PaymailInput
             inputOnLightBackground
             value={paymail}
             onChange={(event) => setPaymail(event.target.value)}
+            labelSuffix="*"
+            required
+            disabled={disabledPaymailInput}
+          />
+          <Input
+            inputOnLightBackground
+            labelText="Name*"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
             required
           />
           <Input
             inputOnLightBackground
-            labelText="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
+            labelText="Phone number"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
           />
         </fieldset>
       </form>

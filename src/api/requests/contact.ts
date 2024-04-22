@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { timeoutPromise } from '@/utils/timeoutPromise';
 import { PaginationParams } from '../types';
-import { Contact } from '../types/contact';
+import { Contact, ContactMetadata } from '../types/contact';
 import axios from 'axios';
 
 export const searchContacts = async (_pagination?: PaginationParams) => {
@@ -9,40 +8,30 @@ export const searchContacts = async (_pagination?: PaginationParams) => {
   return response;
 };
 
-export const upsertContact = async (paymail: string, fullName: string) => {
+export const upsertContact = async (paymail: string, fullName: string, metadata?: ContactMetadata) => {
   await axios.put(`/contact/${encodeURIPaymail(paymail)}`, {
     fullName,
+    metadata,
   });
 };
 
 export const rejectContact = async (paymail: string) => {
-  console.log('reject');
-  await timeoutPromise(1000);
-  contacts = contacts.filter((contact) => contact.paymail !== paymail);
+  await axios.patch(`/contact/rejected/${encodeURIPaymail(paymail)}`);
 };
 
 export const acceptContact = async (paymail: string) => {
-  await timeoutPromise(1000);
-  contacts = contacts.map((contact) => {
-    if (contact.paymail === paymail) {
-      contact.status = 'unconfirmed';
-    }
-    return { ...contact };
-  });
+  await axios.patch(`/contact/accepted/${encodeURIPaymail(paymail)}`);
 };
 
-export const getTOTP = async (_paymail: string) => {
-  await timeoutPromise(1000);
-  return Math.floor(10 + Math.random() * 89);
+export const getTOTP = async (contact: Contact) => {
+  const res = await axios.post(`/contact/totp`, contact);
+  return res.data.passcode;
 };
 
-export const confirmContactWithTOTP = async (paymail: string, _totp: number) => {
-  await timeoutPromise(1000);
-  contacts = contacts.map((contact) => {
-    if (contact.paymail === paymail) {
-      contact.status = 'confirmed';
-    }
-    return { ...contact };
+export const confirmContactWithTOTP = async (contact: Contact, totp: number) => {
+  await axios.patch(`/contact/confirmed`, {
+    passcode: totp,
+    contact,
   });
 };
 
@@ -59,23 +48,3 @@ const encodeURIPaymail = (paymail: string) => {
   const sanitizedPaymail = String.fromCharCode(...iterator());
   return encodeURIComponent(sanitizedPaymail);
 };
-
-/// Mocked contacts
-
-let contacts: Contact[] = [
-  {
-    paymail: 'bob@example.com',
-    fullName: 'Bob',
-    status: 'confirmed',
-  },
-  {
-    paymail: 'tester@example.com',
-    fullName: 'Tester',
-    status: 'awaiting',
-  },
-  {
-    paymail: 'theguy@example.com',
-    fullName: 'The Guy',
-    status: 'unconfirmed',
-  },
-];

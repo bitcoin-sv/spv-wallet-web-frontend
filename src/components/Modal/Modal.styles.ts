@@ -57,6 +57,7 @@ export const ModalMainContent = styled.main`
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  padding: ${sizes(4)};
 `;
 
 export const ModalHeadline = styled.h3`
@@ -76,6 +77,7 @@ export const ButtonsWrapper = styled.footer`
   justify-content: center;
   margin: ${sizes(12)} 0 ${sizes(6)};
   z-index: 1;
+  padding: ${sizes(4)};
 `;
 
 export const ModalButton = styled(Button)`
