@@ -2,6 +2,7 @@ import { searchContacts } from '@/api/requests/contact';
 import { Contact } from '@/api/types/contact';
 import { usePikeEnabled } from '@/hooks/useFeatureFlags';
 import { FC, PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { useAuthorization } from '../authorization';
 
 type ContactsContextValue = {
   contacts: Contact[] | null;
@@ -17,9 +18,10 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [error, setError] = useState(false);
   const [contacts, setContacts] = useState<Contact[] | null>(null);
   const enabled = usePikeEnabled();
+  const { authorization } = useAuthorization();
 
   const load = useCallback(async () => {
-    if (!enabled) {
+    if (!enabled || !authorization) {
       return;
     }
     setLoading(true);
@@ -32,7 +34,7 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [enabled]);
+  }, [authorization, enabled]);
 
   const refresh = useCallback(() => {
     load();

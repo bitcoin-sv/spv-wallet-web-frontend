@@ -1,9 +1,9 @@
 import { DashboardTile } from '@/components/DashboardTile';
 import SendIcon from '@mui/icons-material/Send';
 import { Button } from '@/components/Button';
-import { SrOnlySpan } from '@/styles';
+import { SrOnlySpan, sizes } from '@/styles';
 import { Column, Row } from '@/styles/grid';
-import { ChangeEvent, FormEvent, useCallback, useState, FC } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState, FC, useEffect } from 'react';
 import { Loader } from '@/components/Loader';
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal';
 import { EMAIL_REGEX } from '@/utils/constants';
@@ -13,6 +13,11 @@ import { CoinsInput } from '../Input/CoinsInput';
 import { PaymailInput } from '../Input/PaymailInput';
 import { useSubscribePaymailEvent } from './setPaymailEvent';
 import { usePaymailInputAnimation } from './paymailInputAnimation';
+import { debounce } from 'lodash';
+import { useContacts } from '@/providers';
+import { ContactStatus } from '@/api';
+import { StatusBadge } from '../ContactsList/ContactsTable.tsx/StatusBadge';
+import styled from '@emotion/styled';
 
 type TransferFormProps = {
   showContactsButton?: boolean;
@@ -85,6 +90,26 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
       setAmount(value);
     }
   };
+
+  const { contacts } = useContacts();
+  const [paymailStatus, setPaymailStatus] = useState<ContactStatus | 'unknown' | undefined>();
+  const checkPaymailInContacts = useCallback(
+    (value: string) => {
+      if (!value) {
+        setPaymailStatus(undefined);
+        return;
+      }
+      value = value.toLowerCase();
+      const found = contacts?.find((el) => el.paymail === value);
+      setPaymailStatus(found?.status ?? 'unknown');
+    },
+    [contacts],
+  );
+  const debouncedValidateInput = debounce(checkPaymailInContacts, 500);
+  useEffect(() => {
+    debouncedValidateInput(paymail);
+  }, [debouncedValidateInput, paymail]);
+
   return (
     <DashboardTile tileTitle="Send money" titleIcon={<SendIcon />}>
       {loading && <Loader />}
@@ -95,12 +120,16 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
               <legend>
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
-              <PaymailInput
+              <StyledPaymailInput
                 ref={paymailInputRef}
                 required
                 onChange={(event) => setPaymail(event.target.value)}
                 value={paymail}
                 showContactsButton={showContactsButton}
+              />
+              <StatusBadge
+                status={paymailStatus ?? 'unknown'}
+                style={{ visibility: paymailStatus ? 'visible' : 'hidden' }}
               />
               <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 
@@ -139,3 +168,7 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
     </DashboardTile>
   );
 };
+
+const StyledPaymailInput = styled(PaymailInput)`
+  margin-bottom: ${sizes(1)};
+`;
