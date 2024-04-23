@@ -28,7 +28,7 @@ export const getTOTP = async (contact: Contact) => {
   return res.data.passcode;
 };
 
-export const confirmContactWithTOTP = async (contact: Contact, totp: number) => {
+export const confirmContactWithTOTP = async (contact: Contact, totp: string) => {
   await axios.patch(`/contact/confirmed`, {
     passcode: totp,
     contact,
