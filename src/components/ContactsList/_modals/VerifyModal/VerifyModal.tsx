@@ -59,7 +59,6 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
 };
 
 const Container = styled.div`
-  padding: 20px;
   max-width: 80vw;
   width: 800px;
 `;

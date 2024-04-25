@@ -8,7 +8,7 @@ export const colors = {
   userMenuBackground: 'rgba(255, 255, 255, 0.4)',
   dashboardTileBackground: 'rgba(0, 0, 0, 0.6)',
   modalWrapperBackground: 'rgba(255, 255, 255, 0.4)',
-  disabledInputBackground: 'rgba(180, 180, 180, 1)',
+  disabledInputBackground: 'rgba(200, 200, 200, 1)',
   primary: '#13145e',
   lightPrimary: '#ffffff',
   darkPrimary: '#000',

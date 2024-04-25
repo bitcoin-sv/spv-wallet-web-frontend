@@ -70,7 +70,7 @@ export const ContactsTable: FC = () => {
                       <StatusBadge status={status} />
                     </MediumTd>
                     <MediumTd>
-                      <ContactEdit contact={contact} />
+                      {status !== ContactAwaitingAcceptance && <ContactEdit contact={contact} />}
                       {status !== ContactAwaitingAcceptance ? (
                         <SmallButton
                           variant="accept"

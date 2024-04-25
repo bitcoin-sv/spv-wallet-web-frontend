@@ -34,6 +34,5 @@ const contactStatuses: Record<ContactStatus | 'unknown', { label: string; color:
 const ChipContainer = styled.div`
   & div span {
     line-height: 1;
-    transform: translateY(1.5px);
   }
 `;

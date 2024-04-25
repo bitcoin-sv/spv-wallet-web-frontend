@@ -28,7 +28,7 @@ export const ContactEditModal: FC<ContactEditModalProps> = ({ onSubmitted, onCan
       modalTitle="Edit contact"
       modalSubtitle=""
       fields={fields}
-      disabledPaymailInput={false}
+      disabledPaymailInput={true}
     />
   );
 };

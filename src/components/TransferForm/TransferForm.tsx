@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { Button } from '@/components/Button';
 import { SrOnlySpan, sizes } from '@/styles';
 import { Column, Row } from '@/styles/grid';
-import { ChangeEvent, FormEvent, useCallback, useState, FC, useEffect } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState, FC, useEffect, useMemo } from 'react';
 import { Loader } from '@/components/Loader';
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal';
 import { EMAIL_REGEX } from '@/utils/constants';
@@ -95,7 +95,7 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
   const [paymailStatus, setPaymailStatus] = useState<ContactStatus | 'unknown' | undefined>();
   const checkPaymailInContacts = useCallback(
     (value: string) => {
-      if (!value) {
+      if (!value || !value.match(EMAIL_REGEX)) {
         setPaymailStatus(undefined);
         return;
       }
@@ -105,7 +105,7 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
     },
     [contacts],
   );
-  const debouncedValidateInput = debounce(checkPaymailInContacts, 500);
+  const debouncedValidateInput = useMemo(() => debounce(checkPaymailInContacts, 1000), [checkPaymailInContacts]);
   useEffect(() => {
     debouncedValidateInput(paymail);
   }, [debouncedValidateInput, paymail]);
@@ -127,10 +127,14 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
                 value={paymail}
                 showContactsButton={showContactsButton}
               />
-              <StatusBadge
-                status={paymailStatus ?? 'unknown'}
-                style={{ visibility: paymailStatus ? 'visible' : 'hidden' }}
-              />
+              <div style={{ height: 15 }}>
+                {paymailStatus != null && (
+                  <>
+                    This is <StatusBadge status={paymailStatus} style={{ display: 'inline-block' }} /> contact
+                  </>
+                )}
+              </div>
+
               <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 
               {errors && <ErrorBar errorMsg={errors} />}
