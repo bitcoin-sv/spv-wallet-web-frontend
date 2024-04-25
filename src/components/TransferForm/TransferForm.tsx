@@ -130,7 +130,8 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
               <div style={{ height: 15 }}>
                 {paymailStatus != null && (
                   <>
-                    This is <StatusBadge status={paymailStatus} style={{ display: 'inline-block' }} /> contact
+                    This is <StatusBadge status={paymailStatus} style={{ display: 'inline-block' }} />{' '}
+                    {paymailStatus !== 'unknown' ? 'contact' : 'paymail'}
                   </>
                 )}
               </div>
