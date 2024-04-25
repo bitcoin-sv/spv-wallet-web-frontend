@@ -10,7 +10,6 @@ import { EMAIL_REGEX } from '@/utils/constants';
 import { ErrorBar } from '@/components/ErrorBar';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
 import { CoinsInput } from '../Input/CoinsInput';
-import { PaymailInput } from '../Input/PaymailInput';
 import { useSubscribePaymailEvent } from './setPaymailEvent';
 import { usePaymailInputAnimation } from './paymailInputAnimation';
 import { debounce } from 'lodash';
@@ -18,6 +17,7 @@ import { useContacts } from '@/providers';
 import { ContactStatus } from '@/api';
 import { StatusBadge } from '../ContactsList/ContactsTable.tsx/StatusBadge';
 import styled from '@emotion/styled';
+import { PaymailAutocomplete } from '../Input/PaymailAutocomplete';
 
 type TransferFormProps = {
   showContactsButton?: boolean;
@@ -120,11 +120,11 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
               <legend>
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
-              <StyledPaymailInput
+              <StyledPaymailAutocomplete
                 ref={paymailInputRef}
                 required
-                onChange={(event) => setPaymail(event.target.value)}
-                value={paymail}
+                onPaymailChange={(value) => setPaymail(value)}
+                paymailValue={paymail}
                 showContactsButton={showContactsButton}
               />
               <div style={{ height: 15 }}>
@@ -174,6 +174,6 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
   );
 };
 
-const StyledPaymailInput = styled(PaymailInput)`
+const StyledPaymailAutocomplete = styled(PaymailAutocomplete)`
   margin-bottom: ${sizes(1)};
 `;
