@@ -127,14 +127,14 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
                 paymailValue={paymail}
                 showContactsButton={showContactsButton}
               />
-              <div style={{ height: 15 }}>
+              <StyledStatusWrapper>
                 {paymailStatus != null && (
                   <>
                     This is <StatusBadge status={paymailStatus} style={{ display: 'inline-block' }} />{' '}
                     {paymailStatus !== 'unknown' ? 'contact' : 'paymail'}
                   </>
                 )}
-              </div>
+              </StyledStatusWrapper>
 
               <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 
@@ -176,4 +176,11 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
 
 const StyledPaymailAutocomplete = styled(PaymailAutocomplete)`
   margin-bottom: ${sizes(1)};
+`;
+
+const StyledStatusWrapper = styled.div`
+  height: 15px;
+  margin-bottom: 30px;
+  padding-right: 20px;
+  text-align: right;
 `;
