@@ -23,7 +23,7 @@ export const ContactEditModal: FC<ContactEditModalProps> = ({ onSubmitted, onCan
     <ContactUpsertModal
       onCancel={onCancel}
       onSubmitted={onSubmitted}
-      sucessMsg="Contact edited successfully!"
+      successMsg="Contact edited successfully!"
       errorMsg="Error occurred while editing a contact."
       modalTitle="Edit contact"
       modalSubtitle=""

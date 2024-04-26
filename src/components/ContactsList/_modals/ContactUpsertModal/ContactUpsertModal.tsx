@@ -14,7 +14,7 @@ import { EMAIL_REGEX } from '@/utils/constants';
 type ContactUpsertModal = {
   onSubmitted: () => void;
   onCancel: () => void;
-  sucessMsg: string;
+  successMsg: string;
   errorMsg: string;
   modalTitle: string;
   modalSubtitle: string;
@@ -27,7 +27,7 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
   onCancel,
   fields,
   errorMsg,
-  sucessMsg,
+  successMsg,
   modalTitle,
   modalSubtitle,
   disabledPaymailInput,
@@ -38,7 +38,7 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
   const { name, paymail, phone, setName, setPaymail, setPhone } = fields;
 
   const onSuccess = async () => {
-    setSuccessMessage(sucessMsg);
+    setSuccessMessage(successMsg);
     await modalCloseTimeout();
     onSubmitted();
   };

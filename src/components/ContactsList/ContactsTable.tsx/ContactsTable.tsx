@@ -1,4 +1,4 @@
-import { ContactAwaitingAcceptance, ContactConfirmed } from '@/api/types/contact';
+import { ContactAwaitingAcceptance, ContactConfirmed, ContactNotConfirmed } from '@/api/types/contact';
 import { Loader } from '@/components/Loader';
 import {
   LargeTd,
@@ -111,7 +111,7 @@ export const ContactsTable: FC = () => {
             setJustAddedContact(false);
           }}
         >
-          {justAddedContact && contactForVerification.status === 'unconfirmed' && <JustAddedContactMsg />}
+          {justAddedContact && contactForVerification.status === ContactNotConfirmed && <JustAddedContactMsg />}
         </VerifyModal>
       )}
     </>
