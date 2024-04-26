@@ -9,6 +9,7 @@ import { modalCloseTimeout } from '@/components/Modal/modalCloseTimeout';
 import { ErrorBar } from '@/components/ErrorBar';
 import { isValidPhone } from '@/utils/helpers/validatePhone';
 import { ContactFields } from './useContactFields';
+import { EMAIL_REGEX } from '@/utils/constants';
 
 type ContactUpsertModal = {
   onSubmitted: () => void;
@@ -32,7 +33,7 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
   disabledPaymailInput,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string>('');
   const { name, paymail, phone, setName, setPaymail, setPhone } = fields;
 
@@ -51,8 +52,12 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
       setError('Both Paymail and Name are required');
       return;
     }
+    if (!paymail.match(EMAIL_REGEX)) {
+      setError('Invalid paymail address!');
+      return;
+    }
     setLoading(true);
-    setError(undefined);
+    setError(null);
     try {
       await upsertContact(paymail, name, phone ? { phoneNumber: phone } : undefined);
       onSuccess();
