@@ -3,7 +3,7 @@ import { ErrorBar } from '@/components/ErrorBar';
 import { Input } from '@/components/Input';
 import { FC, useMemo, useState } from 'react';
 
-const TOTP_VALID_REGEX = /^\d{4}$/;
+const TOTP_VALID_REGEX = /^\d{2}$/;
 
 export const usePeerTOTP = (peer: Contact, onConfirmed: () => void) => {
   const [value, setValue] = useState('');
