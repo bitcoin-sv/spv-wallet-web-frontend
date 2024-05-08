@@ -1,11 +1,11 @@
-import { confirmContactWithTOTP } from '@/api';
+import { Contact, confirmContactWithTOTP } from '@/api';
 import { ErrorBar } from '@/components/ErrorBar';
 import { Input } from '@/components/Input';
 import { FC, useMemo, useState } from 'react';
 
 const TOTP_VALID_REGEX = /^\d{2}$/;
 
-export const usePeerTOTP = (peerPaymail: string, onConfirmed: () => void) => {
+export const usePeerTOTP = (peer: Contact, onConfirmed: () => void) => {
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -18,7 +18,7 @@ export const usePeerTOTP = (peerPaymail: string, onConfirmed: () => void) => {
     setLoading(true);
     setError(false);
     try {
-      await confirmContactWithTOTP(peerPaymail, parseInt(value));
+      await confirmContactWithTOTP(peer, value);
     } catch {
       setError(true);
     } finally {

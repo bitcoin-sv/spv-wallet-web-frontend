@@ -4,9 +4,9 @@ import { InputStyled, InputWrapper, LabelStyled } from './Input.styles';
 import { InputProps } from './types';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ labelText, className, id, customPlaceholder, inputOnLightBackground, children, ...rest }, ref) => {
+  ({ labelText, className, id, customPlaceholder, inputOnLightBackground, children, rootProps, ...rest }, ref) => {
     return (
-      <InputWrapper className={className}>
+      <InputWrapper className={className} {...rootProps}>
         <InputStyled
           {...rest}
           ref={ref}

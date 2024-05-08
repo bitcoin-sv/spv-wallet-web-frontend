@@ -46,7 +46,7 @@ export const InputStyled = styled.input<InputStyledProps>`
   border: 2px solid
     ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
   border-radius: ${variables.doubleBorderRadius};
-  background-color: ${colors.inputBackground};
+  background-color: ${({ disabled }) => (disabled ? colors.disabledInputBackground : colors.inputBackground)};
   color: ${({ inputOnLightBackground }) => (inputOnLightBackground ? colors.darkPrimary : colors.lightPrimary)};
 
   ${media.sm} {

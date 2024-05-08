@@ -13,9 +13,9 @@ type VerifyModalProps = {
 };
 
 export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children, peer, onConfirmed, onClose }) => {
-  const { name, paymail, status } = peer;
-  const yourTOTP = useYourTOTP(paymail);
-  const peerTOTP = usePeerTOTP(paymail, onConfirmed);
+  const { fullName, paymail, status } = peer;
+  const yourTOTP = useYourTOTP(peer);
+  const peerTOTP = usePeerTOTP(peer, onConfirmed);
 
   if (status == ContactAwaitingAcceptance) {
     return null;
@@ -24,7 +24,7 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
   return (
     <Modal
       open={true}
-      modalTitle={`Verify ${name}`}
+      modalTitle={`Verify ${fullName}`}
       modalSubtitle={paymail}
       primaryButton={{ text: 'Close', variant: 'reject', onClick: onClose }}
       secondaryButton={
@@ -43,14 +43,14 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
     >
       <Container>
         {children}
-        <YourTOTP {...yourTOTP} peerName={name} />
+        <YourTOTP {...yourTOTP} peerName={fullName} />
         <Content>
           {status === ContactConfirmed ? (
             <TrustedContactMsg>
-              <b>{name}</b> is your trusted contact.
+              <b>{fullName}</b> is your trusted contact.
             </TrustedContactMsg>
           ) : (
-            <PeerTOTP {...peerTOTP} peerName={name} />
+            <PeerTOTP {...peerTOTP} peerName={fullName} />
           )}
         </Content>
       </Container>
@@ -59,7 +59,6 @@ export const VerifyModal: FC<PropsWithChildren<VerifyModalProps>> = ({ children,
 };
 
 const Container = styled.div`
-  padding: 20px;
   max-width: 80vw;
   width: 800px;
 `;

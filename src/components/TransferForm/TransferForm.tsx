@@ -1,18 +1,24 @@
 import { DashboardTile } from '@/components/DashboardTile';
 import SendIcon from '@mui/icons-material/Send';
 import { Button } from '@/components/Button';
-import { SrOnlySpan } from '@/styles';
+import { SrOnlySpan, sizes } from '@/styles';
 import { Column, Row } from '@/styles/grid';
-import { ChangeEvent, FormEvent, useCallback, useState, FC } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useState, FC, useEffect, useMemo } from 'react';
 import { Loader } from '@/components/Loader';
 import { TransactionConfirmModal, TransactionData } from '@/components/Modal/_modals/TransactionConfirmModal';
 import { EMAIL_REGEX } from '@/utils/constants';
 import { ErrorBar } from '@/components/ErrorBar';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
 import { CoinsInput } from '../Input/CoinsInput';
-import { PaymailInput } from '../Input/PaymailInput';
 import { useSubscribePaymailEvent } from './setPaymailEvent';
 import { usePaymailInputAnimation } from './paymailInputAnimation';
+import { debounce } from 'lodash';
+import { useContacts } from '@/providers';
+import { ContactStatus } from '@/api';
+import { StatusBadge } from '../ContactsList/ContactsTable.tsx/StatusBadge';
+import styled from '@emotion/styled';
+import { PaymailAutocomplete } from '../Input/PaymailAutocomplete';
+import { usePikeEnabled } from '@/hooks/useFeatureFlags';
 
 type TransferFormProps = {
   showContactsButton?: boolean;
@@ -26,6 +32,7 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null);
   const [errors, setErrors] = useState<string>('');
+  const pikeEnabled = usePikeEnabled();
 
   const sendButtonDisabled = !paymail || !amount;
   const cancelButtonDisabled = !paymail && !amount;
@@ -85,6 +92,26 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
       setAmount(value);
     }
   };
+
+  const { contacts } = useContacts();
+  const [paymailStatus, setPaymailStatus] = useState<ContactStatus | 'unknown' | undefined>();
+  const checkPaymailInContacts = useCallback(
+    (value: string) => {
+      if (!value || !value.match(EMAIL_REGEX)) {
+        setPaymailStatus(undefined);
+        return;
+      }
+      value = value.toLowerCase();
+      const found = contacts?.find((el) => el.paymail === value);
+      setPaymailStatus(found?.status ?? 'unknown');
+    },
+    [contacts],
+  );
+  const debouncedValidateInput = useMemo(() => debounce(checkPaymailInContacts, 1000), [checkPaymailInContacts]);
+  useEffect(() => {
+    debouncedValidateInput(paymail);
+  }, [debouncedValidateInput, paymail]);
+
   return (
     <DashboardTile tileTitle="Send money" titleIcon={<SendIcon />}>
       {loading && <Loader />}
@@ -95,13 +122,22 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
               <legend>
                 <SrOnlySpan>Money transfer form</SrOnlySpan>
               </legend>
-              <PaymailInput
+              <StyledPaymailAutocomplete
                 ref={paymailInputRef}
                 required
-                onChange={(event) => setPaymail(event.target.value)}
-                value={paymail}
+                onPaymailChange={(value) => setPaymail(value)}
+                paymailValue={paymail}
                 showContactsButton={showContactsButton}
               />
+              <StyledStatusWrapper>
+                {pikeEnabled && paymailStatus != null && (
+                  <>
+                    This is <StatusBadge status={paymailStatus} style={{ display: 'inline-block' }} />{' '}
+                    {paymailStatus !== 'unknown' ? 'contact' : 'paymail'}
+                  </>
+                )}
+              </StyledStatusWrapper>
+
               <CoinsInput labelText="Amount (sat)" onChange={handleChange} value={amount} />
 
               {errors && <ErrorBar errorMsg={errors} />}
@@ -139,3 +175,14 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
     </DashboardTile>
   );
 };
+
+const StyledPaymailAutocomplete = styled(PaymailAutocomplete)`
+  margin-bottom: ${sizes(1)};
+`;
+
+const StyledStatusWrapper = styled.div`
+  height: 15px;
+  margin-bottom: 30px;
+  padding-right: 20px;
+  text-align: right;
+`;

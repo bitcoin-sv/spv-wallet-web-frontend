@@ -1,72 +1,50 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { timeoutPromise } from '@/utils/timeoutPromise';
 import { PaginationParams } from '../types';
-import { Contact } from '../types/contact';
+import { Contact, ContactMetadata } from '../types/contact';
+import axios from 'axios';
 
 export const searchContacts = async (_pagination?: PaginationParams) => {
-  await timeoutPromise(500);
-  return contacts;
+  const { data: response } = await axios.get(`/contact/search`);
+  return response;
 };
 
-export const addContact = async (paymail: string, name: string) => {
-  await timeoutPromise(1000);
-  contacts = [
-    ...contacts,
-    {
-      paymail,
-      name,
-      status: 'awaiting-acceptance',
-    },
-  ];
+export const upsertContact = async (paymail: string, fullName: string, metadata?: ContactMetadata) => {
+  await axios.put(`/contact/${encodeURIPaymail(paymail)}`, {
+    fullName,
+    metadata,
+  });
 };
 
 export const rejectContact = async (paymail: string) => {
-  console.log('reject');
-  await timeoutPromise(1000);
-  contacts = contacts.filter((contact) => contact.paymail !== paymail);
+  await axios.patch(`/contact/rejected/${encodeURIPaymail(paymail)}`);
 };
 
 export const acceptContact = async (paymail: string) => {
-  await timeoutPromise(1000);
-  contacts = contacts.map((contact) => {
-    if (contact.paymail === paymail) {
-      contact.status = 'not-confirmed';
-    }
-    return { ...contact };
+  await axios.patch(`/contact/accepted/${encodeURIPaymail(paymail)}`);
+};
+
+export const getTOTP = async (contact: Contact) => {
+  const res = await axios.post(`/contact/totp`, contact);
+  return res.data.passcode;
+};
+
+export const confirmContactWithTOTP = async (contact: Contact, totp: string) => {
+  await axios.patch(`/contact/confirmed`, {
+    passcode: totp,
+    contact,
   });
 };
 
-export const getTOTP = async (_paymail: string) => {
-  await timeoutPromise(1000);
-  return Math.floor(10 + Math.random() * 89);
-};
-
-export const confirmContactWithTOTP = async (paymail: string, _totp: number) => {
-  await timeoutPromise(1000);
-  contacts = contacts.map((contact) => {
-    if (contact.paymail === paymail) {
-      contact.status = 'confirmed';
+const encodeURIPaymail = (paymail: string) => {
+  // Remove control characters from the paymail
+  function* iterator() {
+    for (let i = 0; i < paymail.length; i++) {
+      const code = paymail.charCodeAt(i);
+      if (code > 32 && code !== 127) {
+        yield code;
+      }
     }
-    return { ...contact };
-  });
+  }
+  const sanitizedPaymail = String.fromCharCode(...iterator());
+  return encodeURIComponent(sanitizedPaymail);
 };
-
-/// Mocked contacts
-
-let contacts: Contact[] = [
-  {
-    paymail: 'bob@example.com',
-    name: 'Bob',
-    status: 'confirmed',
-  },
-  {
-    paymail: 'tester@example.com',
-    name: 'Tester',
-    status: 'awaiting-acceptance',
-  },
-  {
-    paymail: 'theguy@example.com',
-    name: 'The Guy',
-    status: 'not-confirmed',
-  },
-];
