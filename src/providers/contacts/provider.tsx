@@ -26,8 +26,8 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
     }
     setLoading(true);
     try {
-      const contacts = await searchContacts();
-      setContacts(contacts);
+      const contactsResponse = await searchContacts();
+      setContacts(contactsResponse.content);
     } catch {
       setContacts(null);
       setError(true);
