@@ -1,5 +1,6 @@
 import { searchContacts } from '@/api/requests/contact';
 import { Contact } from '@/api/types/contact';
+import { PaginationParams } from '@/api/types';
 import { usePikeEnabled } from '@/hooks/useFeatureFlags';
 import { FC, PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuthorization } from '../authorization';
@@ -26,8 +27,14 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
     }
     setLoading(true);
     try {
-      const contacts = await searchContacts();
-      setContacts(contacts);
+      const paginationParams : PaginationParams = {
+        page: 1,
+        page_size: 1000,
+        order: 'paymail',
+        sort: 'asc',
+      }
+      const contactsResponse = await searchContacts(paginationParams);
+      setContacts(contactsResponse.content);
     } catch {
       setContacts(null);
       setError(true);
