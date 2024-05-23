@@ -3,8 +3,10 @@ import { PaginationParams } from '../types';
 import { Contact, ContactMetadata } from '../types/contact';
 import axios from 'axios';
 
-export const searchContacts = async (_pagination?: PaginationParams) => {
-  const { data: response } = await axios.get(`/contact/search`);
+export const searchContacts = async (pagination?: PaginationParams) => {
+  const { data: response } = await axios.post(`/contact/search`, {
+    params: pagination
+  });
   return response;
 };
 

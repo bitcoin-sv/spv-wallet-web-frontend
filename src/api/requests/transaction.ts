@@ -3,7 +3,7 @@ import { SendNewTransaction } from '@/api/types';
 import { PaginationParams } from '../types/pagination';
 
 export const getTransactions = async (pagination: PaginationParams) => {
-  const { data: response } = await axios.get(`/transaction`, {
+  const { data: response } = await axios.post(`/transaction/search`, {
     params: pagination,
   });
   if (response != null && typeof response !== 'object') {
