@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { PaginationParams } from '../types';
 import { Contact, ContactMetadata } from '../types/contact';
 import axios from 'axios';
