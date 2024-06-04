@@ -4,13 +4,13 @@ import { AccountSummary } from '@/components/AccountSummary';
 import { TransferForm } from '@/components/TransferForm';
 import { TransactionHistory } from '@/components/TransactionHistory';
 import { useWebsocket } from '@/hooks';
-import { usePikeEnabled } from '@/hooks/useFeatureFlags';
+import { usePikePaymentEnabled } from '@/hooks/useFeatureFlags';
 
 export const Dashboard = () => {
   const lgMatch = useMediaMatch('lg');
   useWebsocket();
 
-  const pikeEnabled = usePikeEnabled();
+  const pikePaymentEnabled = usePikePaymentEnabled();
 
   return (
     <>
@@ -20,7 +20,7 @@ export const Dashboard = () => {
         </Column>
         <Column percentageWidth={lgMatch ? 30 : 100}>
           <AccountSummary />
-          <TransferForm showContactsButton={pikeEnabled} />
+          <TransferForm showContactsButton={pikePaymentEnabled} />
         </Column>
       </Row>
     </>
