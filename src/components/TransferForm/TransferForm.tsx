@@ -18,7 +18,7 @@ import { ContactStatus } from '@/api';
 import { StatusBadge } from '../ContactsList/ContactsTable.tsx/StatusBadge';
 import styled from '@emotion/styled';
 import { PaymailAutocomplete } from '../Input/PaymailAutocomplete';
-import { usePikeEnabled } from '@/hooks/useFeatureFlags';
+import { usePikeContactsEnabled } from '@/hooks/useFeatureFlags';
 
 type TransferFormProps = {
   showContactsButton?: boolean;
@@ -32,7 +32,7 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [transactionData, setTransactionData] = useState<TransactionData | null>(null);
   const [errors, setErrors] = useState<string>('');
-  const pikeEnabled = usePikeEnabled();
+  const pikeContactsEnabled = usePikeContactsEnabled();
 
   const sendButtonDisabled = !paymail || !amount;
   const cancelButtonDisabled = !paymail && !amount;
@@ -130,7 +130,7 @@ export const TransferForm: FC<TransferFormProps> = ({ showContactsButton }) => {
                 showContactsButton={showContactsButton}
               />
               <StyledStatusWrapper>
-                {pikeEnabled && paymailStatus != null && (
+                {pikeContactsEnabled && paymailStatus != null && (
                   <>
                     This is <StatusBadge status={paymailStatus} style={{ display: 'inline-block' }} />{' '}
                     {paymailStatus !== 'unknown' ? 'contact' : 'paymail'}
