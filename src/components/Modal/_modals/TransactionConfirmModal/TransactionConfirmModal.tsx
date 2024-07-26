@@ -76,23 +76,9 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       })
       .catch((error) => {
         if (error) {
-          if (error.response.status === 401) {
-            setErrors('Session expired! Please login in to your wallet');
-            setErrorWithReload(true);
-            return;
-          }
-
-          if (error.response.status === 400) {
-            setErrors(
-              'Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!',
-            );
-            return;
-          }
-
           setErrors(
-            error.response.data
-              ? error.response.data
-              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.',
+            error.response.data?.message ??
+              'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.',
           );
         }
       })

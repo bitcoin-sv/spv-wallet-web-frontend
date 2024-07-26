@@ -91,8 +91,7 @@ export const TransactionTable = () => {
         setTransactionsList(transactions.transactions);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later';
-        setErrors(errorMsg);
+        setErrors(error.response.data?.message ?? 'Something went wrong... Please try again later');
       })
       .finally(() => {
         setLoading(false);

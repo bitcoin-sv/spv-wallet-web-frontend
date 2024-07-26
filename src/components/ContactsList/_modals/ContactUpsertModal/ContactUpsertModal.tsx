@@ -62,7 +62,6 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
       await upsertContact(paymail, name, phone ? { phoneNumber: phone } : undefined);
       onSuccess();
     } catch (error) {
-      console.error('error', error);
       setError(errorMsg);
     } finally {
       setLoading(false);

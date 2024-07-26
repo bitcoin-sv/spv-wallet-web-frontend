@@ -95,14 +95,7 @@ export const App = () => {
           return;
         }
 
-        if (error.response.status === 404) {
-          errorMsg =
-            error.response.data + ". If you can't log in again, please contact our support or try again later!";
-        } else {
-          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
-        }
-
-        setError(errorMsg);
+        setError(error.response.data?.message ?? errorMsg);
         setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -40,16 +40,7 @@ export const AccountSummary = () => {
         setDetails(accountDetails);
       })
       .catch((error) => {
-        let errorMsg;
-
-        if (error.response.status === 404) {
-          errorMsg =
-            "User's account details not found. If you can't log in again, please contact our support or try again later!";
-        } else {
-          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
-        }
-
-        setErrors(errorMsg);
+        setErrors(error.response.data?.message ?? 'Something went wrong... Please, try again later!');
       })
       .finally(() => {
         setLoading(false);

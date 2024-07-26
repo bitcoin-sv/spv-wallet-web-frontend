@@ -33,8 +33,7 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, onC
         setTransactionData(response);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later';
-        errorMsg && setErrors(errorMsg);
+        setErrors(error.response.data?.message ?? 'Something went wrong... Please try again later');
       })
       .finally(() => {
         setLoading(false);
