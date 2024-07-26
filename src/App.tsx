@@ -87,7 +87,6 @@ export const App = () => {
         }
       })
       .catch((error) => {
-        let errorMsg;
         if (error.response.status === 401 || error.response.status === 400) {
           setAuthorization(null);
           navigate('/');
@@ -95,7 +94,7 @@ export const App = () => {
           return;
         }
 
-        setError(error.response.data?.message ?? errorMsg);
+        setError(error.response.data?.message ?? 'Something went wrong... Please, try again later!');
         setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
