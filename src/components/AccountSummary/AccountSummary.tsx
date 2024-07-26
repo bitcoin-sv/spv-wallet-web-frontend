@@ -8,6 +8,7 @@ import { getUser } from '@/api';
 import { Loader } from '@/components/Loader';
 import { ErrorBar } from '@/components/ErrorBar';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
+import { errorMessage } from '@/utils/errorMessage';
 
 interface CurrencyRates {
   usd?: number;
@@ -40,16 +41,7 @@ export const AccountSummary = () => {
         setDetails(accountDetails);
       })
       .catch((error) => {
-        let errorMsg;
-
-        if (error.response.status === 404) {
-          errorMsg =
-            "User's account details not found. If you can't log in again, please contact our support or try again later!";
-        } else {
-          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
-        }
-
-        setErrors(errorMsg);
+        setErrors(errorMessage(error.response.data));
       })
       .finally(() => {
         setLoading(false);
