@@ -8,6 +8,7 @@ import { getUser } from '@/api';
 import { Loader } from '@/components/Loader';
 import { ErrorBar } from '@/components/ErrorBar';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
+import { errorMessage } from '@/utils/errorMessage';
 
 interface CurrencyRates {
   usd?: number;
@@ -40,7 +41,7 @@ export const AccountSummary = () => {
         setDetails(accountDetails);
       })
       .catch((error) => {
-        setErrors(error.response.data?.message ?? 'Something went wrong... Please, try again later!');
+        setErrors(errorMessage(error.response.data));
       })
       .finally(() => {
         setLoading(false);

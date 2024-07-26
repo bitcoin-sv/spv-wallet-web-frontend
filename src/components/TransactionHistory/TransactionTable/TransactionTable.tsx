@@ -30,6 +30,7 @@ import { useAutoupdate } from '@/providers/autoupdate';
 import _ from 'lodash';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
 import { PaginationParams } from '@/api/types/pagination';
+import { errorMessage } from '@/utils/errorMessage';
 
 const KEY_NAME_ENTER = 'Enter';
 const KEY_NAME_SPACE = 'Space';
@@ -91,7 +92,7 @@ export const TransactionTable = () => {
         setTransactionsList(transactions.transactions);
       })
       .catch((error) => {
-        setErrors(error.response.data?.message ?? 'Something went wrong... Please try again later');
+        setErrors(errorMessage(error.response.data));
       })
       .finally(() => {
         setLoading(false);

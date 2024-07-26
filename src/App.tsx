@@ -16,6 +16,7 @@ import { ErrorBar } from '@/components/ErrorBar';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { errorMessage } from './utils/errorMessage';
 
 const ROUTES = [
   {
@@ -94,7 +95,7 @@ export const App = () => {
           return;
         }
 
-        setError(error.response.data?.message ?? 'Something went wrong... Please, try again later!');
+        setError(errorMessage(error.response.data));
         setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
