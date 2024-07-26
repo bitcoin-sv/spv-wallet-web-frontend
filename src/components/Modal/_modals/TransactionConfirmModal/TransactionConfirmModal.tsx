@@ -77,6 +77,12 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
       })
       .catch((error) => {
         if (error) {
+          if (error.response.status === 401) {
+            setErrors('Session expired! Please login in to your wallet');
+            setErrorWithReload(true);
+            return;
+          }
+
           setErrors(
             errorMessage(
               error.response.data,
