@@ -10,12 +10,12 @@ import { ErrorBar } from '@/components/ErrorBar';
 import { isValidPhone } from '@/utils/helpers/validatePhone';
 import { ContactFields } from './useContactFields';
 import { EMAIL_REGEX } from '@/utils/constants';
+import { errorMessage } from '@/utils/errorMessage';
 
 type ContactUpsertModal = {
   onSubmitted: () => void;
   onCancel: () => void;
   successMsg: string;
-  errorMsg: string;
   modalTitle: string;
   modalSubtitle: string;
   fields: ContactFields;
@@ -26,7 +26,6 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
   onSubmitted,
   onCancel,
   fields,
-  errorMsg,
   successMsg,
   modalTitle,
   modalSubtitle,
@@ -62,7 +61,8 @@ export const ContactUpsertModal: FC<ContactUpsertModal> = ({
       await upsertContact(paymail, name, phone ? { phoneNumber: phone } : undefined);
       onSuccess();
     } catch (error) {
-      setError(errorMsg);
+      console.log('🚀 ~ onSubmit ~ error:', error);
+      setError(errorMessage(error));
     } finally {
       setLoading(false);
     }
