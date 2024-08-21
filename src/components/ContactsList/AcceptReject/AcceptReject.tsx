@@ -1,6 +1,7 @@
 import { acceptContact, rejectContact } from '@/api/requests';
 import { SmallButton } from '@/components/Button';
 import { ConfirmationModal } from '@/components/Modal';
+import { errorMessage } from '@/utils/errorMessage';
 import { FC, useState } from 'react';
 
 type AcceptRejectProps = {
@@ -12,7 +13,7 @@ type AcceptRejectProps = {
 export const AcceptReject: FC<AcceptRejectProps> = ({ paymail, onAccept, onReject }) => {
   const [state, setState] = useState<'none' | 'accept' | 'reject'>('none');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   const submitAccept = async () => {
     await acceptContact(paymail);
@@ -26,16 +27,21 @@ export const AcceptReject: FC<AcceptRejectProps> = ({ paymail, onAccept, onRejec
 
   const onConfirm = async () => {
     const submit = state === 'accept' ? submitAccept : submitReject;
-    setError(false);
+    setError('');
     setLoading(true);
     try {
       await submit();
-    } catch {
-      setError(true);
+      setState('none');
+    } catch (error: unknown) {
+      setError(errorMessage(error));
     } finally {
       setLoading(false);
-      setState('none');
     }
+  };
+
+  const onCancel = () => {
+    setState('none');
+    setError('');
   };
 
   return (
@@ -51,9 +57,9 @@ export const AcceptReject: FC<AcceptRejectProps> = ({ paymail, onAccept, onRejec
         subtitle={`Are you sure you want to ${state === 'accept' ? 'accept' : 'reject'} this contact invitation?`}
         open={state !== 'none'}
         loading={loading}
-        error={error ? 'Error during performing the action' : undefined}
+        error={error || undefined}
         onConfirm={onConfirm}
-        onCancel={() => setState('none')}
+        onCancel={onCancel}
       />
     </>
   );
