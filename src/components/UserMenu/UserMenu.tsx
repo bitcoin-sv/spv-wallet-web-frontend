@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthorization } from '@/providers';
 import { logoutUser } from '@/api/requests';
 import { BsvLogo } from '@/components/BsvLogo';
+import { errorMessage } from '@/utils/errorMessage';
 
 interface MenuProps {
   userEmail?: string;
@@ -54,8 +55,7 @@ export const UserMenu: FC<MenuProps> = ({ userEmail }) => {
         Navigate('/');
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again!';
-        errorMsg && setErrors(errorMsg);
+        setErrors(errorMessage(error.response.data));
       })
       .finally(() => {
         setLoading(false);

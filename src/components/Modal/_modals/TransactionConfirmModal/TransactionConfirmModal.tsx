@@ -13,6 +13,7 @@ import { useAutoupdate } from '@/providers/autoupdate';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
 import { PasswordInput } from '@/components/Input/PasswordInput';
 import { modalCloseTimeout } from '../../modalCloseTimeout';
+import { errorMessage } from '@/utils/errorMessage';
 
 export interface TransactionData {
   paymail: string;
@@ -82,17 +83,11 @@ export const TransactionConfirmModal: FC<TransactionConfirmModalProps> = ({
             return;
           }
 
-          if (error.response.status === 400) {
-            setErrors(
-              'Transfer was not sent. Probably you filled the form with incorrect data. Please try once again!',
-            );
-            return;
-          }
-
           setErrors(
-            error.response.data
-              ? error.response.data
-              : 'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.',
+            errorMessage(
+              error.response.data,
+              'Transfer was not sent. Please verify transfer data and try once again. If problem will happen again, contact with our support.',
+            ),
           );
         }
       })
