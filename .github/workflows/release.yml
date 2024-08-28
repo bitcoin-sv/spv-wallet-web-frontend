@@ -31,7 +31,7 @@ jobs:
           echo "DOCKERHUB_OWNER=${{secrets.DOCKERHUB_USERNAME}}" >> $GITHUB_ENV
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Make directory for release artifacts
         run: |
@@ -42,7 +42,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.DOCKERHUB_OWNER }}/${{ env.DOCKERHUB_REPO }}
           tags: |
@@ -52,19 +52,19 @@ jobs:
             type=semver,pattern=v{{version}}
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./release/Dockerfile
@@ -74,7 +74,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Docker Hub Description
-        uses: peter-evans/dockerhub-description@v3
+        uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -83,9 +83,9 @@ jobs:
           readme-filepath: ./release/artifacts/README.DOCKER.md
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
       - name: Go Release
-        uses: goreleaser/goreleaser-action@v4
+        uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
           version: latest
