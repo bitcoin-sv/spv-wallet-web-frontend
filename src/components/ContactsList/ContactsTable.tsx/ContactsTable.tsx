@@ -38,7 +38,7 @@ export const ContactsTable: FC = () => {
   const sortedContacts = useSortedContacts(contacts);
 
   if (error) {
-    return <ErrorBar errorMsg="Failed to load contacts" />;
+    return <ErrorBar errorMsg={error} />;
   }
 
   return (

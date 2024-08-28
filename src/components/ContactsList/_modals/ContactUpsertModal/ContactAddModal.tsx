@@ -14,7 +14,6 @@ export const ContactAddModal: FC<ContactAddModalProps> = ({ onSubmitted, onCance
       onCancel={onCancel}
       onSubmitted={onSubmitted}
       successMsg="Contact added successfully!"
-      errorMsg="Error occurred while adding a contact."
       modalTitle="Add contact"
       modalSubtitle="Please double check the paymail address on which the invitation will be sent"
       fields={fields}

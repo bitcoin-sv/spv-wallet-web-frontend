@@ -14,6 +14,7 @@ import { Loader } from '@/components/Loader';
 import { ErrorBar } from '@/components/ErrorBar';
 import { convertSatToBsv } from '@/utils/helpers/convertSatToBsv';
 import { SetPaymailButton } from '@/components/TransferForm/SetPaymailButton';
+import { errorMessage } from '@/utils/errorMessage';
 
 type TransactionDetailsProps = {
   open: boolean;
@@ -33,8 +34,7 @@ export const TransactionDetailsModal: FC<TransactionDetailsProps> = ({ open, onC
         setTransactionData(response);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please try again later';
-        errorMsg && setErrors(errorMsg);
+        setErrors(errorMessage(error.response.data));
       })
       .finally(() => {
         setLoading(false);

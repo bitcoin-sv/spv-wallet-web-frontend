@@ -1,6 +1,7 @@
 import { Contact, confirmContactWithTOTP } from '@/api';
 import { ErrorBar } from '@/components/ErrorBar';
 import { Input } from '@/components/Input';
+import { errorMessage } from '@/utils/errorMessage';
 import { FC, useMemo, useState } from 'react';
 
 const TOTP_VALID_REGEX = /^\d{2}$/;
@@ -8,7 +9,7 @@ const TOTP_VALID_REGEX = /^\d{2}$/;
 export const usePeerTOTP = (peer: Contact, onConfirmed: () => void) => {
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   const valid = useMemo(() => {
     return TOTP_VALID_REGEX.test(value);
@@ -16,11 +17,11 @@ export const usePeerTOTP = (peer: Contact, onConfirmed: () => void) => {
 
   const onConfirm = async () => {
     setLoading(true);
-    setError(false);
+    setError('');
     try {
       await confirmContactWithTOTP(peer, value);
-    } catch {
-      setError(true);
+    } catch (error: unknown) {
+      setError(errorMessage(error));
     } finally {
       setLoading(false);
       onConfirmed();
@@ -38,7 +39,7 @@ export const PeerTOTP: FC<PeerTOTPProps> = ({ value, setValue, valid, peerName, 
   return (
     <div>
       <hr />
-      {error && <ErrorBar errorMsg="An error occurred" />}
+      {error && <ErrorBar errorMsg={error} />}
       <Input
         inputOnLightBackground
         labelText={`Enter code from: ${peerName}`}
