@@ -16,6 +16,7 @@ import { ErrorBar } from '@/components/ErrorBar';
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { errorMessage } from './utils/errorMessage';
 
 const ROUTES = [
   {
@@ -87,7 +88,6 @@ export const App = () => {
         }
       })
       .catch((error) => {
-        let errorMsg;
         if (error.response.status === 401 || error.response.status === 400) {
           setAuthorization(null);
           navigate('/');
@@ -95,14 +95,7 @@ export const App = () => {
           return;
         }
 
-        if (error.response.status === 404) {
-          errorMsg =
-            error.response.data + ". If you can't log in again, please contact our support or try again later!";
-        } else {
-          errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
-        }
-
-        setError(errorMsg);
+        setError(errorMessage(error.response.data));
         setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps

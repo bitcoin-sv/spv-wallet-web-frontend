@@ -30,7 +30,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
       secondaryButton={{ text: 'Yes', variant: 'accept', onClick: onConfirm, loading: loading, disabled: loading }}
       onCloseByEsc={onCancel}
     >
-      {error && <ErrorBar errorMsg={error} withReloadButton />}
+      {error && <ErrorBar errorMsg={error} />}
     </Modal>
   );
 };

@@ -10,6 +10,7 @@ import { useAuthorization } from '@/providers';
 import { useNavigate } from 'react-router-dom';
 import { LoggedInUser, loginUser } from '@/api';
 import { PasswordInput } from '@/components/Input/PasswordInput';
+import { errorMessage } from '@/utils/errorMessage';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState<string>('');
@@ -50,8 +51,7 @@ export const LoginPage = () => {
         setLoading(false);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
-        setErrors(errorMsg);
+        setErrors(errorMessage(error.response.data));
         setLoading(false);
       });
   };

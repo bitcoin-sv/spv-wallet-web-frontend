@@ -12,6 +12,7 @@ import { AfterRegistrationSteps } from '@/components/StepsList/_lists/AfterRegis
 import { RegisterNewUserDto } from '@/api/types/user';
 import { registerUser } from '@/api';
 import { PasswordInput } from '@/components/Input/PasswordInput';
+import { errorMessage } from '@/utils/errorMessage';
 
 export const SignupPage = () => {
   const [email, setEmail] = useState<string>('');
@@ -64,8 +65,7 @@ export const SignupPage = () => {
         setLoading(false);
       })
       .catch((error) => {
-        const errorMsg = error.response.data ? error.response.data : 'Something went wrong... Please, try again later!';
-        setErrors(errorMsg);
+        setErrors(errorMessage(error.response.data));
         setRegistered(false);
         setLoading(false);
       });
