@@ -38,7 +38,9 @@ const intervalMS = 30 * 60 * 1000;
 
 registerSW({
   onRegisteredSW(swUrl, worker) {
-    worker &&
+    if (!worker) {
+      return;
+    }
       setInterval(async () => {
         if (!(!worker.installing && navigator)) return;
 
