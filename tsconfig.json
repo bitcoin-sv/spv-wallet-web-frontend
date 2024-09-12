@@ -25,6 +25,6 @@
     "allowSyntheticDefaultImports": true
   },
   "files": ["node_modules/vite-plugin-pwa/client.d.ts"],
-  "include": [".eslintrc.cjs", "vite.config.ts", "src"],
+  "include": [".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -43,7 +43,11 @@ export const Modal: FC<ModalProps> = ({
   isLoading,
 }) => {
   useEffect(() => {
-    open ? disablePageScroll() : enablePageScroll();
+    if (open) {
+      disablePageScroll()
+    } else {
+      enablePageScroll()
+    }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((successScreenMsg && successScreenMsg !== '') || isLoading) {
