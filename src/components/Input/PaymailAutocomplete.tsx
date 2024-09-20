@@ -30,26 +30,26 @@ export const PaymailAutocomplete = forwardRef<HTMLInputElement, PaymailAutocompl
       openOnFocus: false,
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { onMouseDown: _, ...rootProps } = getRootProps(); //omit onMouseDown to allow a free select of text in the input
 
     return (
-      <PaymailInput {...props} rootProps={rootProps} {...getInputProps()} ref={ref}>
-        {children}
+      <div {...getRootProps()}>
+          <PaymailInput {...props} inputProps={getInputProps()}  ref={ref}>
+            {children}
+          </PaymailInput>
 
         {groupedOptions.length > 0 ? (
           <Listbox {...getListboxProps()}>
-            {groupedOptions.map((contactPaymail, index) => {
-              const p = contactPaymail as string;
+            {(groupedOptions as string[]).map((option, index) => {
+
               return (
-                <li key={index} {...getOptionProps({ option: p, index })}>
-                  {p}
+                <li {...getOptionProps({ option, index })} key={index}>
+                  {option}
                 </li>
               );
             })}
           </Listbox>
         ) : null}
-      </PaymailInput>
+      </div>
     );
   },
 );

@@ -8,6 +8,7 @@ export type InputProps = {
   customPlaceholder?: string;
   inputOnLightBackground?: boolean;
   rootProps?: HTMLAttributes<HTMLDivElement>;
+  inputProps?: HTMLAttributes<HTMLInputElement>;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export type PasswordInputProps = Omit<InputProps, 'type' | 'withIcon'>;
@@ -17,7 +18,7 @@ export type CoinsInputProps = Omit<InputProps, 'type' | 'step' | 'min'>;
 export type PaymailInputProps = {
   showContactsButton?: boolean;
   labelSuffix?: string;
-  rootProps?: HTMLAttributes<HTMLDivElement>;
+  inputProps?: HTMLAttributes<HTMLInputElement>;
 } & Omit<InputProps, 'type' | 'labelText'>;
 
 export type PaymailAutocompleteProps = {

@@ -7,11 +7,11 @@ import { InputLinkButton } from './Input.styles';
 import ContactsIcon from '@mui/icons-material/Contacts';
 
 export const PaymailInput = forwardRef<HTMLInputElement, PaymailInputProps>(
-  ({ showContactsButton, labelSuffix = '', children, ...props }, ref) => {
+  ({ showContactsButton, labelSuffix = '', children, inputProps, ...props }, ref) => {
     const paymailDomain = usePaymailDomain();
 
     return (
-      <Input ref={ref} {...props} type="text" labelText={`Paymail (example@${paymailDomain})${labelSuffix}`}>
+      <Input ref={ref} {...props} inputProps={inputProps} type="text" labelText={`Paymail (example@${paymailDomain})${labelSuffix}`}>
         {showContactsButton && (
           <InputLinkButton to="/contacts">
             <ContactsIcon />
