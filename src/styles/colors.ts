@@ -1,6 +1,7 @@
 export const colors = {
   primaryBackground: '#0e124e',
   secondaryBackground: '#6324f9',
+  thirdBackground: '#502E71',
   infoBackground: 'rgba(42, 163, 219, 1)',
   errorBackground: 'rgb(255, 65, 65, 045)',
   inputBackground: 'rgba(255, 255, 255, 0.2)',
@@ -15,6 +16,7 @@ export const colors = {
   inputEffectBorder: 'rgba(255, 201, 111, 1)',
   balanceValue: '#8d85f4',
   balanceMainValue: '#fdc54f',
+  textHover: '#d9a840',
   tableLink: '#fed06e',
   transactionConfirmed: '#7ef67e',
   successScreen: '#4ad34a',
