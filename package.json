@@ -52,7 +52,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "prettier": "^3.3.3",
-    "react-router-dom": "^7.0.1",
+    "react-router-dom": "^6.27.0",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
     "vite-plugin-checker": "^0.8.0",
