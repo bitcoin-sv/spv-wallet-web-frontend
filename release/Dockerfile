@@ -1,5 +1,5 @@
 # build stage
-FROM --platform=$TARGETPLATFORM node:22-alpine as build
+FROM --platform=$TARGETPLATFORM node:23-alpine as build
 
 WORKDIR /app
 
