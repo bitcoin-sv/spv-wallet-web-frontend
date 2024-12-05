@@ -7,7 +7,7 @@ import { ContactAdd } from './_modals/ContactAdd.tsx';
 
 export const ContactsList = () => {
   return (
-    <DashboardTile fullHeight tileTitle="Contacts (feature preview)" titleIcon={<Contacts />}>
+    <DashboardTile fullHeight tileTitle="Contacts" titleIcon={<Contacts />}>
       <Row>
         <Column>
           <ContactAdd />
