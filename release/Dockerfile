@@ -24,7 +24,7 @@ RUN yarn run build
 
 # App final stage
 # serving the production build
-FROM --platform=$TARGETPLATFORM nginx:1.27.2-alpine
+FROM --platform=$TARGETPLATFORM nginx:1.27.3-alpine
 
 # We need some custom nginx configuration, which we import here
 COPY release/nginx.default.conf /etc/nginx/conf.d/default.conf
