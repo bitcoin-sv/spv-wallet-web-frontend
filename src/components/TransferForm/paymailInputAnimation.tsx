@@ -3,7 +3,7 @@ import { useCallback, useRef, RefObject } from 'react';
 
 type PaymailAnimation = {
   startAnimation: () => void;
-  ref: RefObject<HTMLInputElement>;
+  ref: RefObject<HTMLInputElement | null>;
 };
 
 export const usePaymailInputAnimation = (): PaymailAnimation => {
