@@ -30,26 +30,23 @@ export const PaymailAutocomplete = forwardRef<HTMLInputElement, PaymailAutocompl
       openOnFocus: false,
     });
 
-
     return (
       <div {...getRootProps()}>
-          <PaymailInput {...props} inputProps={getInputProps()}  ref={ref}>
-            {children}
+        <PaymailInput {...props} inputProps={getInputProps()} ref={ref}>
+          {children}
 
-            {groupedOptions.length > 0 ? (
-              <Listbox {...getListboxProps()}>
-                {(groupedOptions as string[]).map((option, index) => {
-
-                  return (
-                    <li {...getOptionProps({ option, index })} key={index}>
-                      {option}
-                    </li>
-                  );
-                })}
-              </Listbox>
-            ) : null}
-          </PaymailInput>
-
+          {groupedOptions.length > 0 ? (
+            <Listbox {...getListboxProps()}>
+              {(groupedOptions as string[]).map((option, index) => {
+                return (
+                  <li {...getOptionProps({ option, index })} key={index}>
+                    {option}
+                  </li>
+                );
+              })}
+            </Listbox>
+          ) : null}
+        </PaymailInput>
       </div>
     );
   },
@@ -85,4 +82,4 @@ const Listbox = styled.ul`
     background-color: ${colors.thirdBackground};
     padding: ${sizes(1)};
 },
-`
+`;
