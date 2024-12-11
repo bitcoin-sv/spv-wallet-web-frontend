@@ -13,7 +13,7 @@
   "dependencies": {
     "@4chain-ag/react-configuration": "^1.0.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
-    "@mui/base": "^5.0.0-beta.58",
+    "@mui/base": "^5.0.0-beta.63",
     "@mui/material": "^6.1.10",
     "@mui/utils": "^6.0.2",
     "@types/axios": "^0.14.4",
@@ -43,7 +43,7 @@
     "@typescript-eslint/parser": "^8.17.0",
     "@vitejs/plugin-react": "^4.3.4",
     "emotion-normalize": "^11.0.1",
-    "eslint": "9.16.0",
+    "eslint": "8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",
