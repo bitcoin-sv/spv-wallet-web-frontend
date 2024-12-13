@@ -10,6 +10,9 @@
     "backend": "docker compose pull bux-wallet-backend && docker compose up db bux-wallet-backend",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "@4chain-ag/react-configuration": "^1.0.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
