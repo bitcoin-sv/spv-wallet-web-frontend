@@ -32,7 +32,6 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
         sort: 'asc',
       };
       const contactsResponse = await searchContacts(paginationParams);
-      console.log(contactsResponse);
       setContacts(contactsResponse.content);
     } catch (e: unknown) {
       setContacts(null);
