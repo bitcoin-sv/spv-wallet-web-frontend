@@ -1,7 +1,6 @@
 import { searchContacts } from '@/api/requests/contact';
 import { Contact } from '@/api/types/contact';
 import { PaginationParams } from '@/api/types';
-import { usePikeContactsEnabled } from '@/hooks/useFeatureFlags';
 import { FC, PropsWithChildren, createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuthorization } from '../authorization';
 import { errorMessage } from '@/utils/errorMessage';
@@ -19,11 +18,9 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [contacts, setContacts] = useState<Contact[] | null>(null);
-  const pikeContactsEnabled = usePikeContactsEnabled();
   const { authorization } = useAuthorization();
-
   const load = useCallback(async () => {
-    if (!pikeContactsEnabled || !authorization) {
+    if (!authorization) {
       return;
     }
     setLoading(true);
@@ -42,7 +39,7 @@ export const ContactsProvider: FC<PropsWithChildren> = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [authorization, pikeContactsEnabled]);
+  }, [authorization]);
 
   const refresh = useCallback(() => {
     load();
